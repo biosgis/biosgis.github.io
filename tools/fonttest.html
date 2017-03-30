@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Font Test</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Consolas, Monaco, Arial, Helvetica, sans-serif;
+                font-size: 100%;
+            }
+            div {
+                background-color: white;
+                border: 1px solid silver;
+                float: left;
+                width: 30%;
+                margin: 5px;
+                padding: 5px;
+            }
+            footer {
+                left: 0; bottom: 0; right: 0;
+                height: auto;
+                border-top: 1px solid silver;
+            }
+            .LargerBold {
+                font-size: larger;
+                font-weight: bold;
+            }
+            .Large {
+                font-size: large;
+            }
+            .Normal {
+                font-size: normal;
+            }
+            .Small {
+                font-size: small;
+            }
+        </style>
+        <script>
+            function writeFonts() {
+                var fonts = ["cursive"
+                    , "fantasy"
+                    , "monospace"
+                    , "sans-serif"
+                    , "serif"
+                    , "Arial", "Arial Black", "Arial Narrow"
+                    , "Comic Sans MS"
+                    , "Consolas"
+                    , "Courier"
+                    , "Georgia"
+                    , "Impact"
+                    , "Lucida Console"
+                    , "Monaco"
+                    , "Tahoma"
+                    , "Verdana"
+                ];
+                var classes = ["LargerBold", "Large", "Normal", "Small"];
+                var content = document.getElementsByTagName("main")[0];
+                for (var i = 0; i < fonts.length; i++) {
+                    var family = fonts[i];
+                    for (var j = 0; j < classes.length; j++) {
+                        var size = classes[j];
+                        var dv = document.createElement("div");
+                        dv.className = size;
+                        dv.innerHTML = "This is " + family + " " + size + " font";
+                        dv.style.fontFamily = family;
+                        content.appendChild(dv);
+                    }
+                }
+                console.log('Written all fonts');
+            }
+            window.addEventListener("load", writeFonts);
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>
+                Font Test
+            </h1>
+        </header>
+        <main>
+        </main>
+        <footer>
+            <div style="float: right; border: none;">
+                <a href="mail:dean.chiang@wildlife.ca.gov">dean.chiang@wildlife.ca.gov</a>
+                &copy;
+                <script>
+                    document.write(document.lastModified);
+                </script>
+            </div>
+        </footer>
+    </body>
+</html>

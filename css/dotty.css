@@ -1,0 +1,109 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Mar 9, 2017, 2:52:54 PM
+    Author     : dchiang
+*/
+
+body {
+    font-family: Consolas, Monaco, Arial, Helvetica, sans-serif;
+    font-size: larger;
+}
+header {
+    background-color: whitesmoke;
+    border-bottom: 1px solid silver;
+}
+nav {
+    background-color: snow;
+    border-bottom: 1px solid silver;
+}
+aside {
+    background-color: azure;
+    border: 1px solid silver;
+    border-width: 0.5px 0 2px 1px;
+    max-width: 20%;
+    float: right;
+    padding-left: 5px;
+}
+footer {
+    left: 0; bottom: 0; right: 0;
+    height: auto; width: auto;
+    background-color: whitesmoke;
+    border-top: 1px solid silver;
+    font-family: monospace;
+    margin-top: 10px;
+    padding: 5px;
+}
+h1 {
+    font-family: 'Arial Black', Tahoma, Impact, fantasy;
+    margin-top: 0;
+}
+h2 {
+    font-family: Georgia, serif;
+    border-left: 10px solid snow;
+    padding-left: 10px;
+    /*text-decoration: overline;*/
+}
+h2:hover {
+    border-left: 10px solid khaki;
+    border-right: 10px solid snow;
+}
+h3 {
+    font-family: Verdana, cursive;
+    border-right: 0px solid lightslategray;
+    border-top: 1px solid whitesmoke;
+}
+h4 {
+    font-family: Arial, sans-serif;
+}
+h5 {
+    font-family: 'Arial Narrow', 'Comic Sans MS', monospace;
+}
+pre {
+    background-color: whitesmoke;
+    border: 1px solid gainsboro;
+    margin: 5px;
+    padding: 5px;
+}
+section {
+    border-bottom: 1px solid silver;
+}
+
+.hide {
+    display: none;
+}
+.go {
+    background-color: ghostwhite;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    margin: 0 2px;
+    padding: 1px 2px;
+    text-decoration: none;
+}
+.go:hover {
+    background-color: whitesmoke;
+    border: 1px solid gray;
+    text-decoration: underline;
+}
+.navlink {
+    border-right: 1px solid gainsboro;
+    margin-right: 5px;
+    padding: 2px;
+    text-decoration: none;
+}
+.navlink:hover {
+    text-decoration: underline;
+}
+.toggleme:hover {
+    background-color: silver;
+    cursor: pointer;
+}
+.triright {
+    border: 15px solid white;
+    border-left-color: steelblue;
+    float: left;
+    height: 1px; width: 1px;
+}
