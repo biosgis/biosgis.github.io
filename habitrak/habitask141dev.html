@@ -54,9 +54,6 @@ and open the template in the editor.
             h5 {
                 font-family: 'Arial Narrow', 'Comic Sans MS', monospace;
             }
-            li.gap {
-                margin: 10px;
-            }
             pre {
                 background-color: whitesmoke;
                 border: 1px solid gainsboro;
@@ -287,13 +284,13 @@ and open the template in the editor.
                         <h3>Open the GIS project in ArcGIS Pro</h3>
                         <p>
                             Open ArcGIS Pro on your desktop to open a Pro project 
+                            <img alt="Open Pro PROJECT" src="img/pro141OpenAprx.png" class="picsmall" onclick="pictoggle(this)">
                             by browsing to the <a class="file">habitrak141</a> folder 
                             and select the <a class="file">habitrak.aprx</a> file. 
                             ArcGIS software sometimes has issue with user just double-clicking 
                             on the APRX or MXD file to try to open the GIS project 
                             with the appropriate software.
-                            <img alt="Open ArcGIS Pro PROJECT" src="img/pro141OpenAprx.png" class="picsmall" onclick="pictoggle(this)">
-                            <img alt="Open habitrak141 APRX" src="img/habitrak141aprx.png" class="picsmall" onclick="pictoggle(this)">
+                            <img alt="habitrak141 APRX" src="img/habitrak141aprx.png" class="picsmall" onclick="pictoggle(this)">
                         </p>
                     </li>
                     <li>
@@ -342,10 +339,10 @@ and open the template in the editor.
                             folder under Folders category. The custom tools in 
                             the habitrak.tbx toolbox are created from the Python 
                             script files that reside under the <a class="file">tools</a> 
-                            folder under the main project folder. <b class="warning">
-                                DO NOT remove this <i>tools</i> 
-                                folder or the files reside under it.</b>
+                            folder under the main project folder. 
                             <img alt="Habitrak Edit project initial contents" src="img/habitrak141pro.png" class="picsmall" onclick="pictoggle(this)">
+                            <b class="warning">DO NOT remove this <i>tools</i> 
+                                folder or the files reside under it.</b>
                         </p>
                     </li>
                     <li>
@@ -373,15 +370,6 @@ and open the template in the editor.
                                     click the <b class="tab">Skip</b> button or 
                                     <b class="tab">Finish</b> to exit the step.
                                     <img alt="Habitrak Edit Intro" src="img/habIntro1txt.png" class="picsmall" onclick="pictoggle(this)">
-                                </p>
-                                <p>
-                                    <b>TIP:</b>
-                                    You can always back out of a task step to not 
-                                    perform it by clicking on the back arrow button 
-                                    on the top left corner. You will be prompted with the message: 
-                                    <i>A task is currently in progress. 
-                                        Do you with to interrupt the current task?
-                                    </i> Just click <b>Yes</b>
                                 </p>
                             </li>
                             <li>
@@ -448,8 +436,6 @@ and open the template in the editor.
                                     You can look at the attribute definitions of 
                                     the table by right click and go to Design/Fields. 
                                     <img alt="Gain:Design:Fields" src="img/habGainFields.png" class="picsmall" onclick="pictoggle(this)">
-                                </p>
-                                <p>
                                     For example, to add a new field called 
                                     In-Lieu-Fees to the Gain table, use the 
                                     <b class="tab">Add Custom Field/ 1. Add New Field</b> 
@@ -559,7 +545,7 @@ Tool = MAP/Select
                                     <li>
                                         <p>
                                             In Step <b class="tab">3. Select Input 
-                                            Features to New Feature Class</b>, we 
+                                            Featurs to New Feature Class</b>, we 
                                             use ArcPy Analysis <b>Select</b> tool 
                                             to save the selection on the source 
                                             dataset to a new feature class. For 
@@ -664,12 +650,11 @@ Script = habCodeProject14.py
                                 <p>
                                     The steps for adding a new Loss Project are 
                                     the same as adding a new Gain Project, except 
-                                    you start with the <b class="tab">Add Loss Record</b> task 
-                                    <b class="tab">1. Add Loss Type Record</b> step 
+                                    you start with the <b class="tab">Add Loss Record</b>/
+                                    <b class="tab">1. Add Loss Type Record</b> task step 
                                     to enter attributes specific to Loss Project 
                                     Type. Click <b class="tab">Run</b> to add a 
-                                    new record to the Loss table after you have 
-                                    entered all the necessary attributes. 
+                                    new record to the Loss table. 
                                     <img alt="Add Loss Project record" src="img/habAddLossRecord1fin.png" class="picsmall" onclick="pictoggle(this)">
                                 </p>
                                 <pre style="display: none;">
@@ -686,8 +671,8 @@ Script = habAddLossProject14.py
                                     With the Projects layer highlighted in Contents pane, 
                                     click on <b class="tab">EDIT/Create</b>. This will bring up a 
                                     <b class="tab">Create Features</b> template 
-                                    in the right sidebar. Click on Loss feature type 
-                                    and use the mouse to digitize a new polygon on the map. 
+                                    in the right sidebar. Click on Loss and use the 
+                                    mouse to digitize a new polygon on the map. 
                                     ArcGIS automatically assign the new polygon 
                                     TYPE field value to 2 corresponding with Loss type, 
                                     but a new PROJECTID GUID is not automatically 
@@ -698,12 +683,9 @@ Script = habAddLossProject14.py
                                     Finally associate the newly created uncoded Loss Project polygon 
                                     to the newly created Loss table record 
                                     by running the <b class="tab">Code Project</b> task. 
-                                    This time you can try setting the optional parameters 
-                                    <i>Project To Code</i> and <i>Attribute Source</i> values 
-                                    to <b>Selected</b>. Make sure you have both the 
-                                    upcode new Project polygon and the new Loss 
-                                    type record selected (highlighted). 
-                                    Then click Run. When finished, 
+                                    This time you can try the optional parameters 
+                                    Project To Code and Attribute Source values 
+                                    set to Selected. Then click Run. When finished, 
                                     the newly digitized Loss Project should be coded 
                                     to the PROJECTID of the newly added Loss Type record.
                                     <img alt="Digitize new Loss Project polygon" src="img/habCodeProject1lossselfin.png" class="picsmall" onclick="pictoggle(this)">
@@ -907,13 +889,13 @@ Command = arcpy.management.RepairGeometry("Projects", "DELETE_NULL")
                 </ol>
             </section>
             <section>
-                <h1>About ArcGIS Pro</h1>
-                <h2>ArcGIS Pro GIS project Structure</h2>
+                <h1>ArcGIS Pro Software</h1>
+                <h2>GIS project Structure</h2>
                 <p>
                     The Habitrak Edit software is entirely contained in an ArcGIS 
                     Pro project folder send to you as a zip file. The GIS project 
                     folder is called "<b>habitrak141</b>" to note that it was 
-                    written and tested for ArcGIS Pro version 1.4.1 
+                    written and tested for ArcGIS Pro version 1.4 
                     and consists of the following content:
                 </p>
                 <ul>
@@ -926,39 +908,33 @@ Command = arcpy.management.RepairGeometry("Projects", "DELETE_NULL")
                                 - the default file geodatabase used by this Pro 
                                 project session. All new GIS datasets created 
                                 by this habitrak project are written here by default. 
-                                Custom tables are automatically included in the 
-                                Habitrak Edit Pro project default file geodatabase 
-                                are generally lookup tables and log tables that 
-                                help with the Habitrak Edit work, which you should 
-                                not need to touch or worry about. They include 
+                                Data tables included in the Habitrak Edit software 
+                                are generally look-up tables and log tables that 
+                                help with the Habitrak Edit work, and include 
                                 <ul>
                                     <li>
                                         <b>AGENCY_LUT</b>
-                                        - internal lookup table for various agancy names, 
-                                        codes, and abbreviations; also flags the 
-                                        agency editing the current database.
+                                    </li>
+                                    <li>
+                                        <b>APN</b>
                                     </li>
                                     <li>
                                         <b>DELTA</b>
-                                        - internal table used by the Habitrak Edit 
-                                        tools to keep track of edits.
                                     </li>
                                     <li>
-                                        <b>(Other miscellaneous lookup tables)</b>
+                                        <b>APN</b>
                                     </li>
                                 </ul>
                             </li>
                             <li>
                                 <b>ImportLog/</b>
-                                - system folder used by ArcGIS Pro software.
                             </li>
                             <li>
                                 <b>Index/</b>
-                                - system folder used by ArcGIS Pro software.
                             </li>
                             <li>
                                 <b>tools/</b>
-                                - custom folder that holds all the Python scripts 
+                                - the folder that holds all the Python scripts 
                                 used by the Habitrak Edit task.
                             </li>
                             <li>
@@ -967,7 +943,7 @@ Command = arcpy.management.RepairGeometry("Projects", "DELETE_NULL")
                                 the Habitrak Edit Task toolset.
                             </li>
                             <li>
-                                <b>Habitrak.lyrx or Projects.lyrx</b>
+                                <b>Habitrak.lyrx</b>
                                 - the layer symbology file for the Projects feature 
                                 class. The extension LYRX is used for the Pro format.
                             </li>
@@ -981,73 +957,526 @@ Command = arcpy.management.RepairGeometry("Projects", "DELETE_NULL")
                         </ul>
                     </li>
                 </ul>
-                <h2>ArcGIS Pro Software Use</h2>
+                <h2>Software Use</h2>
                 <p>
                     You open up the Pro project by double-clicking the APRX file 
                     (habitrak.aprx) or by starting ArcGIS Pro software and then 
                     open the project file.
                 </p>
-                <p>
-                    To help you get up to speed in ArcGIS Pro, here are some 
-                    basic, common operations in Pro:
-                </p>
-                <ul>
-                    <li class="gap">
-                        Become familiar with the <b>Ribbon tool bar</b>.
+                To help you get up to speed in ArcGIS Pro, here are some 
+                basic, common operations in Pro:
+                <ol>
+                    <li>Become familiar with the <b>Ribbon tool bar</b>.
                         All the tools are grouped in categories under different 
                         tabs labeled in <b>ALL CAPS</b> (MAP, INSERT, ANALYSIS, ...)
                     </li>
-                    <li class="gap">
-                        Get used to opening and closing and switching different 
-                        panels inside the left and right side bars or panels by 
+                    <li>Get used to opening and closing and switching different 
+                        panels inside the left and right side bars or panes by 
                         clicking on their tabs along the bottom. This is where 
                         various tool forms and GUI widgets will be organized. 
                     </li>
-                    <li class="gap">
-                        You can identify a feature by clicking on it with the 
+                    <li>You can identify a feature by clicking on it with the 
                         <b>MAP/Explore</b> (navigation) tool turned on. 
                         This comes in handy for clicking on a HabiTrak Project 
                         polygon to see its <b>Project ID</b>.
                     </li>
-                    <li class="gap">
-                        Interactively selecting a HabiTrak Project feature or 
+                    <li>Interactively selecting a HabiTrak Project feature or 
                         polygons is easily done by clicking on <b>MAP/Select</b> 
                         tool and then click on the feature or drag a rectangle.
                     </li>
-                    <li class="gap">
-                        To use a geoprocessing tool, tab on or open the <b>Geoprocessing</b> 
-                        pane and type into the search box. Tools matching your 
+                    <li>To use a desktop tool, just open up the <b>Geoprocessing</b> 
+                        Panel and type into the search box. Tools matching your 
                         search term will quickly be displayed and available. 
                     </li>
-                    <li class="gap">
+                    <li>
                         You can directly edit a standalone table or feature layer 
                         attribute table record by double clicking into the data 
                         cell and enter a new value. Then hit the tab key to move 
                         to the next field (cell) or hit Enter to move to the next 
                         row. Once you hit Enter or click outside the table, the 
-                        Save button on the EDIT ribbon will become active 
+                        Save option on the EDIT ribbon will become active 
                         for you to click and save your edits.
                     </li>
-                    <li class="gap">
+                    <li>
                         ArcGIS Pro can keep multiple tables opened in one panel 
                         separated by tabs with selected record highlighted so 
                         that is helpful to reviewing the data being edited. 
                         For example, the Project feature selected and associated 
                         records can be opened all at the same time and docked 
                         together in a layout like 
-                        <img alt="Get PROJECTID" src="img/habGetProject14.png" class="picsmall" onclick="pictoggle(this)">
+                        <a href="habGetProejct14.png">this example</a>
                     </li>
-                    <li class="gap">
+                    <li>
                         TIP: ArcGIS Pro has a tendency to retain the state of a 
-                        feature symbol or table view prior to changes made, and 
-                        does not immediate display the latest change 
+                        feature symbol or table view prior to edits being made 
                         even after the new edits are saved. To refresh the data 
                         view, click Zoom to Layer option on the layer context menu, 
                         or close and re-open a table to see the changes.
                     </li>
+                </ol>
+            </section>
+            <section>
+                <h1>Habitrak Edit Task</h1>
+                <p>
+                    When you first open up the <i>habitrak.aprx</i> Pro project, the 
+                    <b>Task panel</b> should be visible in the left side bar or pane. 
+                    If not, in the Ribbon tool bar, click on <b>VIEW/Task</b>, and the 
+                    Habitrak Edit Task embedded in the project file should open up. 
+                    Alternatively, you can also navigate to the Task node in the Project 
+                    panel on the right side bar and double click on the custom task 
+                    called Habitrak Edit.
+                </p>
+                <p>
+                    The Habitrak Edit Task displays the following tasks and steps. 
+                    You should work through adding a single HabiTrak Project area 
+                    by following the procedure in order. Once you are familiar 
+                    with the different tools you may work on some items in the 
+                    order you see fit. 
+                </p>
+                <p>
+                    An ArcGIS Pro Task Item or set is organized hierarchically into 
+                    <b>Groups</b>, which contains one or more Tasks. Each <b>Task</b> 
+                    can include one or more Steps. A <b>Step</b> can be simply 
+                    instructions or have a geoprocessing or custom script tool 
+                    embedded to be used. A step may either be required or can be 
+                    skipped, and a series of steps may be required to performed in 
+                    order or individually.
+                </p>
+                <p>
+                    You can always back out of a task step to not perform it. 
+                    You will be prompted with the message: <i>A task is currently 
+                    in progress. Do you with to interrupt the current task?</i> 
+                    Just click <b>Yes</b>
+                </p>
+                <ul>
+                    <li>
+                        <h2>Setup (task group)</h2>
+                        <ul>
+                            <li>
+                                <h3>Introduction</h3>
+                            </li>
+                            <li>
+                                <h3>Add Data Source to Edit Session (task)</h3>
+                                <ol>
+                                    <li>
+                                        <h4>Add Datasets to Current Map (step)</h4>
+                                        <p>
+                                            Specify the geodatabase location where 
+                                            your agency's HabiTrak data resides. 
+                                            The tool will copy your local data 
+                                            into the default habitrak file geodatabase 
+                                            under the Pro project folder. The editing  
+                                            will be performed on the datasets within 
+                                            the habitrak Pro geodatabase only 
+                                            and not touch your existing data.
+                                        </p>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <h3>Add Custom Field</h3>
+                                If you wish to add a custom field into the Gain 
+                                or Loss tables to record additional data, such as 
+                                In-Lieu-Fees, you can do so here at this step.
+                                <p>
+                                    Currently this tool ONLY supports adding the 
+                                    field <b>In-Lieu-Fees</b> (<i>IN_LIEU_FEES</i>) 
+                                    into the common Gain table.
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h2>Edit Projects</h2>
+                        <ul>
+                            <li>
+                                <h3>Add Gain Project Record</h3>
+                                <ol>
+                                    <li>
+                                        <h4>Add Gain Project Record</h4>
+                                        Enter the attribute data for a new HabiTrak 
+                                        Gain Project in the fields and click Run. 
+                                        The tool will insert a new record into the 
+                                        Gain table with a new unique Project ID.
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <h3>Add Loss Project Record</h3>
+                                <ol>
+                                    <li>
+                                        <h4>Add Loss Project Record</h4>
+                                        Enter the attribute data for a new HabiTrak 
+                                        Loss Project in the fields and click Run. 
+                                        The tool will insert a new record into the 
+                                        Loss table with a new unique Project ID.
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <h3>Edit Polygon Feature</h3>
+                                <ol>
+                                    <li>
+                                        <h4>Edit Polygon Feature</h4>
+                                    </li>
+                                </ol>
+                                <p>
+                                    This step is entirely up to the user to perform.
+                                    There are various ways to add a new Project 
+                                    polygon or polygons to the Projects feature 
+                                    class. A newly added or appended Project polygon 
+                                    onto the Proejects layer will have a blank 
+                                    Project ID value. To associate this new polygon 
+                                    to the new Gain or Loss record just created, 
+                                    proceed to the Code Project task step.
+                                </p>
+                                Editing features in Pro is done with the EDIT ribbon
+                                You can add new Project feature(s) by clicking on the 
+                                EDIT tab and then click Create. Click on a feature type 
+                                and pick the drawing tool to digitize a new polygon, 
+                                say a Loss area. When you are done click Save to 
+                                save all edits. This new feature has no Project ID. 
+                                To attach the Project ID and attributes added 
+                                with previous step, perform the next step.
+                            </li>
+                            <li>
+                                <h3>Code Project</h3>
+                                <ol>
+                                    <li>
+                                        <h4>Code Project</h4>
+                                        Associate a new Project attribute record 
+                                        to new Project feature or features without a Project ID 
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <h3>Delete Project</h3>
+                                <ol>
+                                    <li>
+                                        <h4>Select polygon feature to delete</h4>
+                                        <p>
+                                            Use the Select tool to pick a Project 
+                                            polygon. Then go to Next.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <h4>Delete Selected</h4>
+                                        <p>
+                                            Choose from the options to delete 
+                                            just the polygon or both feature and 
+                                            attributes (in Project Type table). 
+                                            Then click Run.
+                                        </p>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <h3>Modify Project</h3>
+                                <ol>
+                                    <li>
+                                        <h4>Select Project</h4>
+                                        <p>
+                                            Interactive select a HabiTrak Project to 
+                                            modify its attributes. The selection can 
+                                            include more than one polygon, but must only 
+                                            contain one Project ID. If more than one 
+                                            Project are selected, only the first Project 
+                                            will be modified. Then click <b>Next</b> Step.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <h4>Modify Selected Project Attributes</h4>
+                                        <p>
+                                            Enter updated information in the parameters 
+                                            and then click <b>Run</b> to modify 
+                                            the selected, existing Project's attributes. 
+                                            To make sure all features in a Project 
+                                            area is updated, check the <i>Modify 
+                                            Whole Project</i> checkbox at the bottom. 
+                                            The changes are recorded in the DELTA 
+                                            table ACTION column as the following:
+                                        </p>
+                                        <ol>
+                                            <li>
+                                                <i>Updated</i>: Only the attributes 
+                                                in the related record are updated 
+                                                but the Project Type is not changed.
+                                            </li>
+                                            <li>
+                                                <i>Retyped (Switched, Altered)</i>: The TYPE changed  
+                                                for all the features in the whole Project.  
+                                                The Project ID remains the same but the 
+                                                old Project Type record is deleted while 
+                                                a new Project Type record is inserted with 
+                                                new values.
+                                            </li>
+                                            <li>
+                                                <i>Promoted/Subtracted</i>: A subset 
+                                                of the polygons of one HabiTrak Project 
+                                                switched from one Project Type to another, 
+                                                for example if some areas in a Gain Project become 
+                                                Loss, then a brand new Project ID GUID is assigned 
+                                                to the changed polygon(s) and new associated record 
+                                                is inserted in the Type attribute table.
+                                            </li>
+                                        </ol>
+                                        <p>
+                                            When the tool/step has completed click <b>Finish</b> 
+                                            to return to the main Task menu.
+                                        </p>
+                                    </li>
+                                </ol>
+                                <p>
+                                    NOTE: The new ArcGIS Pro software has made table editing 
+                                    much easier than before. Optionally to edit a Gain or Loss 
+                                    Project attribute, you can simply click into the Gain or Loss 
+                                    table record of that Project, and enter the new values in the 
+                                    cells, and then go to EDIT tab and click Save.
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h2>Verify Polygons</h2>
+                        <ul>
+                            <li>
+                                <h3>Check and Repair Polygons</h3>
+                                <p>
+                                    Use the built-in ArcGIS Pro tools in the 
+                                    Data Management Tools to finalize the data
+                                </p>
+                                <ol>
+                                    <li>
+                                        <h4>Check Geometry</h4>
+                                        <p>
+                                            Select the Projects layer as input 
+                                            and click Run. If the output table 
+                                            point out geometry issues needing 
+                                            repairs, click Next. 
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <h4>Repair Geometry</h4>
+                                        <p>
+                                            Select the Projects layer as input 
+                                            and click Run. Then click Next. 
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <h4>Check Geometry Again</h4>
+                                        <p>
+                                            Select the Projects layer as input 
+                                            and click Run. If all geometry issues 
+                                            are repaired click Finish.
+                                        </p>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <h3>Submit Database</h3>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h2>Reset</h2>
+                        <ul>
+                            <li>
+                                <h3>Clean Up and Reset</h3>
+                                <ol>
+                                    <li>
+                                        <h4>Clean Up Database</h4>
+                                        Use this tool to clean up the default file 
+                                        geodatabase to start the work over.
+                                    </li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </section>
+            <section>
+                <h3>Manual Editing</h3>
+                Once you finished updating new values in the data cells, click on 
+                the EDIT menu, click outside the data table, and the Save button 
+                should become available; click Save to save your edits.//20170307
+            </section>
         </main>
+        
+        <div id="devdoc">
+            <h1>Developer's Guide</h1>
+            <h2>TODO List before Shipping Pro project</h2>
+            <ol>
+                <li>Clear geoprocessing history</li>
+            </ol>
+            <h2>Codes</h2>
+            <table>
+                <tr>
+                    <th>Entity</th>
+                    <th>Abbrev</th>
+                </tr>
+                <tr>
+                    <td>Carlsbad</td>
+                    <td>SDCAR</td>
+                </tr>
+                <tr>
+                    <td>Chula Vista</td>
+                    <td>SDCV</td>
+                </tr>
+                <tr>
+                    <td>City of San Diego</td>
+                    <td>SDSD</td>
+                </tr>
+                <tr>
+                    <td>County of San Diego</td>
+                    <td>SDCN</td>
+                </tr>
+            </table>
+            <div style="background-color: #9a8fcc; font-size: 123%; margin-top: 10px; padding: 5px; text-align: center;">Task Item: Habitrak Edit</div>
+            <ul>
+                <li>
+                    <h2>Setup</h2>
+                    <ul>
+                        <li>
+                            <h3>Add Data Source to Edit Session</h3>
+                            <ol>
+                                <li>
+                                    <h4>Add Data Source to Edit Session</h4>
+                                    <p></p>
+                                </li>
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h2>Edit Features</h2>
+                    <ul>
+                        <li>
+                            <h3>Code Project</h3>
+                            <ol>
+                                <li>
+                                    <h4>Code Project</h4>
+                                    <ul>
+                                        <li>Tool: Code Project (habitrak)</li>
+                                        <li>Script: tools/habCodeProject14.py</li>
+                                        <li>Command: 
+                                            arcpy.habitrak.CodeProject("Loss")
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            <h3>Modify Project</h3>
+                            <ol>
+                                <li>
+                                    <h4>Modify Project</h4>
+                                    <ul>
+                                        <li>Tool: Code Project (habitrak)</li>
+                                        <li>Script: tools/habModProject14.py</li>
+                                        <li>Command: 
+                                            arcpy.habitrak.ModProject("Loss")
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h2>Verify Polygons</h2>
+                    <ul>
+                        <li>
+                            <h3> task</h3>
+                            <ol>
+                                <li>
+                                    <h4> step</h4>
+                                    <p></p>
+                                </li>
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h2>Clean up and reset session</h2>
+                    <ol>
+                        <li>
+                            <h3>Clean up database</h3>
+                            Choose the option to clean up orphan records in 
+                            the DELTA table or remove all the data and start over.
+                            <ol>
+                                <li>
+                                    <h4></h4>
+                                </li>
+                                <li>
+                                    <h4>
+                                        Clean up database to reset for new edit session
+                                    </h4>
+                                    This option will clean up the entire Pro project edit session. 
+                                    When the task step is complated successfully, 
+                                    your recently edited HabiTrak data in the 
+                                    Pro project local file geodatabase will 
+                                    be deleted and all current map contents 
+                                    removed from the Contents panel.
+                                    <img alt="Clean up database" src="img/habCleanup1opt2.png" class="picsmall" onclick="pictoggle(this)">
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+            <section>
+                <h2>Scripts</h2>
+                <ol>
+                    <li>
+                        <h3>habGetProject14.py</h3>
+                        <ul>
+                            <li>Tool: GetProject14/Get Project Records (habitrak)</li>
+                            <li>Procedure: select a Project polygon and run tool
+                                to see associated attribute selected in Project TYPE table.//20170324
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>habModProject14.py</h3>
+                        <ul>
+                            <li>Tool: ModifyProject/Modify Project (habitrak)</li>
+                            <li>Parameters</li>
+                            <li>Procedure: enter desired field values to update 
+                                or change and click Run. Project Type will change 
+                                if it is not the same as existing TYPE of selected 
+                                feature. User must provide relevant new data if 
+                                the TYPE is switched.
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h2>Manual Procedure</h2>
+                <ol>
+                    <li>
+                        After spliting a multi-feature Project but task step 
+                        failed to log latest entry into the DELTA table, you can 
+                        manually add a new record to the DELTA table like 
+                        PROJECTID=pid, TYPE=ptype, ACTION(Status)='Promoted', CODED=1,
+                        PROJECTNAME=projectname, TRACKNO=trackno
+                    </li>
+                    <li>
+                        <a href="file:///I:/gis/habitrak/habitrak141/tools/">habGetProject14.py</a>
+                        //20170324-F
+                    </li>
+                    <li>
+                        <a href="file:///I:/gis/arcgis/pro14/">fgdbzip14.py</a>
+                        <a href="http://localhost:8888/notebooks/Documents/ArcGIS/Projects/zipfgdb14.ipynb">zipfgdb14.ipynb</a>
+                        outupt habitrak_sdsd.zip File Geodatabase uploaded to AGOL as new  
+                        <a href="http://cdfw.maps.arcgis.com/home/item.html?id=99a7d406dc794481a622cbd2d8bdaa6e">Feature Layer</a> 
+                        with source 
+                        <a href="http://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/Habitrak_SDSD/FeatureServer?token=P8SCxNofAmczh6WX-gLs4xDWI36KHmglaIs14ClLpNLfpLe0wWLkxPD8v6zKW5ymyovTqK0wEGhd6nrmN5MmEDTmBJGHanl4yqPiLVWcFBv_xfG39f4N5RAFo61bcuCe8u-XTLQc-1OEbLaMdYUED2EhSSBKF5Dsi0gMjObFb7pXFe1ocLfKwJdQIqO0bNwT1KxZvW-SqXCXPzBPoQ4bQZkl-ij9Pz5eI01jYdM9fng.">Feaure Service</a>
+                        //20170324-F
+                    </li>
+                </ol>
+            </section>
+        </div>
         <footer>
             <div style="float: right;">
                 <a href="mail:dean.chiang@wildlife.ca.gov">dean.chiang@wildlife.ca.gov</a>
