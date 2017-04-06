@@ -1,8 +1,7 @@
-README File for gitlab.com/biosgis/habitrak
+README File for github.com/biosgis.github.io/habitrak
 
-Mon, Mar 27, 2017  4:42:10 PM
+# BIOSGIS.github.io
 
-20170327 Added new .gitlab-ci.yml file to config repo as pages
-
-
-#
+## habitrak
+- habitask14.html = Habitrak Edit Tasks User Guide 1.4.1-20170403;
+- img = folder for holding images for the user guide doc above;
