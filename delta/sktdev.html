@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>SKT Dev Doc</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>SKT Code Documentation</h1>
+        <h2>Variables</h2>
+        <h2>Functions</h2>
+        <ol>
+            <li>
+                <h3>samplesOutput (response)</h3>
+                <p>
+                    Cannot do samplesResults = arrayUtils.map(response.features, function(feature), 
+                    nor feature.popupTemplate = popupTemplate, 
+                    nor new TextSymbol because all those must be included in the required fxn;
+                    //20170420
+                </p>
+                <p>
+                    Best way to code callbacks outside of loader is use generic JS methods 
+                    and create a global symbol and then clone it like defaultTextSymbol.clone();
+                </p>
+            </li>
+            <li>
+                <h3>summaryTable (features)</h3>
+                Tabulate the feature attribute data from summary dataset (Sex Ratios) 
+                and output table and data array ready for Google Charting. //20170421
+            </li>
+            <li>
+                <h3>plotPies (gdata, type)</h3>
+                Parse tabulated data into Google Charting ready array and 
+                plot into per station and sum total pie charts.
+                //20170421
+            </li>
+            <li>
+                <h3>chartPie (gdata, type, station)</h3>
+                //20170421
+            </li>
+            <li>
+                <h3>initLegend ()</h3>
+                Creates the color coded stage description legend keys under the 
+                sum total pie chart.
+                //20170421
+            </li>
+        </ol>
+    </body>
+</html>

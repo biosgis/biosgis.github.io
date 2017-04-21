@@ -1,20 +1,42 @@
-skt.txt 20170420 dchiang
+skt.txt 20170420 dean.chiang@wildlife.ca.gov
 
-Bay Delta Spring Kodiak Trawl Delta Smelt Distribution Pie Chart Map Apps 
-Documentation
+TITLE
+
+Bay Delta 
+Spring Kodiak Trawl Survey 
+Delta Smelt Distribution Pie Chart Maps 
+Legacy Map App Migration
 
 ------------------
-# Functions 
+PURPOSE
 
-#samplesOutput = function (response) //20170420
 
-Cannot do samplesResults = arrayUtils.map(response.features, function(feature) 
-nor feature.popupTemplate = popupTemplate 
-nor new TextSymbol because all those must be included in the required fxn;
- 
-Best way to code callbacks outside of loader is use generic JS methods 
-and create a global symbol and then clone it like defaultTextSymbol.clone();
+------------------
+METHODOLOGY
+
+Basic Disks
+
+SVG
+
+Rings
+
+Semi-Transparent Circles
+
+
+------------------
+RESULTS
+
+What we need is not only multivariate rendering but multivariate symbology, 
+where a feature can be symbolized by multiple fields at the same time and 
+in a related way like as percentages to a summary column (built-in or dynamic)
+
 
 
 -------------------
-# Variables
+CONCLUSION
+
+Migrating our legacy application show the limitation of the latest mapping 
+API even compared to old technology. 
+Scientists have a very keen eye in developing visualizations 
+and geographic information technologist should pay attentions to that 
+
