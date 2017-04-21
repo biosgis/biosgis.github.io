@@ -1,0 +1,20 @@
+skt.txt 20170420 dchiang
+
+Bay Delta Spring Kodiak Trawl Delta Smelt Distribution Pie Chart Map Apps 
+Documentation
+
+------------------
+# Functions 
+
+#samplesOutput = function (response) //20170420
+
+Cannot do samplesResults = arrayUtils.map(response.features, function(feature) 
+nor feature.popupTemplate = popupTemplate 
+nor new TextSymbol because all those must be included in the required fxn;
+ 
+Best way to code callbacks outside of loader is use generic JS methods 
+and create a global symbol and then clone it like defaultTextSymbol.clone();
+
+
+-------------------
+# Variables
