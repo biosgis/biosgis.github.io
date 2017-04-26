@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Delta Map Apps Development</title>
+        <title>Bios 6 Development</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
@@ -47,51 +47,21 @@ and open the template in the editor.
     <body>
         <header>
             <h1>
-                Delta Map Apps Code Documentation &amp; Development Log 20170420-
+                Bios 6 IMAPS Development Log 20170424-
             </h1>
         </header>
         <nav></nav>
         <aside></aside>
         <main>
-            <h2>Variables</h2>
-            <h2>Functions</h2>
-            <h3>samplesOutput (response)</h3>
-            <p>
-                Cannot do samplesResults = arrayUtils.map(response.features, function(feature), 
-                nor feature.popupTemplate = popupTemplate, 
-                nor new TextSymbol because all those must be included in the required fxn;
-                Best way to code callbacks outside of loader is use generic JS methods 
-                and create a global symbol and then clone it like defaultTextSymbol.clone();
-                //20170420
-            </p>
-            <h3>summaryTable (features)</h3>
-            Tabulate the feature attribute data from summary dataset (Sex Ratios) 
-            and output table and data array ready for Google Charting. //20170421
-            <h3>plotPies (gdata, type)</h3>
-            Parse tabulated data into Google Charting ready array and 
-            plot into per station and sum total pie charts.
-            //20170421
-            <h3>chartPie (gdata, type, station)</h3>
-            //20170421
-            <h3>initLegend ()</h3>
-            Creates the color coded stage description legend keys under the 
-            sum total pie chart.
-            //20170421
-            <h2>API Notes</h2>
-            <h3>Renderers and Symbols</h3>
-            <ol>
-                <li>
-                    Do not use symbol parameter in SimpleRenderer constructor 
-                    for multivariate symbology rendering. 
-                    Cannot use visual variables or add unique value infos to 
-                    easily write a multivariate transparent renderer. 
-                    Can use opactityInfo property to set opacity instead of 
-                    hardcode RGB value arrays. 
-                    //20170425
-                </li>
-            </ol>
             <h2>Maintenance</h2>
             <h3>Monthly</h3>
+            <ol>
+                <li>
+                    Web.config:51 - Update new cnddb_com password for the month.
+                </li>
+            </ol>
+            <h2>Auth</h2>
+            <h3>AD Membership Provider</h3>
             <ol>
                 <li>
                     Web.config:51 - Update new cnddb_com password for the month.
