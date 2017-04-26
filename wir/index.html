@@ -73,22 +73,65 @@ and open the template in the editor.
                     Run Task 3 Table To Excel tool
                 </li>
             </ol>
-            <h2>ArcGIS Pro Geocode Locators</h2>
+            <h2>ArcGIS 10.5 Desktop Geocoding</h2>
+            dir = <a href="file:///I:/gis/wir/wir105">I:/gis/wir/wir105</a>
+            <ol>
+                <li>
+                    REQUIREMENT: Input data field should be named Street, City, 
+                    State, Zip to fit North America address locator from 
+                    <a href="http://services.gis.ca.gov/arcgis/rest/services/Location">
+                        State GIO
+                    </a> //20170426
+                </li>
+                <li>Run Excel To Table</li>
+                <li>Run Geocode Address</li>
+                <li>Run Add XY Coordinates</li>
+                <li>Run Table To Excel</li>
+            </ol>
+            <h2>ArcGIS Pro Locators Using Free Geocoding Services</h2>
             <p>
-                Follow these steps to add a free <a>
-                    geocoding service
-                </a> from State GIO office 
+                Follow these steps to add a free geocoding service 
                 instead of using default Esri World Geocoder which costs 
-                40 credits per 1000 addresses.
+                40 credits per 1000 addresses. //20170426
             </p>
             <ol>
                 <li>
-                    INSERT Connections
+                    In ArcGIS Pro, go to INSERT/Connections 
+                    to add the URL to a unfederated ArcGIS Server like 
+                    <a href="http://services.gis.ca.gov/arcgis/rest/services">
+                        http://services.gis.ca.gov/arcgis/services
+                    </a> from State GIO.
+                </li>
+                <li>
+                    Under the Project Pane/Servers folder, find the GIS Server 
+                    just added and expand to the geocoding services.
+                </li>
+                <li>
+                    Right click on on the service you want to to use and click 
+                    Add To Project. The locator will appear under the Locators 
+                    folder, i.e. Location/NorthAmerica, and this option will now 
+                    appear in the Geocode Addresses tool Input Address Locator 
+                    parameter picklist. //20170426
+                </li>
+                <li>
+                    The goecoder may require fields named differently than your 
+                    dataset. You can map the fields in your input table with the 
+                    Alias Name field picklists, i.e. Street:Address1, ZIP:PostalCode.
                 </li>
             </ol>
             <h2>Next</h2>
             <ol>
             </ol>
+            <section>
+                <h2>References</h2>
+                <ol>
+                    <li>
+                        <a href="http://pro.arcgis.com/en/pro-app/help/data/geocoding/add-locators-to-a-project.htm">
+                            Add locators to a project
+                        </a>
+                    </li>
+                </ol>
+            </section>
         </main>
         <footer>
             <div style="float: right;">
