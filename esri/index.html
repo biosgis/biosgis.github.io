@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Esri Resources</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="dchiang">
+        <meta name="description" content="Government and Organizations and Other GIS (GO2g)">
+        <meta name="generator" content="aios-20170412-links">
+        <link rel="stylesheet" href="css/dotty.css">
+        <script src="js/dotty.js"></script>
+        <style>
+            /* dotty.css */
+            body {
+                font-family: Consolas, Monaco, Arial, Helvetica, sans-serif;
+                font-size: larger;
+            }
+            header {
+                background-color: whitesmoke;
+                border-bottom: 1px solid silver;
+            }
+            nav {
+                background-color: snow;
+                border-bottom: 1px solid silver;
+            }
+            aside {
+                background-color: azure;
+                border: 1px solid silver;
+                border-width: 0.5px 0 2px 1px;
+                max-width: 20%;
+                float: right;
+                padding-left: 5px;
+            }
+            footer {
+                left: 0; bottom: 0; right: 0;
+                height: auto; width: auto;
+                background-color: whitesmoke;
+                border-top: 1px solid silver;
+                font-family: monospace;
+                margin-top: 10px;
+                padding: 5px;
+            }
+            h1 {
+                font-family: 'Arial Black', Tahoma, Impact, fantasy;
+                margin-top: 0;
+            }
+            h2 {
+                font-family: Georgia, serif;
+                border-left: 10px solid snow;
+                padding-left: 10px;
+            }
+            h2:hover {
+                border-left: 10px solid khaki;
+                border-right: 10px solid snow;
+            }
+            h3 {
+                font-family: Verdana, cursive;
+                border-right: 0px solid lightslategray;
+                border-top: 1px solid whitesmoke;
+            }
+            h4 {
+                font-family: Arial, sans-serif;
+            }
+            h5 {
+                font-family: 'Arial Narrow', 'Comic Sans MS', monospace;
+            }
+            pre {
+                background-color: whitesmoke;
+                border: 1px solid gainsboro;
+                margin: 5px;
+                padding: 5px;
+            }
+            section {
+                border-bottom: 1px solid silver;
+            }
+            .clickme:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+            .hide {
+                display: none;
+            }
+            .go {
+                background-color: ghostwhite;
+                border: 1px solid gainsboro;
+                border-radius: 5px;
+                margin: 0 2px;
+                padding: 1px 2px;
+                text-decoration: none;
+            }
+            .go:hover {
+                background-color: whitesmoke;
+                border: 1px solid gray;
+                text-decoration: underline;
+            }
+            .navlink {
+                border-right: 1px solid gainsboro;
+                margin-right: 5px;
+                padding: 2px;
+                text-decoration: none;
+            }
+            .navlink:hover {
+                text-decoration: underline;
+            }
+            .toggleme:hover {
+                background-color: silver;
+                cursor: pointer;
+            }
+            .triright {
+                border: 15px solid white;
+                border-left-color: steelblue;
+                float: left;
+                height: 1px; width: 1px;
+            }
+        </style>
+        <script>
+            //dotty.js 20160523 dchiang
+            var br = "<br />";
+            function $(id) { return document.getElementById(id); }
+            function hide(id) { $(id).style.display = 'none'; }
+            function pass(s) { var msg = s; }
+            function show(id) { $(id).style.display = 'block'; }
+            function tagtitle(s) { this.title = s; }
+            function toggle(id) {
+                if ($(id).style.display != 'none') {
+                    hide(id);
+                } else {
+                    show(id);
+                }
+            }
+            function poplinks() {
+                var links = document.getElementsByTagName("a");
+                var atotal = 0;
+                for (var i = 0; i < links.length; i++) {
+                    var a = links[i];
+                    if (a.id.indexOf("goto") === 0) {//FAIL href.indexOf("#") == 0) {
+                        a.target = "_self";
+                    } else {
+                        a.target = "_blank";
+                    }
+                    atotal = i + 1;
+                }
+                document.getElementsByTagName("h1")[0].title = atotal + " LInks";
+            }
+            function navigatorInfo() {
+                var msg = "navigator.appName=" + navigator.appName + "<br />" +
+                    "navigator.cookieEnabled=" + navigator.cookieEnabled + "<br />" +
+                    "navigator.platform(operating system)=" + navigator.platform + "<br />" +
+                    "navigator.userAgent=" + navigator.userAgent + "<br />";
+                return msg;
+            }
+            function windowInfo() {
+                var br = "<br />";
+                var msg = "window.innerHeight=" + window.innerHeight + br +
+                    "window.innerWidth=" + window.innerWidth + br +
+                    "window.scrollX=" + window.scrollX + br + // Horizontal scrolling
+                    "window.scrollY=" + window.scrollY + br + // Vertical scrolling
+                    "window.screen.availHeight= " + window.screen.availHeight + br +
+                    "window.screen.availLeft= " + window.screen.availLeft + br +
+                    "window.screen.availTop= " + window.screen.availTop + br +
+                    "window.screen.availWidth= " + window.screen.availWidth + br +
+                    "window.screen.colorDepth= " + window.screen.colorDepth + br +
+                    "window.screen.height= " + window.screen.height + br +
+                    "window.screen.pixelDepth= " + window.screen.pixelDepth + br +
+                    "window.screen.width= " + window.screen.width;
+                return msg;
+            }
+            function init() {
+                poplinks();
+            }
+            window.addEventListener("load", init);
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>
+                Esri Resource Links
+            </h1>
+        </header>
+        <nav>
+            <a class="navlink" href="https://developers.arcgis.com">ArcGIS Developers</a>
+            <a class="navlink" href="//www.arcgis.com/">ArcGIS Online</a>
+            <a class="navlink" href="//portal.azure.com/">Azure Dashboard</a>
+            <a class="navlink" href="https://outlook.office365.com/owa/?realm=wildlife.ca.gov&username=dean.chiang@wildlife.ca.gov">Outlook</a>
+        </nav>
+        <aside>
+            <p><a href="https://fs.fed.cnra.ca.gov/adfs/ls/?client-request-id=e5141944-d681-48d9-a338-cdaef337201d&username=dean.chiang@wildlife.ca.gov&wa=wsignin1.0&wtrealm=urn%3afederation%3aMicrosoftOnline">ADFS</a></p>
+            <p><a href="https://outlook.office365.com/owa/?realm=wildlife.ca.gov&username=dean.chiang@wildlife.ca.gov&path=/mail/inbox">Outlook</a></p>
+            <p><a href="http://www.caltravelstore.com/">CalTravelStore</a></p>
+            <p><a href="https://anaconda.org/">Anaconda</a></p>
+            <p><a href="//bitbucket.org">BitBucket</a></p>
+            <p><a href="//github.com">GitHub</a></p>
+            <p><a href="https://dashboard.heroku.com/">Heroku</a></p>
+            <p><a href="https://trello.com/home">Trello</a></p>
+            <p><a href="https://developers.arcgis.com/python/">Python</a></p>
+        </aside>
+        <main>
+            <section>
+                <h2>
+                    <a href="https://developers.arcgis.com/javascript/">ArcGIS API for JavaScript</a>
+                </h2>
+                <h3>
+                    <a>Guide</a>
+                </h3>
+                <ol id="jsapi-guide-list">
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html">
+                            Esri Icon Font (Calcite theme)
+                        </a> - When the ArcGIS API for JavaScript stylesheet 
+                        <code>https://js.arcgis.com/4.3/esri/css/main.css</code> is included in a web page, 
+                        the Esri Icon Fonts are immediately available for use.
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/styling/index.html">
+                            Esri Styling stylesheets and themes
+                        </a> //20170407
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/esri-web-style-symbols/index.html">
+                            Esri Web Style Symbols
+                        </a> //20170407
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html">
+                            config
+                        </a> //20161108
+                    </li>
+                </ol>
+                <h3>
+                    <a href="https://developers.arcgis.com/javascript/latest/api-reference/index.html">Reference</a>
+                </h3>
+                <ol id="jsapi-reference-list">
+                    <li>
+                        Layer types:
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html">FeatureLayer</a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#renderer">Render layer feature</a> //20170407
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-RasterFunction.html">RasterFunction</a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html#SizeVisualVariable">SizeVisualVariable</a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-SimpleRenderer.html">SimpleRenderer</a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-UniqueValueRenderer.html#field2">field2 parameter in UniqueValueRender</a> //20170420
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-SimpleMarkerSymbol.html">SimpleMarkerSymbol</a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-TextSymbol.html">TextSymbol</a> //20170420
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html">
+                            Sublayer
+                        </a> //20170427
+                    </li>
+                </ol>
+                <h3>
+                    <a>Samples</a>
+                </h3>
+                <ol id="jsapi-sample-list">
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/get-started-mapview/index.html">
+                            Get started with MapView - Create a 2D map
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/get-started-widgets/index.html">
+                            Get started with widgets using BasemapToggle
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-featurelayer/index.html">
+                            Add FeatureLayer to your Map
+                        </a> //20170407
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-imagery-popup/index.html">
+                            Set server side raster function on an ImageryLayer
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-scenelayer-vv-color/index.html">
+                            Visualize a Scene Layer with continuous color
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/scene-toggle-elevation/index.html" title="Toggle the elevation layer in the map ground">
+                            Terrain 3D
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/tasks-query/index.html">
+                            Query features using QueryTask
+                        </a> - Create graphics layer and symbol to use for displaying the results of query
+                        //20170410
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/visualization-classbreaks/index.html">
+                            Visualize data with class breaks
+                        </a> //20170412
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/visualization-multivariate-2d/index.html">
+                            Thematic multivariate visualization (2D)
+                        </a> //20170412
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/visualization-vv-size/index.html">
+                            Data-driven continuous size
+                        </a> //20170407
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer/index.html">
+                            Add a MapImageLayer to your map
+                        </a> //20170427-init.js
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer-dynamic-labels/index.html">
+                            MapImageLayer - label sublayer features
+                        </a>
+                        <b>Known Limitations</b> - There is no support for labeling in 2D. Labeling is only supported in 3D SceneViews.
+                        //20170426
+                        <ol>
+                            <li>
+                                BUG: Cannot seem to create label class and set labelinginfo property  
+                                using pre-10.5 map service. [amd.js-20170426]
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer-sublayers/index.html">
+                            MapImageLayer - Toggle sublayer visibility
+                        </a> //20170427-init.js
+                        <ol>
+                            <li>
+                                TIP: Can change draw order of sublayers by specifying sublayers property. 
+                                Only those sublayers specified in the mapImageLayer instance will be available.
+                            </li>
+                            <li>
+                                BUG: Cannot seem to make more than one sublayer visible at the same time 
+                                using pre-10.5 map service. [init.js-20170427]
+                            </li>
+                            <li>
+                                Using 10.5 service set no sublayers property when instantiating mapImageLayer 
+                                can then toggle on-off sublayers normally. [index.html, init.js]
+                            </li>
+                            <li>
+                                After adding labelingInfo property with label jsons the layers 
+                                fail to draw entirely.
+                            </li>
+                        </ol>
+                    </li>
+                    <li></li>
+                    <li></li>
+                </ol>
+                <h2>
+                    ArcGIS
+                </h2>
+                <ol>
+                    <li>
+                        <h3>ArcGIS User Seminar</h3>
+                        at Doubletree Hotel Sacramento //20170406-R
+                        <p><a href="http://server.arcgis.com/en/server/latest/get-started/windows/what-is-arcgis-image-server-.htm">ArcGIS Image Server</a></p>
+                        <p><a href="http://server.arcgis.com/en/server/latest/get-started/windows/what-is-arcgis-geoanalytics-server-.htm">ArcGIS GeoAnalytics Server</a> for big data analysis</p>
+                        <p><a href="http://server.arcgis.com/en/server/latest/get-started/windows/what-is-arcgis-geoevent-server.htm">ArcGIS GeoEvent Server</a> for real time data stream</p>
+                        <p><a href="https://server.arcgis.com/en/insights/">Insights for ArcGIS</a> on ArcGIS Enterprise portal</p>
+                    </li>
+                    <li>
+                        <h3>
+                            <a href="http://solutions.arcgis.com/defense/help/military-tools/">
+                                Military Tools for ArcGIS
+                            </a>
+                        </h3>
+                        //20170411,0425
+                        <pre>
+Military Tools for ArcGIS Webinar Series:
+http://go.esri.com/MilitaryTools_E09
+Additionally, here are the useful links provided in today's webinar:
+Military Tools webinar: Widgets for Developers
+http://solutions.arcgis.com/defense/help/military-overlay
+GITHUB SOURCE CODE
+Coordinate Conversion
+https://github.com/Esri/solutions-webappbuilder-widgets/tree/dev/CoordinateConversion/
+Distance and Direction
+https://github.com/Esri/solutions-webappbuilder-widgets/tree/dev/DistanceAndDirection
+Visibility
+https://github.com/Esri/solutions-webappbuilder-widgets/tree/dev/Visibility
+Military Tools for ArcGIS:
+http://solutions.arcgis.com/defense/help/military-tools
+Please send your questions, comments and feedback to: lkrenek@esri.com.
+                        </pre>
+                    </li>
+                    <li>Python Add-in 
+                        <a href="https://www.arcgis.com/home/item.html?id=5f3aefe77f6b4f61ad3e4c62f30bff3b">
+                            <img alt="Python Add-In Wizard" src="https://www.arcgis.com/sharing/rest/content/items/5f3aefe77f6b4f61ad3e4c62f30bff3b/info/thumbnail/Panels_Python_Write.jpg">
+                        </a> //20170404-lastmod-20130612
+                    </li>
+                    <li>
+                        <a href="https://blogs.esri.com/esri/arcgis/2017/03/14/updating-your-hosted-feature-services-with-arcgis-pro-and-the-arcgis-api-for-python/">
+                            updatewebmap
+                        </a>.py conda script //esri-blogs-arcgis-20170314
+                    </li>
+                    <li>
+                        <a href="http://cdfw.maps.arcgis.com/home/item.html?id=95451134581446ec9dfa68b0b1340242">CWHR web map</a>  
+                        to used it in 
+                        <a href="http://cdfw.maps.arcgis.com/apps/webappbuilder/index.html?shareWithWebMap=true&id=b6dda049729d4b1abd24000a229b49f9">Web AppBuilder</a> 
+                        to create 
+                        <a href="http://cdfw.maps.arcgis.com/home/item.html?id=b6dda049729d4b1abd24000a229b49f9">CWHR Web App</a> and 
+                        <a href="http://cdfw.maps.arcgis.com/apps/webappviewer/index.html?id=b6dda049729d4b1abd24000a229b49f9&shareWithWebMap=true">Launch</a>
+                        //20170403-M
+                    </li>
+                    <li>
+                        Test ArcGIS Server performance to external clients on AGOL 
+                        <a href="http://cdfw.maps.arcgis.com/home/webmap/viewer.html?webmap=1d9a196c42824f8993c0687eeb800f80">BIOS5-10.11 Map</a> vs 
+                        <a href="http://cdfw.maps.arcgis.com/home/webmap/viewer.html?webmap=fd00da0146ae475dba10c3d6a1a202c8">BIOS5-10.5-R1 Map</a> //20170403-M
+                    </li>
+                    <li>
+                        <h3>
+                            ArcSDE 10.5
+                        </h3>
+                        <pre>
+                            //SDE 10.5 topics under Desktop
+<a href="http://support.esri.com/technical-article/000008063">How To: Update ArcSDE Connections parameter and DBMS connection processes</a>
+<a href="http://support.esri.com/technical-article/000005796">Problem: Unable to establish additional ArcSDE connection once XX connections are reached</a>
+<a href="http://server.arcgis.com/en/server/latest/publish-services/linux/tuning-and-configuring-services.htm">Tuning and configuring services</a> in ArcGIS Server
+<a href="http://pro.arcgis.com/en/pro-app/tool-reference/data-management/create-enterprise-geodatabase.htm">Create Enterprise Geodatabase</a>
+<a href="http://pro.arcgis.com/en/pro-app/tool-reference/data-management/enable-enterprise-geodatabase.htm">Enable Enterprise Geodatabase</a>
+<a href="http://pro.arcgis.com/en/pro-app/tool-reference/data-management/upgrade-geodatabase.htm">Upgrade Geodatabase</a>
+                        </pre>
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h2>Cloud</h2>
+                <ol>
+                    <li>
+                        <a href="https://github.com/biosgis">github.com/biosgis</a> new account for  
+                        <a href="http://biosgis.github.io/">biosgis.github.io</a> pages created from 
+                        <a href="https://github.com/biosgis/biosgis.github.io">biosgis.github.io</a> repo 
+                        //20170330-R
+                    </li>
+                    <li>
+                        <a href="http://biosgis.github.io/habitrak/">HabiTrak</a> pages //20170330-R
+                    </li>
+                    <li>
+                        <a href="https://biosgis.github.io/habitrak/habitask14.html">
+                            Habitrak Edit User Guide
+                        </a> online switched from gitlab to github; 
+                        much easier deployment and faster performance
+                        //20170330
+                    </li>
+                    <li>
+                        <a href="https://desktop.github.com/">GitHub Desktop</a> signed 
+                        in as bios(biosgis@gmail.com) user
+                    </li>
+                    <li>
+                        <a href="https://nodejs.org/en/">Node.js</a> //20170407
+                    </li>
+                    <li>
+                        <a href="">YML</a> app pkgs env config file for deployment
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h2>
+                    GIS
+                </h2>
+                <ol>
+                    <li>
+                        <a href="http://climatedashboard.org/">Climate Dashboard</a> SCGIS //20170330-R
+                    </li>
+                    <li>
+                        <a href="https://www.documents.dgs.ca.gov/dgs/fmc/pdf/std637.pdf">
+                            Individual Development Plan</a> PDF form //20170330
+                    </li>
+                    <li><a href="https://docs.continuum.io/anaconda/fusion/">Anaconda Fusion</a> Excel Data Science //20170412</li>
+                    <li>
+                        <a href="https://docs.continuum.io/anaconda-data-science-workflow">Anaconda Data Science Workflow</a>
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h2>
+                    Design Goto
+                </h2>
+                <ol>
+                    <li>
+                        <a href="http://www.iconarchive.com/tag/ico-files">Icon Archive</a> for .ico images and icons //20160405
+                    </li>
+                    <li>
+                        <a href="https://www.w3schools.com/cssref/pr_tab_table-layout.asp">
+                            CSS Reference
+                        </a>
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h2>People</h2>
+                <ol>
+                    <li>
+                        HabiTrak GIS users
+                        <ul>
+                            <li>
+                                <a href="mailto:Paul.Schlitt@wildlife.ca.gov">Paul Schlitt</a>, MSCP Team;
+                            </li>
+                            <li>
+                                <a href="mailto:KForburger@sandiego.gov">Kristen Forburger</a>,
+                                Senior Planner, City of San Diego;
+                            </li>
+                            <li>
+                                <a href="mailto:MKlein@sandiego.gov">Michael ("Mike") Klein</a>,
+                                Planning Department, City of San Diego;
+                            </li>
+                            <li>
+                                <a href="mailto:JUrata@sandiego.gov">John Urata</a>,
+                                Principal Engineering Aide, City of San Diego;
+                            </li>
+                            <li>
+                                <a href="mailto:Gary.Ross@sdcounty.ca.gov">Gary Ross</a>,
+                                Senior GIS Analyst, San Diego County;
+                            </li>
+                            <li>
+                                <a href="mailto:eculp@chulavistaca.gov">Eric Culp</a>,
+                                GIS Manager for the City of Chula Vista.
+                            </li>
+                            <li>
+                                <a href="mailto:Martie.Clemons@carlsbadca.gov">Martie Clemons</a>,
+                                GIS Analyst, City of Carlsbad |
+                                <a>1635 Faraday Avenue, Carlsbad, CA  92008</a>| 
+                                760-602-2432  | 760-602-8555 fax | 
+                                <a href="http://www.carlsbadca.gov">www.carlsbadca.gov</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li></li>
+                </ol>
+            </section>
+            <section>
+                <h2>
+                    Tricks
+                </h2>
+                <ol>
+                    <li>RegEx--
+                        <a href="http://stackoverflow.com/questions/7407099/regex-match-numbers-of-variable-length">Match Numbers of Variable Length</a>, or 
+                        <a href="http://www.regular-expressions.info/numericranges.html">Matching Numeric Ranges</a>
+                    </li>
+                    <li>
+                        <a href="https://css-tricks.com/vertically-center-multi-lined-text/">Vertically Center Multi-Lined Text</a>
+                    </li>
+                    <li>javascript--
+                        <a href="http://stackoverflow.com/questions/1230233/how-to-find-the-sum-of-an-array-of-numbers">
+                            How to find the sum of an array of numbers?
+                        </a> <code>arr.reduce(f(a,b){return a+b;}, 0)</code> //20170419
+                    </li>
+                    <li>
+                        javascript--
+                        <a href="https://www.html5rocks.com/en/tutorials/dnd/basics/">
+                            Native HTML5 Drag and Drop 20100930
+                        </a> //20170424
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h2>
+                    Research
+                </h2>
+                <ol>
+                    <li><a>AGOL National Security Web App group</a></li>
+                </ol>
+            </section>
+        </main>
+        <footer>
+            <div style="float: right;">
+                <a href="mail:dean.chiang@wildlife.ca.gov">dean.chiang@wildlife.ca.gov</a>
+                &copy;
+                <script>
+                    document.write(document.lastModified);
+                </script>
+            </div>
+        </footer>
+    </body>
+</html>
