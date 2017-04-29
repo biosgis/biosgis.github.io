@@ -9,7 +9,7 @@ function hide(id) {
 function show(id) {
     $(id).style.display = 'block';
 }
-function setTitle(s) {
+function tagtitle(s) {
     this.title = s;
 }
 function toggle(id) {
