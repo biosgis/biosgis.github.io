@@ -33,7 +33,12 @@ and open the template in the editor.
             main {
                 padding: 10px;
             }
+            nav {
+                position: absolute;
+            }
             section {
+                position: absolute; left: 5px; top: 5px;
+                height: 98%; width: 98%;
                 background-color: white;
                 border: 1px solid silver;
                 margin: 10px 0;
@@ -41,13 +46,13 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        <nav>
+        <nav title="Table of Contents">
             <h1>
-                Table of Contents
+                TOC
             </h1>
-            <p>
-                <a>Title</a>
-            </p>
+            <ol>
+                <li></li>
+            </ol>
         </nav>
         <section>
             <header>
@@ -111,7 +116,7 @@ and open the template in the editor.
                 </ul>
             </main>
             <footer>
-                <span style="position: absolute; right: 5px;">
+                <span style="position: absolute; right: 5px; background-color: whitesmoke;">
                     <a href="mail:dean.chiang@wildlife.ca.gov">dean.chiang@wildlife.ca.gov</a>
                     &copy;
                     <script>
