@@ -43,13 +43,13 @@ h1 {
 }
 h2 {
     font-family: Georgia, serif;
-    border-left: 10px solid snow;
-    padding-left: 10px;
-    /*text-decoration: overline;*/
+    border-right: 10px solid navajowhite;
+    border-top: 1px solid ghostwhite;
 }
 h2:hover {
-    border-left: 10px solid khaki;
+    background-color: snow;
     border-right: 10px solid snow;
+    border-top: 1px solid khaki;
 }
 h3 {
     font-family: Verdana, cursive;
