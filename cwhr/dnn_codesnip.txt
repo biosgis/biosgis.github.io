@@ -1,0 +1,64 @@
+DNN Internal Dev Site
+https://dnn-dfginter.ad.dfg.ca.gov/
+20160722 dchiang
+
+#dnnDean-20160720
+Start from sandbox //20160720
+===================
+url=https://dnn-dfginter.ad.dfg.ca.gov/Data/Dean
+title=Dean's Sandbox Page
+pagename=Dean
+parent=Data
+HTMLCODE--
+<h2>Web Apps</h2>
+<ul>
+	<li>
+	<a href="Dean/CAWildlife" target="_blank">CWHR Life History & Range Maps</a>
+	</li>
+	<li>
+	<a href="Dean/20mmmap3" target="_blank">Bay Delta Fish Distribution Map v3</a>
+	</li>
+	<li>
+	<a href="Dean/20mmSurvey" target="_blank">20mm Survey Fish Distribution Map</a>
+	</li>
+</ul>
+--HTMLCODE
+
+#dnnCAWildlife-20160720
+CWHR page
+============
+pagename=CAWildlife
+title=CWHR Life History Accounts and Range Maps
+parent=Dean
+url=https://dnn-dfginter.ad.dfg.ca.gov/Data/Dean/CAWildlife
+HTMLCODE--
+<iframe src="https://arcdev.ad.dfg.ca.gov/deantest/cwhr/cawildlife.html"
+style="position: inherit; height: 900px; width: 90%; border: 1px solid whitesmoke;"></iframe>
+--HTMLCODE
+
+#
+New Bay Delta new 20mm map page //20160721
+================================
+pagename=20mmSurvey
+title=20mm Survey Fish Distribution Map
+parent=Dean
+url=https://dnn-dfginter.ad.dfg.ca.gov/Data/Dean/20mmSurvey
+HTMLCODE--
+<iframe src="https://arcdev.ad.dfg.ca.gov/deantest/delta/20mmmap4.html"
+style="position: inherit; height: 900px; width: 90%; border: 1px solid whitesmoke;"></iframe>
+--HTMLCODE
+
+#
+Bay Delta map prototype page //20160722
+=============================
+CLICK--Page/Copy Page/Copy From Page: Dean
+Page Details:
+pagename=20mmmap3
+title=Bay Delta Fish Distribution Map v3
+parent=Dean
+insert-Before=20mmSurvey
+url=https://dnn-dfginter.ad.dfg.ca.gov/Data/Dean/20mmmap3
+HTMLCODE--copy from 20mmSurvey
+<iframe src="https://arcdev.ad.dfg.ca.gov/deantest/delta/20mmmap3.html"
+style="position: inherit; height: 900px; width: 90%; border: 1px solid whitesmoke;"></iframe>
+--HTMLCODE
