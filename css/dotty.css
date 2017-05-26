@@ -12,14 +12,6 @@ body {
     font-family: Consolas, Monaco, Arial, Helvetica, sans-serif;
     font-size: larger;
 }
-header {
-    background-color: whitesmoke;
-    border-bottom: 1px solid silver;
-}
-nav {
-    background-color: snow;
-    border-bottom: 1px solid silver;
-}
 aside {
     background-color: azure;
     border: 1px solid silver;
@@ -36,6 +28,15 @@ footer {
     font-family: monospace;
     margin-top: 10px;
     padding: 5px;
+}
+code {
+    background-color: aliceblue;
+    font-weight: bold;
+    padding: 1px 5px;
+}
+header {
+    background-color: whitesmoke;
+    border-bottom: 1px solid silver;
 }
 h1 {
     font-family: 'Arial Black', Tahoma, Impact, fantasy;
@@ -62,8 +63,12 @@ h4 {
 h5 {
     font-family: 'Arial Narrow', 'Comic Sans MS', monospace;
 }
+nav {
+    background-color: snow;
+    border-bottom: 1px solid silver;
+}
 pre {
-    background-color: whitesmoke;
+    background-color: aliceblue;
     border: 1px solid gainsboro;
     margin: 5px;
     padding: 5px;
