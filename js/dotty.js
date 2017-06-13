@@ -33,20 +33,22 @@ function togl(node) {
     }
 }
 function poplinks() {
-    var links = document.getElementsByTagName("a");//document.links
+    var links = document.getElementsByTagName("a");
     var atotal = 0;
     for (var i = 0; i < links.length; i++) {
         var a = links[i];
-        if (a.id.indexOf("goto") === 0) {//FAIL href.indexOf("#") == 0) {
-            a.target = "_self";
-        } else {
-            a.target = "_blank";
+        if (a.href !== undefined && a.href !== "") {
+            if (a.href.indexOf("#") >= 0 || a.id.indexOf("goto") === 0) {//FAIL href.indexOf("#") == 0) {//
+                a.target = "_self";
+            } else if (a.href.indexOf("mailto:") < 0 && a.href.indexOf("javascript:void") < 0) {
+                a.target = "_blank";
+            }
         }
         atotal = i + 1;
     }
-    document.getElementsByTagName("h1")[0].title = atotal + " LInks";
+    console.log(atotal + " LInks")
+    return atotal;
 }
-
 function navigatorInfo() {
     var msg = "navigator.appName=" + navigator.appName + "<br />" +
         "navigator.cookieEnabled=" + navigator.cookieEnabled + "<br />" +
