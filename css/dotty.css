@@ -112,3 +112,21 @@ section {
     float: left;
     height: 1px; width: 1px;
 }
+.facebook {
+    background-color: royalblue;
+    color: white;
+    font-family: 'Arial Black', Impact, Tahoma, fantasy;
+    font-size: 123%;
+    font-weight: bolder;
+    padding: 1px 5px;
+    margin: 0 5px;
+}
+.linkedin {
+    background-color: steelblue;
+    color: white;
+    font-family: 'Arial Black', Impact, Tahoma, fantasy;
+    font-size: 123%;
+    font-weight: bolder;
+    padding: 1px 5px;
+    margin: 0 5px;
+}
