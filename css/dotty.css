@@ -76,6 +76,20 @@ pre {
 section {
     border-bottom: 1px solid silver;
 }
+table {
+    background-color: white;
+    border-collapse: collapse;
+    border: 1px solid dimgray;
+}
+td {
+    border: 1px solid gray;
+    padding: 1px;
+    vertical-align: top;
+}
+th {
+    border: 1px solid dimgray;
+    vertical-align: top;
+}
 
 .hide {
     display: none;
@@ -129,4 +143,10 @@ section {
     font-weight: bolder;
     padding: 1px 5px;
     margin: 0 5px;
+}
+
+@media print {
+    nav {display: none;}
+    aside {display: none;}
+    pre {background-color: white;}
 }

@@ -1,0 +1,113 @@
+Esri UC 2017 Schedule ALL DAYS FULL SCHEDULE
+## MONDAY JUL 10
+8:30 am - 10:00 am| User Conference Plenary Session - Morning |SDCC - Exhibit Hall F
+10:30 am - 12:00 pm| User Conference Plenary Session - Mid-Morning |SDCC - Exhibit Hall F
+12:30 pm - 1:30 pm| Presentation Skills Workshop |SDCC - Room 32 A
+2:00 pm - 3:30 pm| User Conference Plenary Session - Afternoon |SDCC - Exhibit Hall F
+3:30 pm - 7:00 pm| Map Gallery Reception |SDCC - Sail Area
+4:30 pm - 6:00 pm| Lightning Talks |SDCC - Ballroom 20 A
+## TUESDAY JUL 11
+6:30 am - 7:30 am| Yoga
+7:00 am - 8:00 am| GIS for Tribal Resilience: Eastern / Great Lakes / Midwest Tribes |SDCC - Room 27 A
+7:00 am - 8:00 am| Presentation Skills Workshop |SDCC - Room 32 A
+7:00 am - 8:00 am| SAP HANA and ArcGIS:  Capabilities, Future Directions,  Use Cases, and Deployment Patterns |SDCC - Room 24 A
+7:00 am - 5:00 pm| Speaker Resource Center |SDCC - Room 33 B
+8:00 am - 6:00 pm| Map Gallery |SDCC - Sail Area
+8:30 am - 9:45 am| 3D Analysis: An Introduction |SDCC - Room 08
+8:30 am - 9:45 am| AEC - Tools and Techniques for Workflow Improvements and Information Sharing |SDCC - Room 24 A
+8:30 am - 9:45 am| Administering ArcGIS Enterprise and ArcGIS Online with Python |SDCC - Ballroom 06 D
+8:30 am - 9:45 am| Agriculture - Land Use, Crop Management and Planning |SDCC - Room 23 C
+8:30 am - 9:45 am| Amazing and Inspiring Maps in ArcGIS |SDCC - Room 16 A
+8:30 am - 9:45 am| Applying Ecological Marine Units to Ocean Research |SDCC - Room 05 A
+8:30 am - 9:45 am| ArcGIS Online: Implementing an Open Data Strategy |SDCC - Room 14 B
+8:30 am - 9:45 am| ArcGIS Pro SDK for .NET: UI Design and MVVM |SDCC - Room 33 A
+8:30 am - 9:45 am| ArcGIS Pro: Mapping and Visualization |SDCC - Ballroom 06 F
+8:30 am - 9:45 am| ArcGIS for Emergency Management: An Introduction |SDCC - Room 10
+8:30 am - 9:45 am| ArcGIS for Geostatistical Analyst: An Introduction |SDCC - Room 17 B
+8:30 am - 9:45 am| ArcGIS for Local Government: An Introduction |SDCC - Ballroom 06 E
+8:30 am - 9:45 am| ArcPad - An Introduction |SDCC - Room 32 A
+8:30 am - 9:45 am| Archaeology - Analysis and Investigation |SDCC - Room 23 A
+## WEDNESDAY JUL 12
+6:30 am - 8:00 am| 5k Fun Run/Walk
+7:00 am - 8:00 am| GIS for Tribal Resilience: Southwest / Southern Great Plains Tribes|SDCC - Room 27 A
+7:00 am - 8:00 am| Integrating ArcGIS with SAP for Asset and Real Estate Management: Options, Roadmap, Considerations |SDCC - Room 16 A
+7:00 am - 5:00 pm| Speaker Resource Center |SDCC - Room 33 B
+8:00 am - 6:00 pm| Map Gallery |SDCC - Sail Area
+8:30 am - 9:45 am| 3D in ArcGIS Pro |SDCC - Room 16 A
+8:30 am - 9:45 am| Administering Your Oracle Geodatabase |SDCC - Room 14 B
+8:30 am - 9:45 am| Agriculture - Image Management and Applications in Crop Management |SDCC - Room 23 C
+8:30 am - 9:45 am| Air Quality and Health |SDCC - Room 24 C
+8:30 am - 9:45 am| Analyzing Multidimensional Scientific Data in ArcGIS |SDCC - Room 30 E
+8:30 am - 9:45 am| AppStudio for ArcGIS: An Introduction |SDCC - Room 02
+8:30 am - 9:45 am| ArcGIS Enterprise: An Introduction |SDCC - Ballroom 06 A
+8:30 am - 9:45 am| ArcGIS Extensions: Tools for Improving Data and Map Production |SDCC - Ballroom 06 D
+8:30 am - 9:45 am| ArcGIS Maps for Microsoft Power BI: An Introduction |SDCC - Room 31 A
+8:30 am - 9:45 am| ArcGIS Online: A Security, Privacy, and Compliance Overview |SDCC - Room 16 B
+8:30 am - 9:45 am| ArcGIS Pipeline Referencing: An Introduction |SDCC - Room 31 B
+8:30 am - 9:45 am| ArcGIS Platform for Conservation |SDCC - Room 25 C
+8:30 am - 9:45 am| ArcGIS Pro SDK for .NET: UI Design and MVVM |SDCC - Room 33 A
+8:30 am - 9:45 am| ArcGIS Pro Tasks: An Introduction |Hilton - Sapphire Ballroom M
+8:30 am - 9:45 am| ArcGIS Pro: 3D Editing |SDCC - Ballroom 06 B
+## THURSDAY JUL 13
+6:30 am - 7:30 am| Yoga
+7:00 am - 8:00 am| GIS for Tribal Resilience: Alaska Natives |SDCC - Room 27 A
+7:00 am - 3:00 pm| Speaker Resource Center |SDCC - Room 33 B
+7:00 am - 8:00 am| Use Cases and Customer Experiences with SAP BI and ArcGIS |SDCC - Room 23 A
+8:00 am - 1:30 pm| Map Gallery |SDCC - Sail Area
+8:30 am - 9:45 am| Address Data Management Maps and Apps for State and Local Governments |SDCC - Room 16 A
+8:30 am - 9:45 am| Administering ArcGIS Enterprise and ArcGIS Online with Python |SDCC - Ballroom 06 C
+8:30 am - 9:45 am| Administering Your PostgreSQL Geodatabase |SDCC - Room 05 A
+8:30 am - 9:45 am| Analytics for Renewable Energy |SDCC - Room 23 A
+8:30 am - 9:45 am| Applications of GIS Software for Activity Based Intelligence |Omni - Ballroom C
+8:30 am - 9:45 am| Applied GIS: Three Unique Examples |SDCC - Room 29 C
+8:30 am - 9:45 am| ArcGIS API for JavaScript: The Road Ahead |SDCC - Ballroom 06 F
+8:30 am - 9:45 am| ArcGIS Data Reviewer: Advanced Data Validation |SDCC - Room 31 A
+8:30 am - 9:45 am| ArcGIS Enterprise Security: An Introduction |SDCC - Room 14 A
+8:30 am - 9:45 am| ArcGIS Enterprise: What's New |Hilton - Sapphire Ballroom I
+8:30 am - 9:45 am| ArcGIS Online: A Security, Privacy, and Compliance Overview |SDCC - Room 07 A
+8:30 am - 9:45 am| ArcGIS Pro: 3D Editing |SDCC - Ballroom 06 B
+8:30 am - 9:45 am| ArcGIS Pro: An Introduction |SDCC - Ballroom 06 A
+8:30 am - 9:45 am| ArcGIS Pro: Analysis and Geoprocessing |SDCC - Room 08
+8:30 am - 9:45 am| ArcGIS for Utilities and Telecommunications: What's New |SDCC - Room 30 E
+##
+FRIDAY JUL 14
+9:00 am - 10:15 am|
+Administering Your Microsoft SQL Server Geodatabase
+|SDCC - Room 09
+9:00 am - 10:15 am|
+ArcGIS Enterprise: An Introduction
+|SDCC - Ballroom 06 C
+9:00 am - 10:15 am|
+ArcGIS Enterprise: Introducing Portal for ArcGIS
+|SDCC - Room 04
+9:00 am - 10:15 am|
+ArcGIS Pro: What's New and the Road Ahead
+|SDCC - Ballroom 06 A
+9:00 am - 10:15 am|
+ArcGIS Python API: Advanced Scripting
+|SDCC - Ballroom 06 B
+9:00 am - 10:15 am|
+Drone2Map: An Introduction
+|SDCC - Room 03
+9:00 am - 10:15 am|
+Optimizing Field Operations with ArcGIS Apps
+|SDCC - Room 05 A
+9:00 am - 10:15 am|
+Parcel Editing in ArcGIS: Advanced Topics
+|SDCC - Ballroom 06 E
+9:00 am - 10:15 am|
+Python: Building Geoprocessing Tools
+|SDCC - Room 01 A
+9:00 am - 10:15 am|
+Real-Time & Big Data GIS at Massive Scale
+|SDCC - Room 08
+9:00 am - 10:15 am|
+Story Maps: How to Tell Your Story with Esri Story Maps
+|SDCC - Ballroom 06 F
+9:00 am - 10:15 am|
+Thematic Map Design
+|SDCC - Ballroom 06 D
+10:30 am - 12:00 pm|
+Closing Session
+|SDCC - Ballroom 20 B
+
