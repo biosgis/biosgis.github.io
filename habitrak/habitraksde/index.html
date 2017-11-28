@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>HabitrakSDE Update</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            /* dotty.css */
+            body {
+                font-family: Consolas, Monaco, Arial, Helvetica, sans-serif;
+                font-size: larger;
+            }
+            aside {
+                background-color: azure;
+                border: 1px solid silver;
+                border-width: 0.5px 0 2px 1px;
+                max-width: 20%;
+                min-height: 300px;
+                float: right;
+                padding-left: 5px;
+            }
+            code {
+                background-color: aliceblue;
+                display: block;
+                font-weight: bold;
+                margin-left: 10px;
+                padding: 5px 10px;
+            }
+            footer {
+                position: relative;
+                left: 0; right: 0;
+                height: auto; width: auto;
+                background-color: whitesmoke;
+                border-top: 1px solid silver;
+                font-family: monospace;
+                margin-top: 10px;
+                padding: 5px;
+            }
+            h1 {
+                font-family: 'Arial Black', Tahoma, Impact, fantasy;
+                margin-top: 0;
+            }
+            h2 {
+                font-family: Georgia, serif;
+                background-color: white;
+            }
+            h2:hover {
+                background-color: snow;
+            }
+            h3 {
+                font-family: Verdana, cursive;
+                border-top: 2px solid whitesmoke;
+                padding-left: 10px;
+            }
+            h3:hover {
+                border-top: 2px dashed royalblue;
+            }
+            h4 {
+                border-top: 1px dotted transparent;
+                font-family: Arial, sans-serif;
+            }
+            h4:hover {
+                border-top: 1px dotted antiquewhite;
+            }
+            h5 {
+                font-family: 'Arial Narrow', 'Comic Sans MS', monospace;
+            }
+            header {
+                background-color: whitesmoke;
+                border-bottom: 1px solid silver;
+            }
+            nav {
+                background-color: snow;
+                border-bottom: 1px solid silver;
+            }
+            pre {
+                background-color: aliceblue;
+                border: 1px solid gainsboro;
+                margin: 5px;
+                padding: 5px;
+            }
+            section {
+                border-bottom: 1px solid silver;
+            }
+            table {
+                background-color: white;
+                border-collapse: collapse;
+            }
+            th {
+                vertical-align: top;
+            }
+            td {
+                padding: 2px;
+                text-align: left;
+                vertical-align: top;
+            }
+            .ali {
+                display: list-item;
+                list-style-type: decimal;
+            }
+            .clickme:hover {
+                background-color: lemonchiffon;
+                border: 1px solid lightcyan;
+                cursor: pointer;
+                text-decoration: none;
+            }
+            .go {
+                background-color: ghostwhite;
+                border: 1px solid gainsboro;
+                border-radius: 5px;
+                margin: 0 2px;
+                padding: 1px 2px;
+                text-decoration: none;
+            }
+            .go:hover {
+                background-color: whitesmoke;
+                border: 1px solid gray;
+                text-decoration: underline;
+            }
+            .hide {
+                display: none;
+            }
+            .mono {
+                font-family: monospace;
+            }
+            .navlink {
+                border-right: 1px solid gainsboro;
+                margin-right: 5px;
+                padding: 2px;
+                text-decoration: none;
+            }
+            .navlink:hover {
+                text-decoration: underline;
+            }
+            .red {
+                color: red;
+            }
+            .toggleme:hover {
+                background-color: silver;
+                cursor: pointer;
+            }
+            .triright {
+                border: 15px solid white;
+                border-left-color: steelblue;
+                float: left;
+                height: 1px; width: 1px;
+            }
+            .tdleft {
+                border: none;
+                text-align: left;
+                vertical-align: top;
+            }
+            .tdright {
+                border: none;
+                text-align: right;
+                vertical-align: top;
+            }
+            .bug {
+                color: darkred;
+            }
+            .todo {
+                background-color: lightyellow;
+            }
+            .doing {
+                color: teal;
+            }
+            .done {
+                color: slategray;
+                font-weight: bold;
+            }
+            @media print {
+                nav {display: none;}
+                aside {display: none;}
+                pre {background-color: white;}
+            }
+        </style>
+        <script>
+            //dotty.js 20160523 dchiang
+            var br = "<br />";
+            function $(id) {
+                return document.getElementById(id);
+            }
+            function hide(id) {
+                $(id).style.display = 'none';
+            }
+            function show(id) {
+                $(id).style.display = '';
+            }
+            function tagtitle(s) {
+                this.title = s;
+            }
+            function toggle(id) {
+                if ($(id).style.display !== 'none') {
+                    hide(id);
+                } else {
+                    show(id);
+                }
+            }
+            function poplinks() {
+                var links = document.getElementsByTagName("a");
+                var atotal = 0;
+                for (var i = 0; i < links.length; i++) {
+                    var a = links[i];
+                    if (a.href !== undefined && a.href !== "") {
+                        if ((a.href.indexOf(location.host) >= 0 && a.href.indexOf('#') > 0) || a.id.indexOf('goto') === 0) {
+                            a.target = "_self";
+                        } else if (a.href.indexOf("mailto:") < 0 && a.href.indexOf("javascript:void") < 0) {
+                            a.target = "_blank";
+                        }
+                    }
+                    atotal = i + 1;
+                }
+                console.log(atotal + " LInks")
+                return atotal;
+            }
+            function navigatorInfo() {
+                var msg = "navigator.appName=" + navigator.appName + "<br />" +
+                    "navigator.cookieEnabled=" + navigator.cookieEnabled + "<br />" +
+                    "navigator.platform(operating system)=" + navigator.platform + "<br />" +
+                    "navigator.userAgent=" + navigator.userAgent + "<br />";
+                return msg;
+            }
+            function windowInfo() {
+                var br = "<br />";
+                var msg = "window.innerHeight=" + window.innerHeight + br +
+                    "window.innerWidth=" + window.innerWidth + br +
+                    "window.scrollX=" + window.scrollX + br + // Horizontal scrolling
+                    "window.scrollY=" + window.scrollY + br + // Vertical scrolling
+                    "window.screen.availHeight= " + window.screen.availHeight + br +
+                    "window.screen.availLeft= " + window.screen.availLeft + br +
+                    "window.screen.availTop= " + window.screen.availTop + br +
+                    "window.screen.availWidth= " + window.screen.availWidth + br +
+                    "window.screen.colorDepth= " + window.screen.colorDepth + br +
+                    "window.screen.height= " + window.screen.height + br +
+                    "window.screen.pixelDepth= " + window.screen.pixelDepth + br +
+                    "window.screen.width= " + window.screen.width;
+                return msg;
+            }
+            function init() {
+                var msg = poplinks();
+                //console.log('$npm-arcgis elem found? ' + document.getElementById('npm-arcgis'));//OK
+            }
+            window.addEventListener("load", init);
+            function gocab(id) {
+                window.open("https://cdfwsp.wildlife.ca.gov/sites/DTD/OCAB/Lists/Change%20Request/Custom_ReadOnly_DispForm2.aspx?ID=" + id, "ocabtab");
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>HabiTrak SDE Update Tools</h1>
+        </header>
+        <nav></nav>
+        <aside></aside>
+        <main>
+            <h2>Summary</h2>
+            <p>
+                Use the habitraksde script tools to load the HabiTrak data from agencies
+                into CDFW SQL Server SDE database tables for reporting.
+            </p>
+            <section>
+                <h2>
+                    ArcMap 10.5.1 Version
+                </h2>
+                <h4>Setup</h4>
+                <p></p>
+                <ol>
+                    <li>
+                        <h3>
+                            SDE Update Stage 1 (to Dev SQL Server)
+                        </h3>
+                        <h4>
+                            Tool: Habitrak SDE Update Stage 1 (WORKING)
+                        </h4>
+                        <img alt="habitools1051stage1dev" src="img/habitools1051stage1dev.png">
+                    </li>
+                    <li>
+                        <h3>
+                            SDE Update Stage 1 (to Test and Prod SQL Server)
+                        </h3>
+                        <h4>
+                            Tool: Habitrak SDE Update Stage 2 (REVIEW)
+                        </h4>
+                        <img alt="habitools1051stage2review" src="img/habitools1051stage2review.png">
+                    </li>
+                    <li>
+                        <h3>
+                            SDE Update Stage 3 (to Production SQL Server)
+                        </h3>
+                        <h4>
+                            Tool: Habitrak SDE Update Stage 3 (FINAL)
+                        </h4>
+                        <img alt="habitools1051stage3final" src="img/habitools1051stage3final.png">
+                    </li>
+                </ol>
+                <h4>Wrapup</h4>
+                <p></p>
+            </section>
+            <section>
+                <h2>
+                    ArcGIS Pro 2.0.1 Version
+                </h2>
+                <h4>Setup</h4>
+                <p></p>
+                <ol>
+                    <li>
+                        <h3>
+                            SDE Update Stage 1 (to Dev SQL Server)
+                        </h3>
+                        <h4>Summary</h4>
+                        <p>
+                            In Stage 1 update, the preliminary data submitted by 
+                            MSCP agencies are loaded into CDFW SQL Server SDE 
+                            database to update the permanent tables 
+                            <i>APN_WORKING</i>, <i>GAIN_WORKING</i>, 
+                            <i>LOSS_WORKING</i>, and <i>OVERLAY_WORKING</i> 
+                            so they can be used to update Test and Prod.
+                        </p>
+                        <h4>
+                            Tool: Habitrak SDE Update to Dev WORKING
+                        </h4>
+                        <img alt="habitraksde201update1dev" src="img/habitraksde201update1dev.png">
+                        <h4>Steps</h4>
+                        <ol>
+                            <li>
+                                Right click on the file geodatabase of latest input and choose
+                                Add To Project. This will list the input database under the
+                                Databases group in the Catalog/Project active contents. [OPTIONAL]
+                            </li>
+                            <li>
+                                The Pro project should come with a habitraksde.tbx toolbox under the
+                                Toolboxes group. Open the toolbox and double click on the
+                                <b>Habitrak SDE Update to Dev (WORKING)</b> tool (which is linked
+                                to the script <i>habitraksde_update1dev201.py</i> file).
+                            </li>
+                            <li>
+                                Fill in the parameters for the tool
+                                <pre>
+                                    Parameters
+    Habitrak Table To Update=	LOSS
+    Habitrak SDE Dev Connection=	I:\gis\pro\aegis\server\habitrak_write@sqldev1.sde
+    Input FeatureClass or Table with New Data=	I:\gis\pro\aegis\data\habitrak_SDSD_20171004.gdb\Loss
+    AGENCY=	14-City of San Diego-SDSD
+    PLAN=	4-MSCP West San Diego County
+    Update Working Table=	true
+                                </pre>
+                                You can find the connection file to the HabiTrak SDE SQL Server
+                                database under the ./server folder under the Pro project folder.
+                            </li>
+                        </ol>
+                        <h4>Wrapup</h4>
+                        <p></p>
+                    </li>
+                    <li>
+                        <h3>
+                            SDE Update Stage 2 (to Test &amp; Prod SQL Servers)
+                        </h3>
+                        <h4>Summary</h4>
+                        <p>
+                            In Stage 2 update, the WORKING tables loaded in 
+                            Stage 1 are used to update the same WORKING tables 
+                            in Test and Production SQL Server SDE databases 
+                            so they can be queried externally to generate the reports.
+                        </p>
+                        <h4>
+                            Tool: Habitrak SDE Update WORKING for Review
+                        </h4>
+                        <img alt="habitraksde201update2review" src="img/habitraksde201update2review.png">
+                    </li>
+                    <li>
+                        <h3>
+                            SDE Update Stage 3 (to Production SQL Server)
+                        </h3>
+                        <h4>Summary</h4>
+                        <p>
+                            In Stage 3, after agency review the reports generated 
+                            by the WORKING tables in CDFW SQL Server SDE 
+                            database, data is copied to FINAL permanent tables 
+                            <i>APN_FINAL</i>, <i>GAIN_FINAL</i>, 
+                            <i>LOSS_FINAL</i>, and <i>OVERLAY_FINAL</i>.
+                        </p>
+                        <h4>
+                            Tool: Habitrak SDE Update to Prod (FINAL)
+                        </h4>
+                        <img alt="habitraksde201update3final" src="img/habitraksde201update3final.png">
+                    </li>
+                </ol>
+            </section>
+            <section>
+                <h2>
+                    Web App
+                </h2>
+                <h4>Setup</h4>
+                <p></p>
+                <ol>
+                    <li>
+                        <h3>
+                            SDE Update Stage 1 (to Dev SQL Server)
+                        </h3>
+                        <h4>
+                            Tool: Habitrak SDE Update to Dev (WORKING)
+                        </h4>
+                        <table style="border: 1px solid slategray;">
+                            <tr>
+                                <th>Habitrak Table To Update</th>
+                                <td style="padding: 5px;">
+                                    <select>
+                                        <option id="apn" value="APN">APN</option>
+                                        <option id="gain" value="APN">GAIN</option>
+                                        <option id="loss" value="APN">LOSS</option>
+                                        <option id="overlay" value="APN">OVERLAY</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Database Environment</th>
+                                <td style="padding: 5px;">
+                                    <select>
+                                        <option id="dev" value="sqldev1">Dev</option>
+                                        <option id="test" value="sqltest1">Test</option>
+                                        <option id="prod" value="sqlprod1">Production</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Input Feature Layer or Table of New Data</th>
+                                <td style="padding: 5px;">
+                                    <input type="file" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>AGENCY</th>
+                                <td style="padding: 5px;">
+                                    <select>
+                                        <option id="sdcar" value="1" title="CBD" data-plan="4">
+                                            1-City of Carlsbad-SDCAR
+                                        </option>
+                                        <option id="sdcv" value="2" title="CV" data-plan="1">
+                                            2-City of Chula Vista-SDCV
+                                        </option>
+                                        <option id="sdsd" value="3" title="SD" data-plan="1">
+                                            14-City of San Diego-SDSD
+                                        </option>
+                                        <option id="sdcn" value="4" title="CSD" data-plan="1">
+                                            19-County of San Diego-SDCN
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>PLAN</th>
+                                <td style="padding: 5px;">
+                                    <select>
+                                        <option id="plan-1" value="1" title="MSCP South|Chula Vista,San Diego City,San Diego County" data-agency="2,14,19">
+                                            1-MSCP South San Diego County
+                                        </option>
+                                        <option id="plan-2" value="2" title="MSCP East|None" data-agency="0">
+                                            2-MSCP East San Diego County
+                                        </option>
+                                        <option id="plan-3" value="3" title="MSCP North|None" data-agency="0">
+                                            3-MSCP North San Diego County
+                                        </option>
+                                        <option id="plan-4" value="4" title="MSCP West|Carlsbad" data-agency="1">
+                                            4-MSCP West San Diego County
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                </ol>
+                <h4>Wrapup</h4>
+                <p></p>
+            </section>
+        </main>
+        <footer>
+            <table style="background-color: transparent; border: none; width: 100%;">
+                <tr>
+                    <td title="navigator.userAgent platform(OS)">
+                        <script>
+                            document.write(navigator.userAgent + "-" + navigator.platform);
+                        </script>
+                    </td>
+                    <td onclick="toggle('windowprops')" style="text-align: center;">
+                        &boxbox;
+                    </td>
+                    <td title="author, contact" style="text-align: right;">
+                        <a href="mail:dean.chiang@wildlife.ca.gov">dchiang@dfg</a>
+                        &copy;
+                        <script>
+                                document.write(document.lastModified);
+                        </script>
+                    </td>
+                </tr>
+                <tr id="windowprops" style="display: none;">
+                    <td>
+                        <script>
+                            var br = "<br />";
+                            var msg = "window.innerHeight=" + window.innerHeight + br +
+                                "window.innerWidth=" + window.innerWidth + br +
+                                "window.scrollX=" + window.scrollX + br + // Horizontal scrolling
+                                "window.scrollY=" + window.scrollY + br + // Vertical scrolling
+                                "window.screen.availHeight=" + window.screen.availHeight + br +
+                                "window.screen.availLeft=" + window.screen.availLeft + br +
+                                "window.screen.availTop=" + window.screen.availTop + br +
+                                "window.screen.availWidth=" + window.screen.availWidth + br +
+                                "window.screen.colorDepth=" + window.screen.colorDepth + br +
+                                "window.screen.height=" + window.screen.height + br +
+                                "window.screen.pixelDepth=" + window.screen.pixelDepth + br +
+                                "window.screen.width=" + window.screen.width + br +
+                                "navigator.appName=" + navigator.appName + "<br />" +
+                                "navigator.appCodeName=" + navigator.appCodeName + "<br />" +
+                                "navigator.appVersion=" + navigator.appVersion + "<br />" +
+                                "navigator.product=" + navigator.product + "<br />" +
+                                "navigator.cookieEnabled=" + navigator.cookieEnabled;
+                                //"navigator.platform(operating system)=" + navigator.platform + "<br />" +
+                                //"navigator.userAgent=" + navigator.userAgent + "<br />";
+                            //document.getElementById("window_info").innerHTML = msg;
+                            document.write(msg);
+                        </script>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </footer>
+    </body>
+</html>
