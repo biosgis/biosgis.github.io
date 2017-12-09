@@ -17,10 +17,22 @@ aside {
     border: 1px solid silver;
     border-width: 0.5px 0 2px 1px;
     max-width: 20%;
+    min-height: 300px;
     float: right;
     padding-left: 5px;
 }
+code {
+    font-weight: bold;
+    padding: 1px 5px;
+}
+code:hover {
+    background-color: aliceblue;
+    display: block;
+    margin-left: 10px;
+    padding: 5px 10px;
+}
 footer {
+    position: relative;
     left: 0; bottom: 0; right: 0;
     height: auto; width: auto;
     background-color: whitesmoke;
@@ -28,15 +40,6 @@ footer {
     font-family: monospace;
     margin-top: 10px;
     padding: 5px;
-}
-code {
-    background-color: aliceblue;
-    font-weight: bold;
-    padding: 1px 5px;
-}
-header {
-    background-color: whitesmoke;
-    border-bottom: 1px solid silver;
 }
 h1 {
     font-family: 'Arial Black', Tahoma, Impact, fantasy;
@@ -55,44 +58,72 @@ h2:hover {
 h3 {
     font-family: Verdana, cursive;
     border-right: 0px solid lightslategray;
-    border-top: 1px solid whitesmoke;
+    border-top: 2px solid whitesmoke;
+    padding-left: 5px;
+}
+h3:hover {
+    border-top: 2px dashed royalblue;
 }
 h4 {
+    border-top: 1px dotted transparent;
     font-family: Arial, sans-serif;
+}
+h4:hover {
+    border-top: 1px dotted antiquewhite;
 }
 h5 {
     font-family: 'Arial Narrow', 'Comic Sans MS', monospace;
+}
+header {
+    background-color: whitesmoke;
+    border-bottom: 1px solid silver;
 }
 nav {
     background-color: snow;
     border-bottom: 1px solid silver;
 }
 pre {
-    background-color: aliceblue;
+    background-color: honeydew;
     border: 1px solid gainsboro;
     margin: 5px;
     padding: 5px;
 }
 section {
-    border-bottom: 1px solid silver;
+    border-bottom: 1px solid ghostwhite;
 }
 table {
     background-color: white;
     border-collapse: collapse;
-    border: 1px solid dimgray;
+    border: 1px solid floralwhite;
 }
 td {
-    border: 1px solid gray;
-    padding: 1px;
+    border: 1px solid floralwhite;
+    padding: 2px;
     vertical-align: top;
 }
 th {
-    border: 1px solid dimgray;
+    border: 1px solid floralwhite;
     vertical-align: top;
+    padding: 2px;
 }
 
-.hide {
-    display: none;
+.ali {
+    border-left: 5px solid ivory;
+    display: block;
+    margin: 2px;
+    padding: 2px;
+}
+.clickme {
+    background-color: transparent;
+    border: 1px solid transparent;
+    cursor: default;
+    padding: 1px 5px;
+}
+.clickme:hover {
+    background-color: lemonchiffon;
+    border: 1px solid lightcyan;
+    cursor: pointer;
+    text-decoration: none;
 }
 .go {
     background-color: ghostwhite;
@@ -107,6 +138,17 @@ th {
     border: 1px solid gray;
     text-decoration: underline;
 }
+.hide { /*NO NEED - Use html hidden attribute instead -20171208*/
+    display: none;
+}
+.linkpool {
+    border: 2px solid khaki;
+    border-width: 2px 0;
+    padding: 1px;
+}
+.mono {
+    font-family: monospace;
+}
 .navlink {
     border-right: 1px solid gainsboro;
     margin-right: 5px;
@@ -115,6 +157,15 @@ th {
 }
 .navlink:hover {
     text-decoration: underline;
+}
+.red {
+    color: red;
+}
+.show {
+    display: '';
+}
+.right {
+    text-align: right;
 }
 .toggleme:hover {
     background-color: silver;
@@ -125,12 +176,53 @@ th {
     border-left-color: steelblue;
     float: left;
     height: 1px; width: 1px;
+    margin-right: 5px;
+}
+
+.bug {
+    border-left: 5px solid orange;
+    color: crimson;
+    margin: 2px;
+    padding: 2px;
+}
+.todo {
+    border-left: 5px solid gold;
+    color: slateblue;
+    margin: 2px;
+    padding: 2px;
+}
+.doing {
+    color: teal;
+    margin: 2px;
+    padding: 2px;
+}
+.done {
+    color: slategray;
+    font-weight: bold;
+    margin: 2px;
+    padding: 2px;
+}
+.wish {
+    color: magenta;
+    margin: 2px;
+    padding: 2px;
+}
+.ref {
+    color: darkslategray;
+    font-style: italic;
+}
+.fxn {
+    color: firebrick;
+    font-weight: bold;
+}
+.var {
+    color: steelblue;
+    font-weight: bold;
 }
 .facebook {
     background-color: royalblue;
     color: white;
     font-family: 'Arial Black', Impact, Tahoma, fantasy;
-    font-size: 123%;
     font-weight: bolder;
     padding: 1px 5px;
     margin: 0 5px;
@@ -139,7 +231,6 @@ th {
     background-color: steelblue;
     color: white;
     font-family: 'Arial Black', Impact, Tahoma, fantasy;
-    font-size: 123%;
     font-weight: bolder;
     padding: 1px 5px;
     margin: 0 5px;

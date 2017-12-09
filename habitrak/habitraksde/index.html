@@ -6,9 +6,11 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>HabitrakSDE Update</title>
+        <title>Habitrak SDE Update</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://biosgis.github.io/css/dotty.css">
+        <script src="https://biosgis.github.io/js/dotty.js"></script>
         <style>
             /* dotty.css */
             body {
@@ -79,7 +81,7 @@ and open the template in the editor.
                 border-bottom: 1px solid silver;
             }
             pre {
-                background-color: aliceblue;
+                background-color: honeydew;
                 border: 1px solid gainsboro;
                 margin: 5px;
                 padding: 5px;
@@ -306,11 +308,11 @@ and open the template in the editor.
                     ArcGIS Pro 2.0.1 Version
                 </h2>
                 <h4>Setup</h4>
-                <p></p>
+                <p>Toolbox: habitraksde.tbx</p>
                 <ol>
                     <li>
                         <h3>
-                            SDE Update Stage 1 (to Dev SQL Server)
+                            SDE Update Stage 1 to Dev SQL Server
                         </h3>
                         <h4>Summary</h4>
                         <p>
@@ -322,7 +324,8 @@ and open the template in the editor.
                             so they can be used to update Test and Prod.
                         </p>
                         <h4>
-                            Tool: Habitrak SDE Update to Dev WORKING
+                            Tool: Habitrak SDE Update 1 Dev WORKING
+                            <small>(habitraksde.tbx) Script: habitraksde1working201.py</small>
                         </h4>
                         <img alt="habitraksde201update1dev" src="img/habitraksde201update1dev.png">
                         <h4>Steps</h4>
@@ -336,7 +339,7 @@ and open the template in the editor.
                                 The Pro project should come with a habitraksde.tbx toolbox under the
                                 Toolboxes group. Open the toolbox and double click on the
                                 <b>Habitrak SDE Update to Dev (WORKING)</b> tool (which is linked
-                                to the script <i>habitraksde_update1dev201.py</i> file).
+                                to the script <i>habitraksde1working201.py</i> file).
                             </li>
                             <li>
                                 Fill in the parameters for the tool
@@ -347,7 +350,7 @@ and open the template in the editor.
     Input FeatureClass or Table with New Data=	I:\gis\pro\aegis\data\habitrak_SDSD_20171004.gdb\Loss
     AGENCY=	14-City of San Diego-SDSD
     PLAN=	4-MSCP West San Diego County
-    Update Working Table=	true
+    Update WORKING Table=	true
                                 </pre>
                                 You can find the connection file to the HabiTrak SDE SQL Server
                                 database under the ./server folder under the Pro project folder.
@@ -355,6 +358,17 @@ and open the template in the editor.
                         </ol>
                         <h4>Wrapup</h4>
                         <p></p>
+                        <details>
+                            <summary>
+                                On script tool error, check the following...
+                            </summary>
+                            <p>
+                                If original *_WORKING table is missing, 
+                                rename the most current edit copy or the 
+                                *_Wyyyymmdd_COPY newly updated table as the 
+                                target table.
+                            </p>
+                        </details>
                     </li>
                     <li>
                         <h3>
