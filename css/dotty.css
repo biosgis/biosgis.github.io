@@ -107,6 +107,13 @@ th {
     padding: 2px;
 }
 
+#msgs {
+    min-height: 50px;
+    border-top: 1px solid lightslategray;
+    color: gray;
+    font-family: Consolas, 'Comic Sans MS';
+}
+
 .ali {
     border-left: 5px solid ivory;
     display: block;
@@ -123,7 +130,21 @@ th {
     background-color: lemonchiffon;
     border: 1px solid lightcyan;
     cursor: pointer;
+    font-style: italic;
     text-decoration: none;
+}
+.comics {
+    background-color: white;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    color: dimgray;
+    font-family: 'Comic Sans MS', system, monospace;
+    font-size: 100%;
+    font-style: italic;
+    font-variant: small-caps;
+    font-weight: bold;
+    margin: 5px;
+    padding: 5px;
 }
 .go {
     background-color: ghostwhite;
