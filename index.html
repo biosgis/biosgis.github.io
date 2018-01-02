@@ -22,6 +22,7 @@ and open the template in the editor.
             html, body {
                 height: 100%; width: 100%;
                 font-family: Consolas, Monaco, 'Comic Sans MS';
+                font-size: 100%;
                 margin: 0; padding: 0;
             }
             header {
@@ -41,7 +42,7 @@ and open the template in the editor.
             main {
                 position: fixed;
                 top: 6%; right: 0;
-                height: 88%; width: 70%;
+                height: 88%; width: 55%;
                 background-color: white;
                 border: 1px solid silver;
             }
@@ -55,16 +56,17 @@ and open the template in the editor.
             footer {
                 position: fixed;
                 bottom: 0;
-                height: 6%;
+                height: 5%;
                 background-color: ghostwhite;
                 border-top: 1px solid silver;
             }
             #toc {
                 position: fixed;
                 top: 6%; left: 0;
-                height: 88%; width: 30%;
+                height: 88%; width: 45%;
                 background-color: white;
                 border-right: 1px solid silver;
+                overflow: auto;
             }
             #mapview {
                 position: absolute;
@@ -105,114 +107,116 @@ and open the template in the editor.
         <nav title="Navigation">
             <input type="text" id="q" value="Hello guest!" size="80" style="margin: 5px;" title="Command Box">
         </nav>
-        <section id="toc" title="Table Of Contents"></section>
+        <section id="toc" title="Table Of Contents">
+            <h2>Map Apps</h2>
+            <h3 title="Test ArcGIS Server performance to external clients">
+                ArcCloud
+                <a href="https://cdfw.maps.arcgis.com/home/">CDFW</a>
+                <a href="http://www.arcgis.com/">AGOL</a>
+            </h3>
+            <h3>
+                ArcGIS Server
+                <a href="https://map.dfg.ca.gov/arcgis/admin/">Admin</a>
+                <a href="https://map.dfg.ca.gov/arcgis/manager/">Manager</a>
+                <a href="https://map.dfg.ca.gov/arcgis/">REST</a>
+            </h3>
+            <h3>
+                Auth
+                <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview">AzureAD</a>
+            </h3>
+            <h3>
+                ACE
+                <a href="https://map.dfg.ca.gov/ace">Prod</a>
+                <a href="https://www.wildlife.ca.gov/Data/Analysis/Ace">Home</a>
+            </h3>
+            <h3>
+                BIOS
+                <a href="https://map.dfg.ca.gov/beta/?bl=OpenStreetMap&zl=8&log=off&msg=on">Staging</a>
+                <a href="https://map.dfg.ca.gov/beta/?bl=OpenStreetMap&zl=8&log=off&msg=on">Staging</a>
+                <a href="https://map.dfg.ca.gov/bios/?bl=Streets&zl=8">Prod</a>
+                <a href="https://www.wildlife.ca.gov/Data/BIOS">Home</a>
+                <a href="https://www.wildlife.ca.gov/Data/BIOS/Dataset-Index">Metadata&amp;Download</a>
+                <a href="ftp://ftp.dfg.ca.gov/BDB/GIS/BIOS/Public_Datasets/">FTP</a>
+            </h3>
+            <h3>
+                CNDDB
+                <a href="https://map.dfg.ca.gov/beta/?al=ds45&log=off&msg=on">Staging</a>
+                <a href="https://map.dfg.ca.gov/beta/?al=ds45&log=off&msg=on">Staging</a>
+                <a href="https://map.dfg.ca.gov/bios/?al=ds45&dslist=85,704,705,1002,1354&log=off&msg=on">Prod</a>
+                <a href="https://www.wildlife.ca.gov/Data/CNDDB">Home</a>
+            </h3>
+            <h3>
+                Quick Viewer
+                <a href="https://map.dfg.ca.gov/beta/?tool=cnddbQuick&log=off&msg=on">Staging</a>
+                <a href="https://map.dfg.ca.gov/bios?tool=cnddbQuick">Prod</a>
+            </h3>
+            <h3>
+                Fishing Guide
+                <a href="https://map.dfg.ca.gov/beta/?viewer=fishing&log=off&msg=on">Staging</a>
+                <a href="https://map.dfg.ca.gov/fishing">Prod</a>
+                <a href="https://www.wildlife.ca.gov/Fishing">Home</a>
+            </h3>
+            <h3>
+                <a href="https://map.dfg.ca.gov/lands">Lands</a>
+                <a href="https://www.wildlife.ca.gov/Lands">Home</a>
+            </h3>
+            <h3>
+                <a href="https://map.dfg.ca.gov/marine">Marine</a>
+                <a href="https://www.wildlife.ca.gov/Regions/Marine">Home</a>
+            </h3>
+            <h3>
+                <a href="https://map.dfg.ca.gov/rarefind/view/rarefind.aspx">RareFind5</a>
+            </h3>
+            <h3 hidden="hidden">
+                Proxy Test
+                <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://map.dfg.ca.gov/arcgis/rest/services/Base_Maps/GeoReference/MapServer?f=pjson">GeoReference</a>
+                <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://map.dfg.ca.gov/arcgis/rest/services/Project_BIOS_Secure/q_BIOS_Secure_polygons00/MapServer/3?f=pjson">CNDDB</a>
+                <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://services.gis.ca.gov/arcgis/rest/services/Boundaries/CA_School_Districts/MapServer?f=pjson">Public</a>
+            </h3>
+            <h2>Dir</h2>
+            <ul>
+                <li><a href="bios">bios</a></li>
+                <li><a href="cwhr">cwhr</a></li>
+                <li><a href="delta">delta</a></li>
+                <li><a href="habitrak">habitrak</a>
+                    <ul>
+                        <li><a href="habitrak/habitask20.html">habitask2.0.0 user guide</a></li>
+                    </ul>
+                </li>
+                <li><a href="tools">tools/</a>
+                    <ul>
+                        <li><a href="tools/fonttest.html">font test</a></li>
+                    </ul>
+                </li>
+                <li><a href="wir">wir</a></li>
+            </ul>
+            <details>
+                <summary>Sites</summary>
+                <p>
+                    <a href="https://map.dfg.ca.gov/arcgis"></a>
+                    <a href="https://map.dfg.ca.gov/beta/?bl=OpenStreetMap&zl=8&log=off"></a>
+                    <a href="https://map.dfg.ca.gov/ace/?log=off"></a>
+                    <a href="https://map.dfg.ca.gov/bios/?log=off"></a>
+                    <a href="https://map.dfg.ca.gov/bios/?bookmark=326&log=off"></a>
+                    <a href="https://map.dfg.ca.gov/bios/?dslist=45,85,704,705,1002,1354&log=off"></a>
+                    <a href="https://map.dfg.ca.gov/bios/?tool=cnddbQuick&log=off"></a>
+                    <a href="https://map.dfg.ca.gov/fishing/?log=off"></a>
+                    <a href="https://map.dfg.ca.gov/lands/?log=off"></a>
+                    <a href="https://map.dfg.ca.gov/marine/?log=off"></a>
+                    <a href="http://biosgis.blogspot.com/p/cdfw-apps.html"></a>
+                    <a href="http://biosgis.blogspot.com/p/habitrak-edit-task.html"></a>
+                    <a href="https://aiosgit.github.io"></a>
+                    <a href="https://biosgis.github.io"></a>
+                    <a href="https://biosgis.gitlab.io/habitrak/"></a>
+                    <a href="https://dfgchiang.bitbucket.io"></a>
+                </p>
+            </details>
+        </section>
         <main title="Mapview">
             <div id="mapview"></div>
         </main>
         <aside hidden="hidden" title="Aside">
-            <section style="display: none;">
-                <h2>Map Apps</h2>
-                <h3 title="Test ArcGIS Server performance to external clients">
-                    AGOL
-                    <a href="http://cdfw.maps.arcgis.com/home/webmap/viewer.html?webmap=1d9a196c42824f8993c0687eeb800f80">BIOS5-10.11</a> vs 
-                    <a href="http://cdfw.maps.arcgis.com/home/webmap/viewer.html?webmap=fd00da0146ae475dba10c3d6a1a202c8">BIOS5-10.5-R1</a> //20170403-M
-                </h3>
-                <h3>
-                    ArcGIS Server 10.5
-                    <a href="https://map.dfg.ca.gov/arcgis/manager/">Manager</a>
-                    <a href="https://map.dfg.ca.gov/arcgis/">REST</a>
-                </h3>
-                <h3>
-                    Auth
-                    <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview">AzureAD</a>
-                </h3>
-                <h3>
-                    ACE
-                    <a href="https://map.dfg.ca.gov/ace">Prod</a>
-                    <a href="https://www.wildlife.ca.gov/Data/Analysis/Ace">Home</a>
-                </h3>
-                <h3>
-                    BIOS
-                    <a href="https://map.dfg.ca.gov/beta/?bl=OpenStreetMap&zl=8&log=off&msg=on">Staging</a>
-                    <a href="https://map.dfg.ca.gov/beta/?bl=OpenStreetMap&zl=8&log=off&msg=on">Staging</a>
-                    <a href="https://map.dfg.ca.gov/bios/?bl=Streets&zl=8">Prod</a>
-                    <a href="https://www.wildlife.ca.gov/Data/BIOS">Home</a>
-                    <a href="https://www.wildlife.ca.gov/Data/BIOS/Dataset-Index">Metadata&amp;Download</a>
-                    <a href="ftp://ftp.dfg.ca.gov/BDB/GIS/BIOS/Public_Datasets/">FTP</a>
-                </h3>
-                <h3>
-                    CNDDB
-                    <a href="https://map.dfg.ca.gov/beta/?al=ds45&log=off&msg=on">Staging</a>
-                    <a href="https://map.dfg.ca.gov/beta/?al=ds45&log=off&msg=on">Staging</a>
-                    <a href="https://map.dfg.ca.gov/bios/?al=ds45&dslist=85,704,705,1002,1354&log=off&msg=on">Prod</a>
-                    <a href="https://www.wildlife.ca.gov/Data/CNDDB">Home</a>
-                </h3>
-                <h3>
-                    Quick Viewer
-                    <a href="https://map.dfg.ca.gov/beta/?tool=cnddbQuick&log=off&msg=on">Staging</a>
-                    <a href="https://map.dfg.ca.gov/bios?tool=cnddbQuick">Prod</a>
-                </h3>
-                <h3>
-                    Fishing Guide
-                    <a href="https://map.dfg.ca.gov/beta/?viewer=fishing&log=off&msg=on">Staging</a>
-                    <a href="https://map.dfg.ca.gov/fishing">Prod</a>
-                    <a href="https://www.wildlife.ca.gov/Fishing">Home</a>
-                </h3>
-                <h3>
-                    <a href="https://map.dfg.ca.gov/lands">Lands</a>
-                    <a href="https://www.wildlife.ca.gov/Lands">Home</a>
-                </h3>
-                <h3>
-                    <a href="https://map.dfg.ca.gov/marine">Marine</a>
-                    <a href="https://www.wildlife.ca.gov/Regions/Marine">Home</a>
-                </h3>
-                <h3>
-                    <a href="https://map.dfg.ca.gov/rarefind/view/rarefind.aspx">RareFind5</a>
-                </h3>
-                <h3>
-                    Proxy Test
-                    <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://map.dfg.ca.gov/arcgis/rest/services/Base_Maps/GeoReference/MapServer?f=pjson">GeoReference</a>
-                    <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://map.dfg.ca.gov/arcgis/rest/services/Project_BIOS_Secure/q_BIOS_Secure_polygons00/MapServer/3?f=pjson">CNDDB</a>
-                    <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://services.gis.ca.gov/arcgis/rest/services/Boundaries/CA_School_Districts/MapServer?f=pjson">Public</a>
-                </h3>
-                <h2>Dir</h2>
-                <ul>
-                    <li><a href="bios">bios</a></li>
-                    <li><a href="cwhr">cwhr</a></li>
-                    <li><a href="delta">delta</a></li>
-                    <li><a href="habitrak">habitrak</a>
-                        <ul>
-                            <li><a href="habitrak/habitask20.html">habitask2.0.0 user guide</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="tools">tools/</a>
-                        <ul>
-                            <li><a href="tools/fonttest.html">font test</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="wir">wir</a></li>
-                </ul>
-                <details>
-                    <summary>Sites</summary>
-                    <p>
-                        <a href="https://map.dfg.ca.gov/arcgis"></a>
-                        <a href="https://map.dfg.ca.gov/beta/?bl=OpenStreetMap&zl=8&log=off"></a>
-                        <a href="https://map.dfg.ca.gov/ace/?log=off"></a>
-                        <a href="https://map.dfg.ca.gov/bios/?log=off"></a>
-                        <a href="https://map.dfg.ca.gov/bios/?bookmark=326&log=off"></a>
-                        <a href="https://map.dfg.ca.gov/bios/?dslist=45,85,704,705,1002,1354&log=off"></a>
-                        <a href="https://map.dfg.ca.gov/bios/?tool=cnddbQuick&log=off"></a>
-                        <a href="https://map.dfg.ca.gov/fishing/?log=off"></a>
-                        <a href="https://map.dfg.ca.gov/lands/?log=off"></a>
-                        <a href="https://map.dfg.ca.gov/marine/?log=off"></a>
-                        <a href="http://biosgis.blogspot.com/p/cdfw-apps.html"></a>
-                        <a href="http://biosgis.blogspot.com/p/habitrak-edit-task.html"></a>
-                        <a href="https://aiosgit.github.io"></a>
-                        <a href="https://biosgis.github.io"></a>
-                        <a href="https://biosgis.gitlab.io/habitrak/"></a>
-                        <a href="https://dfgchiang.bitbucket.io"></a>
-                    </p>
-                </details>
+            <section>
             </section>
         </aside>
         <footer title="Footer">

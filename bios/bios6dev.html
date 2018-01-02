@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Bios 6 Development</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Consolas, Monaco, Arial, helvetica, sans-serif;
+                font-size: larger;
+            }
+            aside {
+                border: 1px solid silver;
+                border: 0 0 1px 1px;
+                float: right;
+            }
+            footer {
+                border-top: 1px solid silver;
+                font-family: monospace;
+            }
+            h1 {
+                font-family: 'Arial Black', fantasy;
+            }
+            h2 {
+                background-color: whitesmoke;
+                font-family: Georgia, serif;
+            }
+            h3 {
+                font-family: Verdana, 'Comic Sans MS', cursive;
+            }
+            h4 {
+                font-family: Arial, helvetica, sans-serif;
+            }
+            header {
+                border-bottom: 1px solid silver;
+            }
+            nav {
+                border-top: 1px solid silver;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>
+                Bios 6 IMAPS Development Log 20170424-
+            </h1>
+        </header>
+        <nav></nav>
+        <aside></aside>
+        <main>
+            <h2>Maintenance</h2>
+            <h3>Monthly</h3>
+            <ol>
+                <li>
+                    Web.config:51 - Update new cnddb_com password for the month.
+                </li>
+            </ol>
+            <h2>Auth</h2>
+            <h3>AD Membership Provider</h3>
+            <ol>
+                <li>
+                    Web.config:51 - Update new cnddb_com password for the month.
+                </li>
+            </ol>
+            <h2>App Bootup Process</h2>
+            <h3>Splash Panel</h3>
+            <ol>
+                <li>
+                    Text on splash panel is populated in amd.js/init fxn using data from 
+                    viewer.title and viewer.subtitle configured by viewer = configs[app.viewer]
+                    //20170424
+                </li>
+            </ol>
+            <h2>Layers</h2>
+            <h3>Map Image Layer</h3>
+            <h2>Table Of Contents (TOC)</h2>
+            <h3>Reference Layers</h3>
+            <ol>
+                <li>
+                    <a href="https://map.dfg.ca.gov/arcgis/rest/services/Base_Maps/GeoReference/MapServer">
+                        GeoReference
+                    </a>
+                </li>
+                <li>
+                    <a href="https://gis.lacounty.gov/ArcGIS/rest/services">
+                        LA County GIS Map Services Directory
+                    </a>
+                </li>
+            </ol>
+            <h3>Drag-and-Drop</h3>
+            <ol>
+                <li>
+                    <a href="https://www.html5rocks.com/en/tutorials/dnd/basics/">
+                        Native HTML5 Drag and Drop
+                    </a>
+                </li>
+            </ol>
+            <h2>Pages</h2>
+            <h3>index.html</h3>
+            <ol>
+                <li>
+                    sceneview = 3d view of map //20170424
+                </li>
+            </ol>
+            <h3>Changes</h3>
+            <ol>
+                <li>
+                    <h4></h4>
+                </li>
+            </ol>
+            <h2>Next</h2>
+            <ol>
+                <li>
+                    Publish APP_BOOKMARK table in biosgdb to AGOL
+                </li>
+                <li>
+                    What to call the tools container? 
+                    tools.js--Sidebar or Toolbar or Toolsbin or Toolwall?
+                    Not toolbelt, toolcart, toolgallery, toolpool
+                </li>
+                <li>
+                    What new class or file or module to create for new tool or functionality?
+                    Queue Queen Adder Cmd Term cli CLI
+                </li>
+                <li>
+                    URL is the command line; URL parameter name|key/value is the command argument
+                    client side app add data by url arg
+                </li>
+                <li>
+                    A function method is a capability that should belong to the tool object or toolset like arcpy.mp
+                    mp = Mapping.js
+                </li>
+                <li>
+                    Document list of changes per month
+                </li>
+            </ol>
+        </main>
+        <footer>
+            <div style="float: right;">
+                <a href="mail:dean.chiang@wildlife.ca.gov">dean.chiang@wildlife.ca.gov</a>
+                &copy;
+                <script>
+                    document.write(document.lastModified);
+                </script>
+            </div>
+        </footer>
+    </body>
+</html>

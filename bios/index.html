@@ -6,148 +6,196 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Bios 6 Development</title>
+        <title>bios6git</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="dchiang">
+        <meta name="description" content="">
+        <meta name="generator" content="aios-20171229">
+        <meta name="robots" content="noindex, nofollow, noarchive">
+        <link rel="stylesheet" href="css/dotty.css">
+        <script src="js/dotty.js"></script>
+        <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.6/"></script>
         <style>
-            body {
-                font-family: Consolas, Monaco, Arial, helvetica, sans-serif;
-                font-size: larger;
-            }
-            aside {
-                border: 1px solid silver;
-                border: 0 0 1px 1px;
-                float: right;
-            }
-            footer {
-                border-top: 1px solid silver;
-                font-family: monospace;
-            }
-            h1 {
-                font-family: 'Arial Black', fantasy;
-            }
-            h2 {
-                background-color: whitesmoke;
-                font-family: Georgia, serif;
-            }
-            h3 {
-                font-family: Verdana, 'Comic Sans MS', cursive;
-            }
-            h4 {
-                font-family: Arial, helvetica, sans-serif;
+            html, body {
+                height: 100%; width: 100%;
+                font-family: Consolas, Monaco, 'Comic Sans MS';
+                font-size: 100%;
+                margin: 0; padding: 0;
             }
             header {
+                position: absolute;
+                top: 0;
+                height: 6%; width: 100%;
+                background-color: white;
                 border-bottom: 1px solid silver;
             }
             nav {
+                position: fixed;
+                top: 0;
+                height: 6%; width: 100%;
+                background-color: white;
+                border-bottom: 1px solid silver;
+            }
+            main {
+                position: fixed;
+                top: 6%; right: 0;
+                height: 88%; width: 70%;
+                background-color: white;
+                border: 1px solid silver;
+            }
+            aside {
+                position: fixed;
+                top: 10%; right: 0;
+                height: 88%; width: 30%;
+                background-color: ghostwhite;
+                border-left: 1px solid silver;
+            }
+            footer {
+                position: fixed;
+                bottom: 0;
+                height: 5%;
+                background-color: ghostwhite;
                 border-top: 1px solid silver;
             }
+            #toc {
+                position: fixed;
+                top: 6%; left: 0;
+                height: 88%; width: 30%;
+                background-color: white;
+                border-right: 1px solid silver;
+            }
+            #mapview {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+            }
         </style>
+        <script>
+            require([
+                "esri/Map",
+                "esri/views/MapView",
+                "dojo/domReady!"
+            ], function(Map, MapView) {
+
+                var map = new Map({
+                    basemap: "streets"
+                });
+
+                var mapview = new MapView({
+                    container: "mapview",
+                    map: map,
+                    zoom: 7,
+                    center: [-121, 38] // longitude, latitude
+                });
+
+            });
+        </script>
+        <script>
+            function init() {
+                var msg = poplinks();
+            }
+            window.addEventListener("load", init);
+        </script>
     </head>
     <body>
-        <header>
-            <h1>
-                Bios 6 IMAPS Development Log 20170424-
-            </h1>
+        <header title="Header">
         </header>
-        <nav></nav>
-        <aside></aside>
-        <main>
-            <h2>Maintenance</h2>
-            <h3>Monthly</h3>
-            <ol>
-                <li>
-                    Web.config:51 - Update new cnddb_com password for the month.
-                </li>
-            </ol>
-            <h2>Auth</h2>
-            <h3>AD Membership Provider</h3>
-            <ol>
-                <li>
-                    Web.config:51 - Update new cnddb_com password for the month.
-                </li>
-            </ol>
-            <h2>App Bootup Process</h2>
-            <h3>Splash Panel</h3>
-            <ol>
-                <li>
-                    Text on splash panel is populated in amd.js/init fxn using data from 
-                    viewer.title and viewer.subtitle configured by viewer = configs[app.viewer]
-                    //20170424
-                </li>
-            </ol>
-            <h2>Layers</h2>
-            <h3>Map Image Layer</h3>
-            <h2>Table Of Contents (TOC)</h2>
-            <h3>Reference Layers</h3>
-            <ol>
-                <li>
-                    <a href="https://map.dfg.ca.gov/arcgis/rest/services/Base_Maps/GeoReference/MapServer">
-                        GeoReference
-                    </a>
-                </li>
-                <li>
-                    <a href="https://gis.lacounty.gov/ArcGIS/rest/services">
-                        LA County GIS Map Services Directory
-                    </a>
-                </li>
-            </ol>
-            <h3>Drag-and-Drop</h3>
-            <ol>
-                <li>
-                    <a href="https://www.html5rocks.com/en/tutorials/dnd/basics/">
-                        Native HTML5 Drag and Drop
-                    </a>
-                </li>
-            </ol>
-            <h2>Pages</h2>
-            <h3>index.html</h3>
-            <ol>
-                <li>
-                    sceneview = 3d view of map //20170424
-                </li>
-            </ol>
-            <h3>Changes</h3>
-            <ol>
-                <li>
-                    <h4></h4>
-                </li>
-            </ol>
-            <h2>Next</h2>
-            <ol>
-                <li>
-                    Publish APP_BOOKMARK table in biosgdb to AGOL
-                </li>
-                <li>
-                    What to call the tools container? 
-                    tools.js--Sidebar or Toolbar or Toolsbin or Toolwall?
-                    Not toolbelt, toolcart, toolgallery, toolpool
-                </li>
-                <li>
-                    What new class or file or module to create for new tool or functionality?
-                    Queue Queen Adder Cmd Term cli CLI
-                </li>
-                <li>
-                    URL is the command line; URL parameter name|key/value is the command argument
-                    client side app add data by url arg
-                </li>
-                <li>
-                    A function method is a capability that should belong to the tool object or toolset like arcpy.mp
-                    mp = Mapping.js
-                </li>
-                <li>
-                    Document list of changes per month
-                </li>
-            </ol>
+        <nav title="Navigation">
+            <input type="text" id="q" value="Hello guest!" size="80" style="margin: 5px;" title="Command Box">
+        </nav>
+        <div id="toc" title="Table Of Contents"></div>
+        <main title="Mapview">
+            <div id="mapview"></div>
         </main>
-        <footer>
-            <div style="float: right;">
-                <a href="mail:dean.chiang@wildlife.ca.gov">dean.chiang@wildlife.ca.gov</a>
-                &copy;
-                <script>
-                    document.write(document.lastModified);
-                </script>
-            </div>
+        <aside hidden="hidden" title="Aside">
+            <section style="display: none;">
+                <h3>Map Apps</h3>
+                <ul id="viewers-list" style="display: none;">
+                    <li>
+                        <a href="http://www.arcgis.com/">ArcGIS Online</a>
+                    </li>
+                    <li>
+                        <a href="https://map.dfg.ca.gov/arcgis/">ArcGIS Server services</a>
+                    </li>
+                    <li>
+                        <a href="https://map.dfg.ca.gov/ace">ACE</a>
+                    </li>
+                    <li>
+                        <a href="https://map.dfg.ca.gov/bios/?bl=Streets&zl=8">Bios5</a>|
+                        <a href="https://www.wildlife.ca.gov/Data/BIOS/Dataset-Index">Metadata&amp;Download</a>|
+                        <a href="ftp://ftp.dfg.ca.gov/BDB/GIS/BIOS/Public_Datasets/">FTP</a>
+                    </li>
+                    <li>
+                        <a href="https://map.dfg.ca.gov/bios/?al=ds45&dslist=85,704,705,1002,1354&log=off&msg=on">CNDDB</a>|
+                        <a href="https://www.wildlife.ca.gov/Data/CNDDB">Home</a>
+                    </li>
+                    <li>
+                        <a href="https://map.dfg.ca.gov/bios?tool=cnddbQuick&log=off">Quick Viewer</a>
+                    </li>
+                    <li>
+                        <a href="https://map.dfg.ca.gov/fishing?log=off">Fishing Guide</a>
+                    </li>
+                    <li>
+                        <a href="https://map.dfg.ca.gov/lands?log=off">Lands</a>
+                    </li>
+                    <li>
+                        <a href="https://map.dfg.ca.gov/marine?log=off">Marine</a>
+                    </li>
+                    <li>
+                        <a href="https://map.dfg.ca.gov/rarefind/view/rarefind.aspx">RareFind5</a>
+                    </li>
+                    <li>
+                        Proxy Test
+                        <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://map.dfg.ca.gov/arcgis/rest/services/Base_Maps/GeoReference/MapServer?f=pjson">GeoReference</a>|
+                        <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://map.dfg.ca.gov/arcgis/rest/services/Project_BIOS_Secure/q_BIOS_Secure_polygons00/MapServer/3?f=pjson">CNDDB</a>|
+                        <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://services.gis.ca.gov/arcgis/rest/services/Boundaries/CA_School_Districts/MapServer?f=pjson">Public</a>
+                    </li>
+                </ul>
+                <h3>Dir</h3>
+                <ul id="dir-list" style="display: none;">
+                    <li><a href="bios">bios</a></li>
+                    <li><a href="cwhr">cwhr</a></li>
+                    <li><a href="delta">delta</a></li>
+                    <li><a href="habitrak">habitrak</a>
+                    </li>
+                    <li><a href="tools">tools/</a>
+                        <ul>
+                            <li><a href="tools/fonttest.html">font test</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="wir">wir</a></li>
+                </ul>
+                <details>
+                    <summary>Sites</summary>
+                    <p>
+                        <a href="https://map.dfg.ca.gov/arcgis"></a>
+                        <a href="https://map.dfg.ca.gov/beta/?bl=OpenStreetMap&zl=8&log=off"></a>
+                        <a href="https://map.dfg.ca.gov/ace/?log=off"></a>
+                        <a href="https://map.dfg.ca.gov/bios/?log=off"></a>
+                        <a href="https://map.dfg.ca.gov/bios/?bookmark=326&log=off"></a>
+                        <a href="https://map.dfg.ca.gov/bios/?dslist=45,85,704,705,1002,1354&log=off"></a>
+                        <a href="https://map.dfg.ca.gov/bios/?tool=cnddbQuick&log=off"></a>
+                        <a href="https://map.dfg.ca.gov/fishing/?log=off"></a>
+                        <a href="https://map.dfg.ca.gov/lands/?log=off"></a>
+                        <a href="https://map.dfg.ca.gov/marine/?log=off"></a>
+                        <a href="http://biosgis.blogspot.com/p/cdfw-apps.html"></a>
+                        <a href="http://biosgis.blogspot.com/p/habitrak-edit-task.html"></a>
+                        <a href="https://aiosgit.github.io"></a>
+                        <a href="https://biosgis.github.io"></a>
+                        <a href="https://biosgis.gitlab.io/habitrak/"></a>
+                        <a href="https://dfgchiang.bitbucket.io"></a>
+                    </p>
+                </details>
+            </section>
+        </aside>
+        <footer title="Footer">
+            @<a href="mailto:bios@wildlife.ca.gov" title="Contact">bios</a>&copy;
+            <script>
+                document.write(document.lastModified);
+            </script>
         </footer>
     </body>
 </html>
