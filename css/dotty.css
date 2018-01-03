@@ -83,8 +83,8 @@ nav {
     border-bottom: 1px solid silver;
 }
 pre {
-    background-color: honeydew;
-    border: 1px solid gainsboro;
+    background-color: aliceblue;
+    border-left: 5px solid gainsboro;
     margin: 5px;
     padding: 5px;
 }
