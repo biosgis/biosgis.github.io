@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -14,88 +14,20 @@ and open the template in the editor.
         <meta name="description" content="">
         <meta name="generator" content="aios-20171229">
         <meta name="robots" content="noindex, nofollow, noarchive">
-        <link rel="stylesheet" href="css/dotty.css">
-        <script src="js/dotty.js"></script>
         <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
         <script src="https://js.arcgis.com/4.6/"></script>
+        <link rel="stylesheet" href="ada.css">
+        <script src="ada.js"></script>
         <style>
-            html, body {
-                height: 100%; width: 100%;
-                font-family: Consolas, Monaco, 'Comic Sans MS';
-                font-size: 100%;
-                margin: 0; padding: 0;
-            }
-            header {
-                position: absolute;
-                top: 0;
-                height: 6%; width: 100%;
-                background-color: white;
-                border-bottom: 1px solid silver;
-            }
-            nav {
-                position: fixed;
-                top: 0;
-                height: 6%; width: 100%;
-                background-color: white;
-                border-bottom: 1px solid silver;
-            }
-            main {
-                position: fixed;
-                top: 6%; right: 0;
-                height: 88%; width: 70%;
-                background-color: white;
-                border: 1px solid silver;
-            }
-            aside {
-                position: fixed;
-                top: 10%; right: 0;
-                height: 88%; width: 30%;
-                background-color: ghostwhite;
-                border-left: 1px solid silver;
-            }
-            footer {
-                position: fixed;
-                bottom: 0;
-                height: 5%;
-                background-color: ghostwhite;
-                border-top: 1px solid silver;
-            }
-            #toc {
-                position: fixed;
-                top: 6%; left: 0;
-                height: 88%; width: 30%;
-                background-color: white;
-                border-right: 1px solid silver;
-            }
-            #mapview {
-                position: absolute;
-                height: 100%;
-                width: 100%;
-            }
         </style>
         <script>
-            require([
-                "esri/Map",
-                "esri/views/MapView",
-                "dojo/domReady!"
-            ], function(Map, MapView) {
-
-                var map = new Map({
-                    basemap: "streets"
-                });
-
-                var mapview = new MapView({
-                    container: "mapview",
-                    map: map,
-                    zoom: 7,
-                    center: [-121, 38] // longitude, latitude
-                });
-
-            });
+            DEFAULT_PAGE = 'index.html';
         </script>
         <script>
             function init() {
                 var msg = poplinks();
+                var d = new Date();
+                $('msgbin-stat').innerHTML = d.toString();
             }
             window.addEventListener("load", init);
         </script>
@@ -104,11 +36,31 @@ and open the template in the editor.
         <header title="Header">
         </header>
         <nav title="Navigation">
-            <input type="text" id="q" value="Hello guest!" size="80" style="margin: 5px;" title="Command Box">
+            <div class="nav-item" title="App Name">BIOSVI</div>
+            <ul class="nav-menu">
+                <li class="nav-item" title="Add Data">Add Data</li>
+                <li class="nav-item" title="Toggle Contents">Contents</li>
+                <li class="nav-item" title="Toggle Tools">Tools</li>
+            </ul>
+            <div id="anonymousPanel" style="display: none; padding: 5px; text-align: center; float: right;">
+                <span id="sign-in" class="action">Sign In</span> and view your ArcGIS Online
+                items.
+            </div>
+
+            <div id="personalizedPanel" style="display: none; padding: 5px; text-align: center; float: right;">
+                Welcome <span id="userId" style="font-weight: bold;"></span> &nbsp;-&nbsp;
+                <span id="sign-out" class="action">Sign Out</span>
+            </div>
         </nav>
         <div id="toc" title="Table Of Contents"></div>
         <main title="Mapview">
             <div id="mapview"></div>
+            <div id="NorthArrow" title="North Arrow">
+                <!--<div style="font: normal normal bold 300% Verdana; margin-top: -10px; overflow: visible;">&uArr;</div>-->
+                <div>&uArr;</div>
+                <span class="northArrowN">N</span>
+            </div>
+            <div id="map-msg"></div>
         </main>
         <aside hidden="hidden" title="Aside">
             <section style="display: none;">
@@ -191,7 +143,34 @@ and open the template in the editor.
                 </details>
             </section>
         </aside>
+        <div id="tools">
+            <h3 class="panel-title">
+                Tools
+                <span class="esri-icon-close" style="float: right;" onclick="hid(this.parentNode.parentNode)"></span>
+            </h3>
+            <div id="tools-main" class="panel-main">
+                <div id="bistro">
+                    <p>
+                        <input type="text" id="q" value="Search BIOS Data Catalog">
+                    </p>
+                    <div id="bs-msg">
+                        Search Result
+                    </div>
+                    <div id="itemGallery" class="esri-item-gallery" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div id="msgbin">
+            <h3 style="border-bottom: 1px solid silver; margin: 0; padding: 5px;">
+                Messages::
+                <span id="msgbin-stat" style="color: silver;"></span>
+                <span class="esri-icon-close" style="float: right;" onclick="hid(this.parentNode.parentNode)"></span>
+            </h3>
+            <div id="msgbox"></div>
+        </div>
         <footer title="Footer">
+            <input type="text" id="cli" value="Hello guest!" size="80" style="margin: 5px;" title="Command Line Input">
+            <span class="esri-icon-loading-indicator" style="margin: 1px 5px;"></span>
             @<a href="mailto:bios@wildlife.ca.gov" title="Contact">bios</a>&copy;
             <script>
                 document.write(document.lastModified);

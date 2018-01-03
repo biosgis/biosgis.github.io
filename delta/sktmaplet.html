@@ -1,0 +1,1116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Spring Kodiak Trawl Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+    <meta name="application-name" content="BIOS" />
+    <meta name="author" content="bios@wildlife.ca.gov" />
+    <meta name="keywords" content="biota, biogeography, biodiversity, species" />
+    <meta name="description" content="CDFW Biogeographic Information and Observation System, Bay Delta SKT map" />
+    <meta name="generator" content="imaps-20170803-skt" />
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/themes/light-blue/main.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Load Leaflet from CDN-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
+          integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
+          crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet-src.js"
+            integrity="sha384-TWB9xRHTlLQmqAngHwD7usGcf4akGf0JP6aHwlgilpmOu2UuBq5aWLsDAh39iSn1"
+            crossorigin="">
+    </script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.0.8"
+            integrity="sha384-ze7rgny7/YGFxBlVgTBdOABNWe5V9BYjju/qwqJhCU8XJHtuEnRlbUpN5lXyY706"
+            crossorigin="">
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        fieldset {
+            border: none;
+        }
+        footer {
+            border-top: 1px solid silver;
+            padding: 1px 5px;
+            text-align: left;
+        }
+        .map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+        #legend {
+            position: absolute;
+            left: 10px; top: 460px;
+            height: 200px; width: 200px;
+            background-color: transparent;
+            border: 1px solid ghostwhite;
+            z-index: 300;
+        }
+        #map {
+            position: relative;
+            height: 640px; width: 900px;
+            border: 1px solid silver;
+            z-index: 100;
+        }
+        #map-title {
+            position: absolute;
+            left: 10px; top: 40px;
+            z-index: 300;
+        }
+        #msgbin {
+            position: fixed; bottom: 0; right: 0;
+            background-color: black;
+            border: 2px solid silver;
+            border-radius: 5px;
+            color: white;
+            font-family: monospace;
+            height: 44%; max-width: 44%;
+            overflow: hidden;
+            padding: 5px;
+            z-index: 500;
+        }
+        #msgbin-hide {
+            position: absolute; top: 2px; right: 2px; float: right;
+        }
+        #msgbin-show {
+            position: fixed; bottom: 0; right: 0;
+            z-index: 400;
+        }
+        #msgbox {
+            position: relative;
+            max-height: 83%;
+            overflow: auto;
+            padding: 5px;
+        }
+        .cell {
+            border: 1px solid silver;
+            /*border-width: 0 1px;*/
+            padding: 2px 5px;
+        }
+        .hide {
+            display: none;
+        }
+        .base-icon {
+            background-color: transparent;
+            border: 1px solid silver;
+            border-radius: 5px;
+            height: auto; width: auto;
+        }
+        .html-icon {
+            background-color: white;
+            border: 2px solid orange;
+            border-radius: 5px;
+            color: red;
+            font-size: 110%;
+            font-weight: bold;
+            height: auto; width: auto;
+        }
+        .label {
+            background-color: transparent;
+            color: black;
+            font-family: sans-serif;
+            font-size: 10;
+            font-weight: bold;
+        }
+        .legend-caption {
+            border-bottom: 1px solid dimgray;
+            font-weight: bold;
+            padding: 2px;
+            text-align: left;
+        }
+        .legend-title {
+            border-bottom: 1px solid dimgray;
+            font-weight: bold;
+            padding: 2px;
+            display: none;
+        }
+        .picon {
+            position: relative; left: -50px; top: -50px;
+        }
+        .poptb {
+            border: 1px solid silver;
+            border-collapse: collapse;
+        }
+        .poptd {
+            border: 1px solid gray;
+            padding: 1px 2px;
+        }
+        .svgcell {
+            font-weight: bold;
+        }
+        .totalcell {
+            border: 1px solid silver;
+            font-family: monospace;
+            font-weight: bold;
+            width: 40px;/*FAIL--IE11*/
+        }
+        @media print {
+            #legacy-link {
+                display: none;
+            }
+            #legend {
+                top: 450px;
+            }
+            #map-title {
+                top: 20px;
+            }
+            #msgbin {
+                display: none;
+            }
+            #navbar {
+                display: none;
+            }
+            .svgcell {
+                display: block;
+            }
+        }
+    </style>
+    <script>
+        function $(id) { return document.getElementById(id); }
+        function hide(id) { $(id).style.display = 'none';}
+        function show(id) { $(id).style.display = ''; }
+        function toggle(id) { $(id).style.display = ($(id).style.display === 'none' ? '' : 'none'); }
+        function add(a, b) { return a + b; }
+        function addmsg(s) { $('msgbox').innerHTML += s + '<br />';}
+        var app = {
+            "avn": 20170929,
+            "year": 2017,
+            "survey": 1,
+            "sex": "1",
+            "showlabels": false,
+            "showtable": false,
+            "layers": {
+                "stations": {
+                    "url": "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/sktgdb/FeatureServer/0"
+                },
+                "samples": {
+                    "url": "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/sktgdb/FeatureServer/1"
+                },
+                "summary": {
+                    "url": "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/sktgdb/FeatureServer/2"
+                }
+            }
+        }
+        var categories = [
+            ['sexratio', 'male', 'female', 'unknown'],
+            ['Undetermined', 'Pre-spawn', 'Pre-spawn', 'Pre-spawn', 'Pre-spawn', 'Ripe', 'Spent'],
+            ['Undetermined', 'Pre-spawn', 'Pre-spawn', 'Pre-spawn', 'Ripe', 'Failed to spawn', 'Post-spawn']
+        ];//20170926--Changed from '', 'Funct mature'|'', 'Mature', 'Spawn precluded', 'Spent'
+        //index:0=sexratio, 1=male, 2=female
+        var colors = [
+            ['white', 'deepskyblue', 'hotpink', 'khaki'],
+            ['white', 'khaki', 'cyan', 'cornflowerblue', 'steelblue', 'lightseagreen', 'palegreen'],
+            ['white', 'khaki', 'pink', 'magenta', 'purple', 'coral', 'palegreen']
+        ];
+        var piecolors = [
+            ['deepskyblue', 'hotpink', 'khaki'],
+            ['khaki', 'cyan', 'cornflowerblue', 'steelblue', 'lightseagreen', 'palegreen'],
+            ['khaki', 'pink', 'magenta', 'purple', 'coral', 'palegreen']
+        ];
+        var olayer = null; // overlay operational layergroup of markers with custom icons to show sample result
+        function init0() {
+            var map = L.map('map').setView([37.75, -122.23], 10);
+            L.esri.basemapLayer('Topographic').addTo(map);
+        }
+        //window.onload = init0; //FAIL
+        function drawChart() {
+            //SAMPLE--https://developers.google.com/chart/interactive/docs/gallery/piechart
+            var data = google.visualization.arrayToDataTable([
+              ['Stage', 'Percentage'],
+              ['1', 0],
+              ['2 (Pre-spawn)', 0],
+              ['3 (Pre-spawn)', 75],
+              ['4 (Pre-spawn)', 25],
+              ['5 (Funct mature)', 0],
+              ['6 (Spent)', 0]
+            ]);
+
+            var options = {
+                //title: 'Delta Smelt Stages',
+                colors: [
+                    'khaki', 'cyan', 'cornflowerblue', 'steelblue', 'lightseagreen', 'palegreen'
+                ],
+                backgroundColor: 'transparent',
+                height: 200,
+                legend: { position: 'none' }
+            };// bottom, right
+
+            var chart = new google.visualization.PieChart(document.getElementById('gchart'));
+
+            chart.draw(data, options);
+        }
+        function onPageLoad() {
+            $('msgbin-show').value = 'b' + app.avn;
+            $('Year').value = app.year;
+            $('SurveyNumber').value = app.survey;
+            $('Sex').value = app.sex;
+            $('showlabels').checked = app.showlabels;
+            $('showtable').checked = app.showtable;
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+            testtrig();
+            if (window.location.search.indexOf('msg=') > 0) {
+                show('legacy-link');
+                show('msgbin-show');
+                show('msgbin');
+            }
+            IE = false;
+            if (navigator.userAgent.indexOf('Trident') > 0) {
+                IE = true;
+            }
+            //20170829-TEST--IE11=FAIL to alter svgchildren
+            //$('male-stage-1-svg').childNodes[3].innerHTML = '00';
+            //20170829-BUG--IE11 fails to render fieldset borders
+            if (IE) {
+                var legs = document.getElementsByClassName('legend-title');
+                for (var i = 0; i < legs.length; i++) {
+                    legs[i].style.borderBottom = '1px solid dimgray';
+                    legs[i].style.width = '100px';
+                }
+                var cells = document.getElementsByClassName('svgcell');
+                for (var i = 0; i < cells.length; i++) {
+                    //addmsg('hide ' + cells[i].id);
+                    hide(cells[i].id);
+                }
+            } else {
+                var cells = document.getElementsByClassName('totalcell');
+                for (var i = 0; i < cells.length; i++) {
+                    //addmsg('hide ' + cells[i].id);
+                    hide(cells[i].id);
+                }
+            }
+            var svgs = document.getElementsByTagName('svg');//=OK
+            for (var i = 0; i < svgs.length; i++) {
+                var s = svgs[i].id;
+                //hide(svgs[i].id);
+            }
+        }
+        window.onload = onPageLoad;
+
+        function piecut(ang, degfrom, lx, ly, r) {
+            var center = 'm' + r + ',' + r + ' ';
+            var line = 'L' + lx + ',' + ly + ' ';
+            // Calculate the degto and arcto x,y
+            var degto = degfrom + ang;
+            if (degto > 360) {
+                degto = 360;
+            }
+            var rad = (degto / 180) * Math.PI;
+            var dy = Math.round(Math.sin(rad) * r);//change normal trig result for circle of radius 100
+            var dx = Math.round(Math.cos(rad) * r);
+            msg = 'from ' + degfrom + '-deg (' + lx + ', ' + ly + ') arc ' + ang + ' dx=' + dx + ', dy=' + dy;
+            //addmsg(msg);
+            // Normal trig circle sweeping counter-clockwise starting zero degree from due East at g(200,100)
+            var ax = r + dx;
+            var ay = r - dy;
+            var cond = ' 1 0 0 ';
+            if (ang > 180) {
+                cond = ' 1 1 0 ';
+            }
+            // Circle sweeping clockwise starting zero degree from top due North at g(100,0)
+            var ax = r + dy;
+            var ay = r - dx;
+            var cond = ' 0 0 1 ';
+            if (ang > 180) {
+                cond = ' 0 1 1 ';
+            }
+            var arc = 'A' + r + ',' + r + cond + ax + ',' + ay + ' ';
+            var d = center + line + arc + 'Z';
+            return [degto, ax, ay, d];
+        }
+        function testtrig() {
+            var degs = [0, 15, 30, 45, 60, 90, 120, 135, 180, 225, 240, 270, 315, 330, 360];
+            var degfrom = 0;
+            var degto = null;
+            var ang = 15;
+            var r = 100;
+            var lx = 100;
+            var ly = 0;
+            var dx = null;
+            var dy = null;
+            var ax = null;
+            var ay = null;
+            for (var i = 0; i < degs.length; i++) {
+                degto = degs[i];
+                var rad = (degto / 180) * Math.PI;
+                var dy = Math.round(Math.sin(rad) * r);//change normal trig result for circle of radius 100
+                var dx = Math.round(Math.cos(rad) * r);
+                msg = 'deg=' + degto + ', dx=' + dx + ', dy=' + dy + '; f(' + degto + ')=[' + dx + ', ' + dy + ']';
+                //addmsg(msg);
+                degfrom = degto;
+            }
+        }
+        function legendPieChart(rows) {
+            //--- Per query sumtotal breakdown pie chart--20170807
+            //SAMPLE--https://developers.google.com/chart/interactive/docs/gallery/piechart
+            var sex = parseInt($('Sex').value);
+            var trow = rows.pop();
+            var sumtotal = trow.pop();
+            addmsg('DO legendPieChart: ' + [trow, sumtotal]);
+            var arr = [];
+            if (sex === 0) {
+                arr.push(['Sex', 'Percentage']);
+            } else {
+                arr.push(['Sex', 'Percentage']);
+            }
+            var pcts = [];
+            for (var i = 1; i < trow.length; i++) {
+                var desc = i + ' (' + categories[sex][i] + ')';
+                var pct = Math.round(trow[i] / sumtotal);
+                arr.push([desc, trow[i]]);
+                pcts.push(pct);
+            }
+            addmsg(arr.join('<br />'));
+            var data = google.visualization.arrayToDataTable(arr);
+            var incolors = piecolors[sex];
+            addmsg('colors: ' + incolors);
+            var options = {
+                title: 'Total: ' + sumtotal,// 'Delta Smelt Stages',
+                colors: piecolors[sex],
+                backgroundColor: 'transparent',//'white',//
+                height: 200,
+                legend: { position: 'none' }
+            };// bottom, right
+            //$('gchart').innerHTML = '';
+            var chart = new google.visualization.PieChart(document.getElementById('gchart'));
+            chart.draw(data, options);
+            //return pcts;
+        }
+        function radiusForSum(n) {
+            //--- Convert per station sum to pie chart radius size--20170808
+            if (n === 1) {
+                return 15;
+            } else if (n > 1 && n <= 5) {
+                return 30;
+            } else if (n > 5 && n <= 25) {
+                return 40;
+            } else if (n > 25 && n <= 50) {
+                return 50;
+            } else if (n > 50 && n <= 75) {
+                return 60;
+            } else if (n > 75 && n <= 100) {
+                return 70;
+            } else if (n > 100 && n <= 200) {
+                return 80;
+            } else if (n > 200) {
+                return 100;
+            }
+        }
+    </script>
+</head>
+<body>
+    <table id="navbar" style="background-color: ghostwhite; border: 1px solid silver; border-collapse: collapse;">
+        <tr>
+            <th class="cell">
+                Year
+                <select id="Year">
+                    <option value="2017" selected="selected">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                    <option value="2012">2012</option>
+                    <option value="2011">2011</option>
+                    <option value="2010">2010</option>
+                    <option value="2009">2009</option>
+                    <option value="2008">2008</option>
+                    <option value="2007">2007</option>
+                    <option value="2006">2006</option>
+                    <option value="2005">2005</option>
+                    <option value="2004">2004</option>
+                    <option value="2003">2003</option>
+                    <option value="2002">2002</option>
+                </select>
+            </th>
+            <th class="cell">
+                Survey
+                <select id="SurveyNumber">
+                    <option value="1" selected="selected">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="20">20</option>
+                    <option value="22">22</option>
+                </select>
+            </th>
+            <th class="cell">
+                Report Type
+                <select id="Sex">
+                    <option value="1" title="male" selected="selected">Males</option>
+                    <option value="2" title="female">Females</option>
+                    <option value="0" title="ratio">Sex Ratios</option>
+                </select>
+            </th>
+            <th class="cell">
+                <input type="checkbox" id="showlabels" class="navlabel" /><!--checked="checked" -->
+                <label for="showlabels">Station IDs</label>
+            </th>
+            <th class="cell">
+                <input type="button" id="draw-map" value="Draw Map" />
+            </th>
+            <th class="cell">
+                <input type="checkbox" id="showtable" class="navlabel" onclick="toggle('outtable')" /><!--checked="checked" -->
+                <label for="showtable">Show Table</label>
+            </th>
+            <th class="cell hide">
+                Symbology:
+                <input type="radio" id="rings" name="symbopts" checked="checked" class="navlabel" value="rings" />
+                <label for="rings">Rings</label>
+                <input type="radio" id="circles" name="symbopts" class="navlabel" value="circles" />
+                <label for="circles">Circles</label>
+                <input type="radio" id="bars" name="symbopts" class="navlabel" value="bars" />
+                <label for="bars"> Bars</label> <!--class="esri-icon-chart"-->
+                <input type="radio" id="pie" name="symbopts" class="navlabel" value="pie" />
+                <label for="pie"> Pie Chart</label> <!--class="esri-icon-pie-chart"-->
+            </th>
+            <th class="cell hide">
+                <span class="esri-icon-menu" style="float: left; vertical-align: middle;"></span>
+                <span class="esri-icon-settings" style="float: right; vertical-align: middle;"></span>
+            </th>
+            <th class="hide">
+                <input type="button" id="olayer-hide" value="Remove Result" onclick="map.removeLayer(olayer);" />
+            </th>
+        </tr>
+    </table>
+    <div id="map"></div>
+    <div id="map-title">
+        <div style="font-weight: bolder">
+            Spring Kodiak Trawl Survey #<span id="survey">{N}</span> of <span id="surveyyear">{YEAR}</span>
+        </div>
+        <div id="reporttype" style="font-weight: bold;">
+            Distribution of Delta Smelt
+            <!--<span id="dates"></span>-->
+        </div>
+        <div id="dates"></div>
+    </div>
+    <div id="legend">
+        <div id="gchart"></div>
+        <div id="legend-keys" style="position: absolute; left: 200px; bottom: 0; font-size: small; white-space: nowrap;">
+            <fieldset id="legend-male">
+                <legend class="legend-title">Stage</legend>
+                <table>
+                    <caption class="legend-caption">Stage</caption>
+                    <tr>
+                        <td id="male-stage-1-total" class="totalcell" style="background-color: khaki;">&nbsp;&nbsp;</td>
+                        <td id="male-stage-1-sum" class="svgcell" style="background-color: khaki;">
+                            <svg id="male-stage-1-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:khaki;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg><!--stroke-width:1;stroke:silver-->
+                        </td>
+                        <td>1 (Pre-spawn)</td><td id="male-stage-1-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-2-total" class="totalcell" style="background-color: cyan;"></td>
+                        <td id="male-stage-2-sum" class="svgcell" style="background-color: cyan;">
+                            <svg id="male-stage-2-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:cyan;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>2 (Pre-spawn)</td><td id="male-stage-2-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-3-total" class="totalcell" style="background-color: cornflowerblue;"></td>
+                        <td id="male-stage-3-sum" class="svgcell" style="background-color: cornflowerblue;">
+                            <svg id="male-stage-3-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:cornflowerblue;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>3 (Pre-spawn)</td><td id="male-stage-3-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-4-total" class="totalcell" style="background-color: steelblue;"></td>
+                        <td id="male-stage-4-sum" class="svgcell" style="background-color: steelblue;">
+                            <svg id="male-stage-4-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:steelblue;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>4 (Pre-spawn)</td><td id="male-stage-4-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-5-total" class="totalcell" style="background-color: lightseagreen;"></td>
+                        <td id="male-stage-5-sum" class="svgcell" style="background-color: lightseagreen;">
+                            <svg id="male-stage-5-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:lightseagreen;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>5 (Ripe)</td><td id="male-stage-5-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-6-total" class="totalcell" style="background-color: palegreen;"></td>
+                        <td id="male-stage-6-sum" class="svgcell" style="background-color: palegreen;">
+                            <svg id="male-stage-6-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:palegreen;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>6 (Spent)</td><td id="male-stage-6-pct"></td>
+                    </tr>
+                    <tr style="color: crimson;">
+                        <td style="font-size: medium; font-weight: bold; text-align: center;">&plus;</td>
+                        <td>No Catch</td><td></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset id="legend-female" style="display: none;">
+                <legend class="legend-title">Stage</legend>
+                <table>
+                    <caption class="legend-caption">Stage</caption>
+                    <tr>
+                        <td id="female-stage-1-total" class="totalcell" style="background-color: khaki;">&nbsp;&nbsp;</td>
+                        <td id="female-stage-1-sum" class="svgcell" style="background-color: khaki;">
+                            <svg id="female-stage-1-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:khaki;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg><!--stroke-width:1;stroke:silver-->
+                        </td>
+                        <td>1 (Pre-spawn)</td><td id="female-stage-1-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-2-total" class="totalcell" style="background-color: pink;"></td>
+                        <td id="female-stage-2-sum" class="svgcell" style="background-color: pink;">
+                            <svg id="female-stage-2-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:pink;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>2 (Pre-spawn)</td><td id="female-stage-2-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-3-total" class="totalcell" style="background-color: magenta;"></td>
+                        <td id="female-stage-3-sum" class="svgcell" style="background-color: magenta;">
+                            <svg id="female-stage-3-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:magenta;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>3 (Pre-spawn)</td><td id="female-stage-3-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-4-total" class="totalcell" style="background-color: purple;"></td>
+                        <td id="female-stage-4-sum" class="svgcell" style="background-color: purple;">
+                            <svg id="female-stage-4-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:purple;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>4 (Ripe)</td><td id="female-stage-4-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-5-total" class="totalcell" style="background-color: coral;"></td>
+                        <td id="female-stage-5-sum" class="svgcell" style="background-color: coral;">
+                            <svg id="female-stage-5-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:coral;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>5 (Failed to spawn)</td><td id="female-stage-5-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-6-total" class="totalcell" style="background-color: palegreen;"></td>
+                        <td id="female-stage-6-sum" class="svgcell" style="background-color: palegreen;">
+                            <svg id="female-stage-6-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:palegreen;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>6 (Post-spawn)</td><td id="female-stage-6-pct"></td>
+                    </tr>
+                    <tr style="color: crimson;">
+                        <td style="font-size: medium; font-weight: bold; text-align: center;">&plus;</td>
+                        <td>No Catch</td><td></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset id="legend-ratio" style="display: none;">
+                <legend class="legend-title"></legend>
+                <table>
+                    <caption class="legend-caption"></caption>
+                    <tr>
+                        <td id="ratio-stage-3-total" class="totalcell" style="background-color: khaki;">&nbsp;&nbsp</td>
+                        <td id="ratio-stage-3-sum" class="svgcell" style="background-color: khaki;">
+                            <svg id="ratio-stage-3-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:khaki;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg><!--stroke-width:1;stroke:silver-->
+                        </td>
+                        <td>Undetermined</td><td id="ratio-stage-3-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="ratio-stage-1-total" class="totalcell" style="background-color: deepskyblue;"></td>
+                        <td id="ratio-stage-1-sum" class="svgcell" style="background-color: deepskyblue;">
+                            <svg id="ratio-stage-1-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:deepskyblue;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Males</td><td id="ratio-stage-1-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="ratio-stage-2-total" class="totalcell" style="background-color: hotpink;"></td>
+                        <td id="ratio-stage-2-sum" class="svgcell" style="background-color: hotpink;">
+                            <svg id="ratio-stage-2-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:hotpink;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Females</td><td id="ratio-stage-2-pct"></td>
+                    </tr>
+                    <tr style="color: crimson; display: none;">
+                        <td style="font-size: medium; font-weight: bold; text-align: center;">&plus;</td>
+                        <td>No Catch</td><td></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+    <table id="outtable" style="border: 1px solid dimgray; border-collapse: collapse; display: none; margin: 10px 0;"></table>
+    <div id="outbox"></div>
+    <footer>
+        <span id="legacy-link" style="border-right: 2px solid silver; margin-right: 10px; display: none;">
+            <a href="http://www.dfg.ca.gov/delta/data/skt/DisplayMaps.asp" target="_blank">
+                Delta Smelt Distribution Maps
+            </a> (current)
+        </span>
+        <a href="mailto:AskBDR@wildlife.ca.gov">AskBDR@wildlife.ca.gov</a>&copy;
+        <script>
+            document.write(document.lastModified);
+        </script>
+    </footer>
+    <input type="button" id="msgbin-show" value="MSG" onclick="show('msgbin')" style="display: none;" />
+    <div id="msgbin" style="display: none;">
+        <input type="button" id="msgbin-hide" value="X" onclick="hide('msgbin')" />
+        <h3 style="margin: 5px;">
+            Messages (bios&copy;
+            <script>
+                document.write(document.lastModified);
+            </script>
+            )
+        </h3>
+        <hr />
+        <div id="msgbox"></div>
+    </div>
+    <script>
+        var map, stations, samplayer, sumlayer;
+        function init() {
+            //REF--[Esri Leaflet Quickstart](https://esri.github.io/esri-leaflet/examples/)
+            map = L.map('map', { zoomControl: false }).setView([38.12, -121.92], 10);
+            L.esri.basemapLayer('Gray').addTo(map); //('Topographic').addTo(map); //('Streets').addTo(map); //('Oceans').addTo(map); //
+            //var mapdiv = L.DomUtil.get('map');
+            //L.DomEvent.on(mapdiv, 'mousewheel', L.DomEvent.stopPropagation);//FAIL
+            // Disable map Interaction--(https://gis.stackexchange.com/questions/54454/disable-leaflet-interaction-temporary)
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.boxZoom.disable();
+            map.keyboard.disable();
+            map.on('click', function(ev) {
+                addmsg(ev.latlng); //20170825-REF--http://leafletjs.com/reference-1.2.0.html#renderer
+            });
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor = 'default';
+            //REF--[Simple FeatureLayer](https://esri.github.io/esri-leaflet/examples/simple-feature-layer.html)
+            //20170825-REF--[Styling points](https://esri.github.io/esri-leaflet/examples/styling-feature-layer-points.html)
+            // Change default blue pin marker to something else
+            stations = L.esri.featureLayer({
+                url: app.layers.stations.url,
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "station",
+                            html: '<div><b style="color: crimson; font-size: medium;">&plus;</b></div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+                //style: function () {// for styling GeoJson as source
+                //    return {
+                //        color: "#5B7CBA",
+                //        weight: 2
+                //    };
+                //}
+            }).addTo(map);
+            //20170825--Add extra stations label layer to map so can add remove
+            labellayer = L.esri.featureLayer({
+                url: app.layers.stations.url,
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "station",
+                            html: '<div>&nbsp;</div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+            });
+            //REF--[Labeling Features](https://esri.github.io/esri-leaflet/examples/labeling-features.html)
+            var labels = {};
+            labellayer.on('createfeature', function (e) {
+                var id = e.feature.id;
+                var feature = stations.getFeature(id);
+                var center = feature.getBounds().getCenter();
+                var label = L.marker(center, {
+                    icon: L.divIcon({
+                        iconSize: null,
+                        className: "label",
+                        html: '<div style="margin-left: 10px;">' + e.feature.properties.StationCode + '</div>'
+                    })
+                }).addTo(map);
+                labels[id] = label;
+            });
+
+            labellayer.on('addfeature', function (e) {
+                var label = labels[e.feature.id];
+                if (label) {
+                    label.addTo(map);
+                }
+            });
+
+            labellayer.on('removefeature', function (e) {
+                var label = labels[e.feature.id];
+                if (label) {
+                    map.removeLayer(label);
+                }
+            });
+
+            $('draw-map').onclick = drawMap;
+            $('showlabels').onclick = function () {
+                if (this.checked === true) {
+                    map.addLayer(labellayer);
+                } else {
+                    map.removeLayer(labellayer);
+                }
+            }
+            drawMap();
+        }//DONE_init
+
+        function drawMap() {
+            addmsg('DO drawMap');
+            if (olayer !== null) {
+                map.removeLayer(olayer);
+            }
+            app.year = $('Year').value;
+            app.survey = $('SurveyNumber').value;
+            app.sex = $('Sex').value;
+            var sql = "Year = " + $("Year").value + " AND SurveyNumber = " + $("SurveyNumber").value;
+            if (parseInt($('Sex').value) === 0) {
+                sql = sql + " AND catch > 0";
+                querySamples(sql);
+            } else {
+                sql = sql + " AND Sex = '" + $("Sex").value + "'";
+                querySamples(sql);
+            }
+            $('survey').innerHTML = $('SurveyNumber').value;
+            $('surveyyear').innerHTML = $('Year').value;
+            if ($('Sex').value === '0') {
+                $('reporttype').innerHTML = 'Sex Ratios of Male and Female Delta Smelt';
+            } else if ($('Sex').value === '1') {
+                $('reporttype').innerHTML = 'Distribution of Male Delta Smelt';
+            } else if ($('Sex').value === '2') {
+                $('reporttype').innerHTML = 'Distribution of Female Delta Smelt';
+            }
+        }
+        //REF--https://esri.github.io/esri-leaflet/api-reference/tasks/query.html
+        function querySamples(sql) {
+            addmsg('DO querySamples: ' + sql);
+            if (sql.indexOf('Sex') > 0) {
+                //var sqlwhere = "Year = 2012 AND SurveyNumber = 2 AND Sex = '2'";
+                var query = L.esri.query({
+                    url: app.layers.samples.url
+                });
+                query.where(sql).orderBy('StationCode', 'ASC').orderBy('Stage', 'ASC');
+            } else {
+                //var sqlwhere = "Year = 2012 AND SurveyNumber = 2";
+                var query = L.esri.query({
+                    url: app.layers.summary.url
+                });
+                query.where(sql).orderBy('StationCode', 'ASC').orderBy('Sex', 'ASC');
+            }
+            query.run(function (error, featureCollection, response) {
+                addmsg('CALLBACK querySamples run ' + featureCollection.features.length + ' features found');
+                if (featureCollection.features.length == 0) {
+                    $('outtable').innerHTML = '';
+                    $('gchart').innerHTML = '';
+                    return;
+                }
+                var sex = parseInt($('Sex').value);
+                var tbl = $('outtable');
+                tbl.innerHTML = '';
+                var markers = [];
+                if (sql.indexOf('Sex') > 0) {
+                    var data = [['Station', 1, 2, 3, 4, 5, 6, 'Sum']];
+                    var rec = [0, 0, 0, 0, 0, 0, 0, 0];
+                    var tally = ['Total', 0, 0, 0, 0, 0, 0, 0]; // final_record_summary_total
+                } else {
+                    var data = [['Station', 1, 2, 0, 'Sum']];
+                    var rec = [0, 0, 0, 0, 0];
+                    var tally = ['Total', 0, 0, 0, 0];
+                }
+                var sum = 0;
+                var laststation = null;
+                var total = 0;
+                var features = featureCollection.features;
+                for (var i = 0; i < features.length; i++) {
+                    var fi = features[i];
+                    var id = fi.id;
+                    if (i == 0) {
+                        var borntime = fi.properties['SurveyStartDate'];
+                        var endtime = fi.properties['SurveyEndDate'];
+                        var borndate = new Date(borntime);
+                        var enddate = new Date(endtime);
+                        var borned = borndate.getMonth() + 1 + '/' + borndate.getDate() + '/' + borndate.getFullYear();
+                        var ended = enddate.getMonth() + 1 + '/' + enddate.getDate() + '/' + enddate.getFullYear();
+                        var msg = ' (' + borned + ' - ' + ended + ')';
+                        $('dates').innerHTML = msg;
+                    }
+                    var station = fi.properties['StationCode'];
+                    // If next station push last station rowdata into datagrid
+                    if (station !== laststation && laststation !== null) {
+                        data.push(rec);
+                        // Make marker with SVG Pie Chart icon-20170731
+                        var marker = piemarker(rec, lat, lon); // with lat-lon from previous station-20170801
+                        markers.push(marker);
+                        // Reset rowdata
+                        if (sql.indexOf('Sex') > 0) {
+                            rec = [0, 0, 0, 0, 0, 0, 0, 0];
+                        } else {
+                            rec = [0, 0, 0, 0, 0];
+                        }
+                        sum = 0;
+                    }
+                    rec[0] = station;
+                    //var stage = parseInt(fi.properties['Stage']);
+                    var score = fi.properties['Catch'];
+                    if (sql.indexOf('Sex') > 0) {
+                        var stype = parseInt(fi.properties['Stage']);
+                    } else {
+                        var stype = parseInt(fi.properties['Sex']);
+                    }
+                    if (stype > 0) {
+                        rec[stype] = score;
+                        tally[stype] = tally[stype] + score;
+                    } else if (stype === 0) { // Unknown type in sexratio dataset
+                        rec[3] = score;
+                        tally[3] = tally[3] + score;
+                    }
+                    var lat = fi.properties['Latitude'];
+                    var lon = fi.properties['Longitude'];
+                    // Calculate rowdata-20170731
+                    //if (stage > 0) {
+                    //    rec[stage] = score;
+                    //    tally[stage] = tally[stage] + score;
+                    //}
+                    sum += score;
+                    rec[(rec.length - 1)] = sum;
+                    total += score;
+                    laststation = station;
+                    // At end of features push final rowdata and tally into datagrid
+                    if (i === (features.length - 1)) {
+                        data.push(rec);
+                        var marker = piemarker(rec, lat, lon);
+                        markers.push(marker);
+                        tally[(rec.length - 1)] = total;
+                        data.push(tally);
+                    }
+                }
+                olayer = L.layerGroup(markers).addTo(map);
+                //addmsg(data.join('<br />'));
+                // Output data table-20170801
+                var stationlist = puttable(data);
+                //20170821--Use stationlist to filter out other stations that caught nothing
+                var stationcodes = stationlist.slice(2, (stationlist.length)).split(',');
+                var nullstations = "StationCode NOT IN (" + stationcodes + ")";
+                addmsg(nullstations);
+                stations.setWhere(nullstations);
+                //console.log(JSON.stringify(response));
+            });
+        }
+        function piemarker(arr, lat, lon) {
+            addmsg('DO piemarker: ' + [arr, lat, lon]);
+            var sex = parseInt($('Sex').value);
+            var sext = [
+                ['Undefined', 'Male', 'Female', 'Undetermined'],
+                ['Unknown', 'Stage-1', 'Stage-2', 'Stage-3', 'Stage-4', 'Stage-5', 'Stage-6'],
+                ['Unknown', 'Stage-1', 'Stage-2', 'Stage-3', 'Stage-4', 'Stage-5', 'Stage-6']
+            ]
+            var station = arr[0];
+            var sum = arr[(arr.length - 1)];
+            var r = radiusForSum(sum); //25; // radius of piecircle, size of marker. NEXT--TODO: calculate from sum spread over total
+            var pcts = [station, 0, 0, 0, 0, 0, 0, 100];
+            var degs = [station, 0, 0, 0, 0, 0, 0, 360];
+            var circ = '<circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />';
+            var rect = '<rect width="10" height="80" style="fill:blue;stroke:pink;stroke-width:2;fill-opacity:0.5;stroke-opacity:0.9" />';
+            var d = '<path d="m50,50 L50,10 A40,40 1 1 0 90,50  Z" style="fill:powderblue;stroke:pink;stroke-width:2;fill-opacity:0.5;stroke-opacity:0.9" />'
+            var icondiv = '<div class="picon" id="mark-' + station + '" style="left:-' + r + 'px; top: -' + r + 'px;"><svg width="' + (r * 2) + '" height="' + (r * 2) + '">';
+            cnt = 0; // pieces of pie slices or wedges count
+            var degfrom = 0; // degree on circle where arc starting from
+            var lx = r * 2; // zero-deg starting point x-coord to line-to from center
+            var ly = r; // zero-deg starting point y-coord to line-to from centerj
+            // Bearing starts at top due North sweeping clockwise
+            var lx = r;
+            var ly = 0;
+            var ang = 0; // angle of arc of the pie slice
+            var ax = r; // arc-to point x-coord on circle
+            var ay = 0; // arc-to point y-coord on circle
+            var pop = '<table class="poptb"><tr><th>Station</th><td>' + station + '</td></tr>';
+            for (var i = 1; i < (arr.length - 1); i++) {
+                // Check for nonzero caught through each stage
+                if (arr[i] > 0) {
+                    //pcts[i] = Math.round(arr[i] * 100 / sum);
+                    pct = Math.round(arr[i] * 100 / sum);
+                    //degs[i] = Math.round(arr[i] * 360 / sum);
+                    ang = Math.round(arr[i] * 360 / sum);
+                    cnt += 1;
+                    pop += '<tr><th class="poptd">' + sext[sex][i] + '</th><td class="poptd">' + arr[i] + ' (' + pct + '%)</td></tr>';
+                    //TEST-- first nonzero stage
+                    //if (cnt === 1) {
+                    //}
+                    //addmsg("#" + station + ", s" + i + "-" + colors[sex][i] + ", " + pct + "%, from=" + degfrom + ", ang=" + ang);
+                    if (ang === 360) {
+                        var shape = '<circle cx="' + r + '" cy="' + r + '" r="' + r + '" stroke="white" stroke-width="1" fill="' + colors[sex][i] + '" />'; 
+                    } else {
+                        var pathinfo = piecut(ang, degfrom, lx, ly, r);
+                        degfrom = pathinfo[0];
+                        lx = pathinfo[1];
+                        ly = pathinfo[2];
+                        var d = pathinfo[3];
+                        //addmsg("degto=" + degfrom + " d=" + d);
+                        var shape = '<path d="' + d + '" style="fill:' + colors[sex][i] + ';stroke:white;stroke-width:1;" />';
+                        //if (sex === 0 && i === 3) {
+                        //    var shape = '<path d="' + d + '" style="fill:' + colors[sex][0] + ';stroke:white;stroke-width:1;" />';
+                        //}
+                    }
+                    icondiv = icondiv + shape;
+                }
+            }
+            pop += '<tr><th class="poptd">Total</th><td class="poptd">' + sum + '</td></tr></table>';
+            //addmsg("Station " + station + " has " + cnt + " slices");
+            //addmsg("Percentages: " + pcts);
+            //addmsg("Degrees: " + degs);
+            icondiv = icondiv + '</svg></div>';
+            var iconOptions = {
+                className: "base-icon",
+                html: icondiv
+            };
+            var myIcon = L.divIcon(iconOptions);//{ className: 'my-div-icon' }
+            var marker = L.marker([lat, lon], { icon: myIcon }).bindPopup(pop);// station);
+            return marker;
+        }
+        function puttable(data) {
+            var sex = parseInt($('Sex').value);
+            var sexdesc = ['ratio', 'male', 'female'];
+            var tbl = $('outtable');
+            tbl.innerHTML = '';
+            var sumtotal = data[(data.length - 1)][(data[0].length - 1)];
+            var stationlist = "'";
+            for (i = 0; i < data.length; i++) {
+                var row = tbl.insertRow(i);
+                var rec = data[i];
+                if (i === 0 || i === (data.length - 1)) {
+                    for (j = 0; j < rec.length; j++) {
+                        var th = document.createElement('th');
+                        th.className = 'cell';
+                        th.innerHTML = rec[j];
+                        if (j > 0 && j < (rec.length - 1)) {
+                            if (i === 0) {
+                                if (sex === 0) {
+                                    th.innerHTML = categories[sex][j];// 'sex ' + rec[j];
+                                } else {
+                                    th.innerHTML = 'Stage ' + rec[j];
+                                }
+                                if (sex === 0) {
+                                    th.style.color = 'black';
+                                } else if (sex === 1) {
+                                    th.style.color = 'hotpink';
+                                } else if (sex === 2) {
+                                    th.style.color = 'deepskyblue';
+                                }
+                                th.style.backgroundColor = colors[sex][j];
+                            }
+                            //20170829-- Fill legend info
+                            if (i === (data.length - 1)) {
+                                if (rec[j] > 0) {
+                                    $(sexdesc[sex] + '-stage-' + j + '-pct').innerHTML = '(' + ((parseInt(rec[j]) / sumtotal) * 100).toFixed(1) + '%)';
+                                    if (IE) {
+                                        $(sexdesc[sex] + '-stage-' + j + '-total').innerHTML = rec[j];
+                                    } else {
+                                        $(sexdesc[sex] + '-stage-' + j + '-svg').childNodes[3].innerHTML = rec[j];
+                                    }
+                                } else {
+                                    $(sexdesc[sex] + '-stage-' + j + '-pct').innerHTML = '';
+                                    if (IE) {
+                                        $(sexdesc[sex] + '-stage-' + j + '-total').innerHTML = '&nbsp;&nbsp;';
+                                    } else {
+                                        $(sexdesc[sex] + '-stage-' + j + '-svg').childNodes[3].innerHTML = '';
+                                    }
+                                }
+                            }
+                        }
+                        row.appendChild(th);
+                    }
+                } else {
+                    for (j = 0; j < rec.length; j++) {
+                        var cell = row.insertCell(j);
+                        cell.className = 'cell';
+                        if (rec[j] === 0) {
+                            cell.innerHTML = '-';
+                        } else {
+                            cell.innerHTML = rec[j];
+                        }
+                        if (j === 0) {
+                            var station = rec[j];
+                            if (stationlist.indexOf("'" + station + "'") < 0) {
+                                stationlist += ",'" + station + "'";
+                            }
+                        }
+                    }
+                }
+            }
+            legendPieChart(data);
+            if (sex === 0) {
+                hide('legend-male');
+                hide('legend-female');
+                show('legend-ratio');
+            } else if (sex === 1) {
+                show('legend-male');
+                hide('legend-female');
+                hide('legend-ratio');
+            } else if (sex === 2) {
+                hide('legend-male');
+                show('legend-female');
+                hide('legend-ratio');
+            }
+            return stationlist;
+        }
+        init();
+    </script>
+</body>
+</html>

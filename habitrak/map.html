@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1">
+    <title>HabiTrak NCCP</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.6/"></script>
+
+    <style>
+        html,
+        body,
+        #map3d {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/SceneView",
+            "esri/layers/MapImageLayer",
+            "dojo/domReady!"
+        ],
+        function (
+            Map, SceneView, MapImageLayer
+        ) {
+
+            /*****************************************************************
+            * Create a MapImageLayer instance pointing to a Map Service
+            * containing BIOS Layer: NCCP Gains & Losses - San Diego [ds892] (ID: 19)
+            *****************************************************************/
+            var permitsLyr = new MapImageLayer({
+                portalItem: { // autocasts as new PortalItem()
+                    id: "d7892b3c13b44391992ecd42bfa92d01"
+                }
+            });
+            var surl = 'https://map.dfg.ca.gov/arcgis/rest/services/Project_BIOS_Public/q_BIOS_Public_polygons08/MapServer';
+            var lid = 19;
+            var urid = 'q_BIOS_Public_polygons08:19';
+            var layer = new MapImageLayer({
+                id: urid,
+                url: surl,
+                sublayers: [
+                    {
+                        id: lid,
+                        visible: true//,definitionExpression: "pop2000 > 100000"
+                    }
+                ]
+            })
+            /*****************************************************************
+            * Add the layer to a map
+            *****************************************************************/
+            var map = new Map({
+                basemap: "dark-gray",
+                layers: [layer]
+            });
+
+            var view = new SceneView({
+                container: "map3d",
+                map: map
+            });
+
+            /*****************************************************************
+            * Animate to the layer's full extent when the layer loads.
+            *****************************************************************/
+            layer.then(function () {
+                view.goTo(layer.fullExtent);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="map3d"></div>
+</body>
+</html>
+<!--
+20171213 Copied from sample--https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer/index.html
+    ref--https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html
+-->

@@ -1,0 +1,190 @@
+﻿body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    width: 99%;
+}
+header {
+    background-color: whitesmoke;
+    border-bottom: 1px solid silver;
+}
+nav {
+    position: relative; left: 0; top: 0;
+    background-color: ghostwhite;
+    border-bottom: 1px solid silver;
+}
+main {
+    position: relative; /* TODO: left: 0; top: 40px; */
+    background-color: snow;
+    border-bottom: 1px solid silver;
+}
+aside {
+    position: relative; /* TODO: top: 30px; right: 0; */
+    height: 500px; width: 19%;
+    background-color: white;
+    border: 1px solid snow;
+    float: right;
+    padding-right: 10px;
+}
+footer {
+    position: relative; left: 0; bottom: 0; right: 0;
+    background-color: whitesmoke;
+    border-top: 1px solid silver;
+    font-family: monospace;
+    height: 30px;
+    margin-top: 10px;
+    padding: 5px;
+    width: 100%;
+}
+/*input {
+    font-size: 110%;
+}
+select {
+    font-size: larger;
+}*/
+table {
+    background-color: white;
+    border-collapse: collapse;
+    border: 1px solid dimgray;
+}
+td {
+    border: 1px solid gray;
+    padding: 1px;
+    vertical-align: top;
+}
+th {
+    border: 1px solid dimgray;
+    vertical-align: top;
+}
+
+#app-build {
+    position: fixed; bottom: 0; right: 40px;
+    float: right;
+    background-color: darkslategray;
+    color: white;
+    font-family: 'Comic Sans MS', 'Lucida Console';
+    font-size: small;
+    padding: 2px;
+    z-index: 500;
+}
+#databar {
+    position: relative; /* TODO: left: 0; top: 550px; */
+    padding: 5px;
+}
+#map-loading {
+    position: absolute;
+    left: 45%;
+    top: 40%;
+}
+#mapview {
+    position: relative;
+    /* left: 0; top: 0; right: 0; bottom: 0;*/
+    height: 500px; width: 75%;
+    border: 1px solid silver;
+}
+#map-ll {
+    position: absolute; bottom: 0; left: 30%;
+}
+#map-xy {
+    position: absolute; bottom: 0; right: 30%;
+}
+#msgbin {
+    position: fixed; bottom: 0; right: 0;
+    height: 50%; width: 50%;
+    background-color: black;
+    border: 2px solid silver;
+    border-radius: 3px;
+    color: white;
+    font-family: Consolas, Courier New, Courier, monospace;
+    font-size: 100%;
+    overflow: hidden;
+    padding: 5px;
+    z-index: 888;
+}
+#msgbin-toggle {
+    position: fixed; bottom: 0; right: 0;
+    float: right;
+    font-weight: bold;
+    z-index: 888;
+}
+#msgbox {
+    position: relative; bottom: 5px;
+    max-height: 90%;
+    overflow: auto;
+}
+
+.block {
+    display: block;
+}
+.bold {
+    font-weight: bold;
+}
+.center {
+    text-align: center;
+}
+.dim {
+    color: dimgray;
+}
+.hide {
+    display:none;
+}
+.show {
+    display:block;
+}
+.large {
+    font-size: large;
+}
+.small {
+    font-size: small;
+}
+
+.closebutton {
+    position: absolute; top: 1px; right: 1px;
+    border: 1px solid transparent;
+    cursor: default;
+    font-size: 110%;
+    /*float: right;*/
+    padding: 5px;
+    top: 2px;
+}
+.closebutton:hover {
+    background-color: azure;
+    border: 1px solid silver;
+}
+.panel {
+    background-color: white;
+    border: 1px solid silver;
+    opacity: 0.88;
+}
+.navlabel {
+    border-left: 3px solid silver;
+    font-size: large;
+    margin-left: 5px;
+    padding-left: 5px;
+}
+.tbl {
+    border: 2px solid dimgray;
+    border-collapse: collapse;
+}
+.tbl td {
+    border: 1px solid silver;
+    padding: 2px 5px;
+}
+.tbl .hdr {
+    border: 1px solid dimgray;
+    font-weight: bold;
+}
+.tbl .cell {
+    text-align: right;
+}
+@media print {
+    body {
+        border: 1px solid silver;
+        margin: 10px;
+        width: 99%;
+    }
+    aside {
+        margin-right: 20px;
+    }
+}

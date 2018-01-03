@@ -1,0 +1,304 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title>Access ArcGIS Online items using OAuthentication - 4.5</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+
+    <script src="https://js.arcgis.com/4.6/"></script>
+    <style>
+        html,
+        body {
+            font-family: Lucida Sans, Lucida Grande, Arial !important;
+            font-size: 14px;
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .esri-item-gallery .esri-item-container {
+            float: left;
+            text-align: center;
+            padding: 10px;
+            width: 204px;
+            display: inline-block;
+        }
+
+        .esri-item-gallery .esri-image {
+            width: 200px;
+            height: 133px;
+            border: 2px solid gray;
+            border-radius: 5px;
+        }
+
+        .esri-item-gallery .esri-null-image {
+            line-height: 133px;
+            text-align: center;
+            color: #999999;
+        }
+
+        .esri-item-gallery .esri-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .esri-item-gallery .esri-null-title {
+            color: #999999;
+        }
+
+        .action {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        #sidebar {
+            position: absolute; top: 0; right: 0;
+            height: auto; width: 48%;
+            border: 1px solid transparent;
+            padding: 5px;
+        }
+        #bistro {
+            position: absolute; top: 0; left: 0;
+            height: auto; width: 48%;
+            border: 1px solid silver;
+            padding: 5px;
+        }
+        #q {
+            font-size: large;
+            margin: 5px 10px;
+            width: 70%;
+        }
+        #bs-msg {
+            border: 1px solid orange;
+            font-size: large;
+            margin: 5px 10px;
+            padding: 5px;
+        }
+        #msgbox {
+            /*position: fixed; bottom: 0; right: 0;
+            max-height: 50%; max-width: 50%;*/
+            background-color: black;
+            border: 2px solid silver;
+            color: ghostwhite;
+            font-family: monospace;
+            padding: 5px;
+        }
+    </style>
+    <script>
+        function $(id) { return document.getElementById(id); }
+        function hide(id) { $(id).style.display = 'none'; }
+        function show(id) { $(id).style.display = 'block'; }
+        function tagtitle(s) { this.title = s; }
+        function toggle(id) {
+            ($(id).style.display === 'none' ? show(id) : hide(id));
+        }
+
+        require([
+            "esri/portal/Portal",
+            "esri/identity/OAuthInfo",
+            "esri/identity/IdentityManager",
+            "esri/portal/PortalQueryParams",
+            "esri/Map",
+            "esri/views/SceneView",
+            "esri/layers/Layer",
+            "esri/Graphic",
+            "esri/widgets/Expand",
+            "esri/widgets/Home",
+            "esri/geometry/Extent",
+            "esri/Viewpoint",
+            "esri/core/watchUtils",
+            "esri/tasks/QueryTask",
+            "esri/tasks/support/Query",
+            "esri/layers/FeatureLayer",
+            "dojo/_base/array",
+            "dojo/dom-style",
+            "dojo/dom-attr",
+            "dojo/dom",
+            "dojo/on",
+            "dojo/domReady!"
+        ], function (
+            Portal, OAuthInfo, esriId, PortalQueryParams,
+            Map, SceneView, Layer, Graphic, Expand,
+            Home, Extent, Viewpoint, watchUtils,
+            QueryTask, Query, FeatureLayer,
+            arrayUtils,
+            domStyle, domAttr, dom, on
+        ) {
+            var info = new OAuthInfo({
+                // Swap this ID out with registered application ID
+                appId: "O59X894aUmrlXei5",
+                // Uncomment the next line and update if using your own portal
+                // portalUrl: "https://<host>:<port>/arcgis"
+                // Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
+                // authNamespace: "portal_oauth_inline",
+                popup: false
+            });
+            esriId.registerOAuthInfos([info]);
+
+            esriId.checkSignInStatus(info.portalUrl + "/sharing").then(
+              function () {
+                  displayItems();
+              }
+            ).otherwise(
+              function () {
+                  // Anonymous view
+                  domStyle.set("anonymousPanel", "display", "block");
+                  domStyle.set("personalizedPanel", "display", "none");
+              }
+            );
+
+            on(dom.byId("sign-in"), "click", function () {
+                // user will be redirected to OAuth Sign In page
+                esriId.getCredential(info.portalUrl + "/sharing");
+            });
+
+            on(dom.byId("sign-out"), "click", function () {
+                esriId.destroyCredentials();
+                window.location.reload();
+            });
+
+            function displayItems() {
+
+                var portal = new Portal();
+                // Setting authMode to immediate signs the user in once loaded
+                portal.authMode = "immediate";
+                // Once loaded, user is signed in
+                portal.load().then(function () {
+                    // Create query parameters for the portal search
+                    var queryParams = new PortalQueryParams({
+                        query: "owner:" + portal.user.username,
+                        sortField: "numViews",
+                        sortOrder: "desc",
+                        num: 20
+                    });
+
+                    domAttr.set("userId", "innerHTML", portal.user.username);
+                    domStyle.set("anonymousPanel", "display", "none");
+                    domStyle.set("personalizedPanel", "display", "block");
+
+                    // Query the items based on the queryParams created from portal above
+                    portal.queryItems(queryParams).then(createGallery);
+                });
+            }
+
+            function createGallery(items) {
+                var htmlFragment = "";
+
+                arrayUtils.forEach(items.results, function (item) {
+                    htmlFragment += (
+                      "<div class=\"esri-item-container\">" +
+                      (item.thumbnailUrl ?
+                        "<div class=\"esri-image\" style=\"background-image:url(" +
+                        item.thumbnailUrl + ");\"></div>" :
+                        "<div class=\"esri-image esri-null-image\">Thumbnail not available</div>"
+                      ) +
+                      (item.title ?
+                        "<div class=\"esri-title\">" + (item.title || "") +
+                        "</div>" :
+                        "<div class=\"esri-title esri-null-title\">Title not available</div>"
+                      ) +
+                      "</div>");
+                });
+                dom.byId("itemGallery").innerHTML = htmlFragment;
+            }
+            //===========================
+            //--- BIOS Search 20171211
+            //===========================
+            dsids = [];
+            bsearch = function (q) {
+                addmsg('DO bsearch: ' + q);
+                var url = 'https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/biosapp_gdb/FeatureServer/3';
+                var querytask = new QueryTask(url);
+                var query = new Query();
+                var sqlwhere = "DataSourceName LIKE '%" + q + "%'";
+                query.where = sqlwhere;
+                query.outFields = ['*'];
+                query.orderByFields = ['DataSourceName ASC', 'DataSourceID ASC'];
+                querytask.execute(query).then(function (result) {
+                    addmsg('CALLBACK bsearch/querytask: results= ' + result.features.length);
+                    $('bs-msg').innerHTML = '<b>Searched: ' + q + '</b><br>';
+                    $('bs-msg').innerHTML += '<i>Results: ' + result.features.length + '</i><hr>';
+                    var features = result.features;
+                    for (var i = 0; i < features.length; i++) {
+                        $('bs-msg').innerHTML += '<div>' + features[i].attributes['DataSourceName'] + '<div>';
+                        dsids.push[parseInt(features[i].attributes['DataSourceName'])];
+                    }
+                });
+            }
+            //================================
+            //--- BIOS APPDATA EDIT 20171214
+            //================================
+            // Layer: AppSites (ID:0)
+            const layer = new FeatureLayer({
+                // URL to the service
+                url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/biosapp_gdb/FeatureServer/0"
+            });
+        });
+        console.log('DONE AMD REQUIRED LOADER');
+        function addmsg(s) {
+            $('msgbox').innerHTML += s + '<br>';
+        }
+        function qonkeyup(e) {
+            if (window.event) {
+                var kc = event.which || event.keyCode;//OK--Chrome, IE11, Opera; FAIL--Firefox
+            } else if (e.target) {
+                var kc = e.which || e.keyCode;
+            }
+            if (kc === 13) {
+                var s = $('q').value;
+                addmsg('Searching: ' + s);
+                bsearch(s);
+            }
+        }
+        function onpageload() {
+            console.log('DO window/onload/onpageload');
+            document.getElementById('q').addEventListener('keyup', qonkeyup);
+        }
+        window.onload = onpageload;
+
+
+    </script>
+</head>
+
+<body>
+    <main>
+        <div id="bistro">
+            <p>
+                <input type="text" id="q" value="Search BIOS Data Catalog">
+            </p>
+            <div id="bs-msg">
+                Search Result
+            </div>
+            <div id="msgbox"></div>
+        </div>
+        <div id="sidebar">
+            <div id="anonymousPanel" style="display: none; padding: 5px; text-align: center;">
+                <span id="sign-in" class="action">Sign In</span> and view your ArcGIS Online
+                items.
+            </div>
+
+            <div id="personalizedPanel" style="display: none; padding: 5px; text-align: center;">
+                Welcome <span id="userId" style="font-weight: bold;"></span> &nbsp;-&nbsp;
+                <span id="sign-out" class="action">Sign Out</span>
+            </div>
+
+            <div id="itemGallery" class="esri-item-gallery" style="width: 100%;"></div>
+        </div>
+    </main>
+    <footer>
+        <script>
+            document.write(document.lastModified);
+        </script>
+    </footer>
+</body>
+<!--
+    sample--
+    sample--https://developers.arcgis.com/javascript/latest/sample-code/editing-applyedits/
+    ref--https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#applyEdits
+    ref--https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#hitTest
+-->
+</html>

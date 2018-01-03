@@ -1,0 +1,1041 @@
+﻿<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+    <title>20-mm Fish Distribution</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-name" content="BIOS" />
+    <meta name="author" content="bios@wildlife.ca.gov" />
+    <meta name="keywords" content="biota, biogeography, biodiversity, species" />
+    <meta name="description" content="CDFW Biogeographic Information and Observation System, Bay Delta SKT map" />
+    <meta name="generator" content="imaps-20170907-bd20mm" />
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/themes/light-blue/main.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Load Leaflet from CDN-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
+          integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
+          crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet-src.js"
+            integrity="sha384-TWB9xRHTlLQmqAngHwD7usGcf4akGf0JP6aHwlgilpmOu2UuBq5aWLsDAh39iSn1"
+            crossorigin="">
+    </script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.0.8"
+            integrity="sha384-ze7rgny7/YGFxBlVgTBdOABNWe5V9BYjju/qwqJhCU8XJHtuEnRlbUpN5lXyY706"
+            crossorigin="">
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 100%;
+            margin: 0;
+            padding: 5px;
+        }
+        fieldset {
+            border: none;
+        }
+        footer {
+            border-top: 1px solid silver;
+            padding: 1px 5px;
+            text-align: left;
+        }
+        td {
+            border: 1px solid silver;
+            padding: 2px;
+        }
+        th {
+            border: 1px solid silver;
+            padding: 2px;
+        }
+        .map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+        #legend {
+            position: absolute;
+            left: 10px; top: 460px;
+            background-color: white;
+            border: 1px solid silver;
+            border-radius: 3px;
+            font-size: small;
+            white-space: nowrap;
+            width: auto;
+            z-index: 300;
+        }
+        #map {
+            position: relative;
+            height: 640px; width: 900px;
+            border: 1px solid silver;
+            z-index: 100;
+        }
+        #map-title {
+            position: absolute;
+            left: 10px; top: 120px;
+            color: darkred;
+            z-index: 300;
+        }
+        #msgbin {
+            position: fixed; bottom: 0; right: 0;
+            background-color: black;
+            border: 2px solid silver;
+            border-radius: 5px;
+            color: white;
+            font-family: monospace;
+            height: 44%; max-width: 44%;
+            overflow: hidden;
+            padding: 1px;
+            z-index: 500;
+        }
+        #msgbin-hide {
+            position: absolute; top: 2px; right: 2px; float: right;
+        }
+        #msgbin-show {
+            position: fixed; bottom: 0; right: 0;
+            z-index: 400;
+        }
+        #msgbox {
+            position: relative;
+            max-height: 83%;
+            overflow: auto;
+            padding: 5px;
+        }
+        .cell {
+            border: 1px solid silver;
+            /*border-width: 0 1px;*/
+            padding: 2px 5px;
+        }
+        .hide {
+            display: none;
+        }
+        .base-icon {
+            background-color: transparent;
+            border: none;/*TEST--1px solid white*/
+            height: auto; width: auto;
+        }
+        .html-icon {
+            background-color: white;
+            border: 2px solid orange;
+            border-radius: 5px;
+            color: red;
+            font-size: 110%;
+            font-weight: bold;
+            height: auto; width: auto;
+        }
+        .label {
+            background-color: transparent;
+            border: 1px solid transparent;/*for testing position purpose*/
+            color: mediumblue;
+            font-family: sans-serif;
+            font-size: 10;
+            font-weight: bold;
+            left: 10px;
+            top: -5px;
+        }
+        .legend-caption {
+            color: mediumblue;
+            font-weight: bold;
+            padding: 2px;
+            text-align: left;
+        }
+        .legend-title {
+            border-bottom: 1px solid dimgray;
+            font-weight: bold;
+            padding: 2px;
+        }
+        .dicon {
+            position: relative; left: 0px; top: 0px;
+            background-color: transparent;
+            border: none;
+        }
+        .poptb {
+            border: 1px solid silver;
+            border-collapse: collapse;
+        }
+        .poptd {
+            border: 1px solid gray;
+            padding: 1px 2px;
+        }
+        .svgcell {
+            font-weight: bold;
+        }
+        .tablr {
+            background-color: white;
+            border: 1px solid silver;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+        .thd {
+            border: 1px solid transparent;
+            font-weight: bold;
+            padding: 1px;
+        }
+        .totalcell {
+            border: 1px solid silver;
+            font-family: monospace;
+            font-weight: bold;
+            width: 40px;/*FAIL--IE11*/
+        }
+        @media print {
+            #legacy-link {
+                display: none;
+            }
+            #legend {
+                top: 420px;
+            }
+            #map-title {
+                top: 60px;
+            }
+            #msgbin {
+                display: none;
+            }
+            #navbar {
+                display: none;
+            }
+            .svgcell {
+                display: block;
+            }
+        }
+    </style>
+    <script>
+        function $(id) { return document.getElementById(id); }
+        function hide(id) { $(id).style.display = 'none';}
+        function show(id) { $(id).style.display = ''; }
+        function toggle(id) { $(id).style.display = ($(id).style.display === 'none' ? '' : 'none'); }
+        function add(a, b) { return a + b; }
+        function addmsg(s) { $('msgbox').innerHTML += s + '<br />';}
+        var app = {
+            "avn": 20171004,
+            "year": 2017,
+            "survey": 5,
+            "species": "3",
+            "cname": "Delta Smelt",
+            "showlabels": false,
+            "showpct": false,
+            "layers": {
+                "stations": {
+                    "url": "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bd20mmgdb/FeatureServer/0",
+                    "name": "bd20mmStations",
+                    "type": "Feature Layer"
+                },
+                "samples": {
+                    "url": "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bd20mmgdb/FeatureServer/1",
+                    "name": "bd20mmFishDistribution",
+                    "type": "Feature Layer"
+                },
+                "summary": {
+                    "url": "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bd20mmgdb/FeatureServer/3",
+                    "name": "bd20mmAreaPercentage",
+                    "type": "Table"
+                }
+            },
+            "sql": "",
+            "tcols": ["STATION", "SURFACE TEMP", "SURFACE EC", "TURBIDITY", "# OF TOWS PROCESSED", "AVERAGE CPUE"],
+            "tfields": ["Station", "SurfaceTemp", "SurfaceEC", "TURBIDITY", "NumOfTows", "CPUE"]
+        }
+        function onPageLoad() {
+            $('Species').value = app.species;
+            $('msgbin-show').value = 'b' + app.avn;
+            $('SurveyYear').value = app.year;
+            $('Survey').value = app.survey;
+            $('cname').innerHTML = app.cname;
+            $('year').innerHTML = app.year + '&nbsp;*** Survey in progress ***';
+            $('survey').innerHTML = app.survey;
+            $('out-cname').innerHTML = app.cname;
+            $('out-year').innerHTML = app.year;
+            $('out-survey').innerHTML = app.survey;
+            google.charts.load('current', { 'packages': ['corechart'] });
+            //google.charts.setOnLoadCallback(drawChart);
+            if (window.location.search.indexOf('msg=') > 0) {
+                show('legacy-link');
+                show('msgbin-show');
+                show('msgbin');
+            }
+            IE = false;
+            if (navigator.userAgent.indexOf('Trident') > 0) {
+                IE = true;
+            }
+            window.setTimeout(drawMap, 1500);//20170926-time the query to run after stations loaded
+            addmsg('DONE onPageLoad');
+        }
+        window.onload = onPageLoad;
+    </script>
+</head>
+<body>
+    <h2 id="fram-title" style="color: dimgray; margin: 0; padding: 10px;">Fish Distribution Map</h2>
+    <div id="navbar">
+        <table id="mapp-tools" class="tablr">
+            <tr style="background-color: whitesmoke; text-align: center;">
+                <th>SELECT SPECIES</th>
+                <th>YEAR</th>
+                <th>SURVEY</th>
+                <th style="text-align: justify;">
+                    <label for="showlabels">
+                        View Station ID
+                    </label>&nbsp;
+                    <input type="checkbox" id="showlabels" />
+                </th>
+                <th style="background-color: white;">
+                    &nbsp;
+                </th>
+            </tr>
+            <tr style="background-color: whitesmoke;">
+                <td>
+                    <select id="Species">
+                        <option value="3" style="padding-left: 20px;">Delta Smelt</option>
+                        <option value="28" style="padding-left: 20px;">Splittail</option>
+                        <option value="2" style="padding-left: 20px;">Longfin Smelt</option>
+                        <option value="0" style="padding-left: 20px;">Striped Bass</option>
+                        <option value="67" style="padding-left: 20px;">Wakasagi</option>
+                        <option value="5">American Shad</option>
+                        <option value="13">Arrow Goby</option>
+                        <option value="59">Bay Goby</option>
+                        <option value="35">Bay Pipefish</option>
+                        <option value="44">Bigscale Logperch</option>
+                        <option value="18">Black Bullhead</option>
+                        <option value="41">Black Crappie</option>
+                        <option value="7105">Blue Catfish</option>
+                        <option value="38">Bluegill Sunfish</option>
+                        <option value="54">Brown Bullhead</option>
+                        <option value="96">Brown Rockfish</option>
+                        <option value="76">California Tonguefish</option>
+                        <option value="26">Carp</option>
+                        <option value="7">Catfish (Unid)</option>
+                        <option value="36">Centrarchids (Unid)</option>
+                        <option value="58">Chameleon Goby</option>
+                        <option value="9">Channel Catfish</option>
+                        <option value="70">Cheekspot Goby</option>
+                        <option value="15">Chinook Salmon</option>
+                        <option value="24">Cyprinids (Unid)</option>
+                        <option value="3" selected="selected">Delta Smelt</option>
+                        <option value="83">English Sole</option>
+                        <option value="73">Fathead Minnow</option>
+                        <option value="84">Flatfish (Unid)</option>
+                        <option value="11">Gobies (Unid)</option>
+                        <option value="25">Golden Shiner</option>
+                        <option value="27">Goldfish</option>
+                        <option value="23">Green Sturgeon</option>
+                        <option value="37">Green Sunfish</option>
+                        <option value="29">Hardhead</option>
+                        <option value="4">Herring (Unid)</option>
+                        <option value="57">Hitch</option>
+                        <option value="53">Inland Silverside</option>
+                        <option value="34">Jacksmelt</option>
+                        <option value="60">Lampreys (Unid)</option>
+                        <option value="39">Largemouth Bass</option>
+                        <option value="2">Longfin Smelt</option>
+                        <option value="69">Longjaw Mudsucker</option>
+                        <option value="2775">Monkeyface Prickleback</option>
+                        <option value="31">Mosquitofish</option>
+                        <option value="14">Northern Anchovy</option>
+                        <option value="52">Pacific Herring</option>
+                        <option value="61">Pacific Lamprey</option>
+                        <option value="48">Pacific Staghorn Sculpin</option>
+                        <option value="2826">Penpoint Gunnel</option>
+                        <option value="43">Perches (Unid)</option>
+                        <option value="50">Plainfin Midshipman</option>
+                        <option value="2813">Prickleback spp.</option>
+                        <option value="49">Prickly Sculpin</option>
+                        <option value="65">Rainwater Killifish</option>
+                        <option value="72">Red Shiner</option>
+                        <option value="56">Redear Sunfish</option>
+                        <option value="62">River Lamprey</option>
+                        <option value="71">Sacramento Blackfish</option>
+                        <option value="42">Sacramento Perch</option>
+                        <option value="30">Sacramento Pikeminnow</option>
+                        <option value="64">Sacramento Sucker</option>
+                        <option value="2829">Saddleback Gunnel</option>
+                        <option value="63">Sculpins (Unid)</option>
+                        <option value="66">Shimofuri Goby</option>
+                        <option value="47">Shiner Perch</option>
+                        <option value="74">Shokihaze Goby</option>
+                        <option value="32">Silversides (Unid)</option>
+                        <option value="68">Smallmouth Bass</option>
+                        <option value="1">Smelt (Unid)</option>
+                        <option value="80">Speckled Sanddab</option>
+                        <option value="28">Splittail</option>
+                        <option value="19">Starry Flounder</option>
+                        <option value="55">Steelhead</option>
+                        <option value="0">Striped Bass</option>
+                        <option value="21">Sturgeon (Unid)</option>
+                        <option value="45">Surfperches (Unid)</option>
+                        <option value="6">Threadfin Shad</option>
+                        <option value="20">Three Spine Stickleback</option>
+                        <option value="12">Tidewater Goby</option>
+                        <option value="33">Topsmelt</option>
+                        <option value="75">Tridentiger spp.</option>
+                        <option value="46">Tule Perch</option>
+                        <option value="3127">Unid Flounder</option>
+                        <option value="99">Unknown</option>
+                        <option value="67">Wakasagi</option>
+                        <option value="17">Warmouth</option>
+                        <option value="8">White Catfish</option>
+                        <option value="40">White Crappie</option>
+                        <option value="51">White Croaker</option>
+                        <option value="22">White Sturgeon</option>
+                        <option value="10">Yellowfin Goby</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="SurveyYear">
+                        <option value="2017" selected="selected">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                        <option value="2009">2009</option>
+                        <option value="2008">2008</option>
+                        <option value="2007">2007</option>
+                        <option value="2006">2006</option>
+                        <option value="2005">2005</option>
+                        <option value="2004">2004</option>
+                        <option value="2003">2003</option>
+                        <option value="2002">2002</option>
+                        <option value="2001">2001</option>
+                        <option value="2000">2000</option>
+                        <option value="1999">1999</option>
+                        <option value="1998">1998</option>
+                        <option value="1997">1997</option>
+                        <option value="1996">1996</option>
+                        <option value="1995">1995</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="Survey">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5" selected="selected">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </td>
+                <td>
+                    <label for="showpct" style="font-weight: bold;">
+                        View Percentages
+                    </label>
+                    <input type="checkbox" id="showpct" />
+                </td>
+                <td>
+                    <input type="button" id="draw-map" value="Draw Map" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="map"></div>
+    <div id="map-title">
+        <div style="font-weight: bolder">
+            <span id="cname">Delta Smelt</span>&nbsp;
+            <span id="year">{YEAR} **** Survey in progress ****</span>
+        </div>
+        <div id="surveydates" style="font-weight: bold;">
+            SURVEY <span id="survey">{N}</span>&nbsp;<span id="dates">{DATES}</span>
+        </div>
+    </div>
+    <div id="Bay-label" style="position: absolute; left: 400px; top: 150px; z-index: 200; color: brown; font-weight: bold; display: none;">
+        Bay
+    </div>
+    <div id="Delta-label" style="position: absolute; left: 800px; top: 300px; z-index: 200; color: brown; font-weight: bold; display: none;">
+        Delta
+    </div>
+    <div id="Upstream-label" style="position: absolute; left: 800px; top: 125px; z-index: 200; color: brown; font-weight: bold; display: none;">
+        Upstream
+    </div>
+    <div id="legend">
+        <div id="legend-keys">
+            <fieldset id="legend-fish" style="background-color: white;">
+                <legend class="legend-caption">Fish Per 10,000 Cubic Meters</legend>
+                <table style="background-color: white; border-collapse: collapse; border: 1px solid silver;">
+                    <caption class="legend-caption" style="display: none;">Fish Per 10,000 Cubic Meters</caption>
+                    <tr>
+                        <th class="thd" style="color: crimson; font-size: medium; font-weight: bold; text-align: center;">&plus;</th>
+                        <th class="thd">Not Sampled</th>
+                    </tr>
+                    <tr>
+                        <th class="thd" id="leg-0-patch">
+                            <svg height="12" width="12">
+                                <circle cx="6" cy="6" r="5" stroke="dimgray" stroke-width="1" fill="white" />
+                            </svg>
+                        </th>
+                        <th class="thd" id="leg-0-label">= 0</th>
+                    </tr>
+                    <tr>
+                        <th class="thd" id="leg-1-patch">
+                            <svg height="18" width="18">
+                                <circle cx="9" cy="9" r="8" stroke="dimgray" stroke-width="1" fill="mediumseagreen" />
+                            </svg>
+                        </th>
+                        <th class="thd" id="leg-1-label">=max/5</th>
+                    </tr>
+                    <tr>
+                        <th class="thd" id="leg-2-patch">
+                            <svg height="26" width="26">
+                                <circle cx="13" cy="13" r="12" stroke="dimgray" stroke-width="1" fill="mediumseagreen" />
+                            </svg>
+                        </th>
+                        <th class="thd" id="leg-2-label">=2*max/5</th>
+                    </tr>
+                    <tr>
+                        <th class="thd" id="leg-3-patch">
+                            <svg height="34" width="34">
+                                <circle cx="17" cy="17" r="16" stroke="dimgray" stroke-width="1" fill="mediumseagreen" />
+                            </svg>
+                        </th>
+                        <th class="thd" id="leg-3-label">=3*max/5</th>
+                    </tr>
+                    <tr>
+                        <th class="thd" id="leg-4-patch">
+                            <svg height="42" width="42">
+                                <circle cx="21" cy="21" r="20" stroke="dimgray" stroke-width="1" fill="mediumseagreen" />
+                            </svg>
+                        </th>
+                        <th class="thd" id="leg-4-label">=4*max/5</th>
+                    </tr>
+                    <tr>
+                        <th class="thd" id="leg-5-patch">
+                            <svg height="50" width="50">
+                                <circle cx="25" cy="25" r="24" stroke="dimgray" stroke-width="1" fill="mediumseagreen" />
+                            </svg>
+                        </th>
+                        <th class="thd" id="leg-5-label">=max</th>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+    <hr />
+    <h3 id="data-title" style="color: navy;">
+        <span id="out-cname">Delta Smelt</span> <span id="out-year">2017</span> Survey: <span id="out-survey">9</span>
+    </h3>
+    <p id="data-note" style="font-weight: bold;">
+        Note: Lengths > 60 mm are not included.
+    </p>
+    <table id="outtable" style="border: 1px solid dimgray; border-collapse: collapse; display: none; margin: 10px 0;"></table>
+    <div id="outbox"></div>
+    <footer>
+        <span id="legacy-link" style="border-right: 2px solid silver; margin-right: 10px; display: none;">
+            <a href="http://www.dfg.ca.gov/delta/data/20mm/CPUE_map.asp" target="_blank">
+                20-mm Fish Distribution Map
+            </a> (current)
+        </span>
+        <a href="mailto:AskBDR@wildlife.ca.gov">AskBDR@wildlife.ca.gov</a>&copy;
+        <script>
+            document.write(document.lastModified);
+        </script>
+    </footer>
+    <input type="button" id="msgbin-show" value="MSG" onclick="show('msgbin')" style="display: none;" />
+    <div id="msgbin" style="display: none;">
+        <input type="button" id="msgbin-hide" value="X" onclick="hide('msgbin')" />
+        <h3  style="margin: 5px; padding: 3px;">
+            Messages (bios&copy;
+            <script>
+                document.write(document.lastModified);
+            </script>
+            )
+        </h3>
+        <hr />
+        <div id="msgbox">
+            ::MESSAGES::
+        </div>
+    </div>
+    <script>
+        var map, stations, samplayer, sumlayer;
+        var olayer = null; // overlay operational layergroup of markers with custom icons to show sample result
+        var nslayer = null;
+        function init() {
+            //REF--[Esri Leaflet Quickstart](https://esri.github.io/esri-leaflet/examples/)
+            map = L.map('map', { zoomControl: false }).setView([38.04, -121.92], 10);
+            L.esri.basemapLayer('Gray').addTo(map); //('Topographic').addTo(map); //('Streets').addTo(map); //('Oceans').addTo(map); //
+            //var mapdiv = L.DomUtil.get('map');
+            //L.DomEvent.on(mapdiv, 'mousewheel', L.DomEvent.stopPropagation);//FAIL
+            // Disable map Interaction--(https://gis.stackexchange.com/questions/54454/disable-leaflet-interaction-temporary)
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.boxZoom.disable();
+            map.keyboard.disable();
+            map.on('click', function (ev) {
+                addmsg(ev.latlng); //20170825-REF--http://leafletjs.com/reference-1.2.0.html#renderer
+            });
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor = 'default';
+            //REF--[Simple FeatureLayer](https://esri.github.io/esri-leaflet/examples/simple-feature-layer.html)
+            //20170825-REF--[Styling points](https://esri.github.io/esri-leaflet/examples/styling-feature-layer-points.html)
+            // Change default blue pin marker to something else
+            stations = L.esri.featureLayer({
+                url: app.layers.stations.url,
+                //where: 'Station NOT IN (328,334,335,336)',// defquery feature works
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "base-icon",
+                            html: '<div style="left: -5px; top: -5px; position: relative;"><b style="color: crimson; font-size: medium;">&plus;</b></div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+                //style: function () {// for styling GeoJson as source
+                //    return {
+                //        color: "#5B7CBA",
+                //        weight: 2
+                //    };
+                //}
+            }).addTo(map);
+            // Add stations label layer to map so can add remove-20170825
+            labellayer = L.esri.featureLayer({
+                url: app.layers.stations.url,
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "label",
+                            html: '<div>' + geojson.properties['Station'] + '</div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+            }).addTo(map);
+            //REF--[Labeling Features](https://esri.github.io/esri-leaflet/examples/labeling-features.html)
+            //ERROR--TypeError: feature.getBounds is not a function
+            //ERROR--TypeError: feature.geometry is undefined
+            // Percentages Regions Vector Layers--20170920
+            //REF--[LeafletJS/Doc/Vector Layers/Rectangle](http://leafletjs.com/reference-1.2.0.html#rectangle)
+            var upbounds = [[38.204, -121.82], [38.5, -121.1]];
+            upstreampoly = L.rectangle(upbounds, {
+                color: 'silver',
+                fillColor: 'antiquewhite',
+                fillOpacity: 0.5,
+                weight: 1
+            });//.addTo(map);
+            var delbounds = [[37.5, -121.82], [38.204, -121.1]];
+            deltapoly = L.rectangle(delbounds, {
+                color: 'silver',
+                fillColor: 'lemonchiffon',//cornsilk
+                fillOpacity: 0.5,
+                weight: 1
+            });//.addTo(map);
+            var baybounds = [[37.5, -122.6], [38.5, -121.82]];
+            baypoly = L.rectangle(baybounds, {
+                color: 'silver',
+                fillColor: 'white',
+                fillOpacity: 0.3,
+                weight: 1
+            });//.addTo(map);
+
+            // CONNECT UI ACTIONS
+            $("showlabels").onclick = function () {
+                if (this.checked === true) {
+                    map.addLayer(labellayer);
+                } else {
+                    map.removeLayer(labellayer);
+                }
+            }
+            $("showpct").onclick = function () {
+                if (this.checked === true) {
+                    mappct();
+                } else {
+                    hidepct();
+                }
+            }
+            $("draw-map").onclick = drawMap;
+            // ONLOAD
+            //$('showlabels').checked = app.showlabels;
+            //$('showlabels').click();
+            map.removeLayer(labellayer);
+            //drawMap();
+        }//DONE_init
+        
+        function drawMap() {
+            app.year = $('SurveyYear').value;
+            app.survey = $('Survey').value;
+            app.species = $('Species').value;
+            app.cname = $('Species').options[$('Species').selectedIndex].innerHTML;
+            $('cname').innerHTML = app.cname;
+            $('year').innerHTML = $('SurveyYear').value;
+            if ($('SurveyYear').value === '2017') {
+                $('year').innerHTML = $('SurveyYear').value + '&nbsp;*** Survey in progress ***';
+            }
+            $('survey').innerHTML = $('Survey').value;
+            $('out-cname').innerHTML = app.cname;
+            $('out-year').innerHTML = $('SurveyYear').value;
+            $('out-survey').innerHTML = $('Survey').value;
+            var sql = "SurveyYear = " + $("SurveyYear").value + " AND Survey = " + $("Survey").value + " AND (Species = '" + $("Species").value + "' OR Species = 'SPECIES')";
+            addmsg('DO drawMap ' + sql);
+            querySamples(sql);
+        }
+        function querySamples(sql) {
+            addmsg('DO querySamples: ' + sql);
+            if (olayer !== null) {
+                map.removeLayer(olayer);
+            }
+            var query = L.esri.query({
+                url: app.layers.samples.url
+            });
+            query.where(sql).orderBy('Station', 'ASC').orderBy('Species', 'ASC').orderBy('CPUE', 'DESC');
+            // Result where cpue is gt zero will have 2 records per station--20170919
+            query.run(function (error, featureCollection, response) {
+                addmsg('CALLBACK querySamples queryrun: ' + featureCollection.features.length + ' features found');
+                var tbl = $('outtable');
+                tbl.innerHTML = '';
+                if (featureCollection.features.length == 0) {
+                    map.removeLayer(olayer);
+                    stations.setWhere('Station > 0');
+                    $('dates').innerHTML = '(No data)';
+                    $('Bay-label').innerHTML = '0%';
+                    $('Delta-label').innerHTML = '0%';
+                    $('Upstream-label').innerHTML = '0%';
+                    for (i = 1; i < 6; i++) {
+                        $('leg-' + i + '-label').innerHTML = 'N/A';
+                    }
+                    return;
+                }
+                show('outtable');
+                var data = [];
+                var vals = [];
+                var sum = 0;
+                var max = 0; 
+                var min = 0;
+                var recno = 0;
+                var laststation = 0;
+                var stationcodes = [];
+                var features = featureCollection.features;
+                for (var i = 0; i < features.length; i++) {
+                    var fi = features[i];
+                    var id = fi.id;
+                    var station = fi.properties['Station'];
+                    var lat = fi.properties['Latitude'];
+                    var lon = fi.properties['Longitude'];
+                    var cpue = fi.properties['CPUE'];
+                    if (i == 0) {
+                        var borntime = fi.properties['SurveyStartDate'];
+                        var endtime = fi.properties['SurveyEndDate'];
+                        var borndate = new Date(borntime);
+                        var enddate = new Date(endtime);
+                        var borned = borndate.getMonth() + 1 + '/' + borndate.getDate() + '/' + borndate.getFullYear();
+                        var ended = enddate.getMonth() + 1 + '/' + enddate.getDate() + '/' + enddate.getFullYear();
+                        var msg = ' (' + borned + ' - ' + ended + ')';
+                        $('dates').innerHTML = msg;
+                        var row = tbl.insertRow(0);
+                        row.style.backgroundColor = 'whitesmoke';
+                        row.style.borderBottom = "2px solid dimgray";
+                        for (var k = 0; k < app.tcols.length; k++) {
+                            var col = document.createElement('th');
+                            col.style.border = '1px solid darkgray';
+                            col.style.color = 'mediumblue';
+                            col.style.padding = '2px';
+                            col.innerHTML = app.tcols[k];
+                            row.appendChild(col);
+                        }
+                    }
+                    if (station !== laststation) {
+                        data.push({"lat": lat, "lon": lon, "id": station, "val": cpue});
+                        stationcodes.push(station);
+                        recno = recno + 1;
+                        var row = tbl.insertRow(recno);
+                        if ((recno % 2) === 0) {
+                            row.style.backgroundColor = 'azure';
+                        }
+                        for (var k = 0; k < app.tfields.length; k++) {
+                            var cell = row.insertCell(k);
+                            cell.style.border = '1px solid silver';
+                            cell.style.padding = '2px';
+                            if (app.tfields[k] == 'CPUE') {
+                                var val = fi.properties[app.tfields[k]];
+                                if (val > 0) {
+                                    cell.innerHTML = val.toFixed(2);
+                                    vals.push(val);
+                                    sum = sum + val;
+                                    if (val > max) {
+                                        max = val.toFixed(2);
+                                    }
+                                    if (min === 0) {
+                                        min = val;
+                                    } else if (val < min) {
+                                        min = val.toFixed(2);
+                                    }
+                                } else {
+                                    cell.innerHTML = 0;
+                                }
+                            } else if (app.tfields[k] == 'Turbidity') {
+                                cell.innerHTML = '-';
+                            } else {
+                                cell.innerHTML = fi.properties[app.tfields[k]];
+                            }
+                        }//end_loop_fields
+                    }
+                    laststation = station;
+                }//end_loop_features
+                addmsg('Collected ' + vals.length + ' values: min=' + min + ', max=' + max + ', sum=' + sum);
+                var markers = outmarkers(data, min, max, sum);
+                olayer = L.layerGroup(markers).addTo(map);
+                //map.removeLayer(stations);
+                var stationswhere = 'Station NOT IN (' + stationcodes + ')';
+                addmsg(stationswhere);
+                //stations.setWhere(stationswhere);
+                stations.setWhere('Station < 0'); // HIDE STATIONS LAYER AND SHOW ONLY STATIONS FILTERED
+                //map.addLayer(stations);//FAIL: STATIONS REMOVED PERMANENTLY
+                if ($('showpct').checked === true) {
+                    querypct();
+                }
+                queryStations(stationswhere);//20171004
+            });//end_queryrun
+        }//DONE_querySamples
+        function outmarkers(data, min, max, sum) {
+            addmsg('DO outmarkers: ' + [data.length, min, max, sum]);
+            var uval = max / 5;
+            //addmsg('uval = max/5=' + uval);
+            // Classify non-zero results into 5 breaks
+            var kls = [
+                {
+                    "value": 0,
+                    "size": 10,
+                    "fill": "white"
+                },
+                {
+                    "value": (max/5),
+                    "size": 16,
+                    "fill": "mediumseagreen"
+                },
+                {
+                    "value": (max/5)*2,
+                    "size": 24,
+                    "fill": "mediumseagreen"
+                },
+                {
+                    "value": (max/5)*3,
+                    "size": 32,
+                    "fill": "mediumseagreen"
+                },
+                {
+                    "value": (max/5)*4,
+                    "size": 40,
+                    "fill": "mediumseagreen"
+                },
+                {
+                    "value": max,
+                    "size": 48,
+                    "fill": "mediumseagreen"
+                }
+            ];
+            // Update legend--20170920
+            for (var i = 1; i < 5; i++) {
+                $('leg-' + i + '-label').innerHTML = '&lt;= ' + (uval * i).toFixed(2);
+                //addmsg('uval*' + i + '=' + (uval * i).toFixed(2));
+            }
+            $('leg-5-label').innerHTML = '&lt;= ' + max;
+            var markers = [];
+            for (var i = 0; i < data.length; i++) {
+                var lat = data[i].lat;
+                var lon = data[i].lon;
+                var station = data[i].id;//=station
+                var val = data[i].val;//=cpue
+                if (val > 0) {
+                    val = val.toFixed(2);
+                }
+                var size = 18;
+                var fill = 'steelblue';
+                var pop = '<table class="poptb"><tr><th>Station</th><td>' + station + '</td></tr>' + 
+                        '<tr><th>CPUE</th><td>' + val + '</td></tr></table>';
+                if (val === 0) {
+                    size = kls[0].size;
+                    fill = kls[0].fill;
+                } else if (val > 0 && val <= kls[1].value) {
+                    size = kls[1].size;
+                    fill = kls[1].fill;
+                } else if (val > kls[1].value && val <= kls[2].value) {
+                    size = kls[2].size;
+                    fill = kls[2].fill;
+                } else if (val > kls[2].value && val <= kls[3].value) {
+                    size = kls[3].size;
+                    fill = kls[3].fill;
+                } else if (val > kls[3].value && val <= kls[4].value) {
+                    size = kls[4].size;
+                    fill = kls[4].fill;
+                } else if (val > kls[4].value) {// (Math.abs(val - kls[5].value) < 0.05) {
+                    size = kls[5].size;
+                    fill = kls[5].fill;
+                }
+                var ht = size + 2;
+                var r = size / 2;
+                var cx = r + 1;// 0 will cut disc into quarter -' + r + '
+                var dv = '<div style="left: -' + r + 'px; top: -' + r + 'px; position: relative; overflow: visible;">' +
+                        '<svg height="' + ht + '" width="' + ht + '">' +
+                        '<circle cx="' + cx + '" cy="' + cx + '" r="' + r + '"' +
+                        ' stroke="dimgray" stroke-width="1" fill="' + fill + '" />' + 
+                        '</svg></div>';//'<div class="dicon">' + 
+                var iconOptions = {
+                    iconSize: null,
+                    className: "base-icon",
+                    html: dv
+                };
+                var icon = L.divIcon(iconOptions);
+                var marker = L.marker([lat, lon], { icon: icon }).bindPopup(pop);
+                markers.push(marker);
+            }
+            //stations.setWhere("OBJECTID < 30");//TEST=OK
+            return markers;
+        }//DONE_outmarkers
+        function querypct() {
+            var sql = "SurveyYear = " + $("SurveyYear").value + " AND Survey = " + $("Survey").value + " AND Species = '" + $("Species").value + "'";
+            addmsg('DO querypct ' + sql);
+            var query = L.esri.query({
+                url: app.layers.summary.url
+            });
+            query.where(sql).orderBy('Area', 'ASC').orderBy('Percentage', 'ASC');
+            // Result where cpue is gt zero will have 2 records per station--20170919
+            query.run(function (error, featureCollection, response) {
+                addmsg('CALLBACK querypct queryrun: ' + featureCollection.features.length + ' records found');
+                var pcts = {
+                    "Bay": 0,
+                    "Delta": 0,
+                    "Upstream": 0
+                }
+                var features = featureCollection.features;
+                for (var i = 0; i < features.length; i++) {
+                    var fi = features[i];
+                    var key = fi.properties['Area'];
+                    var val = fi.properties['Percentage'];
+                    addmsg(key + '=' + val);
+                    if (val > 0 && val < 100) {
+                        val = val.toFixed(2);
+                    }
+                    pcts[key] = val;
+                }
+                for (key in pcts) {
+                    addmsg(key + '-label.innerHTML = ' + pcts[key] + '%');
+                    $(key + '-label').innerHTML = pcts[key] + '%';
+                }
+            });//end_queryrun
+            if (app.sql !== sql) {
+                addmsg('app.sql vs newsql: ' + [app.sql, sql]);
+                app.sql = sql;
+            }
+        }
+        function mappct() {
+            addmsg('DO mappct');
+            map.addLayer(upstreampoly);
+            map.addLayer(deltapoly);
+            map.addLayer(baypoly);
+            show('Bay-label');
+            show('Delta-label');
+            show('Upstream-label');
+            querypct();
+        }
+        function hidepct() {
+            addmsg('DO hidepct');
+            map.removeLayer(upstreampoly);
+            map.removeLayer(deltapoly);
+            map.removeLayer(baypoly);
+            hide('Bay-label');
+            hide('Delta-label');
+            hide('Upstream-label');
+        }
+        function queryStations(sql) {
+            addmsg('DO queryStations: ' + sql);
+            if (nslayer !== null) {
+                map.removeLayer(nslayer);
+            }
+            var query = L.esri.query({
+                url: app.layers.stations.url
+            });
+            query.where(sql);
+            query.run(function (error, featureCollection, response) {
+                addmsg('CALLBACK queryStations queryrun: ' + featureCollection.features.length + ' features found');
+                if (featureCollection.features.length == 0) {
+                    //map.removeLayer(nslayer);
+                    //stations.setWhere('Station > 0');
+                    return;
+                }
+                //var data = [];
+                //var recno = 0;
+                //var laststation = 0;
+                var stationcodes = [];
+                var markers = [];
+                var features = featureCollection.features;
+                for (var i = 0; i < features.length; i++) {
+                    var fi = features[i];
+                    var id = fi.id;
+                    var station = fi.properties['Station'];
+                    var lat = fi.properties['LAST_Latitude'];
+                    var lon = fi.properties['LAST_Longitude'];
+                    var dv = '<div><b style="color: crimson; font-size: medium;">&plus;</b></div>';//'<div  style="color: magenta; font-size: 24px; font-weight: bold;">' + 
+                    var iconOptions = {
+                        iconSize: null,
+                        className: "base-icon",
+                        html: dv
+                    };
+                    var icon = L.divIcon(iconOptions);
+                    var marker = L.marker([lat, lon], { icon: icon });
+                    markers.push(marker);
+                    stationcodes.push(station);
+                }//end_loop_features
+                addmsg('Not Sampled staions: ' + stationcodes);
+                nslayer = L.layerGroup(markers).addTo(map);
+            });//end_queryrun
+            addmsg('DONE queryStations');
+        }
+        function TESTPCT() {
+            addmsg('DO mappct');
+            var mapul = [38.38348, -122.53464];
+            var mapur = [38.38348, -121.30554];
+            var maplr = [37.7144, -121.30554];
+            var mapll = [37.6956, -122.53464];
+            var northwest = [38.5, -122.6];
+            var northeast = [38.5, -121.1];
+            var southeast = [37.5, -121.1];
+            var southwest = [37.5, -122.6];
+            var tricenter = [38.20419, -121.81641];
+            var baygon = L.polygon([
+                [38.5, -122.6],
+                [38.5, -121.82],
+                [37.5, -121.82],
+                [37.5, -122.6]
+            ],{
+                color: 'silver',
+                fillColor: 'white',
+                fillOpacity: 0.1
+            }).addTo(map);
+            var deltagon = L.polygon([
+                [38.204, -121.82],
+                [38.204, -121.1],
+                [37.5, -121.1],
+                [37.5, -122.82]
+            ],{
+                color: 'silver',
+                fillColor: 'lemonchiffon',
+                fillOpacity: 0.3
+            }).addTo(map);
+            var upstreamgon = L.polygon([
+                [38.5, -121.82],
+                [38.5, -121.1],
+                [37.204, -121.1],
+                [38.204, -121.82]
+            ],{
+                color: 'silver',
+                fillColor: 'beige',
+                fillOpacity: 0.3
+            }).addTo(map);
+        }
+        init();
+    </script>
+</body>
+</html>

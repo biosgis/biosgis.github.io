@@ -1,178 +1,174 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+20170408 dean.chiang@wildlife.ca.gov
 -->
 <html>
     <head>
-        <title>Delta Map Apps Development</title>
+        <title>Bay Delta Survey</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             body {
-                font-family: Consolas, Monaco, Arial, helvetica, sans-serif;
+                font-family: Consolas, Monaco, sans-serif;
                 font-size: larger;
             }
-            aside {
-                border: 1px solid silver;
-                border: 0 0 1px 1px;
-                float: right;
-            }
             footer {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                background-color: ghostwhite;
                 border-top: 1px solid silver;
                 font-family: monospace;
+                padding: 5px;
             }
-            h1 {
-                font-family: 'Arial Black', fantasy;
-            }
-            h2 {
-                background-color: whitesmoke;
-                font-family: Georgia, serif;
-            }
-            h3 {
-                font-family: Verdana, 'Comic Sans MS', cursive;
-            }
-            h4 {
-                font-family: Arial, helvetica, sans-serif;
-            }
-            header {
-                border-bottom: 1px solid silver;
-            }
-            nav {
-                border-top: 1px solid silver;
+            pre {
+                color: white;
             }
         </style>
     </head>
     <body>
-        <header>
-            <h1>
-                Delta Map Apps Code Documentation &amp; Development Log 20170420-
-            </h1>
-        </header>
-        <nav></nav>
-        <aside></aside>
-        <main>
-            <h2>Variables</h2>
-            <h2>Functions</h2>
-            <h3>samplesOutput (response)</h3>
-            <p>
-                Cannot do samplesResults = arrayUtils.map(response.features, function(feature), 
-                nor feature.popupTemplate = popupTemplate, 
-                nor new TextSymbol because all those must be included in the required fxn;
-                Best way to code callbacks outside of loader is use generic JS methods 
-                and create a global symbol and then clone it like defaultTextSymbol.clone();
-                //20170420
-            </p>
-            <h3>summaryTable (features)</h3>
-            Tabulate the feature attribute data from summary dataset (Sex Ratios) 
-            and output table and data array ready for Google Charting. //20170421
-            <h3>plotPies (gdata, type)</h3>
-            Parse tabulated data into Google Charting ready array and 
-            plot into per station and sum total pie charts.
-            //20170421
-            <h3>chartPie (gdata, type, station)</h3>
-            //20170421
-            <h3>initLegend ()</h3>
-            Creates the color coded stage description legend keys under the 
-            sum total pie chart.
-            //20170421
-            <h2>API Notes</h2>
-            <h3>Renderers and Symbols</h3>
-            <ol>
-                <li>
-                    Do not use symbol parameter in SimpleRenderer constructor 
-                    for multivariate symbology rendering. 
-                    Cannot use visual variables or add unique value infos to 
-                    easily write a multivariate transparent renderer. 
-                    Can use opactityInfo property to set opacity instead of 
-                    hardcode RGB value arrays. 
-                    //20170425
-                </li>
-            </ol>
-            <h2>Maintenance</h2>
-            <h3>Monthly</h3>
-            <ol>
-                <li>
-                    Web.config:51 - Update new cnddb_com password for the month.
-                </li>
-            </ol>
-            <h2>App Bootup Process</h2>
-            <h3>Splash Panel</h3>
-            <ol>
-                <li>
-                    Text on splash panel is populated in amd.js/init fxn using data from 
-                    viewer.title and viewer.subtitle configured by viewer = configs[app.viewer]
-                    //20170424
-                </li>
-            </ol>
-            <h2>Layers</h2>
-            <h3>Map Image Layer</h3>
-            <h2>Table Of Contents (TOC)</h2>
-            <h3>Reference Layers</h3>
-            <ol>
-                <li>
-                    <a href="https://map.dfg.ca.gov/arcgis/rest/services/Base_Maps/GeoReference/MapServer">
-                        GeoReference
-                    </a>
-                </li>
-                <li>
-                    <a href="https://gis.lacounty.gov/ArcGIS/rest/services">
-                        LA County GIS Map Services Directory
-                    </a>
-                </li>
-            </ol>
-            <h3>Drag-and-Drop</h3>
-            <ol>
-                <li>
-                    <a href="https://www.html5rocks.com/en/tutorials/dnd/basics/">
-                        Native HTML5 Drag and Drop
-                    </a>
-                </li>
-            </ol>
-            <h2>Pages</h2>
-            <h3>index.html</h3>
-            <ol>
-                <li>
-                    sceneview = 3d view of map //20170424
-                </li>
-            </ol>
-            <h3>Changes</h3>
-            <ol>
-                <li>
-                    <h4></h4>
-                </li>
-            </ol>
-            <h2>Next</h2>
-            <ol>
-                <li>
-                    Publish APP_BOOKMARK table in biosgdb to AGOL
-                </li>
-                <li>
-                    What to call the tools container? 
-                    tools.js--Sidebar or Toolbar or Toolsbin or Toolwall?
-                    Not toolbelt, toolcart, toolgallery, toolpool
-                </li>
-                <li>
-                    What new class or file or module to create for new tool or functionality?
-                    Queue Queen Adder Cmd Term cli CLI
-                </li>
-                <li>
-                    URL is the command line; URL parameter name|key/value is the command argument
-                    client side app add data by url arg
-                </li>
-                <li>
-                    A function method is a capability that should belong to the tool object or toolset like arcpy.mp
-                    mp = Mapping.js
-                </li>
-                <li>
-                    Document list of changes per month
-                </li>
-            </ol>
-        </main>
+        <h1>
+            <a href="https://www.wildlife.ca.gov/Regions/3" target="_blank">
+                Bay Delta Region
+            </a> Fish Distribution Map Development
+        </h1>
+        <h2>
+            <a href="https://www.wildlife.ca.gov/Conservation/Delta/20mm-Survey">
+                20-mm Survey
+            </a> Fish Distribution Map
+        </h2>
+        <ol>
+            <li>
+                <a href="http://www.dfg.ca.gov/delta/data/20mm/CPUE_map.asp">
+                    Original Fish Distribution Map
+                </a>
+            </li>
+            <li>
+                <a href="http://www.dfg.ca.gov/delta/data/20mm/CPUE_zoomap.asp">
+                    20-mm Zooplankton Distribution Map
+                </a>
+            </li>
+            <li>
+                <a>
+                    ArcGIS Online item
+                </a>
+            </li>
+            <li>ArcGIS Online 
+                <a href="http://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/bd20mmgdb/FeatureServer">
+                    feature service
+                </a> (bd20mmgdb)
+            </li>
+            <li>
+                <a href="20mmmap3.html" target="_blank">
+                    20mm Survey Fish Distribution Map
+                </a> (JSAPI v3)
+            </li>
+            <li>
+                <a href="bd20mmmap.html" target="_blank">
+                    20-mm Survey Fish Distribution Map
+                </a> (JSAPI-4) //20170609
+            </li>
+            <li>
+                <a href="bd20mmlet.html" target="_blank">
+                    20-mm Survey Fish Distribution Map
+                </a> (Esri-Leaflet) Currently In Progress //20170609-LATEST
+            </li>
+            <li>
+                <a>20-mm Map in DNN page</a> //NOT YET
+            </li>
+            <li>
+                <a href="zoomap.html" target="_blank">
+                    20-mm Zooplankton Distribution Map
+                </a> trial In Progress //20170612-Latest
+            </li>
+        </ol>
+        <h2>
+            <a href="https://www.wildlife.ca.gov/Conservation/Delta/Spring-Kodiak-Trawl">
+                Spring Kodiak Trawl
+            </a> (SKT) Fish Distribution Map
+        </h2>
+        <ol>
+            <li>
+                <a href="http://www.dfg.ca.gov/delta/data/skt/DisplayMaps.asp">
+                    Original page
+                </a>
+            </li>
+            <li>ArcGIS Online 
+                <a href="http://www.arcgis.com/home/item.html?id=09916a05a97949cc81c20d4a6a7cc843" target="_blank">
+                    portal item
+                </a>
+            </li>
+            <li>ArcGIS Online 
+                <a href="http://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/sktgdb/FeatureServer" target="_blank">
+                    feature service
+                </a> (sktgdb)
+            </li>
+            <li style="display: none;">
+                <a href="skt3d.html" target="_blank">SKT 3D Experimental map</a>
+            </li>
+            <li style="display: none;">
+                <a href="sktmap1.html" target="_blank">SKT initial map</a> with example SVG graphic
+            </li>
+            <li style="display: none;">
+                <a href="sktmapb.html" target="_blank">SKT pie wedge over full circle test map</a>
+            </li>
+            <li style="display: none;">
+                <a href="sktmapc.html" target="_blank">SKT circle map</a> opaque stacking does not work
+            </li>
+            <li style="display: none;">
+                <a href="sktmapd.html" target="_blank">SKT map with semi-working pie chart and stacked bars</a>
+            </li>
+            <li>
+                <a href="sktmap.html" target="_blank">SKT Map</a> (JSAPI-4)
+            </li>
+            <li>
+                <a href="sktmaplet.html" target="_blank">
+                    SKT Map
+                </a> (Esri-Leaflet) Currently In Progress //20170820-LATEST
+            </li>
+            <li>
+                <a>SKT Map in DNN page</a> //NOT YET
+            </li>
+        </ol>
+        <h2>
+            <a href="http://www.dfg.ca.gov/delta/projects.asp?ProjectID=FMWT">Fall Midwater Trawl</a>
+            <a href="https://www.wildlife.ca.gov/Conservation/Delta/Fall-Midwater-Trawl">(FMWT)</a>
+            Fish Distribution Map
+        </h2>
+        <ol>
+            <li>
+                <a href="http://www.dfg.ca.gov/delta/data/fmwt/Catch_Map.asp">
+                    Original page
+                </a>
+            </li>
+            <li>
+                <a></a>
+            </li>
+        </ol>
+        <hr />
+        <pre id="notes" onclick="this.style.color='black';">
+NOTES--
+//20170929 
+Updated jsapi 4.4 to 4.5 version.
+//20170830-DONE
+Added legend to sktmaplet. Made workaround for IE legend not using SVG text. 
+Hid borders on fieldset element to conform to original style. 
+//20170525
+Current SKT map draws pie charts per station with query results below the map. 
+User can choose the different styles of symbol to draw wthe query result graphic 
+over the stations on the map.
+//20170606 
+Moved the dynamic Esri legend box inside toggle button at lower left corner of map.
+//20170609
+Added scale bar to map.
+TODO: 
+Add the *** Survey In Progress *** text on upper left of 20-mm map.
+BUG--
+Why scale bar at bottom right of sktmap falls off the map canvas?
+        </pre>
         <footer>
-            <div style="float: right;">
-                <a href="mail:dean.chiang@wildlife.ca.gov">dean.chiang@wildlife.ca.gov</a>
+            <div style="float: right; margin-right: 20px;">
+                <a href="mail:bios@wildlife.ca.gov">bios@wildlife.ca.gov</a>
                 &copy;
                 <script>
                     document.write(document.lastModified);
