@@ -52,7 +52,7 @@ function poplinks() {
                     a.className = a.className + ' ali';
                 }
                 if (a.title !== '') {
-                    a.innerHTML = '&loz;&nbsp;' + a.title;
+                    a.innerHTML = '&bull;&nbsp;' + a.title;
                 } else {
                     a.innerHTML = a.href;
                 }
