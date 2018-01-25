@@ -120,6 +120,24 @@ th {
     margin: 2px;
     padding: 2px;
 }
+.ab {
+    background-color: azure;
+    border: 1px solid lightblue;
+    border-radius: 3px;
+    line-height: 30px;
+    margin: 5px 1px;
+    padding: 1px 5px;
+}
+.big {
+    font-size: larger;
+    font-weight: bolder;
+}
+.klinks {
+    background-color: lavender;
+    border-bottom: 1px solid silver;
+    margin-bottom: 5px;
+    padding: 5px;
+}
 .clickme {
     background-color: transparent;
     border: 1px solid transparent;

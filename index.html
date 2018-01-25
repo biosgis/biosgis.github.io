@@ -19,6 +19,11 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
         <script src="https://js.arcgis.com/4.6/"></script>
         <style>
+            aside {
+                position: relative; right: 0;
+                max-height: 600px; max-width: 30%;
+                overflow: auto;
+            }
             #contents {
                 background-color: white;
                 border-top: 1px solid silver;
@@ -107,6 +112,10 @@ and open the template in the editor.
             <p><a href="https://code.nasa.gov/">NASA Open Source</a></p>
             <p><a href="https://outlook.office365.com/owa">Outlook</a></p>
         </aside>
+        <main title="Mapview">
+            <div id="mapview"></div>
+        </main>
+        <input type="text" id="qmd" placeholder="Hello guest!" size="80" style="margin: 5px;" title="Command Box">
         <div id="contents" title="Contents">
             <section title="Table Of Contents">
                 <h2>Map</h2>
@@ -210,10 +219,6 @@ and open the template in the editor.
                 </details>
             </section>
         </div>
-        <main title="Mapview">
-            <div id="mapview"></div>
-        </main>
-        <input type="text" id="qmd" placeholder="Hello guest!" size="80" style="margin: 5px;" title="Command Box">
         <footer title="Footer">
             @<a href="mailto:bios@wildlife.ca.gov" title="Contact">bios</a>
             &copy;

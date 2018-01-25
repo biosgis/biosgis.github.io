@@ -53,10 +53,13 @@ function poplinks() {
                     a.className = a.className + ' ali';
                 }
                 if (a.title !== '') {
-                    a.innerHTML = '&bull;&nbsp;' + a.title;
+                    a.innerHTML = a.title;
                 } else {
-                    a.innerHTML = a.href;
+                    a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '');
                 }
+            }
+            if (a.parentNode.className === 'klinks') {
+                a.className = 'ab';
             }
         }
         atotal = i + 1;
