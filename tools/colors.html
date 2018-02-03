@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Colornames</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Georgia, serif;
+                font-size: larger;
+            }
+            table {
+                background-color: white;
+            }
+            td {
+                padding: 2px;
+            }
+            th {
+                padding: 2px;
+            }
+        </style>
+        <script>
+            var colornames = [
+                'White',
+                'Snow',
+                'Ivory',
+                'Seashell',
+                'Linen',
+                'FloralWhite',
+                'AntiqueWhite',
+                'NavajoWhite',
+                'Moccasin',
+                'Beige',
+                'Cornsilk',
+                'LightYellow',
+                'LightGoldenrodYellow',
+                'LemonChiffon',
+                'Khaki',
+                'Gold',
+                'Orange',
+                'Coral',
+                'IndianRed',
+                'LightPink',
+                'Pink',
+                'HotPink',
+                'Crimson',
+                'Brown',
+                'Maroon',
+                'Aqua',
+                'Aquamarine',
+                'SlateBlue',
+                'Indigo',
+                'Midnightblue',
+                'Navy',
+                'DodgerBlue',
+                'RoyalBlue',
+                'Cornflowerblue',
+                'SteelBlue',
+                'SkyBlue',
+                'LightSkyBlue',
+                'LightBlue',
+                'LightCyan',
+                'Azure',
+                'AliceBlue',
+                'Lavender',
+                'MintCream',
+                'GhostWhite',
+                'WhiteSmoke',
+                'Gainsboro',
+                'Lightgray',
+                'Silver',
+                'Darkgray',
+                'Gray',
+                'Dimgray',
+                'SlateGray',
+                'LightSlateGray',
+                'Black'
+            ];
+            function colortable() {
+                var table = document.getElementById('color-table');
+                for (var i = 0; i < colornames.length; i++) {
+                    var colortxt = colornames[i];
+                    var colorname = colortxt.toLowerCase();
+                    var row = table.insertRow(table.rows.length);
+                    var j = 0;
+                    var th = document.createElement('th');
+                    row.appendChild(th);
+                    th.style.backgroundColor = 'black';
+                    th.style.color = colorname;
+                    th.innerHTML = colortxt;
+                    j += 1;
+                    var cell = row.insertCell(j);
+                    cell.style.backgroundColor = colorname;
+                    cell.style.border = '1px solid silver';
+                    cell.style.color = 'white';// colorname;
+                    cell.style.fontWeight = 'bold';
+                    cell.innerHTML = colortxt;
+                    j += 1;
+                    var cell = row.insertCell(j);
+                    cell.style.backgroundColor = 'silver';
+                    cell.style.color = colorname;
+                    cell.style.fontWeight = 'bold';
+                    cell.style.textAlign = 'center';
+                    cell.innerHTML = colortxt;
+                    j += 1;
+                    var cell = row.insertCell(j);
+                    cell.style.backgroundColor = 'white';
+                    cell.style.border = '1px solid ' + colorname;
+                    cell.style.borderRightWidth = '5px';
+                    cell.style.color = colorname;
+                    cell.style.fontWeight = 'bold';
+                    cell.innerHTML = colortxt;
+                    j += 1;
+                }
+            }
+            function onpageload() {
+                colortable();
+            }
+            window.onload = onpageload;
+        </script>
+    </head>
+    <body>
+        <table id="color-table"></table>
+        <h4><a href="https://www.w3schools.com/colors/colors_names.asp">HTML Color Names</a></h4>
+    </body>
+</html>
