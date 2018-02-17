@@ -7,76 +7,65 @@ and open the template in the editor.
     Created on : Mar 9, 2017, 2:52:54 PM
     Author     : dchiang
 */
-
 body {
-    font-family: Consolas, Monaco, Arial, Helvetica, sans-serif;
+    font-family:  Georgia, serif, Consolas, Monaco, Geneva, helvetica;
     font-size: larger;
+    margin-top: 0;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
 aside {
     background-color: azure;
     border: 1px solid silver;
-    border-width: 0.5px 0 2px 1px;
-    max-width: 20%;
-    min-height: 300px;
+    border-width: 1px 0 4px 2px;
+    max-width: 25%;
     float: right;
     padding-left: 5px;
 }
 code {
     font-weight: bold;
-    padding: 1px 5px;
+    margin: 1px 5px;
 }
-code:hover {
-    background-color: aliceblue;
-    border: 1px solid gainsboro;
-    margin: 2px 5px;
-    padding: 2px 5px;
+details {
+    margin-left: 5px;
+    overflow: auto;
 }
 footer {
-    position: relative;
-    left: 0; bottom: 0; right: 0;
-    height: auto; width: auto;
-    background-color: whitesmoke;
+    background-color: ghostwhite;
     border-top: 1px solid silver;
     font-family: monospace;
     margin-top: 10px;
     padding: 5px;
 }
 h1 {
-    font-family: 'Arial Black', Tahoma, Impact, fantasy;
+    font-family:  'Arial Black', Impact, fantasy;
     margin-top: 0;
 }
 h2 {
-    font-family: Georgia, serif;
-    border-right: 10px solid navajowhite;
-    border-top: 1px solid ghostwhite;
-}
-h2:hover {
-    background-color: snow;
-    border-right: 10px solid snow;
-    border-top: 1px solid khaki;
-}
-h3 {
-    font-family: Verdana, cursive;
-    border-right: 0px solid lightslategray;
-    border-top: 2px solid whitesmoke;
-    padding-left: 5px;
-}
-h3:hover {
-    border-top: 2px dashed royalblue;
-}
-h4 {
-    border-top: 1px dotted transparent;
+    border-bottom: 1px solid gainsboro;
     font-family: Arial, sans-serif;
 }
-h4:hover {
-    border-top: 1px dotted antiquewhite;
+h3 {
+    border-bottom: 1px solid slategray;
+    color: steelblue;
+    font-family: Verdana, Tahoma, serif;
+}
+h4 {
+    border-bottom: 1px solid gainsboro;
+    color: slategray;
+    font-family: Consolas, Monaco, Courier, monospace;
 }
 h5 {
-    font-family: 'Arial Narrow', 'Comic Sans MS', monospace;
+    font-family: 'Comic Sans MS', cursive;
 }
 header {
     background-color: whitesmoke;
     border-bottom: 1px solid silver;
+    padding: 5px;
 }
 nav {
     background-color: snow;
@@ -89,7 +78,11 @@ pre {
     padding: 5px;
 }
 section {
-    border-bottom: 1px solid ghostwhite;
+    border-bottom: 1px solid silver;
+}
+summary.big {
+    font-size: larger;
+    font-weight: bolder;
 }
 table {
     background-color: white;
@@ -103,8 +96,8 @@ td {
 }
 th {
     border: 1px solid floralwhite;
-    vertical-align: top;
     padding: 2px;
+    vertical-align: top;
 }
 
 #msgs {
@@ -189,8 +182,8 @@ th {
 }
 .navlink {
     border-right: 1px solid gainsboro;
-    margin-right: 5px;
-    padding: 2px;
+    font-family: sans-serif;
+    padding: 5px;
     text-decoration: none;
 }
 .navlink:hover {
@@ -206,8 +199,9 @@ th {
     text-align: right;
 }
 .toggleme:hover {
-    background-color: silver;
+    background-color: lavender;
     cursor: pointer;
+    font-style: italic;
 }
 .triright {
     border: 15px solid white;
@@ -216,27 +210,32 @@ th {
     height: 1px; width: 1px;
     margin-right: 5px;
 }
+.smaller {
+    font-size: smaller;
+}
 
 .bug {
-    border-left: 5px solid orange;
+    border-right: 5px solid orange;
     color: crimson;
     margin: 2px;
     padding: 2px;
 }
 .todo {
-    border-left: 5px solid gold;
+    border-right: 5px solid gold;
     color: slateblue;
     margin: 2px;
     padding: 2px;
 }
 .doing {
+    border-right: 5px solid lightgreen;
     color: teal;
+    font-weight: bold;
     margin: 2px;
     padding: 2px;
 }
 .done {
-    color: slategray;
-    font-weight: bold;
+    border-right: 5px solid lightsteelblue;
+    color: black;
     margin: 2px;
     padding: 2px;
 }
@@ -245,8 +244,11 @@ th {
     margin: 2px;
     padding: 2px;
 }
+.INTERNAL {
+    color: dimgray;
+}
 .ref {
-    color: darkslategray;
+    color: slategray;
     font-style: italic;
 }
 .fxn {
