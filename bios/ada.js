@@ -19,17 +19,17 @@ function toggle(id) {
         show(id);
     }
 }
-function hid(node) {
+function hidex(node) {
     node.hidden = true;
 }
-function shw(node) {
+function showx(node) {
     node.hidden = false;
 }
 function tog(node) {
     if (node.hidden !== 'hidden') {
-        hid(node);
+        hidex(node);
     } else {
-        shw(node);
+        showx(node);
     }
 }
 function poplinks() {
@@ -44,18 +44,16 @@ function poplinks() {
                     || a.href.indexOf('http') !== 0) {
                 a.target = "_blank";
             }
-            if ((a.innerHTML === '' && a.className.indexOf('esri-') < 0)
-                    || a.className.indexOf('ali') >= 0) {
-                if (a.className === '') {
-                    a.className = 'ali';
-                } else if (a.className.indexOf('ali') < 0) {
-                    a.className = a.className + ' ali';
-                }
+            if (a.innerHTML === '' && a.className === '') {
+                a.style.lineHeight = '150%';
                 if (a.title !== '') {
-                    a.innerHTML = '&bull;&nbsp;' + a.title;
+                    a.innerHTML = a.title + ' <br/>';
                 } else {
-                    a.innerHTML = a.href;
+                    a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '') + ' <br/>';
                 }
+            }
+            if (a.parentNode.className === 'klinks') {
+                a.className = 'ab';
             }
         }
         atotal = i + 1;
