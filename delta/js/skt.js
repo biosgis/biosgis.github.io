@@ -5,7 +5,7 @@
 var brk = "<br />";
 function $(id) {return document.getElementById(id);}
 function hide(id) {$(id).style.display = 'none';}
-function show(id) {$(id).style.display = 'block';}
+function show(id) {$(id).style.display = 'normal';}
 function toggle(id) {
     if ($(id).style.display !== 'none') {
         hide(id);

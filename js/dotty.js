@@ -7,7 +7,7 @@ function hide(id) {
     $(id).style.display = 'none';
 }
 function show(id) {
-    $(id).style.display = 'block';
+    $(id).style.display = 'normal';
 }
 function tagtitle(s) {
     this.title = s;
