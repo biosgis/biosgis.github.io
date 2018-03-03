@@ -91,7 +91,7 @@
     <script>
         function $(id) { return document.getElementById(id); }
         function hide(id) { $(id).style.display = 'none'; }
-        function show(id) { $(id).style.display = 'normal'; }
+        function show(id) { $(id).style.display = ''; }
         function tagtitle(s) { this.title = s; }
         function toggle(id) {
             ($(id).style.display === 'none' ? show(id) : hide(id));
