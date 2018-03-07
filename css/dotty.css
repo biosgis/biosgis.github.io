@@ -42,22 +42,21 @@ footer {
     padding: 5px;
 }
 h1 {
-    font-family:  'Arial Black', Impact, fantasy;
+    font-family: 'Arial Black', Tahoma, Impact, fantasy;
     margin-top: 0;
 }
 h2 {
-    border-bottom: 1px solid gainsboro;
+    border-top: 1px solid antiquewhite;
     font-family: Arial, sans-serif;
 }
 h3 {
-    border-bottom: 1px solid slategray;
+    border-bottom: 1px solid floralwhite;
     color: steelblue;
-    font-family: Verdana, Tahoma, serif;
+    font-family: Verdana, Tahoma, monospace;
 }
 h4 {
-    border-bottom: 1px solid gainsboro;
-    color: slategray;
-    font-family: Consolas, Monaco, Courier, monospace;
+    color: darkslategray;
+    font-family: Georgia, serif;
 }
 h5 {
     font-family: 'Comic Sans MS', cursive;

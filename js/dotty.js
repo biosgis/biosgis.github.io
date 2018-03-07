@@ -59,8 +59,32 @@ function poplinks() {
         }
         atotal = i + 1;
     }
-    console.log(atotal + ' Links')
+    console.log(atotal + ' Links');
     return atotal;
+}
+function popfooter(email) {
+    var ui = document.getElementsByTagName('footer')[0];
+    var name = email.split('@')[0];
+    var labeler = document.createElement('label');
+    labeler.innerHTML = name + '@';
+    var contact = document.createElement('a');
+    contact.href = 'mailto:' + email;
+    contact.innerHTML = name + '&copy;';
+    ui.appendChild(contact);
+    var mod = document.createElement('span');
+    mod.innerHTML = document.lastModified;
+    ui.appendChild(mod);
+    var wdim = document.createElement('span');
+    wdim.innerHTML = ' &rect; ' + window.innerWidth + 'x' + window.innerHeight;
+    ui.appendChild(wdim);
+    var det = document.createElement('details');
+    det.style.float = 'left';
+    ui.appendChild(det);
+    var summ = document.createElement('summary');
+    det.appendChild(summ);
+    var binfo = document.createElement('div');
+    binfo.innerHTML = navigator.userAgent + ' on ' + navigator.platform;
+    det.appendChild(binfo);
 }
 function navigatorInfo() {
     var msg = 'navigator.appName=' + navigator.appName + '<br />' +
