@@ -60,6 +60,7 @@ h4 {
 }
 h5 {
     font-family: 'Comic Sans MS', cursive;
+    font-variant: small-caps;
 }
 header {
     background-color: whitesmoke;
@@ -97,6 +98,35 @@ th {
     border: 1px solid floralwhite;
     padding: 2px;
     vertical-align: top;
+}
+table.flat {
+    background-color: white;
+    border: 1px solid dimgray;
+    border-collapse: collapse;
+    margin: 5px;
+}
+td.flat {
+    border: 1px solid gainsboro;
+    vertical-align: top;
+    padding: 2px;
+}
+th.flat {
+    border: 1px solid silver;
+    border-bottom: 2px solid gray;
+    font-size: small;
+    padding: 1px 5px;
+}
+tr.even {
+    background-color: white;
+}
+tr.even:hover {
+    background-color: lavender;
+}
+tr.odd {
+    background-color: aliceblue;
+}
+tr.odd:hover {
+    background-color: lavender;
 }
 
 #msgs {
