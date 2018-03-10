@@ -245,36 +245,42 @@ tr.odd:hover {
 
 .bug {
     border-right: 5px solid orange;
-    color: crimson;
+    color: red;
+    line-height: 123%;
     margin: 2px;
     padding: 2px;
 }
 .todo {
-    border-right: 5px solid gold;
-    color: slateblue;
+    border-right: 5px solid khaki;
+    color: maroon;
+    line-height: 123%;
     margin: 2px;
     padding: 2px;
 }
 .doing {
     border-right: 5px solid lightgreen;
-    color: teal;
-    font-weight: bold;
+    color: green;
+    line-height: 123%;
     margin: 2px;
     padding: 2px;
 }
 .done {
     border-right: 5px solid lightsteelblue;
-    color: black;
-    margin: 2px;
-    padding: 2px;
-}
-.wish {
-    color: magenta;
+    color: darkslategray;
+    font-weight: bold;
+    line-height: 123%;
     margin: 2px;
     padding: 2px;
 }
 .INTERNAL {
     color: dimgray;
+}
+.wish {
+    border-right: 5px solid azure;
+    color: magenta;
+    line-height: 123%;
+    margin: 2px;
+    padding: 2px;
 }
 .ref {
     color: slategray;
