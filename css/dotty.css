@@ -242,23 +242,22 @@ tr.odd:hover {
 .smaller {
     font-size: smaller;
 }
-
 .bug {
-    border-right: 5px solid orange;
+    border-left: 5px solid orange;
     color: red;
     line-height: 123%;
     margin: 2px;
     padding: 2px;
 }
 .todo {
-    border-right: 5px solid khaki;
+    border-left: 5px solid khaki;
     color: maroon;
     line-height: 123%;
     margin: 2px;
     padding: 2px;
 }
 .doing {
-    border-right: 5px solid lightgreen;
+    border-left: 5px solid lightgreen;
     color: green;
     line-height: 123%;
     margin: 2px;
