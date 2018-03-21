@@ -265,7 +265,7 @@ tr.odd:hover {
 }
 .done {
     border-right: 5px solid lightsteelblue;
-    color: darkslategray;
+    color: darkslateblue;
     font-weight: bold;
     line-height: 123%;
     margin: 2px;
