@@ -9,30 +9,139 @@ and open the template in the editor.
         <title>biosgis.github.io</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.6/"></script>
+        <style>
+            html, body, #mapview {
+                height: 100%; width: 100%;
+                margin: 0; padding: 0; overflow: hidden;
+                font-family: Consolas, Monaco, monospace;
+                font-size: large;
+            }
+            #mapview {
+                position: absolute; left: 0; top: 0;
+            }
+            .panel {
+                background-color: white;
+                border: 1px solid silver;
+            }
+            header {
+                position: fixed; left: 0; top: 0; right: 0;
+                height: 50px; width: 100%;
+                background-color: white;
+                border-bottom: 1px solid silver;
+                z-index: 400;
+            }
+            nav {
+                position: fixed; left: 0; top: 0; right: 0;
+                height: 50px; width: 100%;
+                background-color: white;
+                border-bottom: 1px solid silver;
+                font-size: larger;
+                z-index: 400;
+            }
+            main {
+                position: fixed; left: 0; top: 50px; right: 0; bottom: 0px;
+                height: auto; width: 100%;
+                background-color: white;
+                border: 1px solid silver;
+                z-index: 100;
+            }
+            aside {
+                position: fixed; left: auto; top: 50px; right: 0; bottom: 0;
+                height: auto; width: 30%;
+                background-color: white;
+                border-left: 1px solid silver;
+                z-index: 200;
+            }
+            footer {
+                position: fixed; left: 0; top: auto; right: 0; bottom: 0;
+                height: auto; width: 100%;
+                background-color: ghostwhite;
+                border-top: 1px solid silver;
+                z-index: 300;
+            }
+            #bottombar {
+                position: fixed; left: 0; bottom: 0; right: 0; top: auto;
+                height: 30%; width: 100%;
+                background-color: white;
+                border-top: 1px solid silver;
+                z-index: 300;
+            }
+        </style>
+        <script>
+            avn = 20180406;
+            function onPageLoad() {
+                console.log('Window loaded');
+            }
+            window.addEventListener('load', onPageLoad);
+        </script>
+        <script>
+            //20180406 [Intro to MapView - Create a 2D map](https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html)
+            require([
+                "esri/Map",
+                "esri/views/MapView",
+                "dojo/domReady!"
+            ], function(
+                Map, MapView
+            ) {
+                var map = new Map({
+                    basemap: "streets"
+                });
+                var mapview = new MapView({
+                    container: "mapview",
+                    map: map,
+                    center: [-120.34, 37.65],
+                    zoom: 8
+                });
+                //DONE AMD REQUIRED LOADER
+            });
+        </script>
     </head>
     <body>
-        <header title="Header">
+        <header title="Header" style="display: none;">
             <h1>
                 BIOS GIS
             </h1>
         </header>
+        <nav>
+            <table style="height: 100%; width: 100%;">
+                <tr>
+                    <th>BIOSVI</th>
+                    <th style="width: 100%;">
+                        <input type="text" placeholder="Search">
+                    </th>
+                    <th>Content</th>
+                    <th>Login</th>
+                    <th class="esri-icon-drag-horizontal"></th>
+                </tr>
+            </table>
+        </nav>
         <main title="Mapview">
+            <div id="mapview"></div>
         </main>
-        <footer title="Footer">
+        <aside>
             @<a href="mailto:bios@wildlife.ca.gov" title="Contact">bios</a>
             &copy;
             <script>
                 document.write(document.lastModified);
                 document.write('&rect;' + window.innerWidth + 'x' + window.innerHeight + '&bull;');
+                document.write(navigator.userAgent + ' on ' + navigator.platform);
             </script>
             <details>
                 <summary></summary>
-                <span>
-                    <script>
-                        document.write(navigator.userAgent + ' on ' + navigator.platform);
-                    </script>
-                </span>
             </details>
+        </aside>
+        <div id="bottombar">
+            <h3>
+                Databar
+            </h3>
+            <div>
+                
+            </div>
+        </div>
+        <footer title="Footer">
         </footer>
     </body>
 </html>
