@@ -1,303 +1,219 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
-<head>
-    <title>CDFW Lands</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-    <meta name="application-name" content="BIOS" />
-    <meta name="author" content="dean.chiang@wildlife.ca.gov" />
-    <meta name="creator" content="California Department of Fish and Wildlife" />
-    <meta name="description" content="Biogeographic Information and Observations System for CDFW Lands" />
-    <meta name="keywords" content="Bios map viewer lands" />
-    <meta name="generator" content="imaps-20170517-bios" />
-    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
-    <script src="https://js.arcgis.com/4.6/"></script>
-    <style>
-        html,
-        body,
-        #mapview {
-            font-family: verdana;
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-            padding: 0;
-            width: 100%;
-        }
-
-        #topbar {
-            background: #fff;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 10px;
-        }
-
-        .action-button {
-            font-size: 16px;
-            background-color: transparent;
-            border: 1px solid #D3D3D3;
-            color: #6e6e6e;
-            height: 32px;
-            width: 32px;
-            text-align: center;
-            box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-        }
-
-            .action-button:hover,
-            .action-button:focus {
-                background: #0079c1;
-                color: #e4e4e4;
+    <head>
+        <title>CDFW Lands</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.6/"></script>
+        <style>
+            html, body, #mapview {
+                height: 100%; width: 100%;
+                margin: 0; padding: 0; overflow: hidden;
+                font-family: Consolas, Monaco, monospace;
+                font-size: large;
             }
-
-        .active {
-            background: #0079c1;
-            color: #e4e4e4;
-        }
-        header {
-            position: fixed; left: 0; right: 0; top: 0;
-            height: 10%; width: 100%;
-            background-color: ghostwhite;
-            border-bottom: 1px solid silver;
-            z-index: 400;
-        }
-        nav {
-            position: fixed; left: 0; right: 0; top: 0;
-            height: 5%; width: 100%;
-            background-color: gainsboro;
-            border: 1px solid silver;
-            z-index: 300;
-        }
-        aside {
-            position: fixed; bottom: 5%; right: 0; top: 10%;
-            height: auto; width: 20%;
-            background-color: white;
-            border: 1px solid silver;
-            z-index: 300;
-        }
-        main {
-            position: absolute; left: 0; top: 10%; bottom: 5%; right: 20%;
-            height: auto; width: 80%;
-            background-color: lightblue;
-            border: 1px solid silver;
-        }
-        footer {
-            position: fixed; left: 0; bottom: 0; right: 0;
-            height: 5%; width: 100%;
-            background-color: whitesmoke;
-            border-top: 1px solid silver;
-            z-index: 200;
-        }
-    </style>
-    <script>
-        var app = {};
-        var refs = [
-            '[Sketch temporary geometries](https://developers.arcgis.com/javascript/latest/sample-code/sketch-geometries/index.html),20171012',
-            '[Intro to FeatureLayer - Add FeatureLayer to your Map](https://developers.arcgis.com/javascript/latest/sample-code/layers-featurelayer/index.html),20171012'
-        ];
-        require([
-            "esri/Map",
-            "esri/WebMap",
-            "esri/views/MapView",
-            "esri/layers/FeatureLayer",
-            "esri/widgets/Sketch/SketchViewModel",
-            "esri/Graphic",
-            "dojo/domReady!"
-        ], function (
-            Map,
-            WebMap,
-            MapView,
-            FeatureLayer,
-            SketchViewModel,
-            Graphic
-        ) {
-
-            // Arctic Ocean Basemap
-            var webmap = new WebMap({
-                portalItem: { // autocasts as new PortalItem()
-                    id: "c7381cb155a043a2bba2b84566677262"
+            #mapview {
+                position: absolute; left: 0; top: 0;
+            }
+            .panel {
+                background-color: white;
+                border: 1px solid silver;
+            }
+            header {
+                position: fixed; left: 0; top: 0; right: 0;
+                height: 50px; width: 100%;
+                background-color: white;
+                border-bottom: 1px solid silver;
+                z-index: 400;
+            }
+            nav {
+                position: fixed; left: 0; top: 0; right: 0;
+                height: 50px; width: 100%;
+                background-color: white;
+                border-bottom: 1px solid silver;
+                font-size: larger;
+                z-index: 400;
+            }
+            main {
+                position: fixed; left: 0; top: 50px; right: 0; bottom: 0px;
+                height: auto; width: 100%;
+                background-color: white;
+                border: 1px solid silver;
+                z-index: 100;
+            }
+            aside {
+                position: fixed; left: auto; top: 50px; right: 0; bottom: 0;
+                height: auto; width: 30%;
+                background-color: white;
+                border-left: 1px solid silver;
+                z-index: 200;
+            }
+            footer {
+                position: fixed; left: 0; top: auto; right: 0; bottom: 0;
+                height: auto; width: 100%;
+                background-color: ghostwhite;
+                border-top: 1px solid silver;
+                z-index: 300;
+            }
+            input {
+                font-size: large;
+            }
+            th {
+                border: 1px solid silver;
+                padding: 0 5px;
+            }
+            #databar {
+                position: fixed; left: 0; bottom: 0; right: 0; top: auto;
+                height: 30%; width: 100%;
+                background-color: white;
+                border-top: 1px solid silver;
+                z-index: 300;
+            }
+            #splash {
+                position: fixed; left: 0; top: 0;
+                height: 100%; width: 100%;
+                text-align: center;
+                vertical-align: middle;
+                z-index: 500;
+            }
+            #splash-cover {
+                position: absolute; left: 0; top: 0;
+                height: 100%; width: 100%;
+                background-color: silver;
+                opacity: 0.55;
+            }
+            #splash-main {
+                position: absolute; left: 15%; top: 20%; right: 15%;
+                height: auto; width: auto;
+                background-color: white;
+                border: 5px solid silver;
+                border-radius: 5px;
+                opacity: 1.0;
+                padding: 10px;
+            }
+            .hider {
+                position: absolute; top: 2px; right: 2px;
+                border: 1px solid transparent;
+                font-size: larger;
+            }.hider:hover {
+                border: 1px solid orange;
+            }
+            
+        </style>
+        <script>
+            var br = "<br />";
+            function $(id) { return document.getElementById(id); }
+            function hide(id) { $(id).style.display = 'none'; }
+            function show(id) { $(id).style.display = ''; }
+            function tagtitle(s) { this.title = s; }
+            function toggle(id) {
+                if ($(id).style.display !== 'none') {
+                    hide(id);
+                } else {
+                    show(id);
                 }
-            });
-            var map = new Map({
-                basemap: "topo"
-            });
-            // BASEMAPS: ['hybrid']
-            var view = new MapView({
-                container: "mapview",
-                map: map,// webmap,
-                //extent: { // autocasts as new Extent()
-                //    xmin: -9177811,
-                //    ymin: 4247000,
-                //    xmax: -9176791,
-                //    ymax: 4247784,
-                //    spatialReference: 102100
-                //},
-                center: [-121.23, 38.765],
-                zoom: 9
-            });
-            //20171012 Add Feature Layers
-            var featureLayer = new FeatureLayer({
-                url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/0" //CDFW Facilities
-            });
-
-            map.add(featureLayer);
-
-            view.then(function (evt) {
-                // create a new sketch view model
-                var sketchViewModel = new SketchViewModel({
-                    view: view,
-                    pointSymbol: { // symbol used for points
-                        type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-                        style: "square",
-                        color: "#8A2BE2",
-                        size: "16px",
-                        outline: { // autocasts as new SimpleLineSymbol()
-                            color: [255, 255, 255],
-                            width: 3 // points
-                        }
-                    },
-                    polylineSymbol: { // symbol used for polylines
-                        type: "simple-line", // autocasts as new SimpleMarkerSymbol()
-                        color: "#8A2BE2",
-                        width: "4",
-                        style: "dash"
-                    },
-                    polygonSymbol: { // symbol used for polygons
-                        type: "simple-fill", // autocasts as new SimpleMarkerSymbol()
-                        color: "rgba(138,43,226, 0.8)",
-                        style: "solid",
-                        outline: {
-                            color: "white",
-                            width: 1
-                        }
-                    }
-                });
-
-                // ************************************************************
-                // Get the completed graphic from the event and add it to view.
-                // This event fires when user presses
-                //  * "C" key to finish sketching point, polygon or polyline.
-                //  * Double-clicks to finish sketching polyline or polygon.
-                //  * Clicks to finish sketching a point geometry.
-                // ***********************************************************
-                sketchViewModel.on("draw-complete", function (evt) {
-                    view.graphics.add(evt.graphic)
-                    setActiveButton();
-                });
-
-                // *************************************
-                // activate the sketch to create a point
-                // *************************************
-                var drawPointButton = document.getElementById("pointButton");
-                drawPointButton.onclick = function () {
-                    // set the sketch to create a point geometry
-                    sketchViewModel.create("point");
-                    setActiveButton(this);
-                };
-
-                // ****************************************
-                // activate the sketch to create a polyline
-                // ****************************************
-                var drawLineButton = document.getElementById("polylineButton");
-                drawLineButton.onclick = function () {
-                    // set the sketch to create a polyline geometry
-                    sketchViewModel.create("polyline");
-                    setActiveButton(this);
-                };
-
-                // ***************************************
-                // activate the sketch to create a polygon
-                // ***************************************
-                var drawPolygonButton = document.getElementById("polygonButton");
-                drawPolygonButton.onclick = function () {
-                    // set the sketch to create a polygon geometry
-                    sketchViewModel.create("polygon");
-                    setActiveButton(this);
-                };
-
-                // **************
-                // reset button
-                // **************
-                document.getElementById("resetBtn").onclick = function () {
-                    view.graphics.removeAll();
-                    sketchViewModel.reset();
-                    setActiveButton();
-                };
-
-                function setActiveButton(selectedButton) {
-                    // focus the view to activate keyboard shortcuts for sketching
-                    view.focus();
-                    var elements = document.getElementsByClassName("active");
-                    for (var i = 0; i < elements.length; i++) {
-                        elements[i].classList.remove("active");
-                    }
-                    if (selectedButton) {
-                        selectedButton.classList.add("active");
-                    }
+            }
+            function hidex(node) { node.style.display = 'none'; }
+            function showx(node) { node.style.display = ''; }
+            function togglex(node) {
+                if (node.style.display !== 'none') {
+                    hidex(node);
+                } else {
+                    showx(node);
                 }
-            });//end view_then
-            app.getmapbox = function () {
-                var msg = '{xmin: ' + view.extent.xmin + ', ymin: ' + view.extent.ymin + ', xmax: ' + view.extent.xmax + ', ymax: ' + view.extent.ymax + ', spatialReference: ' + view.extent.spatialReference.wkid + '}';
-                return msg;
             }
-            app.getmapcenter = function () {
-                var msg = '{x: ' + view.center.x + ', y: ' + view.center.y + ', spatialReference: ' + view.center.spatialReference.wkid + '}';
-                return msg;
+            avn = 20180406;
+            function onPageLoad() {
+                console.log('Window loaded');
+                var panels = ['aside', 'databar', 'splash'];
             }
-        });
-    </script>
-</head>
-<body>
-    <header>
-        <a id="cdfw-link" href="https://www.wildlife.ca.gov/Lands" style="float: left;">
-            <img id="cdfw-logo" alt="CDFW" src="https://www.wildlife.ca.gov/portals/0/Images/Explore/CDFW-Insignia-146x193.png" style="height: 80px; margin: 5px;" />
-        </a>
-        <h1>CDFW Lands</h1>
-    </header>
-    <nav>
-        <h2>CDFW Lands</h2>
-    </nav>
-    <aside>
-        <p>
-            <img id="cdfw-regions" alt="CDFW Regions" src="https://www.wildlife.ca.gov/portals/0/Images/Home/Regions.png" />
-        </p>
-        <p>
-            <img id="cdfw-warden" alt="CDFW Warden" src="https://www.wildlife.ca.gov/portals/0/Images/Enforcement/wildlife-officer-badge.png" />
-        </p>
-        <p>
-            <img id="facebook" alt="Facebook" src="https://www.wildlife.ca.gov/portals/0/Images/Home/Facebook.png" />
-            <img id="twitter" alt="Twitter" src="https://www.wildlife.ca.gov/portals/0/Images/Home/Twitter.png" />
-            <img id="mobile" alt="Mobile" src="https://www.wildlife.ca.gov/portals/0/Images/Home/mobile.png" />
-        </p>
-    </aside>
-    <main>
-        <div id="mapview">
-            <div id="topbar">
-                <button class="action-button esri-icon-blank-map-pin" id="pointButton" type="button"
-                        title="Draw point"></button>
-                <button class="action-button esri-icon-polyline" id="polylineButton" type="button"
-                        title="Draw polyline"></button>
-                <button class="action-button esri-icon-polygon" id="polygonButton" type="button"
-                        title="Draw polygon"></button>
-                <button class="action-button esri-icon-trash" id="resetBtn" type="button" title="Clear graphics"></button>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <span>
-            <script>
-                document.write(navigator.userAgent + '-' + navigator.platform);
-            </script>
-        </span>
-        <span onclick="console.log(app.getmapbox())" title="Get Mapview Box">&rect;</span>
-        <span onclick="console.log(app.getmapcenter())" title="Get Mapview Center">&plusb;</span>
-        <span style="float:right;">
-            <a href="mailto:bios@wildlife.ca.gov">
-                Bios@wildlife
-            </a>&copy;
+            window.addEventListener('load', onPageLoad);
+        </script>
+        <script>
+            //20180406 [Intro to MapView - Create a 2D map](https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html)
+            require([
+                "esri/Map",
+                "esri/views/MapView",
+                "dojo/domReady!"
+            ], function(
+                Map, MapView
+            ) {
+                var map = new Map({
+                    basemap: "streets"
+                });
+                var mapview = new MapView({
+                    container: "mapview",
+                    map: map,
+                    center: [-120.34, 37.65],
+                    zoom: 8
+                });
+                //DONE AMD REQUIRED LOADER
+            });
+        </script>
+    </head>
+    <body>
+        <header title="Header" style="display: none;">
+            <h1>
+                CDFW Lands
+            </h1>
+        </header>
+        <nav>
+            <table style="height: 100%; width: 100%;">
+                <tr>
+                    <th>BIOSVI</th>
+                    <th style="width: 100%;">
+                        <input type="text" placeholder="Search">
+                    </th>
+                    <th>Content</th>
+                    <th>Login</th>
+                    <th class="esri-icon-drag-horizontal"></th>
+                </tr>
+            </table>
+        </nav>
+        <main title="Mapview">
+            <div id="mapview"></div>
+        </main>
+        <aside>
+            @<a href="mailto:bios@wildlife.ca.gov" title="Contact">bios</a>
+            &copy;
             <script>
                 document.write(document.lastModified);
+                document.write('&rect;' + window.innerWidth + 'x' + window.innerHeight + '&bull;');
+                document.write(navigator.userAgent + ' on ' + navigator.platform);
             </script>
-        </span>
-    </footer>
-</body>
+            <details>
+                <summary></summary>
+            </details>
+            <span class="esri-icon-close hider" onclick="hidex(this.parentNode);"></span>
+        </aside>
+        <div id="databar">
+            <h3>
+                Databar
+            </h3>
+            <div>
+                
+            </div>
+            <span class="esri-icon-close hider" onclick="hidex(this.parentNode);"></span>
+        </div>
+        <footer title="Footer">
+        </footer>
+        <div id="splash">
+            <div id="splash-cover"></div>
+            <div id="splash-main">
+                <h1>viewer title</h1>
+                <h2>subtitle</h2>
+                <p>disclaimer</p>
+                <input type="button" value="OK" onclick="hide('splash');">
+            </div>
+            <div></div>
+            <span class="esri-icon-close hider" onclick="hidex(this.parentNode);"></span>
+        </div>
+    </body>
 </html>
