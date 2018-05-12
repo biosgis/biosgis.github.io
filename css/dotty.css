@@ -8,8 +8,8 @@ and open the template in the editor.
     Author     : dchiang
 */
 body {
-    font-family:  Georgia, serif, Consolas, Monaco, Geneva, helvetica;
-    font-size: larger;
+    font-family:  Consolas, Monaco, Geneva, monospace, helvetica;
+    font-size: 123%;
     margin-top: 0;
 }
 a {
@@ -243,8 +243,8 @@ tr.odd:hover {
     font-size: smaller;
 }
 .bug {
-    border-left: 5px solid orange;
-    color: red;
+    border: 1px solid crimson;
+    border-width: 1px 5px 1px 0px;
     line-height: 123%;
     margin: 2px;
     padding: 2px;
@@ -257,8 +257,8 @@ tr.odd:hover {
     padding: 2px;
 }
 .doing {
-    border-left: 5px solid lightgreen;
-    color: green;
+    border: 1px solid lightgreen;
+    border-width: 1px 5px 1px 0px;
     line-height: 123%;
     margin: 2px;
     padding: 2px;

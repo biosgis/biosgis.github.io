@@ -10,14 +10,14 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="robots" content="noindex">
-        <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
-        <script src="https://js.arcgis.com/4.6/"></script>
+        <link rel="stylesheet" href="https://js.arcgis.com/4.7/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.7/"></script>
         <style>
             html, body, #mapview {
                 height: 100%; width: 100%;
                 margin: 0; padding: 0; overflow: hidden;
                 font-family: Consolas, Monaco, monospace;
-                font-size: large;
+                font-size: 123%;
             }
             #mapview {
                 position: absolute; left: 0; top: 0;
@@ -86,6 +86,7 @@ and open the template in the editor.
             ], function(
                 Map, MapView
             ) {
+                console.log('DO AMD REQUIRED LOADER');
                 var map = new Map({
                     basemap: "streets"
                 });
@@ -95,7 +96,7 @@ and open the template in the editor.
                     center: [-120.34, 37.65],
                     zoom: 8
                 });
-                //DONE AMD REQUIRED LOADER
+                console.log('DONE AMD REQUIRED LOADER');
             });
         </script>
     </head>
@@ -109,12 +110,12 @@ and open the template in the editor.
             <table style="height: 100%; width: 100%;">
                 <tr>
                     <th>BIOSVI</th>
-                    <th style="width: 100%;">
+                    <th style="width: 66%;">
                         <input type="text" placeholder="Search">
                     </th>
                     <th>Content</th>
                     <th>Login</th>
-                    <th class="esri-icon-drag-horizontal"></th>
+                    <th class="esri-icon-drag-horizontal" style="font-size: larger;"></th>
                 </tr>
             </table>
         </nav>
@@ -122,13 +123,6 @@ and open the template in the editor.
             <div id="mapview"></div>
         </main>
         <aside>
-            @<a href="mailto:bios@wildlife.ca.gov" title="Contact">bios</a>
-            &copy;
-            <script>
-                document.write(document.lastModified);
-                document.write('&rect;' + window.innerWidth + 'x' + window.innerHeight + '&bull;');
-                document.write(navigator.userAgent + ' on ' + navigator.platform);
-            </script>
             <details>
                 <summary></summary>
             </details>
@@ -142,6 +136,13 @@ and open the template in the editor.
             </div>
         </div>
         <footer title="Footer">
+            @<a href="mailto:biosgis@gmail.com" title="Contact">bios</a>
+            &copy;
+            <script>
+                document.write(document.lastModified);
+                document.write('&rect;' + window.innerWidth + 'x' + window.innerHeight + '&bull;');
+                document.write(navigator.userAgent + ' on ' + navigator.platform);
+            </script>
         </footer>
     </body>
 </html>
