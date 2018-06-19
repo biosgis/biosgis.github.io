@@ -40,10 +40,10 @@ function poplinks() {
         var a = links[i];
         if (a.href !== undefined && a.href !== '') {
             if (a.href.indexOf(location.href) >= 0 && a.href.indexOf('#') >= 0) {
-                a.target = "_self";
-            } else if ((a.href.indexOf("mailto:") < 0 && a.href.indexOf("javascript:void") < 0)
+                a.target = '_self';
+            } else if ((a.href.indexOf('mailto:') < 0 && a.href.indexOf('javascript:void' && a.target !== '_self') < 0)
                     || a.href.indexOf('http') !== 0) {
-                a.target = "_blank";
+                a.target = '_blank';
             }
             if (a.innerHTML === '' && a.className === '') {
                 a.style.lineHeight = '150%';
