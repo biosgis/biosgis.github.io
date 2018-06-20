@@ -1,0 +1,62 @@
+/*
+ * [open-license](https://project-open-data.cio.gov/open-licenses/)
+ * [opengov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
+ * [FreeBSD](https://www.freebsd.org/copyright/freebsd-license.html)
+*/
+/* 
+    Created on : Jun 20, 2018, 12:37:45 PM
+    Author     : dchiang
+*/
+html,
+body,
+#mapview {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+aside {
+    position: fixed; bottom: 0; right: 0; top: 50px;
+    height: auto; width: 40%;
+    background-color: white;
+    border-left: 1px solid silver;
+}
+header {
+    position: fixed; left: 0; right: 0; top: 0;
+    height: 50px; width: 100%;
+    background-color: white;
+    border-bottom: 1px solid silver;
+    z-index: 400;
+}
+footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: auto; width: 100%;
+    background-color: ghostwhite;
+    border-top: 1px solid silver;
+    opacity: 0.55;
+    z-index: 400;
+}
+main {
+    position: fixed; left: 0; top: 50px; right: 0; bottom: 0;
+    height: auto; width: 100%;
+    border: 1px solid silver;
+}
+nav {
+    position: fixed; left: 0; right: 0; top: 0;
+    height: 50px; width: 100%;
+    background-color: white;
+    border-bottom: 1px solid silver;
+    z-index: 300;
+}
+
+.bottombar {
+    position: fixed; left: 0; bottom: 0; right: 0; top: auto;
+    height: 30%; width: 100%;
+    background-color: white;
+    border-top: 1px solid silver;
+    z-index: 300;
+}
+.panel {
+    background-color: white;
+    border: 1px solid silver;
+}

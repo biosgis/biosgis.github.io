@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+ * [open-license](https://project-open-data.cio.gov/open-licenses/)
+ * [opengov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
+ * [FreeBSD](https://www.freebsd.org/copyright/freebsd-license.html)
 -->
 <html>
     <head>
@@ -10,100 +10,31 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="robots" content="noindex">
+        <link rel="stylesheet" href="css/dew.css">
+        <script src="js/abc.js"></script>
         <link rel="stylesheet" href="https://js.arcgis.com/4.7/esri/css/main.css">
         <script src="https://js.arcgis.com/4.7/"></script>
         <style>
-            html, body, #mapview {
-                height: 100%; width: 100%;
-                margin: 0; padding: 0; overflow: hidden;
+            html, body {
                 font-family: Consolas, Monaco, monospace;
                 font-size: 123%;
             }
-            #mapview {
-                position: absolute; left: 0; top: 0;
-            }
-            .panel {
-                background-color: white;
-                border: 1px solid silver;
-            }
-            header {
-                position: fixed; left: 0; top: 0; right: 0;
-                height: 50px; width: 100%;
-                background-color: white;
-                border-bottom: 1px solid silver;
-                z-index: 400;
-            }
-            nav {
-                position: fixed; left: 0; top: 0; right: 0;
-                height: 50px; width: 100%;
-                background-color: white;
-                border-bottom: 1px solid silver;
-                font-size: larger;
-                z-index: 400;
-            }
-            main {
-                position: fixed; left: 0; top: 50px; right: 0; bottom: 0px;
-                height: auto; width: 100%;
-                background-color: white;
-                border: 1px solid silver;
-                z-index: 100;
-            }
-            aside {
-                position: fixed; left: auto; top: 50px; right: 0; bottom: 0;
-                height: auto; width: 30%;
-                background-color: white;
-                border-left: 1px solid silver;
-                z-index: 200;
-            }
-            footer {
-                position: fixed; left: 0; top: auto; right: 0; bottom: 0;
-                height: auto; width: 100%;
-                background-color: ghostwhite;
-                border-top: 1px solid silver;
-                z-index: 300;
-            }
-            #bottombar {
-                position: fixed; left: 0; bottom: 0; right: 0; top: auto;
-                height: 30%; width: 100%;
-                background-color: white;
-                border-top: 1px solid silver;
-                z-index: 300;
-            }
         </style>
         <script>
-            avn = 20180406;
+            DEFAULT_PAGE = 'index.html';
+            avn = 20180620;
+            addscript('js/amd.js?v=' + rv);
             function onPageLoad() {
                 console.log('Window loaded');
+                var msg = poplinks();
             }
             window.addEventListener('load', onPageLoad);
-        </script>
-        <script>
-            //20180406 [Intro to MapView - Create a 2D map](https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html)
-            require([
-                "esri/Map",
-                "esri/views/MapView",
-                "dojo/domReady!"
-            ], function(
-                Map, MapView
-            ) {
-                console.log('DO AMD REQUIRED LOADER');
-                var map = new Map({
-                    basemap: "streets"
-                });
-                var mapview = new MapView({
-                    container: "mapview",
-                    map: map,
-                    center: [-120.34, 37.65],
-                    zoom: 8
-                });
-                console.log('DONE AMD REQUIRED LOADER');
-            });
         </script>
     </head>
     <body>
         <header title="Header" style="display: none;">
             <h1>
-                BIOS GIS
+                BIOSGIS
             </h1>
         </header>
         <nav>
@@ -111,10 +42,10 @@ and open the template in the editor.
                 <tr>
                     <th>BIOSVI</th>
                     <th style="width: 66%;">
-                        <input type="text" placeholder="Search">
+                        <input type="text" placeholder="Search" value="" />
                     </th>
                     <th>Content</th>
-                    <th>Login</th>
+                    <th>SignIn</th>
                     <th class="esri-icon-drag-horizontal" style="font-size: larger;"></th>
                 </tr>
             </table>
@@ -124,25 +55,24 @@ and open the template in the editor.
         </main>
         <aside>
             <details>
-                <summary></summary>
+                <summary>Contact</summary>
+                @<a href="mailto:biosgis@gmail.com" title="Contact">biosgis</a>
+                &copy;
+                <script>
+                    document.write(document.lastModified + '<br>');
+                    document.write('&rect; Browser: ' + navigator.userAgent + ' on ' + navigator.platform + '<br>');
+                    document.write('&bull; WindowSize: ' + window.innerWidth + 'x' + window.innerHeight);
+                </script>
             </details>
         </aside>
-        <div id="bottombar">
+        <div class="bottombar" id="databar" style="display: none;">
             <h3>
                 Databar
             </h3>
-            <div>
-                
-            </div>
+            <div></div>
         </div>
-        <footer title="Footer">
-            @<a href="mailto:biosgis@gmail.com" title="Contact">bios</a>
-            &copy;
-            <script>
-                document.write(document.lastModified);
-                document.write('&rect;' + window.innerWidth + 'x' + window.innerHeight + '&bull;');
-                document.write(navigator.userAgent + ' on ' + navigator.platform);
-            </script>
+        <footer title="Footer" style="display: none;">
+            <img alt="CDFW-logo" src="https://biosgis.azurewebsites.net/img/header_organization.png" style="height: 50px;">
         </footer>
     </body>
 </html>
