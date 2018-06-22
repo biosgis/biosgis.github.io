@@ -57,11 +57,12 @@
             <details>
                 <summary>Contact</summary>
                 @<a href="mailto:biosgis@gmail.com" title="Contact">biosgis</a>
-                &copy;
                 <script>
-                    document.write(document.lastModified + '<br>');
-                    document.write('&rect; Browser: ' + navigator.userAgent + ' on ' + navigator.platform + '<br>');
-                    document.write('&bull; WindowSize: ' + window.innerWidth + 'x' + window.innerHeight);
+                    var brk = '<br>';
+                    document.write('&copy;' + document.lastModified + brk);
+                    document.write('&bull; URL Referer: ' + document.referrer + brk);
+                    document.write('&diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform + brk);
+                    document.write('&rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight + brk);
                 </script>
             </details>
         </aside>
