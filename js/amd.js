@@ -20,11 +20,14 @@ require([
         basemap: "topo",
         layers: [NLCDLandCover2001_layer]
     });
-    var view = new MapView({
+    var mapview = new MapView({
         container: "mapview",
         map: map,
         zoom: 8,
         center: [-121.33, 38.45] // longitude, latitude
     });
+    console.log('DONE AMD REQUIRED LOADER')
 });
-//DONE AMD REQUIRED LOADER
+
+
+console.log('LOADED amd.js');

@@ -22,10 +22,10 @@
         </style>
         <script>
             DEFAULT_PAGE = 'index.html';
-            avn = 20180620;
-            addscript('js/amd.js?v=' + rv);
+            avn = 20180621;
             function onPageLoad() {
                 console.log('Window loaded');
+                addscript('js/amd.js?v=' + rv);
                 var msg = poplinks();
             }
             window.addEventListener('load', onPageLoad);
@@ -75,5 +75,23 @@
         <footer title="Footer" style="display: none;">
             <img alt="CDFW-logo" src="https://biosgis.azurewebsites.net/img/header_organization.png" style="height: 50px;">
         </footer>
+        <aside>
+            <h2>Developer</h2>
+            <section>
+                <h3>Research</h3>
+                <article>
+                    <h4>JSAPI</h4>
+                    <details>
+                        <summary>References &amp; Samples</summary>
+                        <ol>
+                            <li>
+                                <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html"
+                                   title="Esri Icon Font (Calcite theme) 20180621"></a>
+                            </li>
+                        </ol>
+                    </details>
+                </article>
+            </section>
+        </aside>
     </body>
 </html>
