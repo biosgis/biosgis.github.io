@@ -3,7 +3,7 @@
  * [opengov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
  * [FreeBSD](https://www.freebsd.org/copyright/freebsd-license.html)
 */
-/* 
+/*
     Created on : Jun 20, 2018, 12:37:45 PM
     Author     : dchiang
 */
@@ -20,6 +20,9 @@ aside {
     height: auto; width: 40%;
     background-color: white;
     border-left: 1px solid silver;
+}
+details {
+    margin: 5px;
 }
 header {
     position: fixed; left: 0; right: 0; top: 0;
@@ -55,6 +58,24 @@ nav {
     background-color: white;
     border-top: 1px solid silver;
     z-index: 300;
+}
+.h2bar {
+    background-color: whitesmoke;
+    border-bottom: 1px solid silver;
+    margin: 0;
+    padding: 5px;
+}
+.h3bar {
+    background-color: ghostwhite;
+    border-bottom: 1px solid silver;
+    margin: 0;
+    padding: 4px;
+}
+.h4bar {
+    background-color: gainsboro;
+    border-bottom: 1px solid silver;
+    margin: 0;
+    padding: 3px;
 }
 .panel-mian {
     background-color: white;
