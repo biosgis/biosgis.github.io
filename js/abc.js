@@ -104,10 +104,9 @@ function poplinks() {
     for (var i = 0; i < links.length; i++) {
         var a = links[i];
         if (a.href !== undefined && a.href !== '') {
-            if (a.href.indexOf(location.pathname) >= 0 && a.href.indexOf('#') >= 0) {
-                a.target = '_self';
-            } else if (a.href.indexOf('mailto:') < 0 && a.href.indexOf('javascript:void') < 0 && a.target !== '_self' || a.href.indexOf('http') !== 0) {
-                a.target = '_blank';
+            if (a.href.indexOf('#') < 0 && a.href.indexOf("javascript:void") < 0
+            && a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
+                a.target = "_blank";
             }
             if (a.innerHTML === '' && a.className === '') {
                 a.style.lineHeight = '150%';
@@ -116,12 +115,6 @@ function poplinks() {
                 } else {
                     a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '') + ' <br/>';
                 }
-                if (a.target !== '_self') {
-                    a.target = '_blank';
-                }
-            }
-            if (a.parentNode.className === 'klinks') {
-                a.className = 'ab';
             }
         }
         atotal = i + 1;
