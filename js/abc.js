@@ -3,9 +3,9 @@
  * [opengov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
  * [FreeBSD](https://www.freebsd.org/copyright/freebsd-license.html)
  */
-// abc.js 20140910 dfgchiang 20180619
+// abc.js 20140910 dfgchiang 20180727
 // All Basic Convenience Generic Helper fxns
-var br = '<br />';
+var br = "<br />";
 var rv = (Math.random() * 10).toFixed(5);
 //================================
 // CORE COMMON Helpers (Dottyjs)
@@ -24,26 +24,20 @@ function fillval(x, val) { $(x).innerHTML = val; show(x); }
 function tagh3(x) { return '<h3>' + x + '</h3>'; }//-20141112
 function hide(id) { $(id).style.display = 'none'; }
 function hidden(id) { if ($(id).style.display === 'none') { return true; } else { return false; } }
-function hidex(x) { x.style.display = 'none'; }
-function nil(x) { if (x === undefined || x === null || x === '') { return true; } else { return false; }}
 function pass(s) { var x = s; }
-function pl(s) { console.log(s); }
 function removeCss(id, x) { $(id).className.replace(x, ''); }
 function show(id) { $(id).style.display = ''; }
 function showing(id) { if ($(id).style.display !== 'none') { return true; } else { return false; } }
 function shown(id) { if ($(id).style.display !== 'none') { return true; } else { return false; } }
 function showTable(id) { $(id).style.display = 'table'; }
-function showx(x) { x.style.display = ''; }//expo
-function slashtrim(s) { return s.replace(/^\/|\/$/g, ''); }
 function tagtitle(s) { this.title = s; }
 //function toggle(id) { if (hidden(id)) { show(id); } else { hide(id); } }
 function toggle(id) { if (shown(id)) { hide(id); } else { show(id); } }
-function toggle(id) { ($(id).style.display !== 'none') ? hide(id) : show(id) }
-function togglex(x) { (x.style.display !== 'none') ? hidex(x) : showx(x); }
 function wtrim(str) { return str.replace(/^\s+|\s+$/g, ''); }
-function addmsg(s) {
-    document.getElementById('msgbox').innerHTML += s + "<br>";
-}
+function pl(s) { console.log(s); }
+function hidex(x) { x.style.display = 'none'; }
+function showx(x) { x.style.display = ''; }//expo
+function togglex(x) { (x.style.display !== 'none') ? hidex(x) : showx(x); }
 function addscript(x) {
     var tag = document.createElement('script');
     tag.type = 'text/javascript';
@@ -61,6 +55,13 @@ function ajaxget(url, callback) {
     xhr.open('GET', url, true);
     xhr.send();
 }
+function parson(response) {
+    if (typeof response !== 'object') {
+        return JSON.parse(response);
+    } else {
+        return response;
+    }
+}
 function iconflip(x) {
     // Toggle jslib icon when clicked 20170516
     var y = x.className;
@@ -68,10 +69,10 @@ function iconflip(x) {
         x.className = y.replace('-up', '-down');
     } else if (y.indexOf('-down') > 0) {
         x.className = y.replace('-down', '-up');
-    } else if (y.indexOf('-left-') > 0) {
-        x.className = y.replace('-left-', '-right-');
-    } else if (y.indexOf('-right-') > 0) {
-        x.className = y.replace('-right-', '-left-');
+    } else if (y.indexOf('-left') > 0) {
+        x.className = y.replace('-left', '-right');
+    } else if (y.indexOf('-right') > 0) {
+        x.className = y.replace('-right', '-left');
     } else if (y.indexOf('-bottom-left') > 0) {
         x.className = y.replace('-bottom-left', '-top-right');
     } else if (y.indexOf('-top-right') > 0) {
@@ -83,29 +84,27 @@ function iconflip(x) {
     }
 }
 function non(x) {
-    // True if obj is undef, Null, or emptyString
-    if (x === undefined || x === null || x === "") {
+    if (x === undefined || x === null || x === '') {
         return true;
     } else {
         return false;
     }
 }
-function parson(response) {
-    if (typeof response !== 'object') {
-        return JSON.parse(response);
+function notnon(x) {
+    if (x !== undefined && x !== null && x !== '') {
+        return true;
     } else {
-        return response;
+        return false;
     }
 }
 function poplinks() {
-    // Make links open in new tab or auto insert urladdress as link text
     var links = document.getElementsByTagName('a');
     var atotal = 0;
     for (var i = 0; i < links.length; i++) {
         var a = links[i];
         if (a.href !== undefined && a.href !== '') {
             if (a.href.indexOf('#') < 0 && a.href.indexOf("javascript:void") < 0
-            && a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
+                && a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
                 a.target = "_blank";
             }
             if (a.innerHTML === '' && a.className === '') {
@@ -113,55 +112,14 @@ function poplinks() {
                 if (a.title !== '') {
                     a.innerHTML = a.title + ' <br/>';
                 } else {
-                    a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '') + ' <br/>';
+                    a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '').replace('www.', '').replace(/\.(com|gov|net|org|io)/, '') + ' <br/>';
                 }
             }
         }
         atotal = i + 1;
     }
-    console.log(atotal + ' Links');
+    console.log(atotal + ' Links')
     return atotal;
-}
-// BROWSER CLIENT INFO 20180612
-function navigatorInfo() {
-    var msg = 'navigator.appName=' + navigator.appName + '<br />' +
-        'navigator.cookieEnabled=' + navigator.cookieEnabled + '<br />' +
-        'navigator.platform(operating system)=' + navigator.platform + '<br />' +
-        'navigator.userAgent=' + navigator.userAgent + '<br />';
-    return msg;
-}
-function windowInfo() {
-    var br = '<br />';
-    var msg = 'window.innerHeight=' + window.innerHeight + br +
-        'window.innerWidth=' + window.innerWidth + br +
-        'window.scrollX=' + window.scrollX + br + // Horizontal scrolling
-        'window.scrollY=' + window.scrollY + br + // Vertical scrolling
-        'window.screen.availHeight= ' + window.screen.availHeight + br +
-        'window.screen.availLeft= ' + window.screen.availLeft + br +
-        'window.screen.availTop= ' + window.screen.availTop + br +
-        'window.screen.availWidth= ' + window.screen.availWidth + br +
-        'window.screen.colorDepth= ' + window.screen.colorDepth + br +
-        'window.screen.height= ' + window.screen.height + br +
-        'window.screen.pixelDepth= ' + window.screen.pixelDepth + br +
-        'window.screen.width= ' + window.screen.width;
-    return msg;
-}
-console.log('BROWSER=' + navigator.userAgent);
-if (navigator.userAgent.indexOf("MSIE") > 0) {
-    var MSIE = "IE" + navigator.userAgent.split("MSIE ")[1].split(" ")[0].split(".")[0];
-    console.log("MSIE=" + MSIE);
-}
-console.log('PLATFORM=' + navigator.platform);
-console.log('OBSERVER=' + Object.observe);
-console.log('WEBWORKER=' + typeof (Worker));
-console.log("innerHeight=" + innerHeight);
-console.log("innerWidth=" + innerWidth);
-// WEBASSEMBLY, ASYNC, AWAIT
-// TEST--https://hacks.mozilla.org/2017/03/firefox-52-introducing-web-assembly-css-grid-and-the-grid-inspector/
-if (typeof WebAssembly === 'object' && typeof WebAssembly.Memory === 'function') {
-    console.log('WebAssembly SUPPORTED');
-} else {
-    console.log('WebAssembly NOT SUPPORTED');
 }
 
 //========================
@@ -194,7 +152,7 @@ function arrayHasItem(arr, it) {
     }
     return false;
 }
-//--- Return array minus item to remove 
+//--- Return array minus item to remove
 function arrayRemoveItem(arr, it) {
     var a = [];
     for (var i = 0; i < arr.length; i++) {
@@ -329,7 +287,11 @@ function iconswap(x) {
 }
 function icontogglex(x) {
     var y = x.className;
-    if (y.indexOf('-right') > 0) {
+    if (y.indexOf('-right-triangle-') > 0) {
+        x.className = y.replace('-right-triangle-', '-down-');
+    } else if (y.indexOf('-down-arrow') > 0) {
+        x.className = y.replace('-down-arrow', '-right-triangle-arrow');
+    } else if (y.indexOf('-right') > 0) {
         x.className = y.replace('-right', '-down');
     } else if (y.indexOf('-down') > 0) {
         x.className = y.replace('-down', '-right');
@@ -387,13 +349,6 @@ function nontype(x) {
         return 'null';
     } else if (x === '') {
         return 'empty string';
-    }
-}
-function notnon(x) {
-    if (!non(x)) {
-        return true;
-    } else {
-        return false;
     }
 }
 function notfalse(x) {
@@ -536,7 +491,7 @@ function ajaxGetXml(url, params, callback) {
     }
     xhr.open("GET", url + "?" + params, true);
     //xhr.open("POST", url, true);//do post to get back lots of data
-    //-Send the proper header infomation along with the POST request 
+    //-Send the proper header infomation along with the POST request
     //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     //xhr.setRequestHeader("Content-length", params.length);
     //xhr.setRequestHeader("Connection", "close");
@@ -642,14 +597,56 @@ function fooid() {
     var guid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
     return guid;
 }
+//===============================
+// BROWSER CLIENT INFO 20180612
+//===============================
+console.log('BROWSER=' + navigator.userAgent);
+if (navigator.userAgent.indexOf("MSIE") > 0) {
+    var MSIE = "IE" + navigator.userAgent.split("MSIE ")[1].split(" ")[0].split(".")[0];
+    console.log("MSIE=" + MSIE);
+}
+console.log('PLATFORM=' + navigator.platform);
+console.log('OBSERVER=' + Object.observe);
+console.log('WEBWORKER=' + typeof (Worker));
+console.log("innerHeight=" + innerHeight);
+console.log("innerWidth=" + innerWidth);
+// WEBASSEMBLY, ASYNC, AWAIT
+// TEST--https://hacks.mozilla.org/2017/03/firefox-52-introducing-web-assembly-css-grid-and-the-grid-inspector/
+if (typeof WebAssembly === 'object' && typeof WebAssembly.Memory === 'function') {
+    console.log('WebAssembly SUPPORTED');
+} else {
+    console.log('WebAssembly NOT SUPPORTED');
+}
+function navigatorInfo() {
+    var msg = 'navigator.appName=' + navigator.appName + br +
+        'navigator.cookieEnabled=' + navigator.cookieEnabled + br +
+        'navigator.platform(operating system)=' + navigator.platform + br +
+        'navigator.userAgent=' + navigator.userAgent + br;
+    return msg;
+}
+function windowInfo() {
+    var msg = 'window.innerHeight=' + window.innerHeight + br +
+        'window.innerWidth=' + window.innerWidth + br +
+        'window.scrollX=' + window.scrollX + br + // Horizontal scrolling
+        'window.scrollY=' + window.scrollY + br + // Vertical scrolling
+        'window.screen.availHeight= ' + window.screen.availHeight + br +
+        'window.screen.availLeft= ' + window.screen.availLeft + br +
+        'window.screen.availTop= ' + window.screen.availTop + br +
+        'window.screen.availWidth= ' + window.screen.availWidth + br +
+        'window.screen.colorDepth= ' + window.screen.colorDepth + br +
+        'window.screen.height= ' + window.screen.height + br +
+        'window.screen.pixelDepth= ' + window.screen.pixelDepth + br +
+        'window.screen.width= ' + window.screen.width;
+    return msg;
+}
 //======================================================================
-// COMMON CONSTANTS, CONVERSIONS, AND WELL-KNOWN VALUES 
+// COMMON CONSTANTS, CONVERSIONS, AND WELL-KNOWN VALUES
 //======================================================================
 var OPERATOR_LIST = "|(|)|=|<>|>|>=|<|<=|NOT|LIKE|AND|OR|IS NULL|IS NOT NULL|IN (|";
 var DEFAULT_OPACITY = 0.77;
 var ESRIFIELDTYPE_LIST = '|esriFieldTypeOID|esriFieldTypeString|esriFieldTypeSmallInteger|esriFieldTypeGeometry|esriFieldTypeDouble|esriFieldTypeInteger|esriFieldTypeDate';
 var GDATATYPE_LIST = "'string', 'number', 'boolean', 'date', 'datetime', and 'timeofday'";
-var GEOMETRY_FIELD_LIST = "|Shape|Shape.STArea()|Shape.STLength()|";//esriFieldTypeGeometry,esriFieldTypeDouble 
+var GEOMETRY_FIELD_LIST = "|Shape|Shape.STArea()|Shape.STLength()|";//esriFieldTypeGeometry,esriFieldTypeDouble
 var GEOMETRY_TYPE_LIST = '|point|multipoint|polyline|polygon|extent';
 var LINK_FIELD_LIST = '|LINK|LINK1|Link|PHOTO|REPORT|REPORT_|REPORT1|REPORT2|URL|';
 var OID_FIELD_LIST = '|OBJECTID|ObjectID|OID|FID';
@@ -727,5 +724,3 @@ var NUMERIC_OPERATOR_LIST = "|eq|gt|gte|lt|lte|ne|=|>|>=|<|<=|<>|&gt;|&gt;=|&lt;
 var STRING_OPERATOR_LIST = "|like|not like|is null|is not null|in (|";
 var BASEMAP_IDS = ["streets", "satellite", "hybrid", "topo", "gray", "dark-gray", "oceans", "national-geographic", "terrain", "osm", "dark-gray-vector", "gray-vector", "streets-vector", "topo-vector", "streets-night-vector", "streets-relief-vector", "streets-navigation-vector"];
 var BASEMAP_LIST = "|streets|satellite|hybrid|topo|gray|dark-gray|oceans|national-geographic|terrain|osm|dark-gray-vector|gray-vector|streets-vector|topo-vector|streets-night-vector|streets-relief-vector|streets-navigation-vector";
-
-
