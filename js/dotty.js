@@ -34,14 +34,13 @@ function togglex(node) {
     }
 }
 function poplinks() {
-    // Make links open in new tab or auto insert urladdress as link text
     var links = document.getElementsByTagName('a');
     var atotal = 0;
     for (var i = 0; i < links.length; i++) {
         var a = links[i];
         if (a.href !== undefined && a.href !== '') {
             if (a.href.indexOf('#') < 0 && a.href.indexOf("javascript:void") < 0
-            && a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
+                && a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
                 a.target = "_blank";
             }
             if (a.innerHTML === '' && a.className === '') {
@@ -49,13 +48,13 @@ function poplinks() {
                 if (a.title !== '') {
                     a.innerHTML = a.title + ' <br/>';
                 } else {
-                    a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '') + ' <br/>';
+                    a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '').replace('www.', '').replace(/\.(com|gov|net|org|io)/, '') + ' <br/>';
                 }
             }
         }
         atotal = i + 1;
     }
-    console.log(atotal + ' Links');
+    console.log(atotal + ' Links')
     return atotal;
 }
 function popfooter(email) {
