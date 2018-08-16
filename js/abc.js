@@ -1,6 +1,9 @@
 /* 
+Copyright © 2018, State of Grace, Department of Fun and Games
+[MIT License](https://mit-license.org/)
+[GNU GPL v3](https://www.gnu.org/licenses/)
  * [open-license](https://project-open-data.cio.gov/open-licenses/)
- * [opengov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
+ * [OpenGov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
  * [FreeBSD](https://www.freebsd.org/copyright/freebsd-license.html)
  */
 // abc.js 20140910 dfgchiang 20180727
@@ -23,7 +26,7 @@ function echo(s) { console.log(s); }//-20170428
 function fillval(x, val) { $(x).innerHTML = val; show(x); }
 function tagh3(x) { return '<h3>' + x + '</h3>'; }//-20141112
 function hide(id) { $(id).style.display = 'none'; }
-function hidden(id) { if ($(id).style.display === 'none') { return true; } else { return false; } }
+function hid(id) { if ($(id).style.display === 'none') { return true; } else { return false; } }
 function pass(s) { var x = s; }
 function removeCss(id, x) { $(id).className.replace(x, ''); }
 function show(id) { $(id).style.display = ''; }
@@ -31,7 +34,7 @@ function showing(id) { if ($(id).style.display !== 'none') { return true; } else
 function shown(id) { if ($(id).style.display !== 'none') { return true; } else { return false; } }
 function showTable(id) { $(id).style.display = 'table'; }
 function tagtitle(s) { this.title = s; }
-//function toggle(id) { if (hidden(id)) { show(id); } else { hide(id); } }
+//function toggle(id) { if (hid(id)) { show(id); } else { hide(id); } }
 function toggle(id) { if (shown(id)) { hide(id); } else { show(id); } }
 function wtrim(str) { return str.replace(/^\s+|\s+$/g, ''); }
 function pl(s) { console.log(s); }

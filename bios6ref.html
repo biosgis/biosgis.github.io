@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<!--
+Copyright © 2018, State of Grace, Department of Fun and Games
+[MIT License](https://mit-license.org/)
+[GNU GPL v3](https://www.gnu.org/licenses/)
+[OpenGov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
+[open-license](https://project-open-data.cio.gov/open-licenses/)
+[FreeBSD](https://www.freebsd.org/copyright/freebsd-license.html)
+-->
+<html>
+    <head>
+        <title>bios6ref</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="dean.chiang@wildlife.ca.gov">
+        <meta name="description" content="Bios 6 Developer Documentation">
+        <meta name="generator" content="bios-20180727">
+        <meta name="robots" content="noindex, nofollow, noarchive">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.8/"></script>
+        <link rel="stylesheet" href="css/dotty.css">
+        <script src="js/abc.js"></script>
+        <style>
+            html, body {
+                font-family: Consolas, Monaco, monospace;
+                font-size: 123%;
+            }
+            details {
+                border-bottom: 1px solid silver;
+                margin-left: 10px;
+                padding-bottom: 10px;
+            }
+        </style>
+        <script>
+            DEFAULT_PAGE = 'bios6ref.html';
+            avn = 20180815;
+            function onPageLoad() {
+                console.log('Window loaded');
+                //addscript('js/amd.js?v=' + rv);
+                var msg = poplinks();
+            }
+            window.addEventListener('load', onPageLoad);
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>Bios 6 Developer Reference</h1>
+        </header>
+        <nav>
+            <a class="navlink" href="https://www.arcgis.com">AGOL</a>
+            <a class="navlink" href="https://map.dfg.ca.gov/arcgis/">AGS</a>
+            <a class="navlink" href="https://developers.arcgis.com/dashboard" title="ArcGIS Developers Dashboard">ArcDev</a>
+            <a class="navlink" href="https://portal.azure.com/" title="Azure Portal Dashboard">AzureCom</a>
+            <a class="navlink" href="https://portal.azure.us/" title="Azure Government Dashboard">AzureGov</a>
+            <a class="navlink" href="https://github.com">GitHub</a>
+            <a class="navlink" href="https://outlook.office365.com/owa/">OWA</a>
+            <a class="navlink" href="https://dfgchiang.visualstudio.com/_projects" title="Visual Studio">VSTS</a>
+            <a class="navlink" onclick="togglex(document.getElementsByTagName('aside')[0])" style="cursor: default;">&equiv;</a>
+        </nav>
+        <aside style="display: none;">
+            <a class="esri-icon-close" onclick="hidex(this.parentNode)"></a>
+        </aside>
+        <main>
+            <h2>Resources</h2>
+            <details>
+                <summary>References, Samples, and Tutorials</summary>
+                <ol>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html"
+                           title="">Esri Icon Font (Calcite theme)</a> 20180621
+                    </li>
+                    <li><a href="https://www.w3schools.com/jsref/event_key_keycode.asp">
+                            KeyboardEvent keyCode Property</a>
+                    </li>
+                </ol>
+            </details>
+            <h2>JSAPI 4 Reference</h2>
+            <details>
+                <summary>ArcWeb JS API 4 Used</summary>
+                <ol>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/cors/index.html">
+                            CORS (Cross Origin Resource Sharing)
+                        </a> //20180726
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html">
+                            Intro to MapView - Create a 2D map</a> //20180406
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-layers/index.html">
+                            Intro to layers</a> //20180422
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-featurelayer/index.html">
+                            Add FeatureLayer to your Map</a> //20180424
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-widgets/index.html">
+                            Intro to widgets using BasemapToggle</a> //20180513
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer/index.html">
+                            Intro to MapImageLayer</a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer-sublayers/index.html">
+                            MapImageLayer - Toggle sublayer visibility
+                        </a> //20180722-Turn on map service sublayers in LayerItem under layers list
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/view-padding/index.html">
+                            View padding
+                        </a> //20180815-addd to mapview 300px
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/featurelayerview-query/index.html">
+                            Query features from a FeatureLayerView
+                        </a> sample //20180815-query from layerview; try popup template in feature layer
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html">
+                            Query
+                        </a> object //20180815
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html" title="Popup widget"></a>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html" title="Popup Template"></a>
+                        //20180815-Q: maybe can open popup to mapview with latest result?
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/featurelayer-query/index.html">
+                            Query features from a FeatureLayer
+                        </a> sample //20180815-create query with layer object;
+                        we can have a global activeLayer object representing currently selected Active Layer
+                    </li>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                </ol>
+            </details>
+            <h2>ASP.NET</h2>
+            <details>
+                <summary>Setup and Notes</summary>
+                <ol>
+                    <li>
+                        Do not use System.Web.SessionState and interface IReadOnlySessionState for 
+                        ASHX compilation error! 20180727
+                    </li>
+                </ol>
+            </details>
+            <h2>Config</h2>
+            <details>
+                <summary>App Resources and Data Sources</summary>
+                <ol>
+                    <li></li>
+                </ol>
+            </details>
+            <details>
+                <summary>Viewers</summary>
+            </details>
+            <h2>Contents</h2>
+            <details>
+                <summary>Layer List</summary>
+                <ol>
+                    <li></li>
+                </ol>
+            </details>
+            <details>
+                <summary>Graphics and Icons</summary>
+            </details>
+            <h2>Layers</h2>
+            <details>
+                <summary>Types and Views</summary>
+                <ol>
+                    <li></li>
+                </ol>
+            </details>
+            <h2>Map</h2>
+            <details>
+                <summary>Elements</summary>
+                <ol>
+                </ol>
+            </details>
+            <h2>Tools</h2>
+            <details>
+                <summary>Tool List</summary>
+            </details>
+            <h2>Widgets</h2>
+            <details>
+                <summary>Widgets</summary>
+                <p>
+                    DONE: Basemap Gallery inside Expand widget, Basemap Toggle, Home button,
+                    Locate (client location) button, Scalebar, and Search box.
+                </p>
+                <ol>
+                    <li></li>
+                </ol>
+            </details>
+        </main>
+        <footer>
+            @<a href="mailto:dean.chiang@wildlife.ca.gov">dchiang</a>
+            <script>
+                var brk = '<br>';
+                document.write('&copy;' + document.lastModified + brk);
+                document.write('&bull; URL Referer: ' + document.referrer + brk);
+                document.write('&diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform + brk);
+                document.write('&rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight + brk);
+            </script>
+        </footer>
+    </body>
+</html>
