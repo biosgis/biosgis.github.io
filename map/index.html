@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+[open-license](https://project-open-data.cio.gov/open-licenses/)
+-->
+<html>
+    <head>
+        <title>tw plan</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex">
+        <link rel="stylesheet" href="../css/dew.css">
+        <script src="../js/abc.js"></script>
+        <link rel="stylesheet" href="https://js.arcgis.com/4.7/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.7/"></script>
+        <style>
+            html, body {
+                font-family: Consolas, Monaco, monospace;
+                font-size: 123%;
+            }
+        </style>
+        <script>
+            DEFAULT_PAGE = 'index.html';
+            avn = 20180816;
+            function onPageLoad() {
+                console.log('Window loaded');
+                addscript('tw.js?v=' + rv);
+                om = poplinks();
+            }
+            window.addEventListener('load', onPageLoad);
+        </script>
+    </head>
+    <body>
+        <header title="Header" style="display: none;">
+            <h1>
+                Taiwan Plan
+            </h1>
+        </header>
+        <nav>
+            <table style="height: 100%; width: 100%;">
+                <tr>
+                    <th>TW 2018.12</th>
+                    <th style="width: 66%;">
+                        <input type="text" placeholder="Search" value="" />
+                    </th>
+                    <th>Itinerary</th>
+                    <th>Places</th>
+                    <th class="esri-icon-drag-horizontal" style="font-size: larger;"></th>
+                </tr>
+            </table>
+        </nav>
+        <main>
+            <div id="mapview"></div>
+        </main>
+        <aside>
+            <h2 class="h2bar">Places</h2>
+            <div>
+                <section>
+                    <h3 class="h3bar">Research</h3>
+                    <article>
+                        <h4 class="h4bar">Taipei City</h4>
+                        <details>
+                            <summary>References</summary>
+                            <ol>
+                                <li>
+                                    <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html"
+                                       title="Esri Icon Font (Calcite theme) 20180621"></a>
+                                </li>
+                            </ol>
+                        </details>
+                    </article>
+                </section>
+                <section>
+                    <h3 class="h3bar">Info</h3>
+                    <details>
+                        <summary>Contact</summary>
+                        @<a href="mailto:dean.chiang@wildlife.ca.gov" title="Contact">dfgchiang</a>
+                        <script>
+                            var brk = '<br>';
+                            document.write('&copy;' + document.lastModified + brk);
+                            document.write('&bull; URL Referer: ' + document.referrer + brk);
+                            document.write('&diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform + brk);
+                            document.write('&rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight + brk);
+                        </script>
+                    </details>
+                </section>
+            </div>
+        </aside>
+        <div class="bottombar" id="databar" style="display: none;">
+            <h3 class="h3bar">Databar</h3>
+            <div></div>
+        </div>
+        <footer style="display: none;">
+            <img alt="CDFW-logo" src="https://biosgis.azurewebsites.net/img/header_organization.png" style="height: 50px;">
+        </footer>
+        <aside style="display: none;">
+            <h2 class="h2bar">Developer</h2>
+            <section>
+                <h3 class="h3bar">Research</h3>
+                <article>
+                    <h4 class="h4bar">JSAPI</h4>
+                    <details>
+                        <summary>References &amp; Samples</summary>
+                        <ol>
+                            <li>
+                                <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html"
+                                   title="Esri Icon Font (Calcite theme) 20180621"></a>
+                            </li>
+                        </ol>
+                    </details>
+                </article>
+            </section>
+        </aside>
+    </body>
+</html>
