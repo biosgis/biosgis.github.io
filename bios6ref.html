@@ -54,37 +54,52 @@ Copyright © 2018, State of Grace, Department of Fun and Games
             <a class="navlink" href="https://developers.arcgis.com/dashboard" title="ArcGIS Developers Dashboard">ArcDev</a>
             <a class="navlink" href="https://portal.azure.com/" title="Azure Portal Dashboard">AzureCom</a>
             <a class="navlink" href="https://portal.azure.us/" title="Azure Government Dashboard">AzureGov</a>
-            <a class="navlink" href="https://github.com">GitHub</a>
+            <a class="navlink" href="https://map.dfg.ca.gov/bios?log=off&msg=on">BIOS</a>
+            <a class="navlink" href="https://github.com/cdfw">GitHub</a>
+            <a class="navlink" href="https://cdfw-my.sharepoint.com/personal/dean_chiang_wildlife_ca_gov/" title="OneNote">OneDrive</a>
             <a class="navlink" href="https://outlook.office365.com/owa/">OWA</a>
+            <a class="navlink" href="https://cdfw.sharepoint.com/SitePages/Home.aspx">SharePoint</a>
             <a class="navlink" href="https://dfgchiang.visualstudio.com/_projects" title="Visual Studio">VSTS</a>
             <a class="navlink" onclick="togglex(document.getElementsByTagName('aside')[0])" style="cursor: default;">&equiv;</a>
         </nav>
         <aside style="display: none;">
+            <a href="https://www.test-cors.org/"></a>
+            <a href="https://jsonlint.com/"></a>
+            <a href="https://esri.github.io"></a>
+            <a href="https://biosgis.github.io" style="display: none;"></a>
             <a class="esri-icon-close" onclick="hidex(this.parentNode)"></a>
         </aside>
         <main>
-            <h2>Resources</h2>
+            <h2>
+                <a href="https://developers.arcgis.com/javascript/">
+                    Arc JS API 4
+                </a>
+            </h2>
             <details>
-                <summary>References, Samples, and Tutorials</summary>
+                <summary>Constants and Quick Lookups</summary>
                 <ol>
                     <li>
-                        <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html"
-                           title="">Esri Icon Font (Calcite theme)</a> 20180621
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html">
+                            Esri Icon Font (Calcite theme)
+                        </a>//20180430
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/cors/index.html">
+                            CORS (Cross Origin Resource Sharing)
+                        </a>//20180726
+                    </li>
+                    <li>
+                        Layer.geometry.type values:
+                        <code>point | mulitpoint | polyline | polygon | extent | mesh</code>
                     </li>
                     <li><a href="https://www.w3schools.com/jsref/event_key_keycode.asp">
                             KeyboardEvent keyCode Property</a>
                     </li>
                 </ol>
             </details>
-            <h2>JSAPI 4 Reference</h2>
             <details>
-                <summary>ArcJS API 4</summary>
+                <summary>Reference and Samples</summary>
                 <ol>
-                    <li>
-                        <a href="https://developers.arcgis.com/javascript/latest/guide/cors/index.html">
-                            CORS (Cross Origin Resource Sharing)
-                        </a> //20180726
-                    </li>
                     <li>
                         <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html">
                             Intro to MapView - Create a 2D map</a> //20180406
@@ -141,20 +156,32 @@ Copyright © 2018, State of Grace, Department of Fun and Games
                         we can have a global activeLayer object representing currently selected Active Layer
                     </li>
                     <li>
-                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#properties-summary">
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#createQuery">
                             FeatureLayer
-                        </a> properties //20180816
+                        </a> create
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html">
+                            Query
+                        </a> query //20180817-for app_queryalf
                     </li>
                     <li>
-                        <a href=""></a>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-FeatureSet.html#displayFieldName">
+                            FeatureSet
+                        </a> returned by query execution //20180817
+                        NOTE: displayFieldName CAN BE UNDEFINED so cannot be always used.
                     </li>
                     <li>
-                        <a href=""></a>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-Point.html">
+                            Point
+                        </a> geometry //20180817 * For a point, the extent is null.
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html#properties-summary">Graphic (Feature)</a>//20180817
+                        for how to write out feature result in app_resout
                     </li>
                 </ol>
             </details>
             <details>
-                <summary>Try</summary>
+                <summary>WIP</summary>
                 <p>
                     <a href="https://www.w3schools.com/js/js_popup.asp" title="js prompt popup"></a>
                     <a href="https://www.w3schools.com/tags/tag_dialog.asp" title="html dialog tag"></a>
@@ -162,6 +189,7 @@ Copyright © 2018, State of Grace, Department of Fun and Games
                     <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog"></a>
                 </p>
             </details>
+            <hr>
             <h2>ASP.NET</h2>
             <details>
                 <summary>Setup and Notes</summary>
@@ -175,47 +203,6 @@ Copyright © 2018, State of Grace, Department of Fun and Games
             <h2>Config</h2>
             <details>
                 <summary>App Resources and Data Sources</summary>
-                <ol>
-                    <li></li>
-                </ol>
-            </details>
-            <details>
-                <summary>Viewers</summary>
-            </details>
-            <h2>Contents</h2>
-            <details>
-                <summary>Layer List</summary>
-                <ol>
-                    <li></li>
-                </ol>
-            </details>
-            <details>
-                <summary>Graphics and Icons</summary>
-            </details>
-            <h2>Layers</h2>
-            <details>
-                <summary>Types and Views</summary>
-                <ol>
-                    <li></li>
-                </ol>
-            </details>
-            <h2>Map</h2>
-            <details>
-                <summary>Elements</summary>
-                <ol>
-                </ol>
-            </details>
-            <h2>Tools</h2>
-            <details>
-                <summary>Tool List</summary>
-            </details>
-            <h2>Widgets</h2>
-            <details>
-                <summary>Widgets</summary>
-                <p>
-                    DONE: Basemap Gallery inside Expand widget, Basemap Toggle, Home button,
-                    Locate (client location) button, Scalebar, and Search box.
-                </p>
                 <ol>
                     <li></li>
                 </ol>
