@@ -6,7 +6,7 @@ Copyright © 2018, State of Grace, Department of Fun and Games
  * [OpenGov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
  * [FreeBSD](https://www.freebsd.org/copyright/freebsd-license.html)
  */
-// abc.js 20140910 dfgchiang 20180727
+// abc.js 20140910 dfgchiang 20180919
 // All Basic Convenience Generic Helper fxns
 var br = "<br />";
 var rv = (Math.random() * 10).toFixed(5);
@@ -106,9 +106,11 @@ function poplinks() {
     for (var i = 0; i < links.length; i++) {
         var a = links[i];
         if (a.href !== undefined && a.href !== '') {
-            if (a.href.indexOf('#') < 0 && a.href.indexOf("javascript:void") < 0
-                && a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
+            if (a.href.indexOf("javascript:void") < 0 &&
+                    a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
                 a.target = "_blank";
+            } else if ((a.href.indexOf('#') > 0 && a.href.indexOf(location.href) > -1)) {
+                a.target = "_self";
             }
             if (a.innerHTML === '' && a.className === '') {
                 a.style.lineHeight = '150%';
@@ -727,3 +729,16 @@ var NUMERIC_OPERATOR_LIST = "|eq|gt|gte|lt|lte|ne|=|>|>=|<|<=|<>|&gt;|&gt;=|&lt;
 var STRING_OPERATOR_LIST = "|like|not like|is null|is not null|in (|";
 var BASEMAP_IDS = ["streets", "satellite", "hybrid", "topo", "gray", "dark-gray", "oceans", "national-geographic", "terrain", "osm", "dark-gray-vector", "gray-vector", "streets-vector", "topo-vector", "streets-night-vector", "streets-relief-vector", "streets-navigation-vector"];
 var BASEMAP_LIST = "|streets|satellite|hybrid|topo|gray|dark-gray|oceans|national-geographic|terrain|osm|dark-gray-vector|gray-vector|streets-vector|topo-vector|streets-night-vector|streets-relief-vector|streets-navigation-vector";
+var DFGCOLORS = {
+    "cream": "ffe7a4",
+    "richgold": "fbad23",
+    "orange": "ce770e",
+    "darkorange": "cc6600",
+    "babyblue": "a6c9e2",
+    "deepblue": "185b93",
+    "downblue": "0d569e",
+    "jazzblue": "1f70a7",
+    "richblue": "1f66be",
+    "sootheblue": "014e77",
+    "colorname": "hexvalue"
+};
