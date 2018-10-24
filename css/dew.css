@@ -30,9 +30,15 @@ details {
 }
 h1 {
     font-family: Impact, 'Arial Black', fantasy;
+    margin-top: 0;
 }
 h2 {
     font-family: Georgia, serif;
+    margin-top: 0;
+}
+h2 a {
+    text-decoration: none;
+    padding: 0 5px;
 }
 h3 {
     font-family: Verdana, Geneva, Tehoma, sans-serif;
@@ -76,6 +82,72 @@ nav > a {
     margin: 0 2px;
     padding: 2px 5px;
 }
+table {
+    background-color: white;
+    border-collapse: collapse;
+    border: 1px solid floralwhite;
+}
+td {
+    border: 1px solid floralwhite;
+    padding: 2px;
+    vertical-align: top;
+}
+th {
+    border: 1px solid floralwhite;
+    padding: 2px;
+    vertical-align: top;
+}
+table.cgrid {
+    background-color: white;
+    border: 1px solid slategray;
+    border-collapse: collapse;
+    margin: 5px;
+}
+table.cgrid td {
+    border: 1px solid silver;
+    padding: 2px;
+}
+table.cgrid th {
+    border: 1px solid silver;
+    border-right: 2px solid dimgray;
+    padding: 2px;
+}
+table.cgrid tr:hover {
+    background-color: aliceblue
+}
+table.cgrid tr:nth-child(even) {
+    background-color: whitesmoke;
+}
+table.cgrid tr:nth-child(even):hover {
+    background-color: aliceblue;
+}
+table.flat {
+    background-color: white;
+    border: 1px solid dimgray;
+    border-collapse: collapse;
+    margin: 5px;
+}
+table.flat td {
+    border: 1px solid gainsboro;
+    vertical-align: top;
+    padding: 2px;
+}
+table.flat th {
+    border: 1px solid silver;
+    border-bottom: 2px solid gray;
+    font-size: small;
+    padding: 1px 5px;
+}
+table.flat tr:hover {
+    background-color: aliceblue;
+}
+table.flat tr:nth-child(even) {
+    background-color: ghostwhite;
+}
+table.flat tr:nth-child(even):hover {
+    background-color: aliceblue;
+}
+
 .bottombar {
     position: fixed; left: 0; bottom: 0; right: 0; top: auto;
     height: 30%; width: 100%;
