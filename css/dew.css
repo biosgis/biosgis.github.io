@@ -177,3 +177,9 @@ table.flat tr:nth-child(even):hover {
     background-color: white;
     border: 1px solid silver;
 }
+.toggler {
+    border: 1px solid silver;
+    font-size: larger;
+    font-weight: bolder;
+    padding: 5px;
+}

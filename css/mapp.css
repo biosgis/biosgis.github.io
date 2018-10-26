@@ -835,6 +835,13 @@ th {
     border: 1px solid lightgray;
     opacity: 0.5;
 }
+.toggler {
+    border: 1px solid silver;
+    font-size: larger;
+    font-weight: bolder;
+    padding: 5px;
+}
+
 /* ******************************************
  * ESRI JSAPI SAMPLE CSSSTYLES
 ******************************************* */

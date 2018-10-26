@@ -229,6 +229,12 @@ table.flat tr:nth-child(even):hover {
     cursor: pointer;
     font-style: italic;
 }
+.toggler {
+    border: 1px solid silver;
+    font-size: larger;
+    font-weight: bolder;
+    padding: 5px;
+}
 .triright {
     border: 15px solid white;
     border-left-color: steelblue;
