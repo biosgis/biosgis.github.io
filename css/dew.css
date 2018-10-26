@@ -97,6 +97,36 @@ th {
     padding: 2px;
     vertical-align: top;
 }
+table.bgrid {
+    background-color: white;
+    border: 1px solid transparent;
+    border-collapse: collapse;
+    font-family: Consolas, Monaco, monospace;
+    margin-bottom: 10px;
+    height: auto;
+    width: auto;
+    overflow: auto;
+}
+table.bgrid td {
+    border: 1px solid gainsboro;
+}
+table.bgrid th {
+    background-color: aliceblue;
+    border: 1px solid silver;
+    border-bottom: 2px solid silver;
+}
+table.bgrid th:hover {
+    background-color: aliceblue;
+}
+table.bgrid tr:hover {
+    background-color: ivory;
+}
+table.bgrid tr:nth-child(even) {
+    background-color: whitesmoke;
+}
+table.bgrid tr:nth-child(even):hover {
+    background-color: ivory;
+}
 table.cgrid {
     background-color: white;
     border: 1px solid slategray;
