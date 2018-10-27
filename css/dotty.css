@@ -42,21 +42,21 @@ footer {
     padding: 5px;
 }
 h1 {
-    font-family: 'Arial Black', Tahoma, Impact, fantasy;
+    font-family: 'Arial Black', Impact, fantasy;
     margin-top: 0;
 }
 h2 {
     border-top: 1px solid snow;
-    font-family: Arial, sans-serif;
+    font-family: Georgia, serif;
 }
 h3 {
     border-bottom: 1px solid floralwhite;
     color: steelblue;
-    font-family: Verdana, Tahoma, monospace;
+    font-family: Arial, Tahoma, sans-serif;
 }
 h4 {
     color: darkslategray;
-    font-family: Georgia, serif;
+    font-family: Verdana, Geneva, monospace;
 }
 h5 {
     font-family: 'Comic Sans MS', cursive;
@@ -99,34 +99,61 @@ th {
     padding: 2px;
     vertical-align: top;
 }
+table.bgrid {
+    background-color: white;
+    border: 1px solid transparent;
+    border-collapse: collapse;
+    font-family: Consolas, Monaco, monospace;
+    margin-bottom: 10px;
+    height: auto;
+    width: auto;
+    overflow: auto;
+}
+table.bgrid td {
+    border: 1px solid gainsboro;
+}
+table.bgrid th {
+    background-color: aliceblue;
+    border: 1px solid silver;
+    border-bottom: 2px solid silver;
+}
+table.bgrid th:hover {
+    background-color: aliceblue;
+}
+table.bgrid tr:hover {
+    background-color: ivory;
+}
+table.bgrid tr:nth-child(even) {
+    background-color: whitesmoke;
+}
+table.bgrid tr:nth-child(even):hover {
+    background-color: ivory;
+}
 table.flat {
     background-color: white;
     border: 1px solid dimgray;
     border-collapse: collapse;
     margin: 5px;
 }
-td.flat {
+table.flat td {
     border: 1px solid gainsboro;
     vertical-align: top;
     padding: 2px;
 }
-th.flat {
+table.flat th {
     border: 1px solid silver;
     border-bottom: 2px solid gray;
     font-size: small;
     padding: 1px 5px;
 }
-tr.even {
-    background-color: white;
-}
-tr.even:hover {
-    background-color: lavender;
-}
-tr.odd {
+table.flat tr:hover {
     background-color: aliceblue;
 }
-tr.odd:hover {
-    background-color: lavender;
+table.flat tr:nth-child(even) {
+    background-color: ghostwhite;
+}
+table.flat tr:nth-child(even):hover {
+    background-color: aliceblue;
 }
 
 #msgs {
@@ -231,6 +258,12 @@ tr.odd:hover {
     background-color: lavender;
     cursor: pointer;
     font-style: italic;
+}
+.toggler {
+    border: 1px solid silver;
+    font-size: larger;
+    font-weight: bolder;
+    padding: 5px;
 }
 .triright {
     border: 15px solid white;
