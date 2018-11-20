@@ -31,8 +31,13 @@ code {
     margin: 1px 5px;
 }
 details {
-    margin-left: 5px;
+    border-bottom: 1px solid lavender;
+    margin: 1px 2px 3px 4px;
     overflow: auto;
+    padding-left: 5px;
+}
+details > ol {
+    margin-left: 2%;
 }
 footer {
     background-color: ghostwhite;
