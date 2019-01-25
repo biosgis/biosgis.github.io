@@ -1,5 +1,5 @@
 /*
-Copyright © 2018, State of Grace, Department of Fun and Games
+Copyright © 2019, State of Grace, Department of Fun and Games
 [MIT License](https://mit-license.org/)
 [GNU GPL v3](https://www.gnu.org/licenses/)
 [open-license](https://project-open-data.cio.gov/open-licenses/)
@@ -26,7 +26,13 @@ aside {
     border-left: 1px solid silver;
 }
 details {
-    margin: 5px;
+    border-bottom: 1px solid transparent;
+    margin: 1px 2px 3px 4px;
+    overflow: auto;
+    padding-left: 5px;
+}
+details > ol {
+    margin-left: 2%;
 }
 h1 {
     font-family: Impact, 'Arial Black', fantasy;
