@@ -3,6 +3,91 @@
     <head>
         <meta charset="utf-8">
         <title>dfgfire</title>
+        <style>
+            body {
+                font-family: Consolas, Monaco, monospace;
+                font-size: 1.23em;
+                line-height: 123%;
+                margin: 0;
+                overflow: hidden;
+                padding: 0;
+            }
+            aside {
+                position: absolute; bottom: 0; right: 0; top: 51px;
+                background-color: white;
+                border: 1px solid silver;
+                height: auto;
+                overflow: hidden;
+                width: 30%;
+            }
+            footer {
+                position: absolute; left: 0; bottom: 0;
+                background-color: white;
+                border-top: 1px solid slategray;
+                padding: 2px;
+                width: 100%;
+            }
+            h1 {
+                margin-top: 0;
+            }
+            h2 {
+                background-color: whitesmoke;
+                border-bottom: 1px solid silver;
+                margin: 0;
+                padding: 8px;
+            }
+            h3 {
+                background-color: ghostwhite;
+                border-bottom: 1px solid silver;
+                margin: 0;
+                padding: 5px;
+            }
+            header {
+                position: absolute; left: 0; top: 0;
+                background-color: white;
+                border-bottom: 1px solid slategray;
+                height: 50px;
+                padding: 5px;
+                width: 100%;
+            }
+            nav {
+                position: fixed; left: 0; top: 0;
+                background-color: white;
+                border-bottom: 1px solid slategray;
+                height: 50px;
+                padding: 1px;
+                width: 100%;
+                z-index: 400;
+            }
+            main {
+                position: absolute; bottom: 0; left: 0; right: 0; top: 51px;
+                background-color: whitesmoke;
+                border: 1px solid silver;
+                height: auto;
+                overflow: hidden;
+                width: 100%;
+            }
+            section {
+                position: absolute; bottom: 0; right: 0;
+                background-color: white;
+                border-top: 1px solid silver;
+                height: 40%;
+                overflow: hidden;
+                width: 100%;
+            }
+        </style>
+        <script type="text/javascript">
+            var app = {
+                layers: [
+                    {
+                        id: "CalTrans_Lane_Closures",
+                        url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+                        type: "kml",
+                        name: "CalTrans Lane Closures"
+                    }
+                ]
+            }
+        </script>
     </head>
     <body>
         <header>
@@ -36,10 +121,38 @@
                                     Wildfires
                                 </a>
                             </li>
+                            <li>
+                                <a href="https://www.landfire.gov" title="The LF Program provides 20+ national geo-spatial layers (e.g. vegetation, fuel, disturbance, etc.), databases, and ecological models that are available to the public for the US and insular areas.">
+                                    LANDFIRE (LF)
+                                </a>
+                            </li>
                         </ol>
                     </div>
                 </article>
+                <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
+                    <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
+                </a>
             </div>
         </aside>
+        <section>
+            <h2>
+                Messages
+            </h2>
+            <div></div>
+        </section>
+        <footer>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>
+        </footer>
     </body>
 </html>
+<!--
+    Copyright © 2019, [California Department of Fish and Wilfelife](https://wildlife.ca.gov/)
+    [CDFW Condition of Use](https://www.wildlife.ca.gov/Conditions-of-Use)
+    [MIT License](https://mit-license.org/)
+    [GNU GPL v3](https://www.gnu.org/licenses/)
+    [BSD 3-Clause](https://opensource.org/licenses/BSD-3-Clause)
+    [open-license](https://project-open-data.cio.gov/open-licenses/)
+    [Creative Commons (CC)](http://creativecommons.org/licenses/by-nc/4.0/)
+    [FreeBSD License](https://www.freebsd.org/copyright/freebsd-license.html)
+    [OpenGov3](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
+-->
