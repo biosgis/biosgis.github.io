@@ -9,8 +9,12 @@
                 font-size: 1.23em;
                 line-height: 123%;
                 margin: 0;
-                overflow: hidden;
+                overflow-x: hidden;
                 padding: 0;
+            }
+            article {
+                position: relative;
+                border-bottom: 1px solid gainsboro;
             }
             aside {
                 position: absolute; bottom: 0; right: 0; top: 51px;
@@ -28,19 +32,30 @@
                 width: 100%;
             }
             h1 {
+                position: relative;
                 margin-top: 0;
             }
             h2 {
+                position: relative;
                 background-color: whitesmoke;
                 border-bottom: 1px solid silver;
                 margin: 0;
                 padding: 8px;
             }
             h3 {
+                position: relative;
                 background-color: ghostwhite;
                 border-bottom: 1px solid silver;
                 margin: 0;
                 padding: 5px;
+            }
+            h4 {
+                position: relative;
+                background-color: gainsboro;
+                border-bottom: 1px solid silver;
+                margin: 0;
+                padding: 5px;
+                text-align: center;
             }
             header {
                 position: absolute; left: 0; top: 0;
@@ -75,6 +90,26 @@
                 overflow: hidden;
                 width: 100%;
             }
+            .centered {
+                text-align: center;
+            }
+            .maindiv {
+                position: relative;
+                max-height: 88%;
+                overflow: auto;
+            }
+            .margined {
+                position: relative;
+                border: 1px solid floralwhite;
+                margin: 5px;
+            }
+            .msgx {
+                display: none;
+            }
+            .padded {
+                position: relative;
+                padding: 5px;
+            }
         </style>
         <script type="text/javascript">
             var app = {
@@ -102,11 +137,26 @@
             </div>
         </main>
         <aside class="">
+            <h3>
+                Select and Filter
+            </h3>
+            <div class="maindiv">
+                <article class="">
+                    <h4>
+                        Attribute Query
+                    </h4>
+                    <div class="centered margined padded">
+                        <textarea id="sql-where" name="sql" rows="8" cols="50"></textarea>
+                    </div>
+                </article>
+            </div>
+        </aside>
+        <aside class="msgx">
             <h2>Resources</h2>
-            <div class="">
+            <div class="maindiv">
                 <article class="">
                     <h3>Maps and Services</h3>
-                    <div class="">
+                    <div class="padded">
                         <ol>
                             <li>
                                 <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap">
@@ -129,20 +179,33 @@
                         </ol>
                     </div>
                 </article>
-                <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
-                    <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
-                </a>
             </div>
         </aside>
         <section>
             <h2>
                 Messages
             </h2>
-            <div></div>
+            <div class="maindiv"></div>
         </section>
         <footer>
             <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>
         </footer>
+        <section style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
+            <h2>
+                Operational Map
+            </h2>
+            <div class="maindiv" style="height: 88%;">
+                <article class="centered margined">
+                    <h3>Biogeographic Incident Obsevation System</h3>
+                    <div class="padded">
+                        <button type="button" name="button">OK</button>
+                    </div>
+                </article>
+                <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
+                    <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
+                </a>
+            </div>
+        </section>
     </body>
 </html>
 <!--
