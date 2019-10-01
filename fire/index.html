@@ -3,11 +3,21 @@
     <head>
         <meta charset="utf-8">
         <title>dfgfire</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="dfgchiang">
+        <meta name="description" content="">
+        <meta name="generator" content="biosgis-20190927">
+        <meta name="robots" content="noindex, nofollow, noarchive">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.12/"></script>
+        <script src="https://dfgchiang.github.io/js/abc.js"></script>
         <style>
             body {
                 font-family: Consolas, Monaco, monospace;
-                font-size: 1.23em;
-                line-height: 123%;
+                font-size: 1.1em;
+                line-height: 1.23em;
                 margin: 0;
                 overflow-x: hidden;
                 padding: 0;
@@ -65,6 +75,9 @@
                 padding: 5px;
                 width: 100%;
             }
+            input {
+                font-size: 0.9em;
+            }
             nav {
                 position: fixed; left: 0; top: 0;
                 background-color: white;
@@ -90,13 +103,20 @@
                 overflow: hidden;
                 width: 100%;
             }
+            .bug {
+                color: red;
+            }
             .centered {
                 text-align: center;
             }
+            .issue {
+                color: magenta;
+            }
             .maindiv {
                 position: relative;
-                max-height: 88%;
+                height: 88%;
                 overflow: auto;
+                padding-bottom: 5px;
             }
             .margined {
                 position: relative;
@@ -110,6 +130,15 @@
                 position: relative;
                 padding: 5px;
             }
+            .todo {
+                color: tomato;
+            }
+            #viewDiv {
+                padding: 0;
+                margin: 0;
+                height: 100%;
+                width: 100%;
+            }
         </style>
         <script type="text/javascript">
             var app = {
@@ -122,6 +151,38 @@
                     }
                 ]
             }
+            require(["esri/Map", "esri/views/MapView"], function(Map, MapView) {
+              var map = new Map({
+                basemap: "streets"
+              });
+
+              var view = new MapView({
+                container: "viewDiv",
+                map: map,
+                zoom: 10,
+                center: [-121.34, 38.567] // longitude, latitude
+              });
+            });
+            window.addEventListener('load', function () {
+                om = poplinks();
+                $('sql-go').onkeyup = function (event) {
+                    var kc = event.which || event.keyCode;
+                    if (kc === 13) {
+                        //gocab(parseInt($('ocab').value));
+                        var s = $('sql-where').value;
+                        console.log(s);
+                    }
+                };
+                $('buffd').onkeyup = function (event) {
+                    var kc = event.which || event.keyCode;
+                    if (kc === 13) {
+                        $('buffr').value = parseInt($('buffd').value);
+                    }
+                };
+                $('buffr').onchange = function (event) {
+                    $('buffd').value = $('buffr').value;
+                };
+            });
         </script>
     </head>
     <body>
@@ -132,13 +193,29 @@
             <span></span>
         </nav>
         <main>
-            <div class="">
-                map
-            </div>
+            <div id="viewDiv"></div>
         </main>
         <aside class="">
             <h3>
+                Dev Refs
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;"
+                    onclick="this.parentNode.parentNode.style.display='none'"></span>
+            </h3>
+            <div class="maindiv">
+                <ol>
+                    <li>2019-09-30
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html">
+                            Intro to MapView - Create a 2D map
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </aside>
+        <aside class="">
+            <h3>
                 Select and Filter
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: 1.23em;"
+                    onclick="this.parentNode.parentNode.style.display='none'"></span>
             </h3>
             <div class="maindiv">
                 <article class="">
@@ -146,13 +223,28 @@
                         Attribute Query
                     </h4>
                     <div class="centered margined padded">
-                        <textarea id="sql-where" name="sql" rows="8" cols="50"></textarea>
+                        <textarea id="sql-where" name="sql" rows="8" cols="40"></textarea>
+                        <button type="button" name="button" id="sql-go">Run</button>
+                    </div>
+                </article>
+                <article class="">
+                    <h4>
+                        Geographic Selection
+                    </h4>
+                    <div class="centered margined padded">
+                        <input type="range" id="buffr" name="buffer" min="0" max="10000" style="position: relative; width: 80%;">
+                        <input type="text" id="buffd" name="buffer" value="">
+                        <label for="buffd">meters</label>
                     </div>
                 </article>
             </div>
         </aside>
         <aside class="msgx">
-            <h2>Resources</h2>
+            <h2>
+                Resources
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;"
+                    onclick="this.parentNode.parentNode.style.display='none'"></span>
+            </h2>
             <div class="maindiv">
                 <article class="">
                     <h3>Maps and Services</h3>
@@ -184,21 +276,28 @@
         <section>
             <h2>
                 Messages
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;"
+                    onclick="this.parentNode.parentNode.style.display='none'"></span>
             </h2>
             <div class="maindiv"></div>
         </section>
-        <footer>
+        <footer style="display: none;">
             <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>
         </footer>
-        <section style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
+        <section id="splash" class="centered" style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
             <h2>
                 Operational Map
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;"
+                    onclick="this.parentNode.parentNode.style.display='none'"></span>
             </h2>
             <div class="maindiv" style="height: 88%;">
-                <article class="centered margined">
+                <article>
                     <h3>Biogeographic Incident Obsevation System</h3>
+                    <div class="margined">
+                        <p></p>
+                    </div>
                     <div class="padded">
-                        <button type="button" name="button">OK</button>
+                        <button type="button" name="button" onclick="hide('splash')">OK</button>
                     </div>
                 </article>
                 <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
