@@ -1,632 +1,748 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-<head>
-    <meta charset="utf-8">
-    <title>dfgfire</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="dfgchiang">
-    <meta name="description" content="">
-    <meta name="generator" content="biosgis-20190927">
-    <meta name="robots" content="noindex, nofollow, noarchive">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/css/main.css">
-    <script src="https://js.arcgis.com/4.12/"></script>
-    <script src="https://dfgchiang.github.io/js/abc.js"></script>
-    <style>
-        body {
-            font-family: Consolas, Monaco, monospace;
-            font-size: 1.1em;
-            line-height: 1.23em;
-            margin: 0;
-            overflow-x: hidden;
-            padding: 0;
-        }
+    <head>
+        <meta charset="utf-8">
+        <title>dfgfire</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="dfgchiang">
+        <meta name="description" content="">
+        <meta name="generator" content="biosgis-20190927">
+        <meta name="robots" content="noindex, nofollow, noarchive">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.13/"></script>
+        <script src="https://dfgchiang.github.io/js/abc.js"></script>
+        <style>
+            body {
+                font-family: Consolas, Monaco, monospace;
+                font-size: 1.1em;
+                line-height: 1.23em;
+                margin: 0;
+                overflow-x: hidden;
+                padding: 0;
+            }
 
-        article {
-            position: relative;
-            border-bottom: 1px solid gainsboro;
-        }
+            article {
+                position: relative;
+                border-bottom: 1px solid gainsboro;
+            }
 
-        aside {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            top: 51px;
-            background-color: white;
-            border: 1px solid silver;
-            height: auto;
-            overflow: hidden;
-            width: 30%;
-        }
+            aside {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                top: 51px;
+                background-color: white;
+                border: 1px solid silver;
+                height: auto;
+                overflow: hidden;
+                width: 30%;
+            }
 
-        button {
-            font-size: 1em;
-        }
+            button {
+                font-size: 1em;
+            }
 
-        footer {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            background-color: white;
-            border-top: 1px solid slategray;
-            padding: 2px;
-            width: 100%;
-        }
+            footer {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                background-color: white;
+                border-top: 1px solid slategray;
+                padding: 2px;
+                width: 100%;
+            }
 
-        h1 {
-            position: relative;
-            margin-top: 0;
-        }
+            h1 {
+                position: relative;
+                margin-top: 0;
+            }
 
-        h2 {
-            position: relative;
-            background-color: whitesmoke;
-            border-bottom: 1px solid silver;
-            margin: 0;
-            padding: 8px;
-        }
+            h2 {
+                position: relative;
+                background-color: whitesmoke;
+                border-bottom: 1px solid silver;
+                margin: 0;
+                padding: 8px;
+            }
 
-        h3 {
-            position: relative;
-            background-color: ghostwhite;
-            border-bottom: 1px solid silver;
-            margin: 0;
-            padding: 5px;
-        }
+            h3 {
+                position: relative;
+                background-color: ghostwhite;
+                border-bottom: 1px solid silver;
+                margin: 0;
+                padding: 5px;
+            }
 
-        h4 {
-            position: relative;
-            background-color: gainsboro;
-            border-bottom: 1px solid silver;
-            margin: 0;
-            padding: 5px;
-            text-align: center;
-        }
+            h4 {
+                position: relative;
+                background-color: gainsboro;
+                border-bottom: 1px solid silver;
+                margin: 0;
+                padding: 5px;
+                text-align: center;
+            }
 
-        header {
-            position: absolute;
-            left: 0;
-            top: 0;
-            background-color: white;
-            border-bottom: 1px solid slategray;
-            height: 50px;
-            padding: 5px;
-            width: 100%;
-        }
+            header {
+                position: absolute;
+                left: 0;
+                top: 0;
+                background-color: white;
+                border-bottom: 1px solid slategray;
+                height: 50px;
+                padding: 5px;
+                width: 100%;
+            }
 
-        input {
-            font-size: 1em;
-        }
+            input {
+                font-size: 1em;
+            }
 
-        nav {
-            position: fixed;
-            left: 0;
-            top: 0;
-            background-color: white;
-            border-bottom: 1px solid slategray;
-            height: 50px;
-            padding: 1px;
-            width: 100%;
-            z-index: 400;
-        }
+            nav {
+                position: fixed;
+                left: 0;
+                top: 0;
+                background-color: white;
+                border-bottom: 1px solid slategray;
+                height: 50px;
+                padding: 1px;
+                width: 100%;
+                z-index: 400;
+            }
 
-        main {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            top: 51px;
-            background-color: whitesmoke;
-            border: 1px solid silver;
-            height: auto;
-            overflow: hidden;
-            width: 100%;
-        }
+            main {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: 51px;
+                background-color: whitesmoke;
+                border: 1px solid silver;
+                height: auto;
+                overflow: hidden;
+                width: 100%;
+            }
 
-        section {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background-color: white;
-            border-top: 1px solid silver;
-            height: 40%;
-            overflow: hidden;
-            width: 100%;
-        }
+            section {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                background-color: white;
+                border-top: 1px solid silver;
+                height: 40%;
+                overflow: hidden;
+                width: 100%;
+            }
 
-        .bug {
-            color: red;
-        }
+            .bug {
+                color: red;
+            }
 
-        .centered {
-            text-align: center;
-        }
+            .centered {
+                text-align: center;
+            }
 
-        .hide {
-            display: none;
-        }
+            .hide {
+                display: none;
+            }
 
-        .issue {
-            color: magenta;
-        }
+            .issue {
+                color: magenta;
+            }
 
-        .maindiv {
-            position: relative;
-            height: 88%;
-            clear: both;
-            overflow: auto;
-            padding-bottom: 5px;
-        }
+            .maindiv {
+                position: relative;
+                height: 88%;
+                clear: both;
+                overflow: auto;
+                padding-bottom: 5px;
+            }
 
-        .margined {
-            position: relative;
-            border: 1px solid floralwhite;
-            margin: 5px;
-        }
+            .margined {
+                position: relative;
+                border: 1px solid floralwhite;
+                margin: 5px;
+            }
 
-        .msgx {
-            display: none;
-        }
+            .msgx {
+                display: none;
+            }
 
-        .padded {
-            position: relative;
-            padding: 5px;
-        }
+            .padded {
+                position: relative;
+                padding: 5px;
+            }
 
-        .todo {
-            color: tomato;
-        }
+            .todo {
+                color: tomato;
+            }
+            /*        ESRIAN CSS*/
+            #viewDiv {
+                padding: 0;
+                margin: 0;
+                height: 100%;
+                width: 100%;
+            }
+            .esri-popup .esri-popup-header .esri-title {
+                font-size: 18px;
+                font-weight: bolder;
+            }
 
-        #viewDiv {
-            padding: 0;
-            margin: 0;
-            height: 100%;
-            width: 100%;
-        }
+            .esri-popup .esri-popup-body .esri-popup-content {
+                font-size: 14px;
+            }
 
-    </style>
-    <script type="text/javascript">
-        var avn = 20191010;
-        var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2)
-        var fullversion = bvn + '.' + avn.toString().substr(6, 2);
-        var app = {
-            layers: [{
-                id: "CalTrans_Lane_Closures",
-                url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
-                type: "kml",
-                name: "CalTrans Lane Closures"
-            }, {
-                id: "DFG_Properties:0",
-                url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
-                type: "feature",
-                name: "CDFW Facilities"
-            }]
-        };
-        // AMD REQUIRED LOADER
-        require([
-            "esri/Map",
-            "esri/WebMap",
-            "esri/layers/CSVLayer",
-            "esri/layers/FeatureLayer",
-            "esri/layers/GeoJSONLayer",
-            "esri/views/MapView",
-            "esri/widgets/Legend",
-            "esri/widgets/Expand"
-        ], function(
-            Map,
-            WebMap,
-            CSVLayer,
-            FeatureLayer,
-            GeoJSONLayer,
-            MapView,
-            Legend,
-            Expand
-        ) {
-            // CSVLAYER
-            const csvurl =
-                "https://arcgis.github.io/arcgis-samples-javascript/sample-data/hurricanes.csv";
+        </style>
+        <script type="text/javascript">
+            var avn = 20191011;
+            var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2)
+            var fullversion = bvn + '.' + avn.toString().substr(6, 2);
+            var app = {
+                layers: [{
+                        id: "CalTrans_Lane_Closures",
+                        url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+                        type: "kml",
+                        name: "CalTrans Lane Closures"
+                    }, {
+                        id: "DFG_Properties:0",
+                        url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
+                        type: "feature",
+                        name: "CDFW Facilities"
+                    }]
+            };
+            // AMD REQUIRED LOADER
+            require([
+                "esri/Map",
+                "esri/WebMap",
+                "esri/layers/CSVLayer",
+                "esri/layers/FeatureLayer",
+                "esri/layers/GeoJSONLayer",
+                "esri/layers/TileLayer",
+                "esri/tasks/IdentifyTask",
+                "esri/tasks/support/IdentifyParameters",
+                "esri/views/MapView",
+                "esri/widgets/Legend",
+                "esri/widgets/Expand"
+            ], function (
+                    Map,
+                    WebMap,
+                    CSVLayer,
+                    FeatureLayer,
+                    GeoJSONLayer,
+                    TileLayer,
+                    IdentifyTask, IdentifyParameters,
+                    MapView,
+                    Legend,
+                    Expand
+                    ) {
+                // CSVLAYER
+                const csvurl =
+                        "https://arcgis.github.io/arcgis-samples-javascript/sample-data/hurricanes.csv";
 
-            const csvLayer = new CSVLayer({
-                title: "Hurricanes",
-                url: csvurl,
-                copyright: "NOAA",
-                popupTemplate: {
-                    title: "{Name}",
-                    content: [{
-                            type: "text",
-                            text: "Category {Category} storm with that occurred at {ISO_time}."
-                        },
-                        {
-                            type: "fields",
-                            fieldInfos: [{
-                                    fieldName: "wmo_pres",
-                                    label: "Pressure"
+                const csvLayer = new CSVLayer({
+                    title: "Hurricanes",
+                    url: csvurl,
+                    copyright: "NOAA",
+                    popupTemplate: {
+                        title: "{Name}",
+                        content: [{
+                                type: "text",
+                                text: "Category {Category} storm with that occurred at {ISO_time}."
+                            },
+                            {
+                                type: "fields",
+                                fieldInfos: [{
+                                        fieldName: "wmo_pres",
+                                        label: "Pressure"
+                                    },
+                                    {
+                                        fieldName: "wmo_wind",
+                                        label: "Wind Speed (mph)"
+                                    }
+                                ]
+                            }
+                        ],
+                        fieldInfos: [{
+                                fieldName: "ISO_time",
+                                format: {
+                                    dateFormat: "short-date-short-time"
+                                }
+                            }]
+                    },
+                    renderer: {
+                        type: "unique-value",
+                        field: "Category",
+                        uniqueValueInfos: createUniqueValueInfos()
+                    }
+                });
+                //            const map = new WebMap({
+                //                // contains a basemap with a South Pole Stereographic projection
+                //                // the CSVLayer coordinates will re-project client-side
+                //                // with the Projection Engine to match the view's Spatial Reference
+                //                basemap: {
+                //                    portalItem: {
+                //                        id: "3113eacc129942b4abde490a51aeb33f"
+                //                    }
+                //                },
+                //                layers: [csvLayer]
+                //            });
+
+                // GEOJSONLAYER 
+                // If external files are not on the same domain as your website, a CORS enabled server
+                // or a proxy is required.
+                const geojsonurl =
+                        "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
+                const template = {
+                    title: "Earthquake Info",
+                    content: "Magnitude {mag} {type} hit {place} on {time}",
+                    fieldInfos: [{
+                            fieldName: "time",
+                            format: {
+                                dateFormat: "short-date-short-time"
+                            }
+                        }]
+                };
+
+                const renderer = {
+                    type: "simple",
+                    field: "mag",
+                    symbol: {
+                        type: "simple-marker",
+                        color: "orange",
+                        outline: {
+                            color: "white"
+                        }
+                    },
+                    visualVariables: [{
+                            type: "size",
+                            field: "mag",
+                            stops: [{
+                                    value: 2.5,
+                                    size: "4px"
                                 },
                                 {
-                                    fieldName: "wmo_wind",
-                                    label: "Wind Speed (mph)"
+                                    value: 8,
+                                    size: "40px"
                                 }
                             ]
-                        }
-                    ],
-                    fieldInfos: [{
-                        fieldName: "ISO_time",
-                        format: {
-                            dateFormat: "short-date-short-time"
-                        }
-                    }]
-                },
-                renderer: {
-                    type: "unique-value",
-                    field: "Category",
-                    uniqueValueInfos: createUniqueValueInfos()
-                }
-            });
-            //            const map = new WebMap({
-            //                // contains a basemap with a South Pole Stereographic projection
-            //                // the CSVLayer coordinates will re-project client-side
-            //                // with the Projection Engine to match the view's Spatial Reference
-            //                basemap: {
-            //                    portalItem: {
-            //                        id: "3113eacc129942b4abde490a51aeb33f"
-            //                    }
-            //                },
-            //                layers: [csvLayer]
-            //            });
+                        }]
+                };
 
-            // GEOJSONLAYER 
-            // If external files are not on the same domain as your website, a CORS enabled server
-            // or a proxy is required.
-            const geojsonurl =
-                "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
-            const template = {
-                title: "Earthquake Info",
-                content: "Magnitude {mag} {type} hit {place} on {time}",
-                fieldInfos: [{
-                    fieldName: "time",
-                    format: {
-                        dateFormat: "short-date-short-time"
-                    }
-                }]
-            };
-
-            const renderer = {
-                type: "simple",
-                field: "mag",
-                symbol: {
-                    type: "simple-marker",
-                    color: "orange",
-                    outline: {
-                        color: "white"
-                    }
-                },
-                visualVariables: [{
-                    type: "size",
-                    field: "mag",
-                    stops: [{
-                            value: 2.5,
-                            size: "4px"
-                        },
-                        {
-                            value: 8,
-                            size: "40px"
-                        }
-                    ]
-                }]
-            };
-
-            const geojsonLayer = new GeoJSONLayer({
-                url: geojsonurl,
-                copyright: "USGS Earthquakes",
-                popupTemplate: template,
-                renderer: renderer //optional
-            });
-
-            var map = new Map({
-                basemap: "streets",
-                //                extent: {
-                //                    // autocasts as new Extent()
-                //                    xmin: -9177811,
-                //                    ymin: 4247000,
-                //                    xmax: -9176791,
-                //                    ymax: 4247784,
-                //                    spatialReference: 102100
-                //                },
-                layers: [csvLayer, geojsonLayer]
-            });
-
-            var view = new MapView({
-                container: "viewDiv",
-                map: map,
-                center: [-121.34, 38.567], // longitude, latitude
-                highlightOptions: {
-                    color: "#ff642e",
-                    haloOpacity: 1,
-                    fillOpacity: 0.25
-                },
-                popup: {
-                    dockEnabled: true,
-                    dockOptions: {
-                        breakpoint: false
-                    }
-                },
-                zoom: 10
-            });
-
-            // FEATURELAYER
-            var featureLayer = new FeatureLayer({
-                url: app.layers[1].url
-            });
-            // carbon storage of trees in Warren Wilson College 
-            //url="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
-            map.add(featureLayer);
-            // LEGEND WIDGET FOR CSVLAYER
-            const legendExpand = new Expand({
-                view: view,
-                content: new Legend({
-                    view: view,
-                    style: "card"
-                })
-            });
-            view.ui.add(legendExpand, "top-left");
-
-            function createUniqueValueInfos() {
-                const fireflyImages = [
-                    "cat1.png",
-                    "cat2.png",
-                    "cat3.png",
-                    "cat4.png",
-                    "cat5.png"
-                ];
-
-                const baseUrl =
-                    "https://arcgis.github.io/arcgis-samples-javascript/sample-data/";
-
-                return fireflyImages.map(function(url, i) {
-                    return {
-                        value: i + 1, // Category number
-                        symbol: {
-                            type: "picture-marker",
-                            url: baseUrl + url
-                        }
-                    };
+                const geojsonLayer = new GeoJSONLayer({
+                    url: geojsonurl,
+                    copyright: "USGS Earthquakes",
+                    popupTemplate: template,
+                    renderer: renderer //optional
                 });
-            }
-            // DONE REQUIRED
-        });
-        // WINDOW ONLOAD
-        window.addEventListener('load', function() {
-            om = poplinks();
-            if (location.hash.indexOf('msgx') >= 0) {
-                for (var x of document.getElementsByClassName('msgx')) {//document.querySelectorAll('.msgx')
-                    x.classList.remove('msgx');
-                }
-            }
-            $('sql-go').onkeyup = function(event) {
-                var kc = event.which || event.keyCode;
-                if (kc === 13) {
-                    //gocab(parseInt($('ocab').value));
-                    var s = $('sql-where').value;
-                    console.log(s);
-                }
-            };
-            $('buffd').onkeyup = function(event) {
-                var kc = event.which || event.keyCode;
-                if (kc === 13) {
-                    $('buffr').value = parseInt($('buffd').value);
-                }
-            };
-            $('buffr').onchange = function(event) {
-                $('buffd').value = $('buffr').value;
-            };
-            $('bvn').innerHTML = 'v6.' + bvn;
-            $('fullversion').innerHTML = fullversion;
-        });
+                // IDENTIFY TASK ON SOILS TILE LAYER
+                // URL to the map service where the identify will be performed
+                var soilURL =
+                        "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer";
 
-    </script>
-</head>
+                // Add the map service as a TileLayer for fast rendering
+                // Tile layers are composed of non-interactive images. For that reason we'll
+                // use IdentifyTask to query the service to add interactivity to the app
+                var parcelsLayer = new TileLayer({
+                    url: soilURL,
+                    opacity: 0.85
+                });
 
-<body>
-    <header>
-        <h1>Fire</h1>
-    </header>
-    <nav>
-        <span></span>
-    </nav>
-    <main>
-        <div id="viewDiv"></div>
-    </main>
-    <aside class="msgx">
-        <h3>
-            Dev Refs
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h3>
-        <div class="maindiv">
-            <ol>
-                <li>
-                    AIOS Version: <span id="fullversion"></span>
-                </li>
-                <li>
-                    <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap">
-                        Basemaps
-                    </a>
-                </li>
-                <li>2019-09-30
-                    <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html">
-                        Intro to MapView - Create a 2D map
-                    </a>
-                </li>
-                <li>
-                    <a href="https://developers.google.com/chart/interactive/docs/reference">
-                        Google Visualization API Reference
-                    </a>
-                </li>
-                <li>
-                    <a href="https://developers.google.com/chart/interactive/docs/gallery/table">
-                        Google Visualization: Table Charts
-                    </a>
-                </li>
-                <li>
-                    <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-geojson/index.html">
-                        GeoJSONLayer
-                    </a> 2019-10-10
-                </li>
-                <li>
-                    <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-csv-projection/index.html">
-                        CSVLayer - Project points on the fly
-                    </a> 2019-10-10
-                </li>
-                <li>
-                    <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-featurelayer/index.html">
-                        Intro to FeatureLayer
-                    </a> 2019-10-10
-                </li>
-            </ol>
-        </div>
-    </aside>
-    <aside class="" style="display: none;">
-        <h3>
-            Select and Filter
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: 1.23em;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h3>
-        <div class="maindiv">
-            <article class="">
-                <h4>
-                    Attribute Query
-                </h4>
-                <div class="centered margined padded">
-                    <textarea id="sql-where" name="sql" rows="8" cols="40"></textarea>
-                    <button type="button" name="button" id="sql-go">Run</button>
-                </div>
-            </article>
-            <article class="">
-                <h4>
-                    Geographic Selection
-                </h4>
-                <div class="centered margined padded">
-                    <input type="range" id="buffr" name="buffer" min="0" max="10000" style="position: relative; width: 80%;">
-                    <input type="text" id="buffd" name="buffer" value="">
-                    <label for="buffd">meters</label>
-                </div>
-            </article>
-        </div>
-    </aside>
-    <aside>
-        <h2>
-            Resources
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h2>
-        <div class="maindiv">
-            <article class="">
-                <h3>Sites and Services</h3>
-                <div class="padded">
-                    <ol>
-                        <li>
-                            <a href="https://www.esri.com/en-us/disaster-response/resources">
-                                Esri Disaster Response Program
-                            </a>
-                            <a href="https://www.esri.com/en-us/disaster-response/disasters/wildfires">
-                                Wildfires
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.landfire.gov" title="The LF Program provides 20+ national geo-spatial layers (e.g. vegetation, fuel, disturbance, etc.), databases, and ecological models that are available to the public for the US and insular areas.">
-                                LANDFIRE (LF)
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://firms.modaps.eosdis.nasa.gov/map/#z:10;c:-119.7,37.5;t:adv-points;d:2019-10-07..2019-10-08;l:topo,firms_viirs">
-                                FIRMS Fire Map
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://cdfw.maps.arcgis.com/apps/webappviewer/index.html?id=80e1116b0b834fffbcbc9d4de373a399">
-                                CPUC Fire Threat Tiers and PG&E Shutoff Areas
-                            </a> 2019-10-09
-                        </li>
-                        <li>
-                            <a href="https://cdfw.maps.arcgis.com/apps/webappviewer/index.html?id=0b4c29f4727244a2892a1f7a32a0684a">
-                                CDFW Facilities and Fire Risk App
-                            </a> web app updated 2019-10-10, based on
-                            <a href="https://cdfw.maps.arcgis.com/home/item.html?id=7a02bdbfaeef4086a1ff1707f94c8e7d">
-                                CDFW Facilities and Fire Risk Map
-                            </a> web map, created with the layers
-                            <ol>
-                                <li>
-                                    DFG_Properties
-                                    <a href="https://cdfw.maps.arcgis.com/home/item.html?id=977243f3400f45a1946eb222084e8e35">item</a>
-                                    <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer">service</a>
-                                    Layers:
-                                    <ol start="0">
-                                        <li>
-                                            <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/0">CDFW Facilities (0)</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/1">CDFW Public Access Lands (1)</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/2">CDFW Regions (2)</a>
-                                        </li>
-                                    </ol>
-                                </li>
-                                <li>
-                                    geomac_dyn (MapServer)
-                                    <a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer">service</a>
-                                    Layers:
-                                    <ol start="0">
-                                        <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/0">Current Fires (0)</a></li>
-                                        <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/1">Complex Points (1)</a></li>
-                                        <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/2">Current Fire Perimeters (2)</a></li>
-                                        <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/3">Latest Perimeters (3)</a></li>
-                                        <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/4">MODIS Fire Detection (4)</a></li>
-                                        <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/5">VIIRS IBAND Fire Detection (5)</a></li>
-                                        <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/6">HMS Fire Detection (6)</a></li>
-                                    </ol>
-                                </li>
-                                <li>
-                                    Planned Shutoff PS_Outage_Areas_20191007_1700
-                                    <a href="https://cdfw.maps.arcgis.com/home/item.html?id=cf32fe5f69dd4c92bf1808b67fe575e7">item</a>
-                                    <a href="https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/PSPS_Outage_Areas_20191007_1700/FeatureServer/0">service</a>
-                                </li>
-                                <li>
-                                    Power Outages (View)
-                                    <a href="https://cdfw.maps.arcgis.com/home/item.html?id=439afad071eb4754903906aff1946719">item</a>
-                                    <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/arcgis/rest/services/Power_Outages_(View)/FeatureServer">service</a>
-                                    by CalOES. Layers:
-                                    <ol start="0">
-                                        <li>
-                                            <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/0">Power Outage Incidents (0)</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/1">Power Outage Areas (1)</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/2">Power Outages by County (2)</a>
-                                        </li>
-                                    </ol>
-                                </li>
-                                <li>
-                                    Utilities Fire Threat Areas
-                                    <a href="https://cdfw.maps.arcgis.com/home/item.html?id=5a0aac0357c64ec48a6dc42e1a6bc3ca">item</a>
-                                    <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/arcgis/rest/services/CPUC_Fire_Threat_Areas/FeatureServer">service</a>
-                                    Layers:
-                                    <ol start="0">
-                                        <li>
-                                            <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/CPUC_Fire_Threat_Areas/FeatureServer/0">Tier 3 - Extreme (0)</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/CPUC_Fire_Threat_Areas/FeatureServer/1">Tier 2 - Elevated (1)</a>
-                                        </li>
-                                    </ol>
-                                </li>
-                                <li>
-                                    <a href="">item</a>
-                                    <a href="">service</a>
-                                </li>
-                            </ol>
-                            <pre class="hide">
+                var map = new Map({
+                    basemap: "streets", //"gray", "osm"
+                    //                extent: {
+                    //                    // autocasts as new Extent()
+                    //                    xmin: -9177811,
+                    //                    ymin: 4247000,
+                    //                    xmax: -9176791,
+                    //                    ymax: 4247784,
+                    //                    spatialReference: 102100
+                    //                },
+                    layers: [csvLayer, geojsonLayer]
+                });
+                map.add(parcelsLayer);
+
+                var view = new MapView({
+                    container: "viewDiv",
+                    map: map,
+                    center: [-121.34, 38.567], // longitude, latitude
+                    highlightOptions: {
+                        color: "#ff642e",
+                        haloOpacity: 1,
+                        fillOpacity: 0.25
+                    },
+                    popup: {
+                        dockEnabled: true,
+                        dockOptions: {
+                            breakpoint: false
+                        }
+                    },
+                    zoom: 10
+                });
+
+                // FEATURELAYER
+                var featureLayer = new FeatureLayer({
+                    url: app.layers[1].url
+                });
+                // carbon storage of trees in Warren Wilson College 
+                //url="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
+                map.add(featureLayer);
+                // LEGEND WIDGET FOR CSVLAYER
+                const legendExpand = new Expand({
+                    view: view,
+                    content: new Legend({
+                        view: view,
+                        style: "card"
+                    })
+                });
+                view.ui.add(legendExpand, "top-left");
+
+                function createUniqueValueInfos() {
+                    const fireflyImages = [
+                        "cat1.png",
+                        "cat2.png",
+                        "cat3.png",
+                        "cat4.png",
+                        "cat5.png"
+                    ];
+
+                    const baseUrl =
+                            "https://arcgis.github.io/arcgis-samples-javascript/sample-data/";
+
+                    return fireflyImages.map(function (url, i) {
+                        return {
+                            value: i + 1, // Category number
+                            symbol: {
+                                type: "picture-marker",
+                                url: baseUrl + url
+                            }
+                        };
+                    });
+                }
+                // WHEN MAPVIEW LOADED AND READY DO IDENTIFY ON MAP CLICK
+                view.when(function () {
+                    // executeIdentifyTask() is called each time the view is clicked
+                    view.on("click", executeIdentifyTask);
+
+                    // Create identify task for the specified map service
+                    identifyTask = new IdentifyTask(soilURL);
+
+                    // Set the parameters for the Identify
+                    params = new IdentifyParameters();
+                    params.tolerance = 3;
+                    params.layerIds = [0, 1, 2];
+                    params.layerOption = "top";
+                    params.width = view.width;
+                    params.height = view.height;
+                });
+
+                // Executes each time the view is clicked
+                function executeIdentifyTask(event) {
+                    // Set the geometry to the location of the view click
+                    params.geometry = event.mapPoint;
+                    params.mapExtent = view.extent;
+                    document.getElementById("viewDiv").style.cursor = "wait";
+
+                    // This function returns a promise that resolves to an array of features
+                    // A custom popupTemplate is set for each feature based on the layer it
+                    // originates from
+                    identifyTask
+                            .execute(params)
+                            .then(function (response) {
+                                var results = response.results;
+
+                                return results.map(function (result) {
+                                    var feature = result.feature;
+                                    var layerName = result.layerName;
+
+                                    feature.attributes.layerName = layerName;
+                                    if (layerName === "Soil Survey Geographic") {
+                                        feature.popupTemplate = {
+                                            // autocasts as new PopupTemplate()
+                                            title: "{Map Unit Name}",
+                                            content:
+                                                    "<b>Dominant order:</b> {Dominant Order} ({Dom. Cond. Order %}%)" +
+                                                    "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dom. Cond. Suborder %}%)" +
+                                                    "<br><b>Dominant Drainage Class:</b> {Dom. Cond. Drainage Class} ({Dom. Cond. Drainage Class %}%)" +
+                                                    "<br><b>Farmland Class:</b> {Farmland Class}"
+                                        };
+                                    } else if (layerName === "State Soil Geographic") {
+                                        feature.popupTemplate = {
+                                            // autocasts as new PopupTemplate()
+                                            title: "{Map Unit Name}",
+                                            content:
+                                                    "<b>Dominant order:</b> {Dominant Order} ({Dominant %}%)" +
+                                                    "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dominant Sub-Order %}%)"
+                                        };
+                                    } else if (layerName === "Global Soil Regions") {
+                                        feature.popupTemplate = {
+                                            // autocasts as new PopupTemplate()
+                                            title: layerName,
+                                            content:
+                                                    "<b>Dominant order:</b> {Dominant Order}" +
+                                                    "<br><b>Dominant sub-order:</b> {Dominant Sub-Order}"
+                                        };
+                                    }
+                                    return feature;
+                                });
+                            })
+                            .then(showPopup); // Send the array of features to showPopup()
+
+                    // Shows the results of the Identify in a popup once the promise is resolved
+                    function showPopup(response) {
+                        if (response.length > 0) {
+                            view.popup.open({
+                                features: response,
+                                location: event.mapPoint
+                            });
+                        }
+                        document.getElementById("viewDiv").style.cursor = "auto";
+                    }
+                }
+                // DONE AMD REQUIRED LOADER
+            });
+            // WINDOW ONLOAD
+            window.addEventListener('load', function () {
+                om = poplinks();
+                if (location.hash.indexOf('msgx') >= 0) {
+                    for (var x of document.getElementsByClassName('msgx')) {//document.querySelectorAll('.msgx')
+                        x.classList.remove('msgx');
+                    }
+                }
+                $('sql-go').onkeyup = function (event) {
+                    var kc = event.which || event.keyCode;
+                    if (kc === 13) {
+                        //gocab(parseInt($('ocab').value));
+                        var s = $('sql-where').value;
+                        console.log(s);
+                    }
+                };
+                $('buffd').onkeyup = function (event) {
+                    var kc = event.which || event.keyCode;
+                    if (kc === 13) {
+                        $('buffr').value = parseInt($('buffd').value);
+                    }
+                };
+                $('buffr').onchange = function (event) {
+                    $('buffd').value = $('buffr').value;
+                };
+                $('bvn').innerHTML = 'v6.' + bvn;
+                $('fullversion').innerHTML = fullversion;
+            });
+
+        </script>
+    </head>
+
+    <body>
+        <header>
+            <h1>Fire</h1>
+        </header>
+        <nav>
+            <span></span>
+        </nav>
+        <main>
+            <div id="viewDiv"></div>
+        </main>
+        <aside class="msgx">
+            <h3>
+                Dev Refs
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            </h3>
+            <div class="maindiv">
+                <ol>
+                    <li>
+                        AIOS Version: <span id="fullversion"></span>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap">
+                            Basemaps
+                        </a>
+                    </li>
+                    <li>2019-09-30
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html">
+                            Intro to MapView - Create a 2D map
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://developers.google.com/chart/interactive/docs/reference">
+                            Google Visualization API Reference
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://developers.google.com/chart/interactive/docs/gallery/table">
+                            Google Visualization: Table Charts
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-geojson/index.html">
+                            GeoJSONLayer
+                        </a> 2019-10-10
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-csv-projection/index.html">
+                            CSVLayer - Project points on the fly
+                        </a> 2019-10-10
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-featurelayer/index.html">
+                            Intro to FeatureLayer
+                        </a> 2019-10-10
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/tasks-identify/index.html">
+                            IdentifyTask
+                        </a> for adding map service (map-image layer) and Point Info tool. 2019-10-11
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/release-notes/">
+                            JS API 4.13
+                        </a> OCT update replaced v4.12. 2019-10-11
+                    </li>
+                </ol>
+            </div>
+        </aside>
+        <aside class="" style="display: none;">
+            <h3>
+                Select and Filter
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: 1.23em;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            </h3>
+            <div class="maindiv">
+                <article class="">
+                    <h4>
+                        Attribute Query
+                    </h4>
+                    <div class="centered margined padded">
+                        <textarea id="sql-where" name="sql" rows="8" cols="40"></textarea>
+                        <button type="button" name="button" id="sql-go">Run</button>
+                    </div>
+                </article>
+                <article class="">
+                    <h4>
+                        Geographic Selection
+                    </h4>
+                    <div class="centered margined padded">
+                        <input type="range" id="buffr" name="buffer" min="0" max="10000" style="position: relative; width: 80%;">
+                        <input type="text" id="buffd" name="buffer" value="">
+                        <label for="buffd">meters</label>
+                    </div>
+                </article>
+            </div>
+        </aside>
+        <aside>
+            <h2>
+                Resources
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            </h2>
+            <div class="maindiv">
+                <article class="">
+                    <h3>Sites and Services</h3>
+                    <div class="padded">
+                        <ol>
+                            <li>
+                                <a href="https://www.esri.com/en-us/disaster-response/resources">
+                                    Esri Disaster Response Program
+                                </a>
+                                <a href="https://www.esri.com/en-us/disaster-response/disasters/wildfires">
+                                    Wildfires
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.landfire.gov" title="The LF Program provides 20+ national geo-spatial layers (e.g. vegetation, fuel, disturbance, etc.), databases, and ecological models that are available to the public for the US and insular areas.">
+                                    LANDFIRE (LF)
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://firms.modaps.eosdis.nasa.gov/map/#z:10;c:-119.7,37.5;t:adv-points;d:2019-10-07..2019-10-08;l:topo,firms_viirs">
+                                    FIRMS Fire Map
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://cdfw.maps.arcgis.com/apps/webappviewer/index.html?id=80e1116b0b834fffbcbc9d4de373a399">
+                                    CPUC Fire Threat Tiers and PG&E Shutoff Areas
+                                </a> 2019-10-09
+                            </li>
+                            <li>
+                                <a href="https://cdfw.maps.arcgis.com/apps/webappviewer/index.html?id=0b4c29f4727244a2892a1f7a32a0684a">
+                                    CDFW Facilities and Fire Risk App
+                                </a> web app updated 2019-10-10, based on
+                                <a href="https://cdfw.maps.arcgis.com/home/item.html?id=7a02bdbfaeef4086a1ff1707f94c8e7d">
+                                    CDFW Facilities and Fire Risk Map
+                                </a> web map, created with the layers
+                                <ol>
+                                    <li>
+                                        DFG_Properties
+                                        <a href="https://cdfw.maps.arcgis.com/home/item.html?id=977243f3400f45a1946eb222084e8e35">item</a>
+                                        <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer">service</a>
+                                        Layers:
+                                        <ol start="0">
+                                            <li>
+                                                <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/0">CDFW Facilities (0)</a>
+                                            </li>
+                                            <li>
+                                                <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/1">CDFW Public Access Lands (1)</a>
+                                            </li>
+                                            <li>
+                                                <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/2">CDFW Regions (2)</a>
+                                            </li>
+                                        </ol>
+                                    </li>
+                                    <li>
+                                        geomac_dyn (MapServer)
+                                        <a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer">service</a>
+                                        Layers:
+                                        <ol start="0">
+                                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/0">Current Fires (0)</a></li>
+                                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/1">Complex Points (1)</a></li>
+                                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/2">Current Fire Perimeters (2)</a></li>
+                                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/3">Latest Perimeters (3)</a></li>
+                                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/4">MODIS Fire Detection (4)</a></li>
+                                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/5">VIIRS IBAND Fire Detection (5)</a></li>
+                                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/6">HMS Fire Detection (6)</a></li>
+                                        </ol>
+                                    </li>
+                                    <li>
+                                        Planned Shutoff PS_Outage_Areas_20191007_1700
+                                        <a href="https://cdfw.maps.arcgis.com/home/item.html?id=cf32fe5f69dd4c92bf1808b67fe575e7">item</a>
+                                        <a href="https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/PSPS_Outage_Areas_20191007_1700/FeatureServer/0">service</a>
+                                    </li>
+                                    <li>
+                                        Power Outages (View)
+                                        <a href="https://cdfw.maps.arcgis.com/home/item.html?id=439afad071eb4754903906aff1946719">item</a>
+                                        <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/arcgis/rest/services/Power_Outages_(View)/FeatureServer">service</a>
+                                        by CalOES. Layers:
+                                        <ol start="0">
+                                            <li>
+                                                <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/0">Power Outage Incidents (0)</a>
+                                            </li>
+                                            <li>
+                                                <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/1">Power Outage Areas (1)</a>
+                                            </li>
+                                            <li>
+                                                <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/2">Power Outages by County (2)</a>
+                                            </li>
+                                        </ol>
+                                    </li>
+                                    <li>
+                                        Utilities Fire Threat Areas
+                                        <a href="https://cdfw.maps.arcgis.com/home/item.html?id=5a0aac0357c64ec48a6dc42e1a6bc3ca">item</a>
+                                        <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/arcgis/rest/services/CPUC_Fire_Threat_Areas/FeatureServer">service</a>
+                                        Layers:
+                                        <ol start="0">
+                                            <li>
+                                                <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/CPUC_Fire_Threat_Areas/FeatureServer/0">Tier 3 - Extreme (0)</a>
+                                            </li>
+                                            <li>
+                                                <a href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/CPUC_Fire_Threat_Areas/FeatureServer/1">Tier 2 - Elevated (1)</a>
+                                            </li>
+                                        </ol>
+                                    </li>
+                                    <li>
+                                        <a href="">item</a>
+                                        <a href="">service</a>
+                                    </li>
+                                </ol>
+                                <pre class="hide">
 DFG_Properties - CDFW Facilities [https://cdfw.maps.arcgis.com/home/item.html?id=977243f3400f45a1946eb222084e8e35](https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/0)
 DFG_Properties - CDFW Public Access Lands
 geomac_dyn - MODIS Fire Detection (https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/4)
@@ -642,58 +758,58 @@ wwa_meteoceanhydro_longduration_hazards_time - Hazardous Wildfire Conditions (Di
 DFG_Properties - CDFW Regions
 geomac_dyn
                                 </pre>
-                        </li>
-                        <li>
-                            <a href=""></a>
-                        </li>
-                    </ol>
-                </div>
-            </article>
-        </div>
-    </aside>
-    <aside>
-        <h3>
-            <span class="esri-icon-blank-map-pin"></span>
-            Point Info
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h3>
-        <div class="maindiv"></div>
-    </aside>
-    <section>
-        <h2>
-            Messages
-            <script>
-                document.write(document.lastModified);
+                            </li>
+                            <li>
+                                <a href=""></a>
+                            </li>
+                        </ol>
+                    </div>
+                </article>
+            </div>
+        </aside>
+        <aside>
+            <h3>
+                <span class="esri-icon-blank-map-pin"></span>
+                Point Info
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            </h3>
+            <div class="maindiv"></div>
+        </aside>
+        <section>
+            <h2>
+                Messages
+                <script>
+                    document.write(document.lastModified);
 
-            </script>
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h2>
-        <div class="maindiv"></div>
-    </section>
-    <footer style="display: none;">
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>
-    </footer>
-    <section id="splash" class="centered" style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
-        <h2>
-            Operational Map <span id="bvn"></span>
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h2>
-        <div class="maindiv" style="height: 88%;">
-            <article>
-                <h3>Biogeographic Incident Obsevation System</h3>
-                <div class="margined">
-                    <p></p>
-                </div>
-                <div class="padded">
-                    <button type="button" name="button" onclick="hide('splash')">OK</button>
-                </div>
-            </article>
-            <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
-                <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
-            </a>
-        </div>
-    </section>
-</body>
+                </script>
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            </h2>
+            <div class="maindiv"></div>
+        </section>
+        <footer style="display: none;">
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>
+        </footer>
+        <section id="splash" class="centered" style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
+            <h2>
+                Operational Map <span id="bvn"></span>
+                <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            </h2>
+            <div class="maindiv" style="height: 88%;">
+                <article>
+                    <h3>Biogeographic Incident Obsevation System</h3>
+                    <div class="margined">
+                        <p></p>
+                    </div>
+                    <div class="padded">
+                        <button type="button" name="button" onclick="hide('splash')">OK</button>
+                    </div>
+                </article>
+                <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
+                    <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
+                </a>
+            </div>
+        </section>
+    </body>
 
 </html>
 <!--
