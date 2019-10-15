@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>maps,apps,datasources</title>
+    <meta name="author" content="dfgchiang">
+    <meta name="description" content="">
+    <meta name="generator" content="biosgis-20190927">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <script src="https://dfgchiang.github.io/js/abc.js"></script>
+</head>
+
+<body>
+    <header></header>
+    <nav></nav>
+    <main>
+        <h1>
+            Maps, Apps, and Data Sources
+        </h1>
+        <h2>
+            Fire Resources
+        </h2>
+        <ol>
+            <li>
+                <a href="https://www.esri.com/en-us/disaster-response/resources">
+                    Esri Disaster Response Program
+                </a>
+                <a href="https://www.esri.com/en-us/disaster-response/disasters/wildfires">
+                    Wildfires
+                </a>
+            </li>
+            <li>
+                <a href="https://www.landfire.gov"
+                    title="The LF Program provides 20+ national geo-spatial layers (e.g. vegetation, fuel, disturbance, etc.), databases, and ecological models that are available to the public for the US and insular areas.">
+                    LANDFIRE (LF)
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://firms.modaps.eosdis.nasa.gov/map/#z:10;c:-119.7,37.5;t:adv-points;d:2019-10-07..2019-10-08;l:topo,firms_viirs">
+                    FIRMS Fire Map
+                </a>
+            </li>
+            <li>
+                <a href="https://cdfw.maps.arcgis.com/apps/webappviewer/index.html?id=80e1116b0b834fffbcbc9d4de373a399">
+                    CPUC Fire Threat Tiers and PG&E Shutoff Areas
+                </a> 2019-10-09
+            </li>
+            <li>
+                <a href="https://cdfw.maps.arcgis.com/apps/webappviewer/index.html?id=0b4c29f4727244a2892a1f7a32a0684a">
+                    CDFW Facilities and Fire Risk App
+                </a> web app updated 2019-10-10, based on
+                <a href="https://cdfw.maps.arcgis.com/home/item.html?id=7a02bdbfaeef4086a1ff1707f94c8e7d">
+                    CDFW Facilities and Fire Risk Map
+                </a> web map, created with the layers
+                <ol>
+                    <li>
+                        DFG_Properties
+                        <a
+                            href="https://cdfw.maps.arcgis.com/home/item.html?id=977243f3400f45a1946eb222084e8e35">item</a>
+                        <a
+                            href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer">service</a>
+                        Layers:
+                        <ol start="0">
+                            <li>
+                                <a
+                                    href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/0">CDFW
+                                    Facilities (0)</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/1">CDFW
+                                    Public Access Lands (1)</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/2">CDFW
+                                    Regions (2)</a>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        geomac_dyn (MapServer)
+                        <a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer">service</a>
+                        Layers:
+                        <ol start="0">
+                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/0">Current
+                                    Fires
+                                    (0)</a></li>
+                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/1">Complex
+                                    Points (1)</a></li>
+                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/2">Current
+                                    Fire
+                                    Perimeters (2)</a></li>
+                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/3">Latest
+                                    Perimeters (3)</a></li>
+                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/4">MODIS
+                                    Fire
+                                    Detection (4)</a></li>
+                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/5">VIIRS
+                                    IBAND
+                                    Fire Detection (5)</a></li>
+                            <li><a href="https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/6">HMS
+                                    Fire
+                                    Detection (6)</a></li>
+                        </ol>
+                    </li>
+                    <li>
+                        Planned Shutoff PS_Outage_Areas_20191007_1700
+                        <a
+                            href="https://cdfw.maps.arcgis.com/home/item.html?id=cf32fe5f69dd4c92bf1808b67fe575e7">item</a>
+                        <a
+                            href="https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/arcgis/rest/services/PSPS_Outage_Areas_20191007_1700/FeatureServer/0">service</a>
+                    </li>
+                    <li>
+                        Power Outages (View)
+                        <a
+                            href="https://cdfw.maps.arcgis.com/home/item.html?id=439afad071eb4754903906aff1946719">item</a>
+                        <a
+                            href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/arcgis/rest/services/Power_Outages_(View)/FeatureServer">service</a>
+                        by CalOES. Layers:
+                        <ol start="0">
+                            <li>
+                                <a
+                                    href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/0">Power
+                                    Outage Incidents (0)</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/1">Power
+                                    Outage Areas (1)</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/2">Power
+                                    Outages by County (2)</a>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        Utilities Fire Threat Areas
+                        <a
+                            href="https://cdfw.maps.arcgis.com/home/item.html?id=5a0aac0357c64ec48a6dc42e1a6bc3ca">item</a>
+                        <a
+                            href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/arcgis/rest/services/CPUC_Fire_Threat_Areas/FeatureServer">service</a>
+                        Layers:
+                        <ol start="0">
+                            <li>
+                                <a
+                                    href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/CPUC_Fire_Threat_Areas/FeatureServer/0">Tier
+                                    3 - Extreme (0)</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/CPUC_Fire_Threat_Areas/FeatureServer/1">Tier
+                                    2 - Elevated (1)</a>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <a href="">item</a>
+                        <a href="">service</a>
+                    </li>
+                </ol>
+                <pre class="hide">
+                        DFG_Properties - CDFW Facilities [https://cdfw.maps.arcgis.com/home/item.html?id=977243f3400f45a1946eb222084e8e35](https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/DFG_Properties/FeatureServer/0)
+                        DFG_Properties - CDFW Public Access Lands
+                        geomac_dyn - MODIS Fire Detection (https://wildfire.cr.usgs.gov/arcgis/rest/services/geomac_dyn/MapServer/4)
+                        geomac_dyn - VIIRS IBAND Fire Detection
+                        geomac_dyn - HMS Fire Detection
+                        Power_Outages_(View) - Power Outage Incidents [](https://services.arcgis.com/BLN4oKB0N1YSgvY8/ArcGIS/rest/services/Power_Outages_(View)/FeatureServer/0)
+                        PSPS_Outage_Areas_20191007_1700
+                        CPUC_Fire_Threat_Areas - Tier 3 - Extreme
+                        CPUC_Fire_Threat_Areas - Tier 2 - Elevated
+                        Power_Outages_(View) - Power Outage Areas
+                        Power_Outages_(View) - Power Outages by County
+                        wwa_meteoceanhydro_longduration_hazards_time - Hazardous Wildfire Conditions (Dissolved Polygons)
+                        DFG_Properties - CDFW Regions
+                        geomac_dyn
+                                                        </pre>
+            </li>
+            <li>
+                <a href=""></a>
+            </li>
+        </ol>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jsapis</title>
+    <meta name="author" content="dfgchiang">
+    <meta name="description" content="">
+    <meta name="generator" content="biosgis-20190927">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <script src="https://dfgchiang.github.io/js/abc.js"></script>
+</head>
+
+<body>
+    <main>
+        <h1>
+            JavaScript API References and Dev Log
+        </h1>
+        <ol>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap">
+                    Basemaps
+                </a>
+            </li>
+            <li>2019-09-30
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/index.html">
+                    Intro to MapView - Create a 2D map
+                </a>
+            </li>
+            <li>
+                <a href="https://developers.google.com/chart/interactive/docs/reference">
+                    Google Visualization API Reference
+                </a>
+            </li>
+            <li>
+                <a href="https://developers.google.com/chart/interactive/docs/gallery/table">
+                    Google Visualization: Table Charts
+                </a>
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-geojson/index.html">
+                    GeoJSONLayer
+                </a> 2019-10-10
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-csv-projection/index.html">
+                    CSVLayer - Project points on the fly
+                </a> 2019-10-10
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-featurelayer/index.html">
+                    Intro to FeatureLayer
+                </a> 2019-10-10
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/tasks-identify/index.html">
+                    IdentifyTask
+                </a> for adding map service (map-image layer) and Point Info tool. 2019-10-11
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/guide/release-notes/">
+                    JS API 4.13
+                </a> OCT update replaced v4.12. 2019-10-11
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer/index.html">
+                    Intro to MapImageLayer
+                </a> 2019-10-14; include 3d scene view.
+            </li>
+            <li>
+                How to remove the default thousand separator on long integers in a 
+                Google Chart table cell? 
+                To have to set 
+                <a href="https://developers.google.com/chart/interactive/docs/reference#formatters">
+                    formatters
+                </a> on specific column would be very tidious; so tried 
+                <a href="https://developers.google.com/chart/interactive/docs/basic_load_libs#loadwithlocale">
+                    language setting
+                </a> like 
+                <code>google.charts.load('current', { 'packages': ['table'], 'language': null });</code> 
+                but it did not work.
+            </li>
+        </ol>
+    </main>
+</body>
+
+</html>
