@@ -180,22 +180,53 @@
             color: tomato;
         }
 
+        #loadingbar {
+            position: absolute;
+            left: 0;
+            top: 51px;
+            right: 0;
+            height: auto;
+            width: 99%;
+            background-color: cornsilk;
+            border: 2px solid indianred;
+            color: steelblue;
+            font-size: 2em;
+            font-style: italic;
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+            word-spacing: 2em;
+        }
+
+        #viewdivide {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: whitesmoke;
+        }
+
         /*        ESRIAN CSS*/
         #viewDiv {
             position: absolute;
             left: 0;
             top: 0;
-            padding: 0;
             margin: 0;
+            padding: 0;
             height: 100%;
             width: 100%;
         }
+
         #view3div {
             position: absolute;
             left: 0;
             top: 0;
-            padding: 0;
             margin: 0;
+            padding: 0;
             height: 100%;
             width: 100%;
         }
@@ -208,6 +239,7 @@
         .esri-popup .esri-popup-body .esri-popup-content {
             font-size: 14px;
         }
+
     </style>
     <script type="text/javascript">
         var avn = 20191014;
@@ -241,7 +273,7 @@
             "esri/views/SceneView",
             "esri/widgets/Legend",
             "esri/widgets/Expand"
-        ], function (
+        ], function(
             Map,
             WebMap,
             CSVLayer,
@@ -266,21 +298,21 @@
                 popupTemplate: {
                     title: "{Name}",
                     content: [{
-                        type: "text",
-                        text: "Category {Category} storm with that occurred at {ISO_time}."
-                    },
-                    {
-                        type: "fields",
-                        fieldInfos: [{
-                            fieldName: "wmo_pres",
-                            label: "Pressure"
+                            type: "text",
+                            text: "Category {Category} storm with that occurred at {ISO_time}."
                         },
                         {
-                            fieldName: "wmo_wind",
-                            label: "Wind Speed (mph)"
+                            type: "fields",
+                            fieldInfos: [{
+                                    fieldName: "wmo_pres",
+                                    label: "Pressure"
+                                },
+                                {
+                                    fieldName: "wmo_wind",
+                                    label: "Wind Speed (mph)"
+                                }
+                            ]
                         }
-                        ]
-                    }
                     ],
                     fieldInfos: [{
                         fieldName: "ISO_time",
@@ -337,13 +369,13 @@
                     type: "size",
                     field: "mag",
                     stops: [{
-                        value: 2.5,
-                        size: "4px"
-                    },
-                    {
-                        value: 8,
-                        size: "40px"
-                    }
+                            value: 2.5,
+                            size: "4px"
+                        },
+                        {
+                            value: 8,
+                            size: "40px"
+                        }
                     ]
                 }]
             };
@@ -437,7 +469,7 @@
                 const baseUrl =
                     "https://arcgis.github.io/arcgis-samples-javascript/sample-data/";
 
-                return fireflyImages.map(function (url, i) {
+                return fireflyImages.map(function(url, i) {
                     return {
                         value: i + 1, // Category number
                         symbol: {
@@ -448,7 +480,7 @@
                 });
             }
             // WHEN MAPVIEW LOADED AND READY DO IDENTIFY ON MAP CLICK
-            view.when(function () {
+            view.when(function() {
                 // executeIdentifyTask() is called each time the view is clicked
                 view.on("click", executeIdentifyTask);
 
@@ -476,10 +508,10 @@
                 // originates from
                 identifyTask
                     .execute(params)
-                    .then(function (response) {
+                    .then(function(response) {
                         var results = response.results;
 
-                        return results.map(function (result) {
+                        return results.map(function(result) {
                             var feature = result.feature;
                             var layerName = result.layerName;
 
@@ -488,8 +520,7 @@
                                 feature.popupTemplate = {
                                     // autocasts as new PopupTemplate()
                                     title: "{Map Unit Name}",
-                                    content:
-                                        "<b>Dominant order:</b> {Dominant Order} ({Dom. Cond. Order %}%)" +
+                                    content: "<b>Dominant order:</b> {Dominant Order} ({Dom. Cond. Order %}%)" +
                                         "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dom. Cond. Suborder %}%)" +
                                         "<br><b>Dominant Drainage Class:</b> {Dom. Cond. Drainage Class} ({Dom. Cond. Drainage Class %}%)" +
                                         "<br><b>Farmland Class:</b> {Farmland Class}"
@@ -498,16 +529,14 @@
                                 feature.popupTemplate = {
                                     // autocasts as new PopupTemplate()
                                     title: "{Map Unit Name}",
-                                    content:
-                                        "<b>Dominant order:</b> {Dominant Order} ({Dominant %}%)" +
+                                    content: "<b>Dominant order:</b> {Dominant Order} ({Dominant %}%)" +
                                         "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dominant Sub-Order %}%)"
                                 };
                             } else if (layerName === "Global Soil Regions") {
                                 feature.popupTemplate = {
                                     // autocasts as new PopupTemplate()
                                     title: layerName,
-                                    content:
-                                        "<b>Dominant order:</b> {Dominant Order}" +
+                                    content: "<b>Dominant order:</b> {Dominant Order}" +
                                         "<br><b>Dominant sub-order:</b> {Dominant Sub-Order}"
                                 };
                             }
@@ -530,14 +559,14 @@
             // DONE AMD REQUIRED LOADER
         });
         // WINDOW ONLOAD
-        window.addEventListener('load', function () {
+        window.addEventListener('load', function() {
             om = poplinks();
             if (location.hash.indexOf('msgx') >= 0) {
-                for (var x of document.getElementsByClassName('msgx')) {//document.querySelectorAll('.msgx')
+                for (var x of document.getElementsByClassName('msgx')) { //document.querySelectorAll('.msgx')
                     x.classList.remove('msgx');
                 }
             }
-            $('sql-go').onkeyup = function (event) {
+            $('sql-go').onkeyup = function(event) {
                 var kc = event.which || event.keyCode;
                 if (kc === 13) {
                     //gocab(parseInt($('ocab').value));
@@ -545,13 +574,13 @@
                     console.log(s);
                 }
             };
-            $('buffd').onkeyup = function (event) {
+            $('buffd').onkeyup = function(event) {
                 var kc = event.which || event.keyCode;
                 if (kc === 13) {
                     $('buffr').value = parseInt($('buffd').value);
                 }
             };
-            $('buffr').onchange = function (event) {
+            $('buffr').onchange = function(event) {
                 $('buffd').value = $('buffr').value;
             };
             $('bvn').innerHTML = 'v6.' + bvn;
@@ -570,14 +599,14 @@
     </nav>
     <main>
         <div id="view3div"></div>
+        <div id="viewdivide"></div>
         <div id="viewDiv"></div>
     </main>
     <aside id="help">
         <h3>
             <span class="esri-icon-question"></span>
             Help
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;"
-                onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="maindiv">
             <div class="padded">
@@ -605,8 +634,7 @@
     <aside class="" style="display: none;">
         <h3>
             Select and Filter
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: 1.23em;"
-                onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close" style="cursor: default; float: right; font-size: 1.23em;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="maindiv">
             <article class="">
@@ -623,8 +651,7 @@
                     Geographic Selection
                 </h4>
                 <div class="centered margined padded">
-                    <input type="range" id="buffr" name="buffer" min="0" max="10000"
-                        style="position: relative; width: 80%;">
+                    <input type="range" id="buffr" name="buffer" min="0" max="10000" style="position: relative; width: 80%;">
                     <input type="text" id="buffd" name="buffer" value="">
                     <label for="buffd">meters</label>
                 </div>
@@ -635,8 +662,7 @@
         <h2>
             <span class="esri-icon-layers"></span>
             Contents
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;"
-                onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div class="maindiv">
         </div>
@@ -645,8 +671,7 @@
         <h3>
             <span class="esri-icon-blank-map-pin"></span>
             Point Info
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;"
-                onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="maindiv"></div>
     </aside>
@@ -657,23 +682,19 @@
                 document.write(document.lastModified);
 
             </script>
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;"
-                onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div class="maindiv"></div>
     </section>
     <footer style="display: none;">
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License"
-                style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work
         is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons
             Attribution-NonCommercial 4.0 International License</a>
     </footer>
-    <section id="splash" class="centered"
-        style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
+    <section id="splash" class="centered" style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
         <h2>
             Operational Map <span id="bvn"></span>
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;"
-                onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div class="maindiv" style="height: 88%;">
             <article>
@@ -685,13 +706,15 @@
                     <button type="button" name="button" onclick="hide('splash')">OK</button>
                 </div>
             </article>
-            <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/"
-                target="_blank">
-                <img id="cagov-img" style="height: 50px;" alt="CA.gov"
-                    src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
+            <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
+                <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
             </a>
         </div>
     </section>
+    <div id="loadingbar">
+        Loading...
+        <span class="esri-icon-close" style="cursor: default; float: right; font-size: large; margin-right: 2%;" onclick="this.parentNode.style.display = 'none'"></span>
+    </div>
 </body>
 
 </html>

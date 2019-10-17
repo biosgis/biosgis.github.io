@@ -11,68 +11,257 @@ biosgis.github.io 20191010 dfgchiang
     [OpenGov3](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
 -->
 <html>
-    <head>
-        <title>biosgis</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <header>
-            <div></div>
-        </header>
-        <nav>
-            <ul>
-                <li></li>
-            </ul>
-        </nav>
-        <main>
-            <aside></aside>
-            <ol>
-                <li>
-                    <h1>
-                        IDE
-                    </h1>
-                    <ol>
-                        <li><a href="http://brackets.io/">Brackets</a></li>
-                    </ol>
-                </li>
-                <li>
-                    <h2>Power BI</h2>
-                    <a href="https://aka.ms/pbiSingleInstaller">Power BI Desktop Download</a>
-                </li>
-                <li>
-                    <a href="https://github.com/MicrosoftLearning/20778-Analyzing-Data-with-Power-BI"></a>
-                </li>
-                <li>
-                    <a href="https://app.powerbi.com"></a>
-                </li>
-                <li>
-                    <a href="https://app.powerbigov.us/groups/me/reports/f04aaebe-3633-41f1-9698-7ad3bbe214d2/ReportSection">
-                        Adventure Works Report
-                    </a> published to Power BI Portal My Workspace
-                </li>
-                <li>
-                    <a href="https://www.esri.com/en-us/arcgis/products/arcgis-maps-for-power-bi/overview">
-                        ArcGIS Maps for Microsoft Power BI
-                    </a>
-                </li>
-                <li>
-                    <a href="https://app.powerbigov.us/groups/me/reports/78c51c3a-04c4-41a3-a65e-2a2a278fd7da/ReportSection">
-                        fishplanting1.pbix
-                    </a> but cannot share to web link without having PBI Pro
-                </li>
-                <li class="todo">
-                    Publish map view of Bay Delta fish survey data to Power BI service
-                </li>
-                <li class="todo">
-                    Save/publish dataset like fish planting schedule to Power BI service
-                </li>
-                <li class="todo">
-                    Schedule script export fish planting schedule from database to CSV file on FTP site or GitHub or to Power BI service
-                </li>
-            </ol>
-        </main>
-        <footer>
-        </footer>
-    </body>
+
+<head>
+    <title>biosgis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="dfgchiang">
+    <meta name="description" content="">
+    <meta name="generator" content="biosgis-20190308">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <script src="https://dfgchiang.github.io/js/abc.js"></script>
+    <style>
+        body {
+            font-family: monospace;
+            font-size: 1.23em;
+            line-height: 1.5em;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        article {
+            border-bottom: 1px solid navajowhite;
+        }
+
+        aside {
+            position: relative;
+            background-color: white;
+            border: 1px solid silver;
+            box-shadow: gray -5px 5px 5px;
+            float: right;
+            padding: 1%;
+            z-index: 200;
+        }
+
+        details {
+            margin: 1px 2px 3px 4px;
+            padding-left: 1%;
+        }
+
+        summary {
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        footer {
+            position: relative;
+            border-top: 1px solid silver;
+            font-size: smaller;
+            padding: 1%;
+        }
+
+        header {
+            position: relative;
+            border-bottom: 1px solid silver;
+            padding: 1%;
+        }
+
+        main {
+            position: relative;
+            padding: 1%;
+        }
+
+        nav {
+            position: relative;
+            border-bottom: 1px solid silver;
+            padding: 0;
+        }
+
+        nav>ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav>ul>li {
+            border-right: 1px solid silver;
+            display: inline-block;
+            list-style: none;
+            margin: 0;
+            padding: 5px 10px;
+        }
+
+        .bug {
+            color: red;
+        }
+
+        .future {
+            color: rebeccapurple;
+        }
+
+        .issue {
+            color: fuchsia;
+        }
+
+        .todo {
+            color: tomato;
+        }
+
+    </style>
+    <script>
+        window.addEventListener('load', function() {
+            om = poplinks();
+            $('goto').onkeyup = function(event) {
+                var kc = event.which || event.keyCode;
+                if (kc === 13) {
+                    console.log(parseInt($('goto').value));
+                }
+            };
+        });
+
+    </script>
+</head>
+
+<body>
+    <header style="display: none;">
+        <div></div>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <input type="text" id="goto">
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <aside>
+            <a href="https://git-scm.com/"></a>
+            <a href="https://nodejs.org/en/"></a>
+            <a href="https://app.powerbigov.us/"></a>
+        </aside>
+        <h1>
+            BIOS GIS Links
+        </h1>
+        <h2>
+            <a href="https://github.com">GitHub</a>
+            <a href="https://github.com/esri">Esri</a>
+            <a href="https://r-arcgis.github.io/">R-ArcGIS</a>
+        </h2>
+        <ol>
+            <li>
+                <h3><a href="http://brackets.io/">Brackets</a></h3>
+            </li>
+            <li>
+                <h2>Power BI</h2>
+                <a href="https://powerbi.microsoft.com/en-us/downloads/">Desktop Download</a>
+                - DO NOT click on Download button which leads to Microsoft Store.
+                Instead click on the
+                <a href="https://www.microsoft.com/en-us/download/details.aspx?id=58494">Advanced download</a>
+                option for the x64 exe or go to
+                <a href="https://aka.ms/pbiSingleInstaller">Power BI Desktop Download</a>
+                <ul>
+                    <li>
+                        <a href="https://github.com/MicrosoftLearning/20778-Analyzing-Data-with-Power-BI">Training lab modules</a>
+                    </li>
+                    <li>
+                        <a href="https://app.powerbi.com">Power BI Service</a> or
+                        <a href="https://app.powerbigov.us/">Gov Portal</a>
+
+                    </li>
+                    <li>
+                        <a href="https://www.esri.com/en-us/arcgis/products/arcgis-maps-for-power-bi/overview">
+                            ArcGIS Maps for Microsoft Power BI
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.powerbigov.us/groups/me/reports/f04aaebe-3633-41f1-9698-7ad3bbe214d2/ReportSection">
+                            Adventure Works Report
+                        </a> published to Power BI Portal My Workspace
+                    </li>
+                    <li>
+                        <a href="https://app.powerbigov.us/groups/me/reports/78c51c3a-04c4-41a3-a65e-2a2a278fd7da/ReportSection">
+                            fishplanting1.pbix
+                        </a> but cannot share to web link without having PBI Pro publishing license, and
+                        <span class="issue">
+                            default ArcGIS map is limited also and may need additional subscription
+                            to make a good interactive map.
+                        </span>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <h2>
+                    Web Automation and Testing
+                </h2>
+                <a href="https://www.google.com/search?q=headless+browser">google: headless browser</a>
+                <ol>
+                    <li>
+                        <a href="https://developers.google.com/web/updates/2017/04/headless-chrome">
+                            Getting Started with Headless Chrome
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.keycdn.com/blog/headless-browsers">
+                            6 Popular Headless Browsers for Web Testing
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.seleniumhq.org/"></a>
+                    </li>
+                    <li>
+                        <a href="https://python-forum.io/Thread-How-to-click-the-button-automatically-using-python">
+                            Automatically click button using Python
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/18160635/scrape-a-webpage-and-navigate-by-clicking-buttons">
+                            Scrape webpage and click button
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/jsdom/jsdom">JSDOM</a>
+                    </li>
+                    <li>
+                        <a href="https://slimerjs.org/"></a>
+                    </li>
+                    <li>
+                        <a href="http://zombie.js.org/"></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/mochajs/mocha">Mocha testing framework</a>
+                    </li>
+                    <li>
+                        <a href="http://www.w3.org/TR/webdriver/">WebDriver</a>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </main>
+    <footer>
+        <a href="biosgis@gmail.com">biosgis</a>
+        <script>
+            document.write('&copy; ' + document.lastModified);
+            document.write(' &rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight);
+            document.write(' &marker; Screen Size: ' + window.screen.width + 'x' + window.screen.height);
+            document.write(' &diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform);
+            document.write(' &bull; URL Referer: ' + document.referrer);
+
+        </script>
+        <a href="./m.html" style="text-decoration: none; color: silver;" target="_blank">&square;</a>
+        Build on
+        <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a>
+    </footer>
+</body>
+
 </html>
