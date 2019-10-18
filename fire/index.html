@@ -17,8 +17,8 @@
     <style>
         body {
             font-family: Consolas, Monaco, monospace;
-            font-size: 1.1em;
-            line-height: 1.23em;
+            font-size: 1em;
+            line-height: 1.33em;
             margin: 0;
             overflow-x: hidden;
             padding: 0;
@@ -136,6 +136,12 @@
             overflow: hidden;
             width: 100%;
         }
+        span.closer {
+            cursor: default;
+            float: right;
+            font-size: large;
+            margin-right: 1%;
+        }
 
         .bug {
             color: red;
@@ -193,7 +199,7 @@
             font-size: 2em;
             font-style: italic;
             font-weight: bold;
-            padding: 10px;
+            padding: 1%;
             text-align: center;
             vertical-align: middle;
             word-spacing: 2em;
@@ -242,7 +248,7 @@
 
     </style>
     <script type="text/javascript">
-        var avn = 20191014;
+        var avn = 20191017;
         var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2)
         var fullversion = bvn + '.' + avn.toString().substr(6, 2);
         var app = {
@@ -606,7 +612,7 @@
         <h3>
             <span class="esri-icon-question"></span>
             Help
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="maindiv">
             <div class="padded">
@@ -634,7 +640,7 @@
     <aside class="" style="display: none;">
         <h3>
             Select and Filter
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: 1.23em;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close closer" style="cursor: default; float: right; font-size: 1.23em;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="maindiv">
             <article class="">
@@ -662,7 +668,7 @@
         <h2>
             <span class="esri-icon-layers"></span>
             Contents
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div class="maindiv">
         </div>
@@ -671,7 +677,7 @@
         <h3>
             <span class="esri-icon-blank-map-pin"></span>
             Point Info
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="maindiv"></div>
     </aside>
@@ -682,7 +688,7 @@
                 document.write(document.lastModified);
 
             </script>
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div class="maindiv"></div>
     </section>
@@ -694,7 +700,7 @@
     <section id="splash" class="centered" style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
         <h2>
             Operational Map <span id="bvn"></span>
-            <span class="esri-icon-close" style="cursor: default; float: right; font-size: larger;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div class="maindiv" style="height: 88%;">
             <article>
@@ -713,7 +719,7 @@
     </section>
     <div id="loadingbar">
         Loading...
-        <span class="esri-icon-close" style="cursor: default; float: right; font-size: large; margin-right: 2%;" onclick="this.parentNode.style.display = 'none'"></span>
+        <span class="esri-icon-close closer" onclick="this.parentNode.style.display = 'none'"></span>
     </div>
 </body>
 
