@@ -136,6 +136,7 @@
             overflow: hidden;
             width: 100%;
         }
+
         span.closer {
             cursor: default;
             float: right;
@@ -564,9 +565,8 @@
             }
             // DONE AMD REQUIRED LOADER
         });
-        // WINDOW ONLOAD
+        // WINDOW ONLOAD APPINITUIX
         window.addEventListener('load', function() {
-            om = poplinks();
             if (location.hash.indexOf('msgx') >= 0) {
                 for (var x of document.getElementsByClassName('msgx')) { //document.querySelectorAll('.msgx')
                     x.classList.remove('msgx');
@@ -591,6 +591,23 @@
             };
             $('bvn').innerHTML = 'v6.' + bvn;
             $('fullversion').innerHTML = fullversion;
+        });
+        // END AMDREQUIRED
+
+    </script>
+    <script>
+        // WINDOW ONLOAD
+        window.addEventListener('load', function() {
+            om = poplinks();
+            // Series of 1..500 takes 1893 chars string column space
+            function nup() {
+                var ar = [];
+                for (var i = 1; i < 2001; i++) {
+                    ar.push(i);
+                }
+                return ar;
+            }
+            $('msgdiv').innerHTML = nup().toString();
         });
 
     </script>
@@ -681,7 +698,7 @@
         </h3>
         <div class="maindiv"></div>
     </aside>
-    <section>
+    <section id="msgbar">
         <h2>
             Messages
             <script>
@@ -690,7 +707,7 @@
             </script>
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
-        <div class="maindiv"></div>
+        <div id="msgdiv" class="maindiv"></div>
     </section>
     <footer style="display: none;">
         <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work
