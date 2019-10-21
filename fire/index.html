@@ -21,6 +21,7 @@
             line-height: 1.33em;
             margin: 0;
             overflow-x: hidden;
+            overflow-y: auto;
             padding: 0;
         }
 
@@ -247,9 +248,36 @@
             font-size: 14px;
         }
 
+        .sublayers {
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+        }
+
+        .sublayers-item {
+            flex-grow: 4;
+            background-color: rgba(34, 111, 14, 0.5);
+            color: #fff;
+            margin: 1px;
+            width: 50%;
+            padding: 20px;
+            overflow: auto;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .visible-layer {
+            color: #fff;
+            background-color: #226f0e;
+        }
+
     </style>
     <script type="text/javascript">
-        var avn = 20191017;
+        var avn = 20191021;
         var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2)
         var fullversion = bvn + '.' + avn.toString().substr(6, 2);
         var app = {
@@ -563,6 +591,87 @@
                     document.getElementById("viewDiv").style.cursor = "auto";
                 }
             }
+            // MAP-IMAGE LAYER SUBLAYERS
+            // https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer-sublayers/index.html
+            var railrenderer = {
+                type: "simple", // autocasts as new SimpleRenderer()
+                symbol: {
+                    type: "simple-line", // autocasts as new SimpleLineSymbol()
+                    color: [255, 255, 255, 0.5],
+                    width: 0.75,
+                    style: "long-dash-dot-dot"
+                }
+            };
+            var usalayer = new MapImageLayer({
+                url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer",
+                id: "usa",
+                sublayers: [{
+                        id: 2,
+                        visible: true
+                    },
+                    //                    {
+                    //                        id: 4,
+                    //                        visible: false,
+                    //                        title: "Railroads",
+                    //                        renderer: railrenderer,
+                    //                        source: {
+                    //                            // indicates the source of the sublayer is a dynamic data layer
+                    //                            type: "data-layer",
+                    //                            // this object defines the data source of the layer
+                    //                            // in this case it's a feature class table from a file geodatabase
+                    //                            dataSource: {
+                    //                                type: "table",
+                    //                                // workspace name
+                    //                                workspaceId: "MyDatabaseWorkspaceIDSSR2",
+                    //                                // table name
+                    //                                dataSourceName: "ss6.gdb.Railroads"
+                    //                            }
+                    //                        }
+                    //                    },
+                    {
+                        id: 1,
+                        visible: true
+                    },
+                    {
+                        id: 0,
+                        visible: true
+                    }
+                ]
+            });
+            map.add(usalayer)
+            /*****************************************************************
+             * Wait for Layer to load and update the page to refelect which
+             * layers are visible in the Map Service.
+             *****************************************************************/
+            usalayer.when(function() {
+                layer.sublayers.map(function(sublayer) {
+                    var id = sublayer.id;
+                    var visible = sublayer.visible;
+                    var node = document.querySelector(
+                        ".sublayers-item[data-id='" + id + "']"
+                    );
+                    if (visible) {
+                        node.classList.add("visible-layer");
+                    }
+                });
+            });
+
+            /*****************************************************************
+             * Listen for when buttons on the page have been clicked to turn
+             * layers on and off in the Map Service.
+             *****************************************************************/
+            var sublayersElement = document.querySelector(".sublayers");
+            sublayersElement.addEventListener("click", function(event) {
+                var id = event.target.getAttribute("data-id");
+                if (id) {
+                    var sublayer = layer.findSublayerById(parseInt(id));
+                    var node = document.querySelector(
+                        ".sublayers-item[data-id='" + id + "']"
+                    );
+                    sublayer.visible = !sublayer.visible;
+                    node.classList.toggle("visible-layer");
+                }
+            });
             // DONE AMD REQUIRED LOADER
         });
         // WINDOW ONLOAD APPINITUIX
@@ -654,6 +763,34 @@
             </article>
         </div>
     </aside>
+    <aside id="contents">
+        <h2>
+            <span class="esri-icon-layers"></span>
+            Contents
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h2>
+        <div class="maindiv">
+            <article>
+                <h3>
+                    Reference Layers
+                </h3>
+                <div class="sublayers esri-widget">
+                    <div class="sublayers-item" data-id="0">Cities</div>
+                    <div class="sublayers-item" data-id="1">Highways</div>
+<!--                    <div class="sublayers-item" data-id="4">Railroads</div>-->
+                    <div class="sublayers-item" data-id="2">States</div>
+                </div>
+            </article>
+        </div>
+    </aside>
+    <aside>
+        <h3>
+            <span class="esri-icon-blank-map-pin"></span>
+            Point Info
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h3>
+        <div class="maindiv"></div>
+    </aside>
     <aside class="" style="display: none;">
         <h3>
             Select and Filter
@@ -681,29 +818,11 @@
             </article>
         </div>
     </aside>
-    <aside id="contents">
-        <h2>
-            <span class="esri-icon-layers"></span>
-            Contents
-            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h2>
-        <div class="maindiv">
-        </div>
-    </aside>
-    <aside>
-        <h3>
-            <span class="esri-icon-blank-map-pin"></span>
-            Point Info
-            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h3>
-        <div class="maindiv"></div>
-    </aside>
     <section id="msgbar">
         <h2>
             Messages
             <script>
                 document.write(document.lastModified);
-
             </script>
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
