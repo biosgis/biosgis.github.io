@@ -6,9 +6,19 @@
     <title>dfgfire</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="dfgchiang">
-    <meta name="description" content="">
+    <meta name="description" content="Biogeographic Incident Observation/Insight Operation System">
     <meta name="generator" content="biosgis-20190927">
     <meta name="robots" content="noindex, nofollow, noarchive">
+    <script>
+        IE = false;
+        if (navigator.userAgent.indexOf('Trident') > 0) {
+            IE = true;
+            window.addEventListener('load', function() {
+                document.getElementById('warning').style.display = 'block';
+            });
+        }
+
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
@@ -216,6 +226,22 @@
             margin: 0;
             padding: 0;
             background-color: whitesmoke;
+        }
+
+        #warning {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            background-color: cornsilk;
+            border: 5px solid darkorange;
+            border-radius: 3px;
+            color: firebrick;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 1%;
+            padding: 1%;
+            z-index: 999;
         }
 
         /*        ESRIAN CSS*/
@@ -705,18 +731,18 @@
 
     </script>
     <script>
+        // Test OIDstring length of 1..500 takes 1893 varchar column space
+        function testOidstr() {
+            var ar = [];
+            for (var i = 1; i < 2001; i++) {
+                ar.push(i);
+            }
+            return ar;
+        }
         // WINDOW ONLOAD
         window.addEventListener('load', function() {
             om = poplinks();
-            // Series of 1..500 takes 1893 chars string column space
-            function nup() {
-                var ar = [];
-                for (var i = 1; i < 2001; i++) {
-                    ar.push(i);
-                }
-                return ar;
-            }
-            $('msgdiv').innerHTML = nup().toString();
+            //$('msgdiv').innerHTML = nup().toString();
         });
 
     </script>
@@ -777,7 +803,7 @@
                 <div class="sublayers esri-widget">
                     <div class="sublayers-item" data-id="0">Cities</div>
                     <div class="sublayers-item" data-id="1">Highways</div>
-<!--                    <div class="sublayers-item" data-id="4">Railroads</div>-->
+                    <!--                    <div class="sublayers-item" data-id="4">Railroads</div>-->
                     <div class="sublayers-item" data-id="2">States</div>
                 </div>
             </article>
@@ -823,6 +849,7 @@
             Messages
             <script>
                 document.write(document.lastModified);
+
             </script>
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
@@ -856,6 +883,11 @@
     <div id="loadingbar">
         Loading...
         <span class="esri-icon-close closer" onclick="this.parentNode.style.display = 'none'"></span>
+    </div>
+    <div id="warning" style="display: none;">
+        WARNING: Operational Map viewer is not supported on Microsoft Internet Explorer
+        (IE) browser and may not perform as expected.
+        <span class="esri-icon-close closer" onclick="hidex(this.parentNode)"></span>
     </div>
 </body>
 
