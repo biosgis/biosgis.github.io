@@ -1,0 +1,183 @@
+/* def.css 20191022 dfgchiang */
+body {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 123%;
+    line-height: 150%;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+article {
+    border-bottom: 1px solid navajowhite;
+}
+
+aside {
+    position: relative;
+    background-color: white;
+    border: 1px solid silver;
+    box-shadow: gray -5px 5px 5px;
+    float: right;
+    padding: 1%;
+    z-index: 200;
+}
+
+details {
+    margin: 1px 2px 3px 4px;
+    padding-left: 1%;
+}
+
+summary {
+    font-size: larger;
+    font-weight: bold;
+}
+
+footer {
+    position: relative;
+    border-top: 1px solid silver;
+    font-size: smaller;
+    padding: 1%;
+}
+
+h1 {
+    font-family: fantasy;
+    margin-top: 0;
+}
+
+h2 {
+    border-top: 1px solid floralwhite;
+    font-family: Arial, sans-serif;
+}
+
+h3 {
+    font-family: Georgia, serif;
+}
+
+h4 {
+    font-family: Verdana, sans-serif;
+}
+
+h5 {
+    font-family: 'Comic Sans MS', cursive;
+}
+
+h6 {
+    font-family: Georgia, monospace;
+}
+
+header {
+    position: relative;
+    border-bottom: 1px solid silver;
+    padding: 1%;
+}
+
+li {
+    border-top: 1px solid lavender;
+    line-height: 123%;
+    padding: 2px 0;
+}
+
+main {
+    position: relative;
+    padding: 1%;
+}
+
+nav {
+    position: relative;
+    border-bottom: 1px solid silver;
+    padding: 1px;
+}
+
+nav ul {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    border-right: 1px solid silver;
+    display: inline;
+    margin: 0;
+    padding: 2px 8px;
+}
+
+nav li:hover {
+    background-color: azure;
+}
+
+ol {
+    border-bottom: 1px solid azure;
+}
+
+pre {
+    background-color: ghostwhite;
+    border-left: 4px solid gainsboro;
+    font-size: smaller;
+    line-height: 110%;
+    padding: 5px;
+}
+
+.bug {
+    border-right: 5px solid crimson;
+    color: red;
+    font-weight: bold;
+}
+
+.bugfix {
+    color: brown;
+}
+
+.doing {
+    color: blue;
+}
+
+.done {
+    color: green;
+}
+
+.future {
+    color: darkmagenta;
+}
+
+.hide {
+    display: none;
+}
+
+.issue {
+    color: magenta;
+    font-style: italic;
+}
+
+.oandm {
+    /*OperationAndMaintenance*/
+    color: teal;
+}
+
+.rule {
+    color: slategray;
+    font-family: fantasy;
+    font-weight: bold;
+}
+
+.todo {
+    color: tomato;
+}
+
+.togl {
+    background-color: floralwhite;
+    border: 1px solid silver;
+    cursor: default;
+    font-size: 200%;
+    padding: 0 8px;
+}
+
+.togl:hover {
+    background-color: aliceblue;
+}

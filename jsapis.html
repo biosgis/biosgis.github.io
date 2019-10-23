@@ -14,10 +14,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
     <script src="https://js.arcgis.com/4.13/"></script>
+    <link rel="stylesheet" href="./css/def.css">
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <style>
         body {
-            font-family: Consolas, Monaco, monospace;
+            font-family: Georgia, monospace;
             font-size: 1.1em;
             line-height: 1.33em;
         }
@@ -25,10 +26,18 @@
 </head>
 
 <body>
-    <main>
+    <header>
         <h1>
             JavaScript API References and Dev Log
         </h1>
+        <div style="position: absolute; bottom: 5px; right: 5px; font-size: smaller;">
+            <script>
+                document.write(document.lastModified);
+
+            </script>
+        </div>
+    </header>
+    <main>
         <ol>
             <li>
                 <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap">
@@ -98,6 +107,17 @@
             </li>
             <li class="todo">
                 <a href="https://developers.arcgis.com/javascript/latest/sample-code/editing-applyedits/index.html">Update FeatureLayer using applyEdits</a>
+            </li>
+        </ol>
+        <h2>Fails</h2>
+        <ol>
+            <li>
+                JS new syntax <code>tag.onload = () => callback(args)</code> function notation 
+                fails IE.
+            </li>
+            <li>
+                JS loop syntax <code>for (var x of document.getElementsByClassName(y))</code>  
+                fails in IE and Edge.
             </li>
         </ol>
     </main>

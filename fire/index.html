@@ -17,7 +17,6 @@
                 document.getElementById('warning').style.display = 'block';
             });
         }
-
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -204,9 +203,9 @@
             top: 51px;
             right: 0;
             height: auto;
-            width: 99%;
+            width: auto;
             background-color: cornsilk;
-            border: 2px solid indianred;
+            border: 2px solid darkorange;
             color: steelblue;
             font-size: 2em;
             font-style: italic;
@@ -234,11 +233,12 @@
             right: 0;
             top: 0;
             background-color: cornsilk;
-            border: 5px solid darkorange;
+            border: 5px solid indianred;
             border-radius: 3px;
             color: firebrick;
             font-size: 1.5em;
             font-weight: bold;
+            line-height: 1.23em;
             margin: 1%;
             padding: 1%;
             z-index: 999;
@@ -739,10 +739,17 @@
             }
             return ar;
         }
+        function testOfLoop() {
+            // FOR-OF-LOOP ITERATION OF HTML COLLECTION FAILS IN IE&EDGE
+            for (var x of document.getElementsByClassName('closer')) {
+                x.style.border = '1px solid pink';
+            }
+        }
         // WINDOW ONLOAD
         window.addEventListener('load', function() {
             om = poplinks();
             //$('msgdiv').innerHTML = nup().toString();
+            //testOfLoop();//FAIL-IE
         });
 
     </script>
@@ -886,7 +893,8 @@
     </div>
     <div id="warning" style="display: none;">
         WARNING: Operational Map viewer is not supported on Microsoft Internet Explorer
-        (IE) browser and may not perform as expected.
+        (IE) browser and may not perform as expected. We recommend that you use 
+        a recent version of Chrome, Firefox, or Safari.
         <span class="esri-icon-close closer" onclick="hidex(this.parentNode)"></span>
     </div>
 </body>
