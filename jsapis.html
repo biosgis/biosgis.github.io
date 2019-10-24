@@ -105,8 +105,9 @@
             <li>
                 <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer-sublayers/index.html">MapImageLayer - Toggle sublayer visibility</a>
             </li>
-            <li class="todo">
-                <a href="https://developers.arcgis.com/javascript/latest/sample-code/editing-applyedits/index.html">Update FeatureLayer using applyEdits</a>
+            <li class="doing">
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/editing-applyedits/index.html">Update FeatureLayer using</a> 
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#applyEdits">applyEdits</a>
             </li>
         </ol>
         <h2>Fails</h2>
@@ -118,6 +119,12 @@
             <li>
                 JS loop syntax <code>for (var x of document.getElementsByClassName(y))</code>  
                 fails in IE and Edge.
+            </li>
+            <li>
+                Edit feature must have correct field name or will not work. 
+                Edit feature can have null geometry.
+                Fields not specified in the inpu edit feature will not be changed 
+                and will keep their existing values. 2019-10-23
             </li>
         </ol>
     </main>

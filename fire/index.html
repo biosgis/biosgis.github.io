@@ -17,739 +17,74 @@
                 document.getElementById('warning').style.display = 'block';
             });
         }
+        DEFAULT_PAGE = 'index.html';
+
     </script>
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
     <script src="https://js.arcgis.com/4.13/"></script>
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
-    <style>
-        body {
-            font-family: Consolas, Monaco, monospace;
-            font-size: 1em;
-            line-height: 1.33em;
-            margin: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
-            padding: 0;
-        }
-
-        article {
-            position: relative;
-            border-bottom: 1px solid gainsboro;
-        }
-
-        aside {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            top: 51px;
-            background-color: white;
-            border: 1px solid silver;
-            height: auto;
-            overflow: hidden;
-            width: 30%;
-        }
-
-        button {
-            font-size: 1em;
-        }
-
-        footer {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            background-color: white;
-            border-top: 1px solid slategray;
-            padding: 2px;
-            width: 100%;
-        }
-
-        h1 {
-            position: relative;
-            margin-top: 0;
-        }
-
-        h2 {
-            position: relative;
-            background-color: whitesmoke;
-            border-bottom: 1px solid silver;
-            font-variant: small-caps;
-            margin: 0;
-            padding: 8px;
-        }
-
-        h3 {
-            position: relative;
-            background-color: ghostwhite;
-            border-bottom: 1px solid silver;
-            margin: 0;
-            padding: 5px;
-        }
-
-        h4 {
-            position: relative;
-            background-color: gainsboro;
-            border-bottom: 1px solid silver;
-            margin: 0;
-            padding: 5px;
-            text-align: center;
-        }
-
-        header {
-            position: absolute;
-            left: 0;
-            top: 0;
-            background-color: white;
-            border-bottom: 1px solid slategray;
-            height: 50px;
-            padding: 5px;
-            width: 100%;
-        }
-
-        input {
-            font-size: 1em;
-        }
-
-        nav {
-            position: fixed;
-            left: 0;
-            top: 0;
-            background-color: white;
-            border-bottom: 1px solid slategray;
-            height: 50px;
-            padding: 1px;
-            width: 100%;
-            z-index: 400;
-        }
-
-        main {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            top: 51px;
-            background-color: whitesmoke;
-            border: 1px solid silver;
-            height: auto;
-            overflow: hidden;
-            width: 100%;
-        }
-
-        section {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background-color: white;
-            border-top: 1px solid silver;
-            height: 40%;
-            overflow: hidden;
-            width: 100%;
-        }
-
-        span.closer {
-            cursor: default;
-            float: right;
-            font-size: large;
-            margin-right: 1%;
-        }
-
-        .bug {
-            color: red;
-        }
-
-        .centered {
-            text-align: center;
-        }
-
-        .hide {
-            display: none;
-        }
-
-        .issue {
-            color: magenta;
-        }
-
-        .maindiv {
-            position: relative;
-            height: 88%;
-            clear: both;
-            overflow: auto;
-            padding-bottom: 5px;
-        }
-
-        .margined {
-            position: relative;
-            border: 1px solid floralwhite;
-            margin: 5px;
-        }
-
-        .msgx {
-            display: none;
-        }
-
-        .padded {
-            position: relative;
-            padding: 5px;
-        }
-
-        .todo {
-            color: tomato;
-        }
-
-        #loadingbar {
-            position: absolute;
-            left: 0;
-            top: 51px;
-            right: 0;
-            height: auto;
-            width: auto;
-            background-color: cornsilk;
-            border: 2px solid darkorange;
-            color: steelblue;
-            font-size: 2em;
-            font-style: italic;
-            font-weight: bold;
-            padding: 1%;
-            text-align: center;
-            vertical-align: middle;
-            word-spacing: 2em;
-        }
-
-        #viewdivide {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: whitesmoke;
-        }
-
-        #warning {
-            position: fixed;
-            left: 0;
-            right: 0;
-            top: 0;
-            background-color: cornsilk;
-            border: 5px solid indianred;
-            border-radius: 3px;
-            color: firebrick;
-            font-size: 1.5em;
-            font-weight: bold;
-            line-height: 1.23em;
-            margin: 1%;
-            padding: 1%;
-            z-index: 999;
-        }
-
-        /*        ESRIAN CSS*/
-        #viewDiv {
-            position: absolute;
-            left: 0;
-            top: 0;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-        }
-
-        #view3div {
-            position: absolute;
-            left: 0;
-            top: 0;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-        }
-
-        .esri-popup .esri-popup-header .esri-title {
-            font-size: 18px;
-            font-weight: bolder;
-        }
-
-        .esri-popup .esri-popup-body .esri-popup-content {
-            font-size: 14px;
-        }
-
-        .sublayers {
-            margin: 0 auto;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
-        }
-
-        .sublayers-item {
-            flex-grow: 4;
-            background-color: rgba(34, 111, 14, 0.5);
-            color: #fff;
-            margin: 1px;
-            width: 50%;
-            padding: 20px;
-            overflow: auto;
-            text-align: center;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
-
-        .visible-layer {
-            color: #fff;
-            background-color: #226f0e;
-        }
-
-    </style>
-    <script type="text/javascript">
-        var avn = 20191021;
-        var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2)
-        var fullversion = bvn + '.' + avn.toString().substr(6, 2);
-        var app = {
-            layers: [{
-                id: "CalTrans_Lane_Closures",
-                url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
-                type: "kml",
-                name: "CalTrans Lane Closures"
-            }, {
-                id: "DFG_Properties:0",
-                url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
-                type: "feature",
-                name: "CDFW Facilities"
-            }]
-        };
-        // AMD REQUIRED LOADER
-        require([
-            "esri/Map",
-            "esri/WebMap",
-            "esri/layers/CSVLayer",
-            "esri/layers/FeatureLayer",
-            "esri/layers/GeoJSONLayer",
-            "esri/layers/MapImageLayer",
-            "esri/layers/TileLayer",
-            "esri/tasks/IdentifyTask",
-            "esri/tasks/support/IdentifyParameters",
-            "esri/views/MapView",
-            "esri/views/SceneView",
-            "esri/widgets/Legend",
-            "esri/widgets/Expand"
-        ], function(
-            Map,
-            WebMap,
-            CSVLayer,
-            FeatureLayer,
-            GeoJSONLayer,
-            MapImageLayer,
-            TileLayer,
-            IdentifyTask, IdentifyParameters,
-            MapView,
-            SceneView,
-            Legend,
-            Expand
-        ) {
-            // CSVLAYER
-            const csvurl =
-                "https://arcgis.github.io/arcgis-samples-javascript/sample-data/hurricanes.csv";
-
-            const csvLayer = new CSVLayer({
-                title: "Hurricanes",
-                url: csvurl,
-                copyright: "NOAA",
-                popupTemplate: {
-                    title: "{Name}",
-                    content: [{
-                            type: "text",
-                            text: "Category {Category} storm with that occurred at {ISO_time}."
-                        },
-                        {
-                            type: "fields",
-                            fieldInfos: [{
-                                    fieldName: "wmo_pres",
-                                    label: "Pressure"
-                                },
-                                {
-                                    fieldName: "wmo_wind",
-                                    label: "Wind Speed (mph)"
-                                }
-                            ]
-                        }
-                    ],
-                    fieldInfos: [{
-                        fieldName: "ISO_time",
-                        format: {
-                            dateFormat: "short-date-short-time"
-                        }
-                    }]
-                },
-                renderer: {
-                    type: "unique-value",
-                    field: "Category",
-                    uniqueValueInfos: createUniqueValueInfos()
-                }
-            });
-            //            const map = new WebMap({
-            //                // contains a basemap with a South Pole Stereographic projection
-            //                // the CSVLayer coordinates will re-project client-side
-            //                // with the Projection Engine to match the view's Spatial Reference
-            //                basemap: {
-            //                    portalItem: {
-            //                        id: "3113eacc129942b4abde490a51aeb33f"
-            //                    }
-            //                },
-            //                layers: [csvLayer]
-            //            });
-
-            // GEOJSONLAYER 
-            // If external files are not on the same domain as your website, a CORS enabled server
-            // or a proxy is required.
-            const geojsonurl =
-                "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
-            const template = {
-                title: "Earthquake Info",
-                content: "Magnitude {mag} {type} hit {place} on {time}",
-                fieldInfos: [{
-                    fieldName: "time",
-                    format: {
-                        dateFormat: "short-date-short-time"
-                    }
-                }]
-            };
-
-            const renderer = {
-                type: "simple",
-                field: "mag",
-                symbol: {
-                    type: "simple-marker",
-                    color: "orange",
-                    outline: {
-                        color: "white"
-                    }
-                },
-                visualVariables: [{
-                    type: "size",
-                    field: "mag",
-                    stops: [{
-                            value: 2.5,
-                            size: "4px"
-                        },
-                        {
-                            value: 8,
-                            size: "40px"
-                        }
-                    ]
-                }]
-            };
-
-            const geojsonLayer = new GeoJSONLayer({
-                url: geojsonurl,
-                copyright: "USGS Earthquakes",
-                popupTemplate: template,
-                renderer: renderer //optional
-            });
-            // IDENTIFY TASK ON SOILS TILE LAYER
-            // URL to the map service where the identify will be performed
-            var soilURL =
-                "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer";
-
-            // Add the map service as a TileLayer for fast rendering
-            // Tile layers are composed of non-interactive images. For that reason we'll
-            // use IdentifyTask to query the service to add interactivity to the app
-            var soilsLayer = new TileLayer({
-                url: soilURL,
-                opacity: 0.85
-            });
-            // MAPIMAGELAYER SAMPLE
-            var permitsLayer = new MapImageLayer({
-                portalItem: {
-                    // autocasts as new PortalItem()
-                    id: "d7892b3c13b44391992ecd42bfa92d01"
-                }
-            });
-            var map = new Map({
-                basemap: "streets", //"gray", "osm", "dark-gray",
-                //                extent: {
-                //                    // autocasts as new Extent()
-                //                    xmin: -9177811,
-                //                    ymin: 4247000,
-                //                    xmax: -9176791,
-                //                    ymax: 4247784,
-                //                    spatialReference: 102100
-                //                },
-                layers: [csvLayer, geojsonLayer] //permitsLayer
-            });
-            map.add(soilsLayer);
-
-            var view = new MapView({
-                container: "viewDiv",
-                map: map,
-                center: [-121.34, 38.567], // longitude, latitude
-                highlightOptions: {
-                    color: "#ff642e",
-                    haloOpacity: 1,
-                    fillOpacity: 0.25
-                },
-                popup: {
-                    dockEnabled: true,
-                    dockOptions: {
-                        breakpoint: false
-                    }
-                },
-                zoom: 10
-            });
-            var view3d = new SceneView({
-                container: "view3div",
-                map: map
-            });
-            // FEATURELAYER
-            var featureLayer = new FeatureLayer({
-                url: app.layers[1].url
-            });
-            // carbon storage of trees in Warren Wilson College 
-            //url="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
-            map.add(featureLayer);
-            // LEGEND WIDGET FOR CSVLAYER
-            const legendExpand = new Expand({
-                view: view,
-                content: new Legend({
-                    view: view,
-                    style: "card"
-                })
-            });
-            view.ui.add(legendExpand, "top-left");
-
-            function createUniqueValueInfos() {
-                const fireflyImages = [
-                    "cat1.png",
-                    "cat2.png",
-                    "cat3.png",
-                    "cat4.png",
-                    "cat5.png"
-                ];
-
-                const baseUrl =
-                    "https://arcgis.github.io/arcgis-samples-javascript/sample-data/";
-
-                return fireflyImages.map(function(url, i) {
-                    return {
-                        value: i + 1, // Category number
-                        symbol: {
-                            type: "picture-marker",
-                            url: baseUrl + url
-                        }
-                    };
-                });
-            }
-            // WHEN MAPVIEW LOADED AND READY DO IDENTIFY ON MAP CLICK
-            view.when(function() {
-                // executeIdentifyTask() is called each time the view is clicked
-                view.on("click", executeIdentifyTask);
-
-                // Create identify task for the specified map service
-                identifyTask = new IdentifyTask(soilURL);
-
-                // Set the parameters for the Identify
-                params = new IdentifyParameters();
-                params.tolerance = 3;
-                params.layerIds = [0, 1, 2];
-                params.layerOption = "top";
-                params.width = view.width;
-                params.height = view.height;
-            });
-
-            // Executes each time the view is clicked
-            function executeIdentifyTask(event) {
-                // Set the geometry to the location of the view click
-                params.geometry = event.mapPoint;
-                params.mapExtent = view.extent;
-                document.getElementById("viewDiv").style.cursor = "wait";
-
-                // This function returns a promise that resolves to an array of features
-                // A custom popupTemplate is set for each feature based on the layer it
-                // originates from
-                identifyTask
-                    .execute(params)
-                    .then(function(response) {
-                        var results = response.results;
-
-                        return results.map(function(result) {
-                            var feature = result.feature;
-                            var layerName = result.layerName;
-
-                            feature.attributes.layerName = layerName;
-                            if (layerName === "Soil Survey Geographic") {
-                                feature.popupTemplate = {
-                                    // autocasts as new PopupTemplate()
-                                    title: "{Map Unit Name}",
-                                    content: "<b>Dominant order:</b> {Dominant Order} ({Dom. Cond. Order %}%)" +
-                                        "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dom. Cond. Suborder %}%)" +
-                                        "<br><b>Dominant Drainage Class:</b> {Dom. Cond. Drainage Class} ({Dom. Cond. Drainage Class %}%)" +
-                                        "<br><b>Farmland Class:</b> {Farmland Class}"
-                                };
-                            } else if (layerName === "State Soil Geographic") {
-                                feature.popupTemplate = {
-                                    // autocasts as new PopupTemplate()
-                                    title: "{Map Unit Name}",
-                                    content: "<b>Dominant order:</b> {Dominant Order} ({Dominant %}%)" +
-                                        "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dominant Sub-Order %}%)"
-                                };
-                            } else if (layerName === "Global Soil Regions") {
-                                feature.popupTemplate = {
-                                    // autocasts as new PopupTemplate()
-                                    title: layerName,
-                                    content: "<b>Dominant order:</b> {Dominant Order}" +
-                                        "<br><b>Dominant sub-order:</b> {Dominant Sub-Order}"
-                                };
-                            }
-                            return feature;
-                        });
-                    })
-                    .then(showPopup); // Send the array of features to showPopup()
-
-                // Shows the results of the Identify in a popup once the promise is resolved
-                function showPopup(response) {
-                    if (response.length > 0) {
-                        view.popup.open({
-                            features: response,
-                            location: event.mapPoint
-                        });
-                    }
-                    document.getElementById("viewDiv").style.cursor = "auto";
-                }
-            }
-            // MAP-IMAGE LAYER SUBLAYERS
-            // https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer-sublayers/index.html
-            var railrenderer = {
-                type: "simple", // autocasts as new SimpleRenderer()
-                symbol: {
-                    type: "simple-line", // autocasts as new SimpleLineSymbol()
-                    color: [255, 255, 255, 0.5],
-                    width: 0.75,
-                    style: "long-dash-dot-dot"
-                }
-            };
-            var usalayer = new MapImageLayer({
-                url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer",
-                id: "usa",
-                sublayers: [{
-                        id: 2,
-                        visible: true
-                    },
-                    //                    {
-                    //                        id: 4,
-                    //                        visible: false,
-                    //                        title: "Railroads",
-                    //                        renderer: railrenderer,
-                    //                        source: {
-                    //                            // indicates the source of the sublayer is a dynamic data layer
-                    //                            type: "data-layer",
-                    //                            // this object defines the data source of the layer
-                    //                            // in this case it's a feature class table from a file geodatabase
-                    //                            dataSource: {
-                    //                                type: "table",
-                    //                                // workspace name
-                    //                                workspaceId: "MyDatabaseWorkspaceIDSSR2",
-                    //                                // table name
-                    //                                dataSourceName: "ss6.gdb.Railroads"
-                    //                            }
-                    //                        }
-                    //                    },
-                    {
-                        id: 1,
-                        visible: true
-                    },
-                    {
-                        id: 0,
-                        visible: true
-                    }
-                ]
-            });
-            map.add(usalayer)
-            /*****************************************************************
-             * Wait for Layer to load and update the page to refelect which
-             * layers are visible in the Map Service.
-             *****************************************************************/
-            usalayer.when(function() {
-                layer.sublayers.map(function(sublayer) {
-                    var id = sublayer.id;
-                    var visible = sublayer.visible;
-                    var node = document.querySelector(
-                        ".sublayers-item[data-id='" + id + "']"
-                    );
-                    if (visible) {
-                        node.classList.add("visible-layer");
-                    }
-                });
-            });
-
-            /*****************************************************************
-             * Listen for when buttons on the page have been clicked to turn
-             * layers on and off in the Map Service.
-             *****************************************************************/
-            var sublayersElement = document.querySelector(".sublayers");
-            sublayersElement.addEventListener("click", function(event) {
-                var id = event.target.getAttribute("data-id");
-                if (id) {
-                    var sublayer = layer.findSublayerById(parseInt(id));
-                    var node = document.querySelector(
-                        ".sublayers-item[data-id='" + id + "']"
-                    );
-                    sublayer.visible = !sublayer.visible;
-                    node.classList.toggle("visible-layer");
-                }
-            });
-            // DONE AMD REQUIRED LOADER
-        });
-        // WINDOW ONLOAD APPINITUIX
-        window.addEventListener('load', function() {
-            if (location.hash.indexOf('msgx') >= 0) {
-                for (var x of document.getElementsByClassName('msgx')) { //document.querySelectorAll('.msgx')
-                    x.classList.remove('msgx');
-                }
-            }
-            $('sql-go').onkeyup = function(event) {
-                var kc = event.which || event.keyCode;
-                if (kc === 13) {
-                    //gocab(parseInt($('ocab').value));
-                    var s = $('sql-where').value;
-                    console.log(s);
-                }
-            };
-            $('buffd').onkeyup = function(event) {
-                var kc = event.which || event.keyCode;
-                if (kc === 13) {
-                    $('buffr').value = parseInt($('buffd').value);
-                }
-            };
-            $('buffr').onchange = function(event) {
-                $('buffd').value = $('buffr').value;
-            };
-            $('bvn').innerHTML = 'v6.' + bvn;
-            $('fullversion').innerHTML = fullversion;
-        });
-        // END AMDREQUIRED
-
-    </script>
     <script>
-        // Test OIDstring length of 1..500 takes 1893 varchar column space
+        var avn = 20191023;
+        var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
+        var fullversion = bvn + '.' + avn.toString().substr(6, 2);
+        var rv = (Math.random() * 10).toFixed(5);
+        var ssid = 't' + Date.now() + 'r' + parseInt(rv * 10000);//parseInt(Math.random() * 1000000);//=SESSIONID
+        var cssfiles = ['../css/main.css'];
+        var jsfiles = ['../js/amd.js','../js/biosf.js'];
+        for (var i = 0; i < cssfiles.length; i++) {
+            let x = document.createElement('link');
+            x.setAttribute('rel', 'stylesheet');
+            x.href = cssfiles[i] + '?' + rv;
+            document.head.appendChild(x);
+        }
+
+        function addlibs(files, rv) {
+            if (files.length === 0) {
+                return;
+            }
+            let f = files.shift();
+            let x = document.createElement('script');
+            x.type = 'text/javascript';
+            x.src = f + '?v=' + rv;
+            x.onload = function() {
+                addlibs(files, rv);
+            }
+            document.head.appendChild(x);
+        }
+        addlibs(jsfiles, rv);
+
         function testOidstr() {
+            // TEST OIDstring length of 1..500 takes 1893 varchar column space
             var ar = [];
             for (var i = 1; i < 2001; i++) {
                 ar.push(i);
             }
             return ar;
         }
+
         function testOfLoop() {
-            // FOR-OF-LOOP ITERATION OF HTML COLLECTION FAILS IN IE&EDGE
+            // TEST SHOWS FOR-OF-LOOP ITERATION OF HTML COLLECTION FAILS IN IE&EDGE
             for (var x of document.getElementsByClassName('closer')) {
                 x.style.border = '1px solid pink';
             }
         }
-        // WINDOW ONLOAD
-        window.addEventListener('load', function() {
-            om = poplinks();
+
+        function jtests() {
             //$('msgdiv').innerHTML = nup().toString();
-            //testOfLoop();//FAIL-IE
+            //testOfLoop();//FAIL-IE            
+        }
+
+        window.addEventListener('load', function() {
+            console.log('DOM loaded');
+            om = poplinks();
+            $('bvn').innerHTML = 'v6.' + bvn;
+            $('fullversion').innerHTML = fullversion;
+            $('sessionid').innerHTML = ssid;
+            //jtests();
+            $('splash-ok').focus();
         });
 
     </script>
@@ -760,7 +95,7 @@
         <h1>Fire</h1>
     </header>
     <nav>
-        <span></span>
+        <span class="esri-icon-drag-horizontal navtab"></span>
     </nav>
     <main>
         <div id="view3div"></div>
@@ -778,8 +113,11 @@
                 AIOS Version: <span id="fullversion"></span>
             </div>
             <article class="">
-                <h3>References and Resources</h3>
+                <h4>References and Resources</h4>
                 <ol>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html" title="Esri Icon Font (Calcite theme) 20180621"></a>
+                    </li>
                     <li>
                         <a href="../jsapis.html">JS APIs</a>
                     </li>
@@ -789,9 +127,56 @@
                 </ol>
             </article>
             <article class="">
-                <h3>Sites and Services</h3>
+                <h4>Sites and Services</h4>
                 <div class="padded">
                     <a href="https://map.dfg.ca.gov/arcgis"></a>
+                </div>
+            </article>
+            <article>
+                <h4>
+                    Contact &amp; Info
+                </h4>
+                <div class="padded">
+                    @<a href="mailto:dfgchiang@gmail.com" title="Contact">dfgchiang</a>
+                    <details>
+                        <summary>Info</summary>
+                        <script>
+                            var brk = '<br>';
+                            document.write('&copy;' + document.lastModified + brk);
+                            document.write('&bull; URL Referer: ' + document.referrer + brk);
+                            document.write('&diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform + brk);
+                            document.write('&rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight + brk);
+
+                        </script>
+                    </details>
+                </div>
+            </article>
+        </div>
+    </aside>
+    <aside id="bookmarks" class="wide">
+        <h3>
+            <span class="esri-icon-bookmark"></span>
+            BIOS Bookmarks
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h3>
+        <div class="maindiv">
+            <article>
+                <h4>
+                    Existing BiosBookmarks
+                </h4>
+                <div class="padded">
+                    <input type="text" id="bbq" value="" placeholder="BookmarkIDs like 3,45,678">
+                    <input type="button" id="bb-show" value="Show" title="Show bookmarks info">
+                    <input type="button" id="bb-load" value="Load" title="Restore bookmarked session state">
+                    <input type="button" id="bb-remove" value="Remove" title="Delete bookmarks">
+                </div>
+            </article>
+            <article>
+                <h4>
+                    Edit Bookmark
+                </h4>
+                <div class="padded">
+                    <div id="bb-form"></div>
                 </div>
             </article>
         </div>
@@ -858,6 +243,7 @@
                 document.write(document.lastModified);
 
             </script>
+            <span id="sessionid" style="margin-left: 1%;"></span>
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div id="msgdiv" class="maindiv"></div>
@@ -879,7 +265,7 @@
                     <p></p>
                 </div>
                 <div class="padded">
-                    <button type="button" name="button" onclick="hide('splash')">OK</button>
+                    <button id="splash-ok" type="button" name="button" onclick="hide('splash')">OK</button>
                 </div>
             </article>
             <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
@@ -893,7 +279,7 @@
     </div>
     <div id="warning" style="display: none;">
         WARNING: Operational Map viewer is not supported on Microsoft Internet Explorer
-        (IE) browser and may not perform as expected. We recommend that you use 
+        (IE) browser and may not perform as expected. We recommend that you use
         a recent version of Chrome, Firefox, or Safari.
         <span class="esri-icon-close closer" onclick="hidex(this.parentNode)"></span>
     </div>
