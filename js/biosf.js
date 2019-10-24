@@ -1,5 +1,8 @@
 // biosf.js 20191023 dfgchiang
 // REQ amdjs
+/*global console*/
+/* eslint no-console: "off" */
+
 console.log('Loading biosf.js');
 
 function bbclear(bbids) {
@@ -15,12 +18,12 @@ function bbclear(bbids) {
             return;
         }
         var editFeatures = results.features;
-        const edits = {
+        var edits = {
             updateFeatures: editFeatures
         }
         bookmarksLayer.applyEdits(edits).then(function (res) {
             if (res.updateFeatureResults.length > 0) {
-                let oid = res.updateFeatureResults[0].objectId;
+                var oid = res.updateFeatureResults[0].objectId;
                 console.log('Updated bbids[0]=' + oid);
             }
         }).catch(function (err) {
@@ -32,21 +35,25 @@ function bbclear(bbids) {
 
 function bbgo(a) {
     // ENGAGE BIOSBOOKMARKS ACTION DEPENDING ON INPUT CLICKED
-    let s = $('bbq').value;
+    var s = $('bbq').value;
     if (s.trim() === '') {
         return;
     }
-    let bbids = [];
+    var bbids = [];
     if (s.indexOf(',') < 0) {
         bbids = [parseInt(s)];
     } else {
-        let x = s.split(',');
+        var x = s.split(',');
         for (var i = 0; i < x.length; i++) {
             bbids.push(parseInt(x[i]));
         }
     }
-    if (a === 'Show') {
-        console.log('Show bookmarks ' + bbids);
+    if (a === 'Details') {
+        console.log('Show bookmark details ' + bbids);
+    } else if (a === 'Data Links') {
+        console.log('List data links ' + bbids);
+    } else if (a === 'List') {
+        console.log('List bookmarks' + bbids);
     } else if (a === 'Load') {
         console.log('Load bookmark=' + bbids[0]);
     } else if (a === 'Remove') {
@@ -91,8 +98,14 @@ function initbb() {
         visible: false
     });
     map.add(bbblankLayer);
-    $('bb-show').onclick = function () {
-        bbgo($('bb-show').value); //recall
+    $('bb-details').onclick = function () {
+        bbgo($('bb-details').value); //recall
+    }
+    $('bb-links').onclick = function () {
+        bbgo($('bb-links').value); //restore
+    }
+    $('bb-list').onclick = function () {
+        bbgo($('bb-list').value); //restore
     }
     $('bb-load').onclick = function () {
         bbgo($('bb-load').value); //restore
@@ -103,6 +116,37 @@ function initbb() {
     console.log('INIT biosBookmarksLayers DONE');
 }
 
+function navview(id) {
+    if (id === 'viewDiv') {
+        show('viewdivide');
+        show('viewDiv');
+    } else if (id === 'view3div') {
+        hide('viewDiv');
+        hide('viewdivide');
+    } else {
+        toggle(id);
+        var tag = $(id).tagName;
+        if (tag === 'ASIDE') {
+            var a = document.getElementsByTagName('aside');
+            for (var i = 0; i < a.length; i++) {
+                if (a[i].id !== id) {
+                    hidex(a[i]);
+                }
+            }
+        } else if (tag === 'SECTION') {
+            var b = document.getElementsByTagName('section');
+            for (var i = 0; i < b.length; i++) {
+                if (b[i].id !== id) {
+                    hidex(b[i]);
+                }
+            }
+            if (id !== 'tools') {
+                hide('tools');
+            }
+        }
+    }
+}
+/* ************************** NOT USED ************************** */
 function bbupdate() {
     // biosbookmarkUpdate DETAIL PROPERTIES STATIC PROCEDURE
     var editFeatures = [];
@@ -121,12 +165,12 @@ function bbupdate() {
     for (var i = 0; i < bbids.length; i++) {
         editFeatures.push(resetrow(bbids[i]));
     }
-    const edits = {
+    var edits = {
         updateFeatures: editFeatures
     }
     bookmarksLayer.applyEdits(edits).then(function (res) {
         if (res.updateFeatureResults.length > 0) {
-            let oid = res.updateFeatureResults[0].objectId;
+            var oid = res.updateFeatureResults[0].objectId;
             console.log('Updated bbids[0]=' + oid);
         }
     }).catch(function (err) {

@@ -31,9 +31,9 @@
         var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
         var fullversion = bvn + '.' + avn.toString().substr(6, 2);
         var rv = (Math.random() * 10).toFixed(5);
-        var ssid = 't' + Date.now() + 'r' + parseInt(rv * 10000);//parseInt(Math.random() * 1000000);//=SESSIONID
+        var ssid = 't' + Date.now() + 'r' + parseInt(rv * 10000); //parseInt(Math.random() * 1000000);//=SESSIONID
         var cssfiles = ['../css/main.css'];
-        var jsfiles = ['../js/amd.js','../js/biosf.js'];
+        var jsfiles = ['../js/amd.js', '../js/biosf.js'];
         for (var i = 0; i < cssfiles.length; i++) {
             let x = document.createElement('link');
             x.setAttribute('rel', 'stylesheet');
@@ -85,6 +85,7 @@
             $('sessionid').innerHTML = ssid;
             //jtests();
             $('splash-ok').focus();
+            hide('loadingbar');
         });
 
     </script>
@@ -95,14 +96,91 @@
         <h1>Fire</h1>
     </header>
     <nav>
-        <span class="esri-icon-drag-horizontal navtab"></span>
+        <span class="esri-icon-drag-horizontal navtab" onclick="toggle('tools')"></span>
     </nav>
     <main>
         <div id="view3div"></div>
         <div id="viewdivide"></div>
         <div id="viewDiv"></div>
     </main>
-    <aside id="help">
+    <aside id="bookmarks" class="wide" style="display: none;">
+        <h3>
+            <span class="esri-icon-bookmark"></span>
+            BIOS Bookmarks
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h3>
+        <div class="maindiv">
+            <article>
+                <h4>
+                    Current or New Bookmark
+                </h4>
+                <div class="padded">
+                </div>
+            </article>
+            <article>
+                <h4>
+                    Edit Bookmark
+                </h4>
+                <div class="padded">
+                    <div id="bb-form"></div>
+                </div>
+            </article>
+            <article>
+                <h4>
+                    Existing BiosBookmarks
+                </h4>
+                <div class="padded">
+                    <input type="text" id="bbq" value="" placeholder="BookmarkIDs like 3,45,678">
+                    <input type="button" id="bb-details" value="Details" title="Show bookmarks info">
+                    <input type="button" id="bb-links" value="Data Links" title="List data">
+                    <input type="button" id="bb-list" value="List" title="List bookmarks">
+                    <input type="button" id="bb-load" value="Load" title="Restore bookmarked session state">
+                    <input type="button" id="bb-remove" value="Remove" title="Delete bookmarks">
+                </div>
+                <h5>
+                    Found Bookmarks
+                </h5>
+                <table id="bbtable"></table>
+            </article>
+        </div>
+    </aside>
+    <aside id="catalog" class="wide" style="display: none;">
+        <h2>
+            <span class="esri-icon-layers"></span>
+            Catalog
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h2>
+        <div class="maindiv">
+            <article>
+                <h3>
+                    BIOS Data Catalog
+                </h3>
+                <div class="padded">
+                </div>
+            </article>
+        </div>
+    </aside>
+    <aside id="contents" style="display: none;">
+        <h2>
+            <span class="esri-icon-layers"></span>
+            Contents
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h2>
+        <div class="maindiv">
+            <article>
+                <h3>
+                    Reference Layers
+                </h3>
+                <div class="sublayers esri-widget">
+                    <div class="sublayers-item" data-id="0">Cities</div>
+                    <div class="sublayers-item" data-id="1">Highways</div>
+                    <!--                    <div class="sublayers-item" data-id="4">Railroads</div>-->
+                    <div class="sublayers-item" data-id="2">States</div>
+                </div>
+            </article>
+        </div>
+    </aside>
+    <aside id="help" style="display: none;">
         <h3>
             <span class="esri-icon-question"></span>
             Help
@@ -153,55 +231,23 @@
             </article>
         </div>
     </aside>
-    <aside id="bookmarks" class="wide">
+    <aside id="identify" style="display: none;">
         <h3>
-            <span class="esri-icon-bookmark"></span>
-            BIOS Bookmarks
+            <span class="esri-icon-description"></span>
+            Identify
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="maindiv">
-            <article>
-                <h4>
-                    Existing BiosBookmarks
-                </h4>
+            <article class="">
+                <h4>Identify Results</h4>
+                <ol>
+                </ol>
                 <div class="padded">
-                    <input type="text" id="bbq" value="" placeholder="BookmarkIDs like 3,45,678">
-                    <input type="button" id="bb-show" value="Show" title="Show bookmarks info">
-                    <input type="button" id="bb-load" value="Load" title="Restore bookmarked session state">
-                    <input type="button" id="bb-remove" value="Remove" title="Delete bookmarks">
-                </div>
-            </article>
-            <article>
-                <h4>
-                    Edit Bookmark
-                </h4>
-                <div class="padded">
-                    <div id="bb-form"></div>
                 </div>
             </article>
         </div>
     </aside>
-    <aside id="contents">
-        <h2>
-            <span class="esri-icon-layers"></span>
-            Contents
-            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h2>
-        <div class="maindiv">
-            <article>
-                <h3>
-                    Reference Layers
-                </h3>
-                <div class="sublayers esri-widget">
-                    <div class="sublayers-item" data-id="0">Cities</div>
-                    <div class="sublayers-item" data-id="1">Highways</div>
-                    <!--                    <div class="sublayers-item" data-id="4">Railroads</div>-->
-                    <div class="sublayers-item" data-id="2">States</div>
-                </div>
-            </article>
-        </div>
-    </aside>
-    <aside>
+    <aside id="pointinfo" style="display: none;">
         <h3>
             <span class="esri-icon-blank-map-pin"></span>
             Point Info
@@ -209,7 +255,7 @@
         </h3>
         <div class="maindiv"></div>
     </aside>
-    <aside class="" style="display: none;">
+    <aside id="gselect" style="display: none;">
         <h3>
             Select and Filter
             <span class="esri-icon-close closer" style="cursor: default; float: right; font-size: 1.23em;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
@@ -236,7 +282,58 @@
             </article>
         </div>
     </aside>
-    <section id="msgbar">
+    <aside id="tools" class="auto" style="display: none;">
+        <h2>
+            <span id="esri-icon-settings2"></span>
+            Tools
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h2>
+        <div class="maindiv">
+            <ol class="menu">
+                <li onclick="navview('bookmarks')" title="BiosBookmarks">
+                    <span class="esri-icon-bookmark"></span>
+                    <label>BIOS Bookmarks</label>
+                </li>
+                <li onclick="navview('catalog')" title="Catalogs">
+                    <span class="esri-icon-collection"></span>
+                    <label>Catalog</label>
+                </li>
+                <li onclick="navview('contents')" title="Layers">
+                    <span class="esri-icon-layers"></span>
+                    <label>Contents</label>
+                </li>
+                <li onclick="navview('help')" title="Help Guide">
+                    <span class="esri-icon-question"></span>
+                    <label>Help</label>
+                </li>
+                <li onclick="navview('identify')" title="Identify">
+                    <span class="esri-icon-description"></span>
+                    <label>Identify</label>
+                </li>
+                <li onclick="navview('viewDiv');" title="Maximize 2D Map">
+                    <span class="esri-icon-maps"></span>
+                    <label>Map (2D)</label>
+                </li>
+                <li onclick="navview('view3div')" title="3D Scene">
+                    <span class="esri-icon-globe"></span>
+                    <label>Scene (3D)</label>
+                </li>
+                <li onclick="navview('pointinfo')">
+                    <span class="esri-icon-blank-map-pin"></span>
+                    <label>Point Info</label>
+                </li>
+                <li onclick="navview('gselect')" title="Select and Filter">
+                    <span class="esri-icon-cursor"></span>
+                    <label>Select &amp; Filter</label>
+                </li>
+                <li onclick="navview('msgbar')" title="Messages">
+                    <span class="esri-icon-dock-bottom"></span>
+                    <label>Messages</label>
+                </li>
+            </ol>
+        </div>
+    </aside>
+    <section id="msgbar" style="display: none;">
         <h2>
             Messages
             <script>

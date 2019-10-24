@@ -26,6 +26,13 @@ aside {
     overflow: hidden;
     width: 30%;
 }
+aside.auto {
+    box-shadow: -3px 3px 3px 3px gray;
+    bottom: auto;
+    height: auto;
+    max-height: 90%;
+    width: auto;
+}
 aside.wide {
     width: 50%;
 }
@@ -88,7 +95,7 @@ header {
 
 input {
     font-size: 1em;
-    margin: 0 5px;
+    margin: 2px;
 }
 
 nav {
@@ -116,7 +123,24 @@ main {
     overflow: hidden;
     width: 100%;
 }
-
+ol.menu {
+    font-size: 1em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+ol.menu li {
+    border-bottom: 1px solid gainsboro;
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    text-align: justify;
+}
+ol.menu li:hover {
+    background-color: aliceblue;
+    border: 1px solid lightblue;
+    border-width: 1px 0;
+}
 section {
     position: absolute;
     bottom: 0;
