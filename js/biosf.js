@@ -140,11 +140,35 @@ function navview(id) {
                     hidex(b[i]);
                 }
             }
-            if (id !== 'tools') {
-                hide('tools');
-            }
+            hide('tools');
+            hide('toolsbin');
         }
     }
+}
+
+function h4toggle(x) {
+    // toggleContentUnderH4bar
+    var pn = x.parentNode;
+    var hding = false;
+    for (var i = 0; i < pn.childNodes.length; i++) {
+        var n = pn.childNodes[i];
+        var tag = n.tagName;
+        if (tag === 'H4') {
+            hding = true;
+        }
+        if (tag === 'DIV' && hding === true) {
+            togglex(n);
+            hding = false;
+        }
+    }
+}
+
+function bbincr() {
+    //TODO biosbookmarkUsageIncrementEachTimeBookmarkLoaded
+}
+
+function cleanupExpiredBookmarks() {
+    //TODO Daily routine job to check Permanent status and LastUsed date up to today
 }
 /* ************************** NOT USED ************************** */
 function bbupdate() {

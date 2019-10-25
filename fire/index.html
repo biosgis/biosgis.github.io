@@ -27,7 +27,7 @@
     <script src="https://js.arcgis.com/4.13/"></script>
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <script>
-        var avn = 20191023;
+        var avn = 20191024;
         var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
         var fullversion = bvn + '.' + avn.toString().substr(6, 2);
         var rv = (Math.random() * 10).toFixed(5);
@@ -96,7 +96,10 @@
         <h1>Fire</h1>
     </header>
     <nav>
-        <span class="esri-icon-drag-horizontal navtab" onclick="toggle('tools')"></span>
+        <span class="esri-icon-drag-horizontal navtab" onclick="toggle('toolsbin')" title="Main menu"></span>
+        <span class="esri-icon-settings2 navtab" onclick="navview('tools')" title="Tools"></span>
+        <span class="esri-icon-layers navtab" onclick="navview('contents')" title="Contents"></span>
+        <span class="esri-icon-collection navtab" onclick="navview('catalog')" title="Catalog"></span>
     </nav>
     <main>
         <div id="view3div"></div>
@@ -111,36 +114,68 @@
         </h3>
         <div class="maindiv">
             <article>
-                <h4>
+                <h4 onclick="h4toggle(this)">
                     Current or New Bookmark
                 </h4>
                 <div class="padded">
+                    <div>
+                        <label>Bookmark ID</label>
+                        <input type="text" id="BookmarkID" value="" placeholder="1234">
+                        If blank new bookmark ID will be assigned when added.
+                    </div>
+                    <div>
+                        <label>Author</label>
+                        <input type="text" id="Author" value="" placeholder="Enter a name" required>
+                    </div>
+                    <div>
+                        <label>Description</label>
+                        <input type="text" id="Description" value="" placeholder="Enter a brief description" style="display: flex;" required>
+                    </div>
+                    <div>
+                        <label>Tags</label>
+                        <input type="text" id="Tags" value="" placeholder="biogeo, bird, sierra-project, Wind Valley" style="display: flex;" title="Enter some keywords to help search" required>
+                    </div>
+                    <button>Add (New Bookmark)</button>
+                    <button disabled="disabled">Save Edits</button>
+                    <button disabled="disabled">Delete</button>
+                    <div>
+                        <a id="bburl"></a>
+                    </div>
+                    <div class="padded">
+                        All user bookmarks are saved for at least 60 days.
+                        If no activity or views are recorded over 60 days,
+                        the bookmark will be deleted. Please contact the
+                        <a href="mailto:bios@wildlife.ca.gov">BIOS Team</a>
+                        if you would like us to keep it longer.
+                        External data links or pointers are saved permanently.
+                    </div>
                 </div>
             </article>
             <article>
+                <h4 title="Browse Bookmarked Map Views or Data">
+                    Existing BiosBookmarks
+                </h4>
+                <div class="padded">
+                    <input type="text" id="bbq" value="" placeholder="BookmarkIDs like 1,23,456">
+                    <span class="esri-icon-search"></span>
+                    <input type="button" id="bb-details" value="Details" title="Show bookmarks info">
+                    <input type="button" id="bb-links" value="Data Links" title="List data links">
+                    <input type="button" id="bb-list" value="List" title="List bookmarks for browsing or found">
+                    <input type="button" id="bb-load" value="Load" title="Restore bookmarked session state">
+                    <input type="button" id="bb-remove" value="Remove" title="Delete bookmarks">
+                </div>
+                <table id="bbtable">
+                    <tr id="bbtoprow"></tr>
+                </table>
+            </article>
+            <article>
                 <h4>
+                    <span class="esri-icon-edit"></span>
                     Edit Bookmark
                 </h4>
                 <div class="padded">
                     <div id="bb-form"></div>
                 </div>
-            </article>
-            <article>
-                <h4>
-                    Existing BiosBookmarks
-                </h4>
-                <div class="padded">
-                    <input type="text" id="bbq" value="" placeholder="BookmarkIDs like 3,45,678">
-                    <input type="button" id="bb-details" value="Details" title="Show bookmarks info">
-                    <input type="button" id="bb-links" value="Data Links" title="List data">
-                    <input type="button" id="bb-list" value="List" title="List bookmarks">
-                    <input type="button" id="bb-load" value="Load" title="Restore bookmarked session state">
-                    <input type="button" id="bb-remove" value="Remove" title="Delete bookmarks">
-                </div>
-                <h5>
-                    Found Bookmarks
-                </h5>
-                <table id="bbtable"></table>
             </article>
         </div>
     </aside>
@@ -176,6 +211,21 @@
                     <div class="sublayers-item" data-id="1">Highways</div>
                     <!--                    <div class="sublayers-item" data-id="4">Railroads</div>-->
                     <div class="sublayers-item" data-id="2">States</div>
+                </div>
+            </article>
+        </div>
+    </aside>
+    <aside id="getdata" style="display: none;">
+        <h3>
+            <span class="esri-icon-down-arrow-circled"></span>
+            Get Data
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h3>
+        <div class="maindiv">
+            <article>
+                <h4>Add Layer Dynamically by URL</h4>
+                <div class="padded">
+                    <input type="text" id="addurl" value="" placeholder="Map or feature service or file URL" style="width: 90%;">
                 </div>
             </article>
         </div>
@@ -247,6 +297,17 @@
             </article>
         </div>
     </aside>
+    <aside id="legendbar" style="display: none;">
+        <h3>
+            <span class="esri-icon-layer-list"></span>
+            Layer Legend
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h3>
+        <div class="maindiv">
+            <div id="legendDiv" class="padded">
+            </div>
+        </div>
+    </aside>
     <aside id="pointinfo" style="display: none;">
         <h3>
             <span class="esri-icon-blank-map-pin"></span>
@@ -282,9 +343,9 @@
             </article>
         </div>
     </aside>
-    <aside id="tools" class="auto" style="display: none;">
+    <aside id="tools" style="display: none;">
         <h2>
-            <span id="esri-icon-settings2"></span>
+            <span class="esri-icon-settings2"></span>
             Tools
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
@@ -294,13 +355,9 @@
                     <span class="esri-icon-bookmark"></span>
                     <label>BIOS Bookmarks</label>
                 </li>
-                <li onclick="navview('catalog')" title="Catalogs">
-                    <span class="esri-icon-collection"></span>
-                    <label>Catalog</label>
-                </li>
-                <li onclick="navview('contents')" title="Layers">
-                    <span class="esri-icon-layers"></span>
-                    <label>Contents</label>
+                <li onclick="navview('getdata')" title="Get Data">
+                    <span class="esri-icon-down-arrow-circled"></span>
+                    <label>Get Data</label>
                 </li>
                 <li onclick="navview('help')" title="Help Guide">
                     <span class="esri-icon-question"></span>
@@ -325,6 +382,65 @@
                 <li onclick="navview('gselect')" title="Select and Filter">
                     <span class="esri-icon-cursor"></span>
                     <label>Select &amp; Filter</label>
+                </li>
+                <li onclick="navview('msgbar')" title="Messages">
+                    <span class="esri-icon-dock-bottom"></span>
+                    <label>Messages</label>
+                </li>
+            </ol>
+        </div>
+    </aside>
+    <aside id="toolsbin" class="auto" style="display: none;">
+        <h2>
+            <span class="esri-icon-settings2"></span>
+            Main Menu
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display='none'"></span>
+        </h2>
+        <div class="maindiv">
+            <ol class="menu" onclick="this.parentNode.parentNode.style.display='none'">
+                <li onclick="navview('bookmarks')" title="BiosBookmarks">
+                    <span class="esri-icon-bookmark"></span>
+                    <label>BIOS Bookmarks</label>
+                </li>
+                <li onclick="navview('catalog')" title="Catalogs">
+                    <span class="esri-icon-collection"></span>
+                    <label>Catalog</label>
+                </li>
+                <li onclick="navview('contents')" title="Layers">
+                    <span class="esri-icon-layers"></span>
+                    <label>Contents</label>
+                </li>
+                <li onclick="navview('getdata')" title="Get Data">
+                    <span class="esri-icon-down-arrow-circled"></span>
+                    <label>Get Data</label>
+                </li>
+                <li onclick="navview('help')" title="Help Guide">
+                    <span class="esri-icon-question"></span>
+                    <label>Help</label>
+                </li>
+                <li onclick="navview('identify')" title="Identify">
+                    <span class="esri-icon-description"></span>
+                    <label>Identify</label>
+                </li>
+                <li onclick="navview('viewDiv');" title="Maximize 2D Map">
+                    <span class="esri-icon-maps"></span>
+                    <label>Map (2D)</label>
+                </li>
+                <li onclick="navview('view3div')" title="3D Scene">
+                    <span class="esri-icon-globe"></span>
+                    <label>Scene (3D)</label>
+                </li>
+                <li onclick="navview('pointinfo')">
+                    <span class="esri-icon-blank-map-pin"></span>
+                    <label>Point Info</label>
+                </li>
+                <li onclick="navview('gselect')" title="Select and Filter">
+                    <span class="esri-icon-cursor"></span>
+                    <label>Select &amp; Filter</label>
+                </li>
+                <li onclick="navview('tools')" title="Tools">
+                    <span class="esri-icon-settings2"></span>
+                    <label>Tool</label>
                 </li>
                 <li onclick="navview('msgbar')" title="Messages">
                     <span class="esri-icon-dock-bottom"></span>

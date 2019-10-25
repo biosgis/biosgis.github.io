@@ -26,6 +26,7 @@ aside {
     overflow: hidden;
     width: 30%;
 }
+
 aside.auto {
     box-shadow: -3px 3px 3px 3px gray;
     bottom: auto;
@@ -33,11 +34,14 @@ aside.auto {
     max-height: 90%;
     width: auto;
 }
+
 aside.wide {
     width: 50%;
 }
+
 button {
     font-size: 1em;
+    margin: 2px;
 }
 
 footer {
@@ -52,6 +56,7 @@ footer {
 
 h1 {
     position: relative;
+    cursor: default;
     margin-top: 0;
 }
 
@@ -59,6 +64,7 @@ h2 {
     position: relative;
     background-color: whitesmoke;
     border-bottom: 1px solid silver;
+    cursor: default;
     font-variant: small-caps;
     margin: 0;
     padding: 10px;
@@ -68,6 +74,7 @@ h3 {
     position: relative;
     background-color: ghostwhite;
     border-bottom: 1px solid silver;
+    cursor: default;
     margin: 0;
     padding: 8px;
 }
@@ -77,6 +84,7 @@ h4 {
     background-color: lavender;
     border: 1px solid gainsboro;
     border-width: 1px 0;
+    cursor: default;
     margin: 0;
     padding: 5px;
     text-align: center;
@@ -123,12 +131,14 @@ main {
     overflow: hidden;
     width: 100%;
 }
+
 ol.menu {
     font-size: 1em;
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 ol.menu li {
     border-bottom: 1px solid gainsboro;
     list-style: none;
@@ -136,11 +146,13 @@ ol.menu li {
     padding: 8px;
     text-align: justify;
 }
+
 ol.menu li:hover {
     background-color: aliceblue;
     border: 1px solid lightblue;
     border-width: 1px 0;
 }
+
 section {
     position: absolute;
     bottom: 0;
@@ -154,10 +166,17 @@ section {
 
 /* SPAN FOR ESRI-ICONS */
 span.closer {
+    border: 1px solid transparent;
+    border-radius: 3px;
     cursor: default;
     float: right;
     font-size: large;
     margin-right: 1%;
+    padding: 2px 4px;
+}
+
+span.closer:hover {
+    border: 1px solid lavenderblush;
 }
 
 span.navtab {
@@ -211,6 +230,7 @@ span.navtab:hover {
     position: relative;
     padding: 5px;
 }
+
 .subdiv {
     position: relative;
     clear: both;
