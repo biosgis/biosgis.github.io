@@ -27,7 +27,7 @@ biosgis.github.io 20191010 dfgchiang
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <style>
         body {
-            font-family: Georgia, 'Times New Roman', Times, serif, monospace;
+            font-family: Georgia, Consolas, Monaco  , monospace;
             font-size: 1.23em;
             line-height: 1.5em;
         }
@@ -69,6 +69,10 @@ biosgis.github.io 20191010 dfgchiang
             border-top: 1px solid silver;
             font-size: smaller;
             padding: 1%;
+        }
+
+        h1 {
+            margin: 1%;
         }
 
         header {
@@ -134,9 +138,6 @@ biosgis.github.io 20191010 dfgchiang
 </head>
 
 <body>
-    <header style="display: none;">
-        <div></div>
-    </header>
     <nav>
         <ul>
             <li>
@@ -159,27 +160,50 @@ biosgis.github.io 20191010 dfgchiang
             </li>
         </ul>
     </nav>
+    <header>
+        <h1>
+            BIOS GIS Learning
+            <div style="float: right; font-size: medium; margin: 1%;">
+                <script>
+                    document.write(document.lastModified);
+
+                </script>
+            </div>
+        </h1>
+    </header>
     <main>
         <aside>
             <a href="https://git-scm.com"></a>
             <a href="https://nodejs.org"></a>
             <a href="https://app.powerbigov.us"></a>
         </aside>
-        <h1>
-            BIOS GIS Links
-        </h1>
-        <h2>
-            <a href="https://map.dfg.ca.gov/arcgis">AGS</a>
-            <a href="https://apps.wildlife.ca.gov/bios?al=ds69&bl=Oceans&zl=12&log=off">Bios5</a>
-        </h2>
-        <h2>
-            <a href="https://github.com">GitHub</a>
-            <a href="https://github.com/esri">Esri</a>
-            <a href="https://r-arcgis.github.io">R-ArcGIS</a>
-        </h2>
         <ol>
             <li>
+                <h2>
+                    BIOS
+                    <a href="https://map.dfg.ca.gov/arcgis">AGS</a>
+                    <a href="https://apps.wildlife.ca.gov/bios?al=ds69&bl=Oceans&zl=12&log=off">Bios5</a>
+                </h2>
+            </li>
+            <li>
                 <h3><a href="http://brackets.io/">Brackets</a></h3>
+            </li>
+            <li>
+                <h3>CBI</h3>
+                <ol>
+                    <li>
+                        <a href="https://consbio.org/products/webinars/conservation-prioritization-using-network-flow">
+                            Conservation Prioritization using Network Flow
+                        </a>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h2>
+                    <a href="https://github.com">GitHub</a>
+                    <a href="https://github.com/esri">Esri</a>
+                    <a href="https://r-arcgis.github.io">R-ArcGIS</a>
+                </h2>
             </li>
             <li>
                 <h2>Power BI</h2>
@@ -218,6 +242,16 @@ biosgis.github.io 20191010 dfgchiang
                         </span>
                     </li>
                 </ul>
+            </li>
+            <li>
+                <h2>Web APIs</h2>
+                <ol>
+                    <li>
+                        <a href="https://dzone.com/articles/api-is-dead-long-live-the-apis?edition=526297">
+                            API Is Dead – Long Live the APIs
+                        </a>
+                    </li>
+                </ol>
             </li>
             <li>
                 <h2>

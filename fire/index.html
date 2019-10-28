@@ -115,58 +115,56 @@
         <div class="maindiv">
             <article>
                 <h4 onclick="h4toggle(this)">
-                    Current or New Bookmark
+                    New or Currently Loaded Bookmark
                 </h4>
                 <div class="padded">
                     <div>
-                        <label>Bookmark ID</label>
-                        <input type="text" id="BookmarkID" value="" placeholder="1234">
-                        If blank new bookmark ID will be assigned when added.
-                    </div>
-                    <div>
-                        <label>Author</label>
+                        <label>Author</label>:
                         <input type="text" id="Author" value="" placeholder="Enter a name" required>
+                        <label>Bookmark ID</label>:
+                        <input type="text" id="BookmarkID" value="" placeholder="1234" title="If blank a new bookmark ID will be assigned when created" style="width: 80px;" readonly>
                     </div>
                     <div>
-                        <label>Description</label>
-                        <input type="text" id="Description" value="" placeholder="Enter a brief description" style="display: flex;" required>
+                        <label>Description</label>:
+                        <input type="text" id="Description" value="" placeholder="Enter a brief description" style="max-width: 88%; min-width: 66%;" required>
                     </div>
                     <div>
-                        <label>Tags</label>
-                        <input type="text" id="Tags" value="" placeholder="biogeo, bird, sierra-project, Wind Valley" style="display: flex;" title="Enter some keywords to help search" required>
+                        <label>Tags</label>:
+                        <input type="text" id="Tags" value="" placeholder="Enter some keywords to help search" required>
                     </div>
-                    <button>Add (New Bookmark)</button>
-                    <button disabled="disabled">Save Edits</button>
-                    <button disabled="disabled">Delete</button>
+                    <input type="button" id="bb-create" value="Create New Bookmark">
+                    <input type="button" id="bb-update" value="Save Current Edits" disabled="disabled">
+                    <input type="button" id="bb-delete" value="Delete" disabled="disabled">
                     <div>
-                        <a id="bburl" target="_blank"></a>
-                    </div>
-                    <div class="padded">
-                        All user bookmarks are saved for at least 60 days.
-                        If no activity or views are recorded over 60 days,
-                        the bookmark will be deleted. Please contact the
-                        <a href="mailto:bios@wildlife.ca.gov">BIOS Team</a>
-                        if you would like us to keep it longer.
-                        External data links or pointers are saved permanently.
+                        <span class="esri-icon-handle-horizontal detailsdots" id="bbdots"></span>
+                        <div class="padded" style="display: none;">
+                            <span class="esri-icon-close"></span>
+                            <a href="./?bookmark=BOOKMARK_ID" id="bburl" target="_blank"></a>
+                            All user bookmarks are saved for at least 60 days.
+                            If no activity or views are recorded over 60 days,
+                            the bookmark will be deleted. Please contact the
+                            <a href="mailto:bios@wildlife.ca.gov">BIOS Team</a>
+                            if you would like us to keep it longer.
+                            External data links or pointers are saved similarly.
+                        </div>
                     </div>
                 </div>
             </article>
             <article>
                 <h4 title="Browse Bookmarked Map Views or Data">
-                    Existing BiosBookmarks
+                    Browse
+                    <input type="radio" id="bb-maps" name="bbtype" value="Maps" checked>
+                    <label for="bb-maps">Existing Bookmarks</label> or
+                    <input type="radio" id="bb-links" name="bbtype" value="Links">
+                    <label for="bb-links">External Data</label>
                 </h4>
-                <div class="padded">
-                    <input type="text" id="bbq" value="" placeholder="BookmarkIDs like 1,23,456">
-                    <span class="esri-icon-search"></span>
-                    <input type="button" id="bb-details" value="Details" title="Show bookmarks info">
-                    <input type="button" id="bb-links" value="Data Links" title="List data links">
-                    <input type="button" id="bb-list" value="List" title="List bookmarks for browsing or found">
-                    <input type="button" id="bb-load" value="Load" title="Restore bookmarked session state">
-                    <input type="button" id="bb-remove" value="Remove" title="Delete bookmarks">
+                <div class="padded" style="position: relative;">
+                    <input type="text" id="bbq" value="" placeholder="BookmarkIDs or search words">
+                    <button type="button" id="bb-list" class="esri-icon-search" value="List">List</button>
+                    <input type="button" id="bb-load" value="Load" title="Load bookmark">
+                    <input type="button" id="bb-remove" value="Remove" title="Delete bookmarks by IDs">
                 </div>
-                <table id="bbtable">
-                    <tr id="bbtoprow"></tr>
-                </table>
+                <table id="bbtable" class="bbtable"></table>
             </article>
             <article>
                 <h4>
@@ -390,6 +388,45 @@
             </ol>
         </div>
     </aside>
+    <section id="databar" style="display: none;">
+        <h2>
+            <span class="esri-icon-menu" style="border: 1px solid white;"></span>
+            Data
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h2>
+        <div id="msgdiv" class="maindiv"></div>
+    </section>
+    <section id="gtablebar" style="display: none;">
+        <h2>
+            <span class="esri-icon-table"></span>
+            Table
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h2>
+        <div id="msgdiv" class="maindiv">
+            <div id="gtablediv"></div>
+        </div>
+    </section>
+    <section id="msgbar" style="display: none;">
+        <h2>
+            Messages
+            <script>
+                document.write(document.lastModified);
+
+            </script>
+            <span id="sessionid" style="margin-left: 1%;"></span>
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h2>
+        <div id="msgdiv" class="maindiv"></div>
+    </section>
+    <footer style="display: none;">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work
+        is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons
+            Attribution-NonCommercial 4.0 International License</a>
+    </footer>
+    <div id="loadingbar">
+        Loading...
+        <span class="esri-icon-close closer" onclick="this.parentNode.style.display = 'none'"></span>
+    </div>
     <aside id="toolsbin" class="auto" style="display: none;">
         <h2>
             <span class="esri-icon-settings2"></span>
@@ -409,6 +446,10 @@
                 <li onclick="navview('contents')" title="Layers">
                     <span class="esri-icon-layers"></span>
                     <label>Contents</label>
+                </li>
+                <li onclick="navview('databar')">
+                    <span class="esri-icon-menu"></span>
+                    <label>Data Table</label>
                 </li>
                 <li onclick="navview('getdata')" title="Get Data">
                     <span class="esri-icon-down-arrow-circled"></span>
@@ -434,13 +475,17 @@
                     <span class="esri-icon-blank-map-pin"></span>
                     <label>Point Info</label>
                 </li>
+                <li onclick="navview('gtablebar')">
+                    <span class="esri-icon-table"></span>
+                    <label>Table</label>
+                </li>
                 <li onclick="navview('gselect')" title="Select and Filter">
                     <span class="esri-icon-cursor"></span>
-                    <label>Select &amp; Filter</label>
+                    <label>Selection &amp; Filtering</label>
                 </li>
                 <li onclick="navview('tools')" title="Tools">
                     <span class="esri-icon-settings2"></span>
-                    <label>Tool</label>
+                    <label>Tools</label>
                 </li>
                 <li onclick="navview('msgbar')" title="Messages">
                     <span class="esri-icon-dock-bottom"></span>
@@ -449,23 +494,6 @@
             </ol>
         </div>
     </aside>
-    <section id="msgbar" style="display: none;">
-        <h2>
-            Messages
-            <script>
-                document.write(document.lastModified);
-
-            </script>
-            <span id="sessionid" style="margin-left: 1%;"></span>
-            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h2>
-        <div id="msgdiv" class="maindiv"></div>
-    </section>
-    <footer style="display: none;">
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work
-        is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons
-            Attribution-NonCommercial 4.0 International License</a>
-    </footer>
     <section id="splash" class="centered" style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
         <h2>
             Operational Map <span id="bvn"></span>
@@ -486,10 +514,6 @@
             </a>
         </div>
     </section>
-    <div id="loadingbar">
-        Loading...
-        <span class="esri-icon-close closer" onclick="this.parentNode.style.display = 'none'"></span>
-    </div>
     <div id="warning" style="display: none;">
         WARNING: Operational Map viewer is not supported on Microsoft Internet Explorer
         (IE) browser and may not perform as expected. We recommend that you use

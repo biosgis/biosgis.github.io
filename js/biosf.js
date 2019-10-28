@@ -33,14 +33,12 @@ function bbclear(bbids) {
     });
 }
 
-function bbgo(a) {
+function bbgo(x) {
     // ENGAGE BIOSBOOKMARKS ACTION DEPENDING ON INPUT CLICKED
-    var s = $('bbq').value;
-    if (s.trim() === '') {
-        return;
-    }
+    var a = x.value;
+    var s = $('bbq').value.trim();
     var bbids = [];
-    if (s.indexOf(',') < 0) {
+    if (s.indexOf(',') < 0) { // TODO LIKE #234
         bbids = [parseInt(s)];
     } else {
         var x = s.split(',');
@@ -48,17 +46,55 @@ function bbgo(a) {
             bbids.push(parseInt(x[i]));
         }
     }
-    if (a === 'Details') {
-        console.log('Show bookmark details ' + bbids);
-    } else if (a === 'Data Links') {
-        console.log('List data links ' + bbids);
-    } else if (a === 'List') {
-        console.log('List bookmarks' + bbids);
+    if (a === 'Maps') {
+        console.log('List bookmarks' + s);
+        bbquery(s);
+    } else if (a.indexOf('Links') >= 0) {
+        console.log('List external data links like ' + s);
+        qqbuery('_DATA_LINKS_');
+    } else if (a.indexOf('List') >= 0) {
+        console.log('Search and show bookmarks like ' + s);
+        bbquery(s);
     } else if (a === 'Load') {
         console.log('Load bookmark=' + bbids[0]);
+        // TODO METHOD TO LOAD BOOKMARK
     } else if (a === 'Remove') {
+        if (s === '') {
+            return;
+        }
         bbclear(bbids);
     }
+}
+
+function bbquery(x) {
+    // biosBookmarkQuery
+    // BookmarkID IS NEVER NULL AND ALWAYS GT 0
+    var sql = 'Description IS NOT NULL'; //TODO SECURITY CONDITION
+    if (typeof x === 'number') {
+        sql += " AND BookmarkID=" + x;
+    } else if (typeof x === 'object') {
+        // array of bbids
+        sql += " AND BookmarkID IN (" + x + ") ";
+    } else if (typeof x === 'string') {
+        if (x === '_DATA_LINKS_') {
+            sql += " Type = 'MapService' ";
+        } else {
+            sql += " AND Description LIKE '%" + x + "%' ";
+        }
+    }
+    var query = bookmarksLayer.createQuery();
+    //query.objectIds = bbids; //where = 'OBJECTID IN (' + bbids + ')';
+    query.outFields = ['OBJECTID', 'BookmarkID', 'Author', 'Description', 'DSList', 'Link', 'Viewer', 'UserGroups']; //['*'];//
+    query.returnGeometry = true;
+    query.where = sql;
+    bookmarksLayer.queryFeatures(query).then(function (results) {
+        if (results.features.length === 0) {
+            console.log('bbqueryError: No bookmarks found?');
+            return;
+        }
+        var j = fs2table(results);
+        console.log(j + ' bookmarks table rows built');
+    });
 }
 
 function initbb() {
@@ -98,20 +134,20 @@ function initbb() {
         visible: false
     });
     map.add(bbblankLayer);
-    $('bb-details').onclick = function () {
-        bbgo($('bb-details').value); //recall
+    $('bb-maps').onclick = function () {
+        bbgo($('bb-maps')); //recall
     }
     $('bb-links').onclick = function () {
-        bbgo($('bb-links').value); //restore
+        bbgo($('bb-links')); //external data
     }
     $('bb-list').onclick = function () {
-        bbgo($('bb-list').value); //restore
+        bbgo($('bb-list')); //browse
     }
     $('bb-load').onclick = function () {
-        bbgo($('bb-load').value); //restore
+        bbgo($('bb-load')); //restore
     }
     $('bb-remove').onclick = function () {
-        bbgo($('bb-remove').value);
+        bbgo($('bb-remove'));
     }
     console.log('INIT biosBookmarksLayers DONE');
 }
@@ -143,6 +179,47 @@ function navview(id) {
             hide('tools');
             hide('toolsbin');
         }
+    }
+}
+
+function fs2table(fset) {
+    // featureSetToTable
+    var features = fset.features;
+    if (features.length === 0) {
+        return;
+    }
+    var table = $('bbtable');
+    for (var i = 0; i < features.length; i++) {
+        var feature = features[i];
+        if (i === 0) {
+            var toprow = table.insertRow(i); // $('bbtoprow');
+            toprow.classList.add('bbtable');
+            for (var fieldname in feature.attributes) {
+                var col = document.createElement('th');
+                toprow.appendChild(col);
+                col.innerHTML = fieldname;
+            }
+        }
+        var j = i + 1; // RECNO
+        var row = table.insertRow(j);
+        var k = 0; // COLUMN POSITION
+        for (var fieldname in feature.attributes) {
+            var rval = feature.attributes[fieldname];
+            var cell = row.insertCell(k);
+            cell.innerHTML = rval;
+            k = k + 1;
+        }
+    }
+    return j;
+}
+
+function f2topcols(feature, row) {
+    // featureToHeaderColumns
+    var i = 0;
+    for (var fieldname in feature.attributes) {
+        var col = document.createElement('th');
+        row.appendChild(col);
+        col.innerHTML = fieldname;
     }
 }
 

@@ -11,7 +11,7 @@ body {
 
 article {
     position: relative;
-    border: 1px solid gainsboro;
+    border: 1px solid floralwhite;
     border-width: 1px 0;
 }
 
@@ -62,8 +62,9 @@ h1 {
 
 h2 {
     position: relative;
-    background-color: whitesmoke;
+    background-color: slategray;
     border-bottom: 1px solid silver;
+    color: white;
     cursor: default;
     font-variant: small-caps;
     margin: 0;
@@ -72,7 +73,7 @@ h2 {
 
 h3 {
     position: relative;
-    background-color: ghostwhite;
+    background-color: gainsboro;
     border-bottom: 1px solid silver;
     cursor: default;
     margin: 0;
@@ -81,7 +82,7 @@ h3 {
 
 h4 {
     position: relative;
-    background-color: lavender;
+    background-color: whitesmoke;
     border: 1px solid gainsboro;
     border-width: 1px 0;
     cursor: default;
@@ -190,6 +191,25 @@ span.navtab {
 span.navtab:hover {
     background-color: aliceblue;
     border-top: 5px solid lightblue;
+}
+
+table.bbtable {
+    position: relative;
+    top: 0;
+    left: 0;
+    border: 1px solid silver;
+    border-collapse: collapse;
+    height: 50%;
+    width: 100%;
+    overflow: hidden;
+}
+
+tr.bbtable {
+    background-color: azure;
+    border-bottom: 1px solid dimgray;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .bug {
