@@ -27,7 +27,7 @@
     <script src="https://js.arcgis.com/4.13/"></script>
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <script>
-        var avn = 20191024;
+        var avn = 20191028;
         var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
         var fullversion = bvn + '.' + avn.toString().substr(6, 2);
         var rv = (Math.random() * 10).toFixed(5);
@@ -108,11 +108,12 @@
     </main>
     <aside id="bookmarks" class="wide" style="display: none;">
         <h3>
-            <span class="esri-icon-bookmark"></span>
+            <span class="esri-icon-bookmark hicon"></span>
             BIOS Bookmarks
+            (<label id="bbcnt" class="atotal"></label>)
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
-        <div class="maindiv">
+        <div class="maindiv" style="overflow: hidden;">
             <article>
                 <h4 onclick="h4toggle(this)">
                     New or Currently Loaded Bookmark
@@ -160,15 +161,17 @@
                 </h4>
                 <div class="padded" style="position: relative;">
                     <input type="text" id="bbq" value="" placeholder="BookmarkIDs or search words">
-                    <button type="button" id="bb-list" class="esri-icon-search" value="List">List</button>
+                    <button type="button" id="bb-list" class="esri-icon-search" value="List"> List</button>
                     <input type="button" id="bb-load" value="Load" title="Load bookmark">
                     <input type="button" id="bb-remove" value="Remove" title="Delete bookmarks by IDs">
                 </div>
-                <table id="bbtable" class="bbtable"></table>
+                <div id="bbtablediv">
+                    <table id="bbtable" class="bbtable"></table>
+                </div>
             </article>
             <article>
                 <h4>
-                    <span class="esri-icon-edit"></span>
+                    <span class="esri-icon-edit hicon"></span>
                     Edit Bookmark
                 </h4>
                 <div class="padded">
@@ -179,7 +182,7 @@
     </aside>
     <aside id="catalog" class="wide" style="display: none;">
         <h2>
-            <span class="esri-icon-layers"></span>
+            <span class="esri-icon-layers hicon"></span>
             Catalog
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
@@ -195,7 +198,7 @@
     </aside>
     <aside id="contents" style="display: none;">
         <h2>
-            <span class="esri-icon-layers"></span>
+            <span class="esri-icon-layers hicon"></span>
             Contents
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
@@ -215,7 +218,7 @@
     </aside>
     <aside id="getdata" style="display: none;">
         <h3>
-            <span class="esri-icon-down-arrow-circled"></span>
+            <span class="esri-icon-down-arrow-circled hicon"></span>
             Get Data
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
@@ -230,7 +233,7 @@
     </aside>
     <aside id="help" style="display: none;">
         <h3>
-            <span class="esri-icon-question"></span>
+            <span class="esri-icon-question hicon"></span>
             Help
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
@@ -281,7 +284,7 @@
     </aside>
     <aside id="identify" style="display: none;">
         <h3>
-            <span class="esri-icon-description"></span>
+            <span class="esri-icon-description hicon"></span>
             Identify
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
@@ -297,7 +300,7 @@
     </aside>
     <aside id="legendbar" style="display: none;">
         <h3>
-            <span class="esri-icon-layer-list"></span>
+            <span class="esri-icon-layer-list hicon"></span>
             Layer Legend
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
@@ -308,7 +311,7 @@
     </aside>
     <aside id="pointinfo" style="display: none;">
         <h3>
-            <span class="esri-icon-blank-map-pin"></span>
+            <span class="esri-icon-blank-map-pin hicon"></span>
             Point Info
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
@@ -343,7 +346,7 @@
     </aside>
     <aside id="tools" style="display: none;">
         <h2>
-            <span class="esri-icon-settings2"></span>
+            <span class="esri-icon-settings2 hicon"></span>
             Tools
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>

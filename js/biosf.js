@@ -4,6 +4,10 @@
 /* eslint no-console: "off" */
 
 console.log('Loading biosf.js');
+var fieldcols = {
+    "OBJECTID": "OID",
+    "BookmarkID": "ID"
+}
 
 function bbclear(bbids) {
     //20191023 biosBookmarksClear: BookmarkIdArray
@@ -30,6 +34,23 @@ function bbclear(bbids) {
             console.log('bbclearError: ' + err.name);
             console.log('bbclearBug: ' + err.message);
         });
+    });
+}
+
+function bbget(bbid) {
+    // TODO get and loadBiosBookmarkById
+    bookmarksLayer.queryFeatures({
+        //objectIds: [bbid],
+        where: "BookmarkID = " + bbid,
+        outFields: ["*"], //bbcols,//
+        returnGeometry: true
+    }).then(function (res) {
+        if (res.features.length === 0) {
+            //loadingbark('NO bookmark ' + bbid + ' found');
+            return;
+        }
+        var bb = res.features[0];
+        // TODO THEN GET RELATED GRAPHICS FROM BIOSMARKUPS TOO
     });
 }
 
@@ -152,6 +173,38 @@ function initbb() {
     console.log('INIT biosBookmarksLayers DONE');
 }
 
+function fs2table(fset) {
+    // featureSetToTable
+    var features = fset.features;
+    if (features.length === 0) {
+        return;
+    }
+    var table = $('bbtable');
+    for (var i = 0; i < features.length; i++) {
+        var feature = features[i];
+        if (i === 0) {
+            var toprow = table.insertRow(i); // $('bbtoprow');
+            toprow.classList.add('bbtoprow');
+            for (var fieldname in feature.attributes) {
+                var col = document.createElement('th');
+                toprow.appendChild(col);
+                col.innerHTML = fieldname;
+            }
+        }
+        var j = i + 1; // RECNO
+        var row = table.insertRow(j);
+        var k = 0; // COLUMN POSITION
+        for (var fieldname in feature.attributes) {
+            var rval = feature.attributes[fieldname];
+            var cell = row.insertCell(k);
+            cell.innerHTML = rval;
+            k = k + 1;
+        }
+        table.style.width = (k * 120) + 'px';
+    }
+    return j;
+}
+
 function navview(id) {
     if (id === 'viewDiv') {
         show('viewdivide');
@@ -182,37 +235,6 @@ function navview(id) {
     }
 }
 
-function fs2table(fset) {
-    // featureSetToTable
-    var features = fset.features;
-    if (features.length === 0) {
-        return;
-    }
-    var table = $('bbtable');
-    for (var i = 0; i < features.length; i++) {
-        var feature = features[i];
-        if (i === 0) {
-            var toprow = table.insertRow(i); // $('bbtoprow');
-            toprow.classList.add('bbtable');
-            for (var fieldname in feature.attributes) {
-                var col = document.createElement('th');
-                toprow.appendChild(col);
-                col.innerHTML = fieldname;
-            }
-        }
-        var j = i + 1; // RECNO
-        var row = table.insertRow(j);
-        var k = 0; // COLUMN POSITION
-        for (var fieldname in feature.attributes) {
-            var rval = feature.attributes[fieldname];
-            var cell = row.insertCell(k);
-            cell.innerHTML = rval;
-            k = k + 1;
-        }
-    }
-    return j;
-}
-
 function f2topcols(feature, row) {
     // featureToHeaderColumns
     var i = 0;
@@ -223,6 +245,9 @@ function f2topcols(feature, row) {
     }
 }
 
+//=================
+// GENERICS
+//=================
 function h4toggle(x) {
     // toggleContentUnderH4bar
     var pn = x.parentNode;
@@ -240,6 +265,17 @@ function h4toggle(x) {
     }
 }
 
+function val2link(s) {
+    // TODO fieldValueUrlToHotLink
+    //    var dval = s;
+    //    if (s.indexOf('ftp:') === 0 || s.indexOf('http:') === 0 || s.indexOf('https:') === 0 || s.indexOf('//') === 0) {
+    //        dval = '<a href="' + s + '" target="_blank">LINK</a>';
+    //    } else if (s.indexOf('/') === 0) {}
+    return '<a href="' + s + '" target="_blank">LINK</a>';
+}
+//=================
+// TODO LIST
+//=================
 function bbincr() {
     //TODO biosbookmarkUsageIncrementEachTimeBookmarkLoaded
 }
