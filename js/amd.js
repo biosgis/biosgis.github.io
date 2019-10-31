@@ -432,8 +432,48 @@ require([
     initbb();
     // DONE AMD REQUIRED LOADER
 });
-
+// APP.STARTUP.INIT
 window.addEventListener('load', function () {
+    if (location.search !== '') {
+        var s = location.search.substr(1);
+        if (s.indexOf('&') > 0) {
+            var kva = s.split('&');
+        } else {
+            var kva = [s];
+        }
+        app.urlsearch = {};
+        for (var i = 0; i < kva.length; i++) {
+            var kvp = kva[i].split('=');
+            var key = kvp[0];
+            var val = decodeURIComponent(kvp[1]);
+            if (val !== undefined && val !== null) {
+                if (key === 'al') {
+                    // AUTO CORRECT BIOS DSID SHORTHAND TO PROPER biosdsXXX URID--20190220
+                    if (val.toLocaleLowerCase().indexOf('biosds') === 0 || val.toLocaleLowerCase().indexOf('ds') === 0) {
+                        var dsid = parseInt(val.toLowerCase().replace('bios', '').replace('ds', ''));
+                        if (typeof dsid === 'number') {
+                            val = 'biosds' + dsid;
+                        }
+                    } else if (typeof parseInt(val) === 'number') {
+                        val = 'biosds' + parseInt(val); // val;=might get biosdsDSXXXX
+                    }
+                }
+                if (key === 'dsl' || key === 'dslist' || key === 'dsids') {
+                    key = 'dslist';
+                }
+                if (key === 'zl' || key === 'z' || key === 'zoom') {
+                    key = 'zl';
+                }
+                app.urlsearch[key] = val;
+                if (app[key] !== undefined) {
+                    app[key] = val;
+                }
+                if ($(key) !== null) {
+                    $(key).value = val;
+                }
+            }
+        }
+    }
     if (location.hash.indexOf('msgx') >= 0) {
         for (var x of document.getElementsByClassName('msgx')) { //document.querySelectorAll('.msgx')
             x.classList.remove('msgx');

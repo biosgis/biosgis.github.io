@@ -27,7 +27,7 @@
     <script src="https://js.arcgis.com/4.13/"></script>
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <script>
-        var avn = 20191028;
+        var avn = 20191030;
         var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
         var fullversion = bvn + '.' + avn.toString().substr(6, 2);
         var rv = (Math.random() * 10).toFixed(5);
@@ -409,18 +409,29 @@
             <div id="gtablediv"></div>
         </div>
     </section>
-    <section id="msgbar" style="display: none;">
+    <aside id="msgbar" style="display: none;">
         <h2>
-            Messages
-            <script>
-                document.write(document.lastModified);
-
-            </script>
-            <span id="sessionid" style="margin-left: 1%;"></span>
+            <span class="esri-icon-dock-top"></span>
+            App Log
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
-        <div id="msgdiv" class="maindiv"></div>
-    </section>
+        <div id="msgdiv" class="maindiv">
+            <p class="padded" style="border: 1px solid slategray; position: absolute; top: 0; width: 100%;">
+                <input type="text" id="cmdbox" value="" style="width: 96%;">
+            </p>
+            <div id="msglog" class="padded" style="position: relative; bottom: 0; top: 40px; height: 80%; overflow: auto;">
+                <p>
+                    Messages
+                    <script>
+                        document.write(document.lastModified);
+
+                    </script>
+                </p>
+                <p id="sessionid"></p>
+                <hr>
+            </div>
+        </div>
+    </aside>
     <footer style="display: none;">
         <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work
         is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons
