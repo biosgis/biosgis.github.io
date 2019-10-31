@@ -16,15 +16,38 @@
     <script src="https://js.arcgis.com/4.13/"></script>
     <link rel="stylesheet" href="./css/def.css">
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            om = poplinks();
+        });
+
+    </script>
 </head>
 
 <body>
-    <header></header>
-    <nav></nav>
-    <main>
+    <header>
         <h1>
             Maps, Apps, and Data Sources
         </h1>
+        <div style="position: absolute; bottom: 5px; right: 5px;">
+            <script>
+                document.write(document.lastModified);
+
+            </script>
+        </div>
+    </header>
+    <nav></nav>
+    <main>
+        <h2>
+            CDFW GIS LIB
+        </h2>
+        <ol>
+            <li>
+                <a href="https://www.wildlife.ca.gov/Data/BIOS/Metadata"></a>
+            </li>
+            <li>
+            </li>
+        </ol>
         <h2>
             Fire Resources
         </h2>
@@ -115,7 +138,7 @@
                     </li>
                     <li>
                         Power Shut off and planned shut offs
-                        <a href="https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/ArcGIS/rest/services/PSPS_Outage_Areas_10_23_19_0641_VIEW/FeatureServer/0">PSPS_Outage_Areas_10_23_19_0641</a> esriGeometryPolygon 
+                        <a href="https://services1.arcgis.com/jUJYIo9tSA7EHvfZ/ArcGIS/rest/services/PSPS_Outage_Areas_10_23_19_0641_VIEW/FeatureServer/0">PSPS_Outage_Areas_10_23_19_0641</a> esriGeometryPolygon
                         added 2019-10-24.
                     </li>
                     <li>
@@ -187,30 +210,7 @@
             </li>
         </ol>
         <h2>
-            CDFW GIS LIB
-        </h2>
-        <ol>
-            <li>
-                <a href="https://www.wildlife.ca.gov/Data/BIOS/Metadata"></a>
-            </li>
-            <li>
-                <a href=""></a>
-            </li>
-            <li>
-                <a href=""></a>
-            </li>
-            <li>
-                <a href=""></a>
-            </li>
-            <li>
-                <a href=""></a>
-            </li>
-            <li>
-                <a href=""></a>
-            </li>
-        </ol>
-        <h2>
-            Conservation Sites
+            Conservation Maps, Projects, and Sites
         </h2>
         <ol>
             <li>
@@ -220,19 +220,30 @@
                 <a href="https://wildlife.org/"></a>
             </li>
             <li>
-                <a href=""></a>
+                <a href="https://www.allencoralatlas.org/"></a>
             </li>
             <li>
-                <a href=""></a>
+                <a href="https://hawaiicoral.org/"></a>
             </li>
             <li>
-                <a href=""></a>
-            </li>
-            <li>
-                <a href=""></a>
+                <a href="https://coralnet.ucsd.edu/"></a>
             </li>
         </ol>
     </main>
+    <footer>
+        <a href="mail:dfgchiang@gmail.com">dfgchiang</a>
+        <script>
+            document.write('&copy; ' + document.lastModified);
+            document.write(' &rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight);
+            document.write(' &marker; Screen Size: ' + window.screen.width + 'x' + window.screen.height);
+            document.write(' &diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform);
+            document.write(' &bull; URL Referer: ' + document.referrer);
+
+        </script>
+        <a href="./" style="text-decoration: none; color: silver;" target="_blank">&square;</a>
+        Ref:
+        <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a> &bull;
+    </footer>
 </body>
 
 </html>
