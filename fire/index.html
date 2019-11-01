@@ -113,7 +113,7 @@
             (<label id="bbcnt" class="atotal"></label>)
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
-        <div class="maindiv" style="overflow: hidden;">
+        <div class="maindiv">
             <article>
                 <h4 onclick="h4toggle(this)">
                     New or Currently Loaded Bookmark
@@ -136,6 +136,7 @@
                     <input type="button" id="bb-create" value="Create New Bookmark">
                     <input type="button" id="bb-update" value="Save Current Edits" disabled="disabled">
                     <input type="button" id="bb-delete" value="Delete" disabled="disabled">
+                    <button type="button" id="bb-details" class="esri-icon-edit" value="Details" onclick="toggle('bb-edit')">Details</button>
                     <div>
                         <span class="esri-icon-handle-horizontal detailsdots" id="bbdots"></span>
                         <div class="padded" style="display: none;">
@@ -150,9 +151,12 @@
                         </div>
                     </div>
                 </div>
+                <div id="bb-edit" style="display: none;">
+                    <div id="bb-fields"></div>
+                </div>
             </article>
             <article>
-                <h4 title="Browse Bookmarked Map Views or Data">
+                <h4 title="Browse Bookmarked Maps and Data">
                     Browse
                     <input type="radio" id="bb-maps" name="bbtype" value="Maps" checked>
                     <label for="bb-maps">Existing Bookmarks</label> or

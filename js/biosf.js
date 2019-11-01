@@ -155,6 +155,33 @@ function initbb() {
         visible: false
     });
     map.add(bbblankLayer);
+
+    var bbcols = ['Author', 'Basemap', 'BookmarkID', 'Center', 'Description'
+        , 'DSList', 'Filters', 'Labels', 'Layers', 'Link'
+        , 'Queries', 'Selections', 'Summary', 'Tags', 'Title', 'Tool', 'Zoom']; //=editablecolumns
+    if ($('bb-fields') !== null) {
+        var outv = $('bb-fields');
+        for (var i = 0; i < bbcols.length; i++) {
+            var key = bbcols[i];
+            if ($(key) === null) {
+                var row = document.createElement('div');
+                row.classList.add('bb');
+                var lab = document.createElement('label');
+                lab.classList.add('bb');
+                lab.innerHTML = key;
+                row.appendChild(lab);
+                var tbox = document.createElement('input');
+                tbox.type = 'text';
+                tbox.classList.add('bb');
+                tbox.id = key;
+                //tbox.value = 'guest';//forAuthor
+                //tbox.value = 'Test bookmark on ' + (new Date()).toISOString();//forDescription
+                row.appendChild(tbox);
+                outv.appendChild(row);
+            }
+        }
+    }
+    //TODO $('bb-create').addEventListener('click', savebb);
     $('bb-maps').onclick = function () {
         bbgo($('bb-maps')); //recall
     }

@@ -13,6 +13,7 @@ article {
     position: relative;
     border: 1px solid floralwhite;
     border-width: 1px 0;
+    overflow: auto;
 }
 
 aside {
@@ -73,7 +74,7 @@ h2 {
 
 h3 {
     position: relative;
-    background-color: gainsboro;
+    background-color: lightsteelblue;
     border-bottom: 1px solid silver;
     cursor: default;
     margin: 0;
@@ -247,6 +248,29 @@ table.bbtable td {
 
 .atotal {
     font-size: 80%;
+}
+
+.bb {
+    margin: 1px;
+    padding: 2px;
+    text-align: justify;
+    vertical-align: middle;
+    width: 90%;
+}
+
+input[type=button].bb {
+    text-align: center;
+}
+
+label.bb {
+    margin-right: 8px;
+    width: auto;
+}
+
+.bookmark {
+    margin: 2px;
+    padding: 4px;
+    width: 90%;
 }
 
 .bug {
