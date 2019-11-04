@@ -1,9 +1,9 @@
-// biosf.js 20191023 dfgchiang
+// bb.js 20191023 dfgchiang
 // REQ amdjs
 /*global console*/
 /* eslint no-console: "off" */
 
-console.log('Loading biosf.js');
+console.log('Loading bb.js');
 var fieldcols = {
     "OBJECTID": "OID",
     "BookmarkID": "ID"
@@ -158,7 +158,8 @@ function initbb() {
 
     var bbcols = ['Author', 'Basemap', 'BookmarkID', 'Center', 'Description'
         , 'DSList', 'Filters', 'Labels', 'Layers', 'Link'
-        , 'Queries', 'Selections', 'Summary', 'Tags', 'Title', 'Tool', 'Zoom']; //=editablecolumns
+        , 'Queries', 'Selections', 'Summary', 'Tags', 'Title', 'Tool'
+                  , 'UserName', 'UserGroups', 'Zoom']; //=editablecolumns
     if ($('bb-fields') !== null) {
         var outv = $('bb-fields');
         for (var i = 0; i < bbcols.length; i++) {
@@ -371,4 +372,4 @@ function bbupdate() {
         console.log('bbclearBug: ' + err.message);
     });
 }
-console.log('LOADED biosf.js');
+console.log('LOADED bb.js');

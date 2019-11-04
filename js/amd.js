@@ -1,49 +1,63 @@
 // amd.js 20191023 dfgchiang
 console.log('Loading amd.js');
-
-var app = {
-    layers: [
-        {
-            id: "CalTrans_Lane_Closures",
-            url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
-            type: "kml",
-            name: "CalTrans Lane Closures"
-        },
-        {
-            id: "DFG_Properties:0",
-            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
-            type: "feature",
-            name: "CDFW Facilities"
-        }
-    ]
+let app = {
+    al: "",
+    alayer: {},
+    atool: {},
+    bl: "",
+    col: "",
+    dslist: "",
+    dsids: [],
+    id: "bios",
+    layers: {},
+    urlsearch: {},
+    version: 6,
+    xy: [],
+    zl: 10,
+    zoom: 10
 };
+deflayers = [
+    {
+        id: "CalTrans_Lane_Closures",
+        url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+        type: "kml",
+        name: "CalTrans Lane Closures"
+    },
+    {
+        id: "DFG_Properties:0",
+        url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
+        type: "feature",
+        name: "CDFW Facilities"
+    }];
+let GISSERVER = 'https://map.dfg.ca.gov';
 //=========================
 // AMD REQUIRED LOADER
 //=========================
-require([
+let amdlibs = [
     "esri/config",
     "esri/request",
     "esri/Graphic",
-            "esri/Map",
-            "esri/WebMap",
-            "esri/layers/CSVLayer",
-            "esri/layers/FeatureLayer",
-            "esri/layers/GeoJSONLayer",
+    "esri/Map",
+    "esri/WebMap",
+    "esri/layers/CSVLayer",
+    "esri/layers/FeatureLayer",
+    "esri/layers/GeoJSONLayer",
     "esri/layers/GraphicsLayer",
-            "esri/layers/MapImageLayer",
+    "esri/layers/MapImageLayer",
     "esri/layers/SceneLayer",
     "esri/layers/TileLayer",
     "esri/layers/WMSLayer",
-            "esri/tasks/IdentifyTask",
-            "esri/tasks/support/IdentifyParameters",
+    "esri/tasks/IdentifyTask",
+    "esri/tasks/support/IdentifyParameters",
     "esri/tasks/QueryTask",
     "esri/tasks/support/Query",
-            "esri/views/MapView",
-            "esri/views/SceneView",
-            "esri/widgets/Legend",
-            "esri/widgets/Expand",
+    "esri/views/MapView",
+    "esri/views/SceneView",
+    "esri/widgets/Legend",
+    "esri/widgets/Expand",
     "esri/widgets/FeatureForm"
-        ], function (
+];
+let amdfun = function (
     esriConfig,
     esriRequest,
     Graphic,
@@ -233,7 +247,7 @@ require([
     });
     // FEATURELAYER
     var featureLayer = new FeatureLayer({
-        url: app.layers[1].url
+        url: deflayers[1].url
     });
     // carbon storage of trees in Warren Wilson College 
     //url="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
@@ -430,9 +444,12 @@ require([
     });
     //-- INIT CUSTOM TOOLS
     initbb();
-    // DONE AMD REQUIRED LOADER
-});
-// APP.STARTUP.INIT
+    // DONE AMD REQUIRED LOADER FUNCTION
+}
+require(amdlibs, amdfun);
+//======================================
+// NON-AMD REQUIRED APP.STARTUP.INIT
+//======================================
 window.addEventListener('load', function () {
     if (location.search !== '') {
         var s = location.search.substr(1);

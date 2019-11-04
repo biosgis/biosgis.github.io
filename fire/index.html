@@ -27,17 +27,17 @@
     <script src="https://js.arcgis.com/4.13/"></script>
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <script>
-        var avn = 20191030;
+        var avn = 20191102;
         var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
         var fullversion = bvn + '.' + avn.toString().substr(6, 2);
         var rv = (Math.random() * 10).toFixed(5);
         var ssid = 't' + Date.now() + 'r' + parseInt(rv * 10000); //parseInt(Math.random() * 1000000);//=SESSIONID
-        var cssfiles = ['../css/main.css'];
-        var jsfiles = ['../js/amd.js', '../js/biosf.js'];
+        var cssfiles = ['main.css'];
+        var jsfiles = ['amd.js', 'ace.js', 'bb.js', 'biosv.js', 'tests.js'];
         for (var i = 0; i < cssfiles.length; i++) {
             let x = document.createElement('link');
             x.setAttribute('rel', 'stylesheet');
-            x.href = cssfiles[i] + '?' + rv;
+            x.href = '../css/' + cssfiles[i] + '?' + rv;
             document.head.appendChild(x);
         }
 
@@ -45,7 +45,7 @@
             if (files.length === 0) {
                 return;
             }
-            let f = files.shift();
+            let f = '../js/' + files.shift();
             let x = document.createElement('script');
             x.type = 'text/javascript';
             x.src = f + '?v=' + rv;
@@ -55,27 +55,6 @@
             document.head.appendChild(x);
         }
         addlibs(jsfiles, rv);
-
-        function testOidstr() {
-            // TEST OIDstring length of 1..500 takes 1893 varchar column space
-            var ar = [];
-            for (var i = 1; i < 2001; i++) {
-                ar.push(i);
-            }
-            return ar;
-        }
-
-        function testOfLoop() {
-            // TEST SHOWS FOR-OF-LOOP ITERATION OF HTML COLLECTION FAILS IN IE&EDGE
-            for (var x of document.getElementsByClassName('closer')) {
-                x.style.border = '1px solid pink';
-            }
-        }
-
-        function jtests() {
-            //$('msgdiv').innerHTML = nup().toString();
-            //testOfLoop();//FAIL-IE            
-        }
 
         window.addEventListener('load', function() {
             console.log('DOM loaded');
@@ -169,7 +148,7 @@
                     <input type="button" id="bb-load" value="Load" title="Load bookmark">
                     <input type="button" id="bb-remove" value="Remove" title="Delete bookmarks by IDs">
                 </div>
-                <div id="bbtablediv">
+                <div id="bbtablediv" style="height: 40%;">
                     <table id="bbtable" class="bbtable"></table>
                 </div>
             </article>
@@ -207,6 +186,27 @@
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div class="maindiv">
+            <article>
+                <h3>
+                    User Added Layers
+                </h3>
+                <div class="padded">
+                </div>
+            </article>
+            <article>
+                <h3>
+                    BIOS Layers
+                </h3>
+                <div class="padded">
+                </div>
+            </article>
+            <article>
+                <h3>
+                    Operational Layers
+                </h3>
+                <div class="padded">
+                </div>
+            </article>
             <article>
                 <h3>
                     Reference Layers
