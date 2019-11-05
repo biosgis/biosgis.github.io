@@ -1,6 +1,21 @@
 // biosv.js 20190927 dfgchiang
 console.log('Loading biosv.js');
 const esriFieldTypesNumber = 'esriFieldTypeDouble,esriFieldTypeFloat,esriFieldTypeInteger,esriFieldTypeOID,esriFieldTypeSmallInteger';
+const esriFieldTypeToColumnType = {
+    "esriFieldTypeBlob": "image",
+    "esriFieldTypeDate": "date",
+    "esriFieldTypeDouble": "number",
+    "esriFieldTypeGeometry": "object",
+    "esriFieldTypeGlobalID": "text",
+    "esriFieldTypeGUID": "text",
+    "esriFieldTypeInteger": "number",
+    "esriFieldTypeOID": "number",
+    "esriFieldTypeRaster": "image",
+    "esriFieldTypeSingle": "number",
+    "esriFieldTypeSmallInteger": "number",
+    "esriFieldTypeString": "text",
+    "esriFieldTypeXML": "text"
+}
 
 function appstart() {
     // APP.START
@@ -46,4 +61,35 @@ function appstart() {
     }
 }
 app.start = appstart;
-console.log('LOADED biosv.js');
+
+function geturlarg(key) {
+    // GET LOCATION.SEARCH PARAMETER KEY VALUE--20190128
+    var val = '';
+    if (location.search.indexOf(key + '=') > 0) {
+        var val = location.search.split(key + '=')[1].split('&')[0];
+        if (val !== undefined && val !== null & val !== '') {
+            val = decodeURIComponent(val);
+        }
+    }
+    return val;
+}
+
+function toctugtiletwin(urid, vis) {
+    var tlid = urid.replace('_f', '_c');
+    if (map.findLayerById(tlid) !== undefined) {
+        map.findLayerById(tlid).visible = vis;
+        if (vis === true) {
+            map.findLayerById(urid).minScale = 72000;
+        } else {
+            map.findLayerById(urid).minScale = 0;
+        }
+        return tlid;
+    } else {
+        return null;
+    }
+}
+
+function xysplit(s) {
+    return [parseFloat(s.split(',')[0]), parseFloat(s.split(',')[1])];
+}
+console.log('Loaded biosv.js');
