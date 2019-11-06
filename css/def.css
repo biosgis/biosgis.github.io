@@ -49,23 +49,28 @@ footer {
 h1 {
     font-family: fantasy;
     margin-top: 0;
+    position: relative;
 }
 
 h2 {
     border-top: 1px solid floralwhite;
     font-family: Arial, sans-serif;
+    position: relative;
 }
 
 h3 {
     font-family: Georgia, serif;
+    position: relative;
 }
 
 h4 {
     font-family: Verdana, sans-serif;
+    position: relative;
 }
 
 h5 {
     font-family: 'Comic Sans MS', cursive;
+    position: relative;
 }
 
 h6 {

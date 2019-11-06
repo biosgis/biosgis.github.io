@@ -1,0 +1,385 @@
+/*
+Copyright © 2019, State of Grace, Department of Fun and Games, dfgchiang
+[MIT License](https://mit-license.org/)
+[GNU GPL v3](https://www.gnu.org/licenses/)
+[open-license](https://project-open-data.cio.gov/open-licenses/)
+[OpenGov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
+[FreeBSD](https://www.freebsd.org/copyright/freebsd-license.html)
+*/
+/* 
+    Created on : Nov 12, 2018, 1:01:49 PM
+    Author     : dean
+*/
+html,
+body,
+#mapview {
+    background-color: white;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+aside {
+    position: fixed; right: 0; top: 50px; bottom: 0;
+    height: auto; width: 35%;
+    background-color: white;
+    border-left: 1px solid silver;
+    overflow: hidden;
+    padding-bottom: 40px;
+    z-index: 300;
+}
+button {
+    font-size: 80%;
+}
+details {
+    border-bottom: 1px solid transparent;
+    margin: 1px 2px 3px 4px;
+    overflow: auto;
+    padding-left: 5px;
+}
+details > ol {
+    margin-left: 2%;
+}
+footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: auto; width: 100%;
+    background-color: rgba(255, 255, 255, 0.66);
+    border-top: 1px solid silver;
+    font-family: monospace;
+    font-size: 110%;
+    overflow: hidden;
+    padding: 5px 10px 20px 10px;
+    z-index: 200;
+}
+h1 {
+    cursor: default;
+    margin: 0;
+    padding: 2px 8px;
+}
+h2 {
+    border-bottom: 1px solid silver;
+    cursor: default;
+    margin: 0;
+    padding: 1px;
+}
+h2 > span {
+    font-size: 123%;
+}
+h3 {
+    background-color: ghostwhite;
+    border-bottom: 1px solid silver;
+    border-top: 1px solid gainsboro;/*cadetblue*/
+    cursor: default;
+    margin: 0;
+    padding: 2px;
+}
+h3 > span {
+    font-size: 123%;
+}
+h4 {
+    background-color: whitesmoke;
+    border: 1px solid silver;
+    border-width: 1px 0;
+    cursor: default;
+    padding: 2px;
+    text-align: center;
+}
+h4 > a {
+    font-size: 123%;
+    margin: 0 8px;
+    padding: 0 8px;
+    text-decoration: none;
+}
+header {
+    position: fixed; left: 0; right: 0; top: 0;
+    height: 80px; width: 100%;
+    border-bottom: 1px solid silver;
+    overflow: hidden;
+    z-index: 300;
+}
+input {
+    font-size: 80%;
+    padding: 4px;
+}
+input.min-menu {
+    width: 88%;
+}
+main {
+    position: fixed; left: 0; top: 50px; right: 0; bottom: 0;
+    overflow: hidden;
+    z-index: 100;
+}
+nav {
+    position: fixed; left: 0; top: 0;
+    height: 50px; width: 100%;
+    background-color: white;
+    border-bottom: 1px solid silver;
+    overflow: hidden;
+    vertical-align: middle;
+    z-index: 400;
+}
+nav h2 {
+    float: left;
+    margin: 0;
+    border-bottom: 0;
+    border-left: 1px solid silver;
+    line-height: 50px;
+    padding: 1px 10px;
+}
+nav h2:hover {
+    background-color: aliceblue;
+    border-left: 1px solid silver;
+}
+nav div {
+    border: 1px solid transparent;
+    border-top: 5px solid transparent;
+    height: inherit;
+    margin-left: 8px;
+    padding: 4px 8px;
+    vertical-align: middle;
+}
+nav div:hover {
+    background-color: aliceblue;
+    border: 1px solid silver;
+    border-top: 5px solid silver;
+}
+ol.min-menu {
+    border: 1px solid silver;
+    border-width: 0 1px;
+    margin: 0;
+    padding: 0;
+}
+ol.min-menu li {
+    background-color: white;
+    border: 1px solid silver;
+    border-width: 0 0 1px 0;
+    margin: 0;
+    padding: 2px 8px;
+}
+ol.min-menu li:hover {
+    background-color: aliceblue;
+    border: 1px solid steelblue;
+    border-width: 0 0 1px 0;
+}
+ol.min-menu input {
+    width: 88%;
+}
+.table {
+    border: 1px solid silver;
+    border-collapse: collapse;
+    /*table-layout: fixed;*/
+}
+.th {
+    border: 1px solid silver;
+    border-bottom: 2px;
+    /*display: inline-block;*/
+    font-weight: bold;
+    padding: 1px 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+.td {
+    border: 1px solid silver;
+    overflow: hidden;
+    vertical-align: top;
+}
+table.btable {
+    position: relative;
+    height: 96%;
+    table-layout: fixed;
+    width: auto;
+    border: 1px solid silver;
+    border-collapse: collapse;
+}
+table.btable thead {
+    position: relative;
+    height: 33px;/*MUST HAVE FOR IE11, EDGE, MOZ 20181128*/
+    display: table;
+    background-color: azure;
+    border-bottom: 2px solid dimgray;
+    z-index: 310;
+}
+/* thead relative and tbody absolute together makes tbody auto scroll while thead fixed but cell widths still problem */
+table.btable tbody {
+    position: absolute; top: 33px;/*if output extra header row else bumped down 33px*/
+    height: 88%;
+    overflow-y: auto;
+    border-top: 2px solid dimgray;
+}
+table.btable td {
+    border: 1px solid gainsboro;
+    /*max-width: 100px;*/
+    overflow: hidden;
+    padding: 1px 5px;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+}
+table.btable th {
+    background-color: azure;
+    border: 1px solid gray;
+    border-bottom: 2px solid dimgray;
+    /*min-width: 100px;*/
+    overflow: hidden;
+    padding: 1px 5px;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+    z-index: 321;
+}
+table.btable tr:hover {
+    background-color: aliceblue;
+}
+table.btable tr:nth-child(even) {
+    background-color: whitesmoke;
+}
+table.btable tr:nth-child(even):hover {
+    background-color: aliceblue;
+}
+/* BOOKMARKSTYLES */
+#bm-tool {
+    border: 1px solid silver;
+}
+.bm {
+    /*font-size: 90%;*/
+    margin: 2px;
+    padding: 4px;
+    text-align: justify;
+    vertical-align: middle;
+    width: 90%;
+}
+input[type=button].bm {
+    text-align: center;
+}
+label.bm {
+    margin-right: 8px;
+    width: auto;
+}
+.bookmark {
+    margin: 2px;
+    padding: 4px;
+    width: 90%;
+}
+.go {
+    cursor: default;
+}
+.go:hover {
+    background-color: ivory;
+}
+#catalog {
+    position: fixed; bottom: 5%; left: 5%; right: 5%; top: 50px;
+    height: auto; width: 90%;
+    background-color: white;
+    border: 2px solid silver;
+    overflow: hidden;
+    padding-bottom: 40px;
+    box-shadow: dimgray 5px 5px 5px;
+    z-index: 400;
+}
+#databar {
+    position: fixed; bottom: 0; left: 0; right: 35%;
+    height: 35%; width: 65%;
+    background-color: white;
+    border: 1px solid silver;
+    border-width: 1px 1px 0 0;
+    box-shadow: gray 5px 5px 5px;
+    overflow: hidden;
+    padding-bottom: 20px;
+    z-index: 200;
+}
+#mapview {
+    position: absolute;
+}
+#msgbar {
+    position: fixed; bottom: 0; right: 0;
+    height: 50%; width: 50%;
+    background-color: whitesmoke;
+    border: 2px solid silver;
+    font-family: monospace;
+    overflow: hidden;
+    z-index: 500;
+}
+#msgbox {
+    position: relative; height: 90%; width: 100%;
+    overflow: auto;
+    padding: 5px;
+}
+#msgbtn {
+    position: fixed; bottom: 0; right: 20px;
+    z-index: 500;
+}
+
+.closer {
+    border: 1px solid transparent;
+    cursor: default;
+    font-size: 100%;
+    float: right;
+    margin-left: 5px;
+}
+.closer:hover {
+    background-color: aliceblue;
+    border: 1px solid azure;
+}
+.panel-aside {
+    position: relative;
+    height: 96%;
+    overflow: auto;
+}
+.panel-bin {
+    position: relative;
+    height: 98%;
+}
+.panel-main {
+    position: relative;
+    height: 85%; width: 100%;
+    overflow: auto;
+}
+.togl {
+    border: 1px solid silver;
+    font-size: inherit;
+    margin: 2px 5px;
+    padding: 4px 8px;
+}
+.togl:hover {
+    background-color: aliceblue;
+}
+.fuzz {
+    background-color: whitesmoke;
+    border-radius: 5px;
+    color: whitesmoke;
+    padding: 5px;
+}
+/*--- apply-edit.css ---*/
+input:invalid {
+    border: 1px solid red;
+}
+input:valid {
+    border: 1px solid green;
+}
+/* override default style */
+.esri-feature-form {
+    background: #fff;
+    padding: 0;
+}
+
+@media only screen and (min-width: 1400px) {
+    body {
+        font-size: 123%;
+    }
+}
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 1em;
+    }
+}
+@media print {
+    footer {
+        display: block;
+    }
+    header {
+        display: block;
+    }
+    nav {
+        display: none;
+    }
+}

@@ -5,6 +5,19 @@ var toc = {
     name: "Contents"
 }
 
+function applayerprops(urid) {
+    if (app.layers[urid] === undefined) {
+        app.layers[urid] = {
+            "def": null,
+            "filterg": null,
+            "oids": [],
+            "selectg": null,
+            "sql": null
+        };
+    }
+
+}
+
 function toggletiletwin(urid, visible) {
     // FIND THE TILE LAYER TWIN OF A BIOS FEATURE LAYER AND TURN IT ON OR OFF
     if ($(urid + '-check') !== undefined) {

@@ -58,7 +58,7 @@ footer {
 h1 {
     position: relative;
     cursor: default;
-    margin-top: 0;
+    margin: 0;
 }
 
 h2 {
@@ -173,7 +173,7 @@ span.closer {
     cursor: default;
     float: right;
     font-size: large;
-    margin-right: 1%;
+    margin-right: 5px;
     padding: 2px 4px;
 }
 
@@ -294,7 +294,6 @@ label.bb {
     height: 88%;
     clear: both;
     overflow: auto;
-    padding-bottom: 5px;
 }
 
 .margined {
@@ -328,6 +327,28 @@ label.bb {
     height: 45%;
     width: 100%;
     overflow: auto;
+}
+
+#hey {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    background-color: rgb(100, 100, 100, 0.5);
+    display: flex;
+    justify-content: center;
+}
+
+/*
+#hey::before {
+    opacity: 0.66;
+}*/
+
+#hello {
+    background-color: white;
+    border: 5px solid lavenderblush;
+    border-radius: 5px;
+    opacity: 1.0;
 }
 
 #loadingbar {
@@ -377,7 +398,7 @@ label.bb {
     z-index: 999;
 }
 
-/*        ESRIAN CSS*/
+/* ------------ESRIAN CSS---------------*/
 #viewDiv {
     position: absolute;
     left: 0;

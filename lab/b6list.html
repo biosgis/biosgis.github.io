@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>bios6tasklist</title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="dfgchiang">
+    <meta name="description" content="">
+    <meta name="generator" content="biosgis-20181102">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.9/"></script>
+    <link rel="stylesheet" href="https://biosgis.github.io/css/dotty.css">
+    <script src="https://biosgis.github.io/js/dotty.js"></script>
+    <style>
+        html,
+        body,
+        #mapview {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+        body {
+            font-family: Consolas, Monaco, monospace;
+            font-size: 123%;
+            margin: 0;
+            padding: 0;
+        }
+        aside {
+            position: fixed; bottom: 0; right: 0; top: 70px;
+            height: auto; width: 30%;
+            background-color: white;
+            border-left: 2px solid silver;
+            overflow: hidden;
+            z-index: 300;
+        }
+        button {
+            font-size: 75%;
+        }
+        details {
+            border-bottom: 1px solid cadetblue;
+            margin: 1%;
+            padding-left: 2%;
+        }
+        footer {
+            position: fixed; bottom: 0; left: 0; right: 30%;
+            height: 60%; width: auto;
+            border-top: 2px solid silver;
+            background-color: white;
+            overflow: hidden;
+            z-index: 200;
+        }
+        h1 {
+            margin: 0;
+        }
+        h2 {
+            border-bottom: 1px solid silver;
+            margin: 0;
+            position: relative;
+        }
+        h3 {
+            border-bottom: 1px solid silver;
+            margin: 0;
+            position: relative;
+        }
+        h4 {
+            border-bottom: 1px solid slategray;
+            margin: 0;
+            position: relative;
+        }
+        header {
+            position: fixed; top: 0; left: 0;
+            height: 50px; width: 100%;
+            border-bottom: 1px solid silver;
+            background-color: whitesmoke;
+            opacity: 0.66;
+            z-index: 300;
+        }
+        input {
+            font-size: 80%;
+        }
+        main {
+            position: fixed; bottom: 0; left: 0; right: 0; top: 0;
+            height: 100%; width: 100%;
+            background-color: antiquewhite;
+            z-index: 100;
+        }
+        nav {
+            position: fixed; top: 50px; left: 0; right: 0;
+            height: auto; width: 100%;
+            background-color: ghostwhite;
+            border: 1px solid silver;
+            border-width: 1px 0 2px 0;
+            z-index: 400;
+        }
+        nav a {
+            border-right: 1px solid silver;
+            padding: 2px 5px;
+            text-decoration: none;
+        }
+        table {
+            border: 1px solid silver;
+            border-collapse: collapse;
+        }
+        th {
+            border: 1px solid dimgray;
+            border-bottom: 2px;
+            padding: 2px 5px;
+        }
+        td {
+            border: 1px solid gainsboro;
+            vertical-align: top;
+            white-space: nowrap;
+            overflow: hidden;
+            padding: 2px;
+            text-overflow: ellipsis;
+            width: auto;
+        }
+        table.bgrid tr:hover {
+            background-color: ivory;
+        }
+        table.bgrid tr:nth-child(even) {
+            background-color: whitesmoke;
+        }
+        table.bgrid tr:nth-child(even):hover {
+            background-color: ivory;
+        }
+        #info {
+            position: fixed; right: 30%; top: 70px;
+            height: auto; max-width: 66%;
+            background-color: white;
+            border: 1px solid silver;
+            font-size: smaller;
+            padding: 5px;
+            z-index: 120;
+        }
+        #formDiv {
+            height: 80%;
+            overflow: auto;
+        }
+        #mapview {
+            position: absolute; top: 70px; left: 0; right: 0; bottom: 0;
+            height: auto; width: 100%;
+        }
+        #msgbin {
+            position: fixed; right: 0; bottom: 0;
+            height: 30%; width: 60%;
+            border: 2px solid silver;
+            overflow: hidden;
+        }
+        .closer {
+            cursor: default;
+            float: right;
+            margin: 5px;
+        }
+        .closer:hover {
+            background-color: ghostwhite;
+        }
+        .go {
+            cursor: default;
+        }
+        .go:hover {
+            background-color: pink;
+            cursor: pointer;
+        }
+        .panel-aside {
+            position: relative;
+            height: 85%;
+            overflow: auto;
+        }
+        .panel-data {
+            position: relative;
+            height: 90%;
+            overflow: auto;
+        }
+        .panel-foot {
+            position: absolute; bottom: 0;
+            background-color: ghostwhite;
+        }
+        .spanbt {
+            border: 1px solid silver;
+            padding: 2px;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function () {
+            om = poplinks();
+        });
+    </script>
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/FeatureLayer",
+            "esri/Graphic",
+            "esri/geometry/Polygon",
+            "esri/widgets/Expand",
+            "esri/widgets/FeatureForm",
+            "esri/request",
+            "esri/tasks/QueryTask",
+            "esri/tasks/support/Query",
+            "dojo/dom",
+            "dojo/on",
+            "dojo/domReady!"
+        ], function (
+            Map, MapView,
+            FeatureLayer,
+            Graphic, Polygon,
+            Expand, FeatureForm,
+            esriRequest,
+            QueryTask, Query,
+            dom, on
+        ) {
+            console.log('DO AMD REQUIRED');
+
+            let editFeature, highlight, featureForm, editArea, attributeEditing, updateInstructionDiv;
+            var url = 'https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/bios6dev/FeatureServer/0';
+            var outfields = ['OBJECTID', 'HEX25_ID', 'Title', 'Summary', 'Description', 'Type', 'Created', 'Status', 'Author', 'Assigned', 'Tags', 'Link'];
+            var showfields = ['OBJECTID', 'Title', 'Summary', 'Description', 'Type', 'Status', 'Assigned', 'Tags', 'Link', 'Author', 'Created'];
+            const backlog = new FeatureLayer({
+                url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/bios6dev/FeatureServer/0",
+                outFields: ["*"],
+                popupEnabled: false,
+                id: "bios6dev"
+                //visible: false
+            });
+            backlog.visible = true;// false; // to hide layer
+            const map = new Map({
+                basemap: "hybrid", //streets, satellite, hybrid, topo, gray, dark-gray, oceans, national-geographic, terrain, osm
+                layers: [backlog]
+            });
+            // State centroid at North Fork, CA is [-119.443, 37.1597]
+            const mapview = new MapView({
+                container: "mapview",
+                map: map,
+                center: [-124.0816667, 40.8666667],//=Arcada [-121.47, 38.576],//
+                zoom: 9
+            });
+            function getnew() {
+                let query = new Query();
+                query.where = "Title IS NULL";
+                query.orderByFields = ['OBJECTID'];//ASC DESC
+                query.outFields = outfields;// ['*'];
+                //query.returnDistinctValues = true;
+                //query.returnGeometry = false;
+                let queryTask = new QueryTask({
+                    url: url
+                });
+                queryTask.execute(query).then(function (res) {
+                    console.log('getnew: ' + res.features.length);
+                    editFeature = res.features[0];
+                    featureForm.feature = editFeature;
+                    $('OBJECTID').value = res.features[0].attributes['OBJECTID'];
+                    if (editFeature.attributes['Title'] === null) {
+                        $('editmode').innerHTML = 'New';
+                    } else {
+                        $('editmode').innerHTML = 'Edit';
+                    }
+                });
+            }
+            function getrow(oid) {
+                let query = new Query();
+                query.where = "OBJECTID = " + oid;
+                query.outFields = outfields;// ['*'];
+                //query.returnGeometry = false;
+                let queryTask = new QueryTask({
+                    url: url
+                });
+                queryTask.execute(query).then(function (res) {
+                    console.log('CALLBACK getrow: ' + res.features.length);
+                    editFeature = res.features[0];
+                    featureForm.feature = editFeature;
+                    $('OBJECTID').value = res.features[0].attributes['OBJECTID'];
+                    if (editFeature.attributes['Title'] === null) {
+                        $('editmode').innerHTML = 'New';
+                    } else {
+                        $('editmode').innerHTML = 'Edit';
+                    }
+                });
+            }
+            function getrows() {
+                let query = new Query();
+                query.where = "OBJECTID > 0 AND Title IS NOT NULL";
+                query.orderByFields = ['OBJECTID'];//ASC DESC
+                query.outFields = showfields;
+                //query.start = 0;
+                //query.num = 10;
+                let queryTask = new QueryTask({
+                    url: url
+                });
+                queryTask.execute(query).then(function (res) {
+                    console.log('getrows: ' + res.features.length);
+                    var outdiv = $('databar-rows');
+                    outdiv.innerHTML = '';
+                    var tbl = outtable(res.features);
+                    outdiv.appendChild(tbl);
+                });
+            }
+            function outtable(features) {
+                var table = document.createElement('table');
+                table.classList.add('bgrid');
+                var hrow = table.insertRow(0);
+                var attributes = features[0].attributes;
+                for (var key in attributes) {
+                    var hcol = document.createElement('th');
+                    hcol.innerHTML = key;
+                    hrow.appendChild(hcol);
+                }
+                for (var i = 0; i < features.length; i++) {
+                    var row = table.insertRow(table.rows.length);
+                    var attributes = features[i].attributes;
+                    var k = 0;
+                    for (var key in attributes) {
+                        var val = attributes[key];
+                        var cell = row.insertCell(k);
+                        cell.innerHTML = val;
+                        if (key === 'OBJECTID') {
+                            cell.innerHTML = val;
+                            cell.title = 'Edit';
+                            cell.classList.add('go');
+                            cell.onclick = function () {
+                                getrow(parseInt(this.innerHTML));
+                                //20181109 ERROR: attributes[key] and console.log(val) are null at runtime
+                            }
+                        } else if (val !== null) {
+                            if (key === 'Summary' || key === 'Description' || key === 'Tags') {
+                                cell.innerHTML = val.substr(0, 24);
+                                cell.style.width = '100px'; // 20181109 FAIL?
+                                cell.title = val;
+                            } else if (key === 'Link') {
+                                if (val.indexOf('/') === 0 || val.indexOf('http') === 0) {
+                                    cell.innerHTML = '<a href="' + val + '" target="_blank">Open</a>';
+                                }
+                            } else if (key === 'Created') {
+                                var d = new Date(parseInt(val));
+                                cell.innerHTML = d.toLocaleDateString();
+                            } else {
+                                cell.innerHTML = val;
+                            }
+                        }
+                        k += 1;
+                    }
+                }
+                return table;
+            }
+            // *****************************************************
+            // Highlights the clicked incident feature and display
+            // the feature form with the incident's attributes.
+            // *****************************************************
+            function selectFeature(objectId) {
+                // query feature from the server
+                backlog.queryFeatures({
+                    objectIds: [objectId],
+                    outFields: ["*"],
+                    returnGeometry: true
+                }).then(function (results) {
+                    if (results.features.length > 0) {
+                        editFeature = results.features[0];
+
+                        // display the attributes of selected feature in the form
+                        featureForm.feature = editFeature;
+
+                        // highlight the feature on the mapview
+                        mapview.whenLayerView(editFeature.layer).then(function (layerView) {
+                            highlight = layerView.highlight(editFeature);
+                            mapview.goTo({ target: editFeature, zoom: 9 });
+                        });
+
+                    }
+                });
+            }
+            // Call FeatureLayer.applyEdits() with specified params.
+            function applyEdits(params) {
+                //unselectFeature();
+                backlog.applyEdits(params).then(function (editsResult) {
+                    // Get the objectId of the newly added feature.
+                    // Call selectFeature function to highlight the new feature.
+                    if (editsResult.updateFeatureResults.length > 0) {
+                        const objectId = editsResult.updateFeatureResults[0].objectId;
+                        selectFeature(objectId);
+                    }
+                })
+                .catch(function (error) {
+                    console.log("===============================================");
+                    console.error("[ applyEdits ] FAILURE: ", error.code, error.name,
+                      error.message);
+                    console.log("error = ", error);
+                });
+            }
+            function setupEdit() {
+                featureForm = new FeatureForm({
+                    container: "formDiv",
+                    layer: backlog
+                });
+                // Listen to the feature form's submit event.
+                featureForm.on("submit", function () {
+                    if (editFeature) {
+                        // Grab updated attributes from the form.
+                        const updated = featureForm.getValues();
+
+                        // Loop through updated attributes and assign
+                        // the updated values to feature attributes.
+                        Object.keys(updated).forEach(function (name) {
+                            editFeature.attributes[name] = updated[name];
+                        });
+                        // Set defaults
+                        if ($('editmode').innerHTML === 'New') {
+                            editFeature.attributes['Created'] = new Date().getTime();
+                        }
+                        if (editFeature.attributes['Type'] === null || editFeature.attributes['Type'] === '') {
+                            editFeature.attributes['Type'] = 'feature';
+                        }
+                        if (editFeature.attributes['Status'] === null || editFeature.attributes['Status'] === '') {
+                            editFeature.attributes['Status'] = 'todo';
+                        }
+                        if (editFeature.attributes['Tags'] === null || editFeature.attributes['Tags'] === '') {
+                            editFeature.attributes['Tags'] = 'code';
+                        }
+                        // Setup the applyEdits parameter with updates.
+                        const edits = {
+                            updateFeatures: [editFeature]
+                        };
+                        applyEdits(edits);
+                    }
+                });
+
+                // Update attributes of the selected feature.
+                document.getElementById("btnUpdate").onclick = function () {
+                    // Fires feature form's submit event.
+                    featureForm.submit();
+                }
+                // UI ACTIONS
+                $('databar-reload').onclick = function () {
+                    getrows();
+                }
+                $('lastrow').onclick = function () {
+                    getrow(parseInt($('OBJECTID').value) - 1);
+                }
+                $('newrow').onclick = function () {
+                    getnew();
+                }
+                $('nextrow').onclick = function () {
+                    getrow(parseInt($('OBJECTID').value) + 1);
+                }
+            }
+            setupEdit();
+            getnew();
+            getrows();
+            console.log('DONE AMD REQUIRED');
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Bios 6 Task List</h1>
+    </header>
+    <nav>
+        <a href="https://map.dfg.ca.gov/ace?log=off">ACE</a>
+        <a href="https://map.dfg.ca.gov/bios?log=off">BIOS</a>
+        <a href="https://apps.wildlife.ca.gov/bios?log=off">Bios5</a>
+        <a href="https://apps.wildlife.ca.gov/bios?bookmark=326">CNDDB</a>
+        <a href="https://map.dfg.ca.gov/fishing?log=off">Fishing</a>
+        <a href="https://map.dfg.ca.gov/lands?log=off">Lands</a>
+        <a href="https://map.dfg.ca.gov/marine?log=off">Marine</a>
+        <a href="https://appsdev.wildlife.ca.gov/bios6">Bios6</a>
+        <a href="https://cdfw-my.sharepoint.com/:x:/r/personal/steve_goldman_wildlife_ca_gov/_layouts/15/Doc.aspx?sourcedoc=%7BFA3C8DDA-4C64-4D33-9AEB-D1EDC5DB460A%7D&file=BIOS%206%20Task%20List.xlsx">Tasklist</a>
+        <button id="nav-map" onclick="hide('tools');hide('databar');hide('info');show('nav-tools');hidex(this);">MAP</button>
+        <button id="nav-tools" onclick="show('tools');show('databar');show('info');show('nav-map');hidex(this);" style="display: none;">TOOLS</button>
+    </nav>
+    <main>
+        <div id="mapview"></div>
+    </main>
+    <aside id="tools">
+        <h2>
+            Issue
+            <button id="lastrow">Prev</button>
+            <button id="nextrow">Next</button>
+            <button id="newrow">New</button>
+            <span class="esri-icon-close closer" onclick="hidex(this.parentNode.parentNode);"></span>
+        </h2>
+        <h3>
+            Enter issue information
+            (<span id="editmode">New</span>)
+        </h3>
+        <label for="OBJECTID">OBJECTID</label>
+        <input type="text" id="OBJECTID" value="" />
+        <div class="panel-aside" id="featureUpdateDiv">
+            <div id="attributeArea">
+                <div id="formDiv"></div>
+                <input type="button" class="edit-button" value="Update Issue" id="btnUpdate">
+            </div>
+        </div>
+    </aside>
+    <div id="info">
+        <h4>
+            Domain Code/Values
+            <span class="esri-icon-close closer" onclick="hidex(this.parentNode.parentNode);"></span>
+        </h4>
+        <p>
+            Type: app, bookmark, bug, change, code, data, error, feature, map, 
+            project, service, task, url, website, people, organization
+        </p>
+        <p>
+            Status: todo/To-Do (do), wip/Work In Progress (doing), done/Done, hold/Hold, 
+            fail/Fail, fixed/Fixed, testing/Testing, delivered/Released, public/Public, secure/Secure
+        </p>
+        <p>
+            Tags (suggested): app, bookmarks, code, contact, csv, data, feature-layer, 
+            FeatureServer, file, function, gdb, imagery, kml, map, map-data, 
+            map-service, MapServer, open-data, shpfile, tiles, tool, urlquery, web-service
+        </p>
+    </div>
+    <footer id="databar">
+        <h2>
+            Backlog
+            <button class="esri-icon-refresh" id="databar-reload"></button>
+            <button class="esri-icon-close" onclick="hidex(this.parentNode.parentNode);" style="float: right;"></button>
+            <span style="float: right; font-family: monospace; font-size: 80%; margin-right: 8px;">
+                <script>
+                document.write(document.lastModified);
+                </script>
+            </span>
+        </h2>
+        <div class="panel-data" id="databar-rows"></div>
+    </footer>
+    <div id="msgbin" style="display: none;">
+        <details>
+            <summary>Dev Log</summary>
+            <ol>
+                <li>
+                    20181106 Can add new record and refresh table, and
+                    toggle between map view and tools view.
+                </li>
+            </ol>
+        </details>
+        <div id="msgbox">
+        </div>
+    </div>
+</body>
+</html>

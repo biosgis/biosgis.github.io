@@ -1,4 +1,39 @@
 // tools.js 20191104 dfgchiang
+var tools = {
+    "toollist": {
+        name: "Tools",
+        iconclass: "esri-icon-settings2",
+        group: "aside",
+        title: "Pick a tool"
+    },
+    "def": {
+        urid: "",
+        where: ""
+    },
+    "gfilter": {
+        urid: "",
+        geometry: null,
+        ototal: 0
+    },
+    "gselect": {
+        intool: {
+            urid: "",
+            features: [],
+            fields: ["*"],
+            geometry: "",
+            ototal: 0
+        },
+        name: "Select and Filter",
+        iconclass: "esri-icon-cursor",
+        group: "aside",
+        title: "Select and Filter"
+    },
+    "query": {
+        urid: "",
+        fields: ["*"],
+        where: ""
+    }
+}
 var gfilter = {
     id: "gfilter"
 }

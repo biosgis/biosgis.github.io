@@ -16,7 +16,24 @@ function testOfLoop() {
     }
 }
 
+function testjsons() {
+    let a = {};
+    let b = {
+        "ace3:3": {
+            where: "OID=1"
+        }
+    };
+    document.getElementById('msgbox').innerHTML += 'a={}; b={"ace3:3":{where:"OID=1"}}; <br>';
+    document.getElementById('msgbox').innerHTML += 'Is a blank json? ' + (a === {}) + '<br>';
+    document.getElementById('msgbox').innerHTML += 'Is a obj entries length zero? ' + (Object.entries(a).length === 0) + '<br>';
+    document.getElementById('msgbox').innerHTML += 'Is a empty json string? ' + (JSON.stringify(a) === JSON.stringify({})) + '<br>';
+    document.getElementById('msgbox').innerHTML += 'Is b blank json? ' + (b === {}) + '<br>';
+    delete b['ace3:3'];
+    document.getElementById('msgbox').innerHTML += 'Is b empty after delete? ' + (Object.entries(b).length === 0) + '<br>';
+}
+
 function jtests() {
     //$('msgdiv').innerHTML = nup().toString();
-    //testOfLoop();//FAIL-IE            
+    //testOfLoop();//FAIL-IE
+    testjsons();
 }

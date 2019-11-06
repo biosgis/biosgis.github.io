@@ -2,20 +2,130 @@
 console.log('Loading amd.js');
 let app = {
     al: "",
-    alayer: {},
-    atool: {},
-    bl: "",
+    alayer: {
+        def: "",
+        dfield: "",
+        lid: -1,
+        name: "",
+        orid: "",
+        sql: "",
+        type: "",
+        urid: "",
+        url: "",
+        urlast: ""
+    },
+    args: null, //=FOR SAVING TMP BOOKMARKPROPERTIES TO RESTORE
+    atool: {
+        geometry: null,
+        id: "",
+        oids: [],
+        selector: "",
+        target: "",
+        where: "",
+        xy: []
+    },
+    bl: "topo", // streets satellite hybrid topo gray dark-gray oceans national-geographic terrain osm
+    bookmark: null,
+    center: [-119.8, 37.67], //=lon,lat separated by comma or esriGeometryPoint
+    clientId: "O59X894aUmrlXei5", //=ArcGIS Developers Registered App ID
     col: "",
-    dslist: "",
+    def: null,
+    description: "Biogeographic Information Observation System",
+    dsid: 0,
     dsids: [],
+    dsl: [], //=dslist
+    dslist: "",
+    dsname: null,
+    dstags: null,
+    fields: [],
+    filterg: null,
+    graphics: [],
     id: "bios",
+    identify: {}, //aurid:{graphic: null, oids: []}
+    ingress: 0,
+    itemId: "ae32068bbd33404991cbb56fb2124ffb", //piid=portalItemId
+    json: {}, //=bookmarkJson
+    job: null,
+    labels: [],    lat: 37.67015,
+    latlon: [37.67, -119.82],
+    layerIds: [],
     layers: {},
-    urlsearch: {},
-    version: 6,
-    xy: [],
+    layerViews: {},
+    lid: -1, //TODO DEL?
+    lids: [],
+    ll: [37.67, -119.8], //=lat, lon
+    loaded: false,
+    lon: -119.80671,
+    mask: null,
+    mouse: null,
+    name: "Bios",
+    oids: [],
+    point: null,
+    defs: {}, //aurid: {where: ""}
+    filters: {}, //aurid:{graphic: null, count: 0}
+    selections: {}, //aurid:{graphic: null, count: 0, outFields: ["*"], selectlayer: "", features: []}
+    queries: {}, //aurid: {where: ""}
+    selectg: null,
+    sid: "",
+    site: "bios6",
+    sql: null,
+    status: 0,
+    subtask: null,
+    surl: "",
+    task: null,
+    timestart: (new Date()).getTime(),
+    title: "BIOS",
+    token: null,
+    tool: "",
+    urid: "",
+    url: window.location.href,
+    urlsearch: null, //=FOR ONE TIME STORE OF LOCATION SEARCH PARAMS
+    agolname: "anonymous", //=guest
+    agolgroups: "Everyone", //=Public
+    userName: "guest",
+    userGroups: "Public",
+    version: "6." + (parseInt((avn - 20170000) / 100) + 12) + "." + (avn % 100),
+    viewer: "bios",
+    x: -13535187.9774,
+    y: 4495589.15484,
+    xy: [-13535187.9774, 4495589.15484],
     zl: 10,
     zoom: 10
 };
+app.site = function () {
+    var y = 'bios6';
+    var x = location.pathname.replace(/^\/|\/$/g, '');
+    if (x.indexOf('/') < 0) {
+        if (x.indexOf('.') < 0) {
+            return x;
+        }
+    } else {
+        let a = x.split('/');
+        for (var i = 0; i < a.length; i++) {
+            let b = a.pop();
+            if (b.indexOf('.') < 0) {
+                return b;
+            }
+        }
+    }
+    return y;
+}();
+console.log('app.site=' + app.site);
+if (location.search.indexOf('viewer=') > 0) {
+    app.viewer = location.search.split('viewer=')[1].split('&')[0];
+    //    if (configs[app.viewer] != undefined) {
+    //        viewer = configs[app.viewer];
+    //        viewer.layers = configs[app.viewer].layers;
+    //    }
+    //} else if (configs[app.site] != undefined) {
+    //    viewer = configs[app.site];
+    //    viewer.layers = configs[app.site].layers;
+    //} else {
+    //    viewer = configs.bios;
+    //    viewer.layers = configs.bios.layers;
+}
+console.log('app.viewer=' + app.viewer);
+//TODO CONFIGURE VIEWER
 deflayers = [
     {
         id: "CalTrans_Lane_Closures",
