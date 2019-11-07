@@ -18,6 +18,37 @@ function applayerprops(urid) {
 
 }
 
+function tocActivate(urid) {
+    if (urid.indexOf(':') > 0) {
+        var sid = urid.split(':')[0];
+        var lid = parseInt(urid.split(':')[1]);
+    } else {
+        var sid = urid;
+        var lid = -1;
+    }
+    if (map.findLayerById(urid) !== undefined) {
+        activeLayer = map.findLayerById(urid);
+        $('altype').value = activeLayer.type;
+        if (activeLayer.type === 'feature') {
+            activeLayerView = mapview.layerViews.find(function (layerView) {
+                return layerView.layer.id === urid;
+            });
+            //addmsg('Found activeLayerView.layer.id = ' + activeLayerView.layer.id);
+        }
+    } else if (map.findLayerById(sid) !== undefined) {
+        activeLayer = map.findLayerById(sid);
+        activeLayerView = mapview.layerViews.find(function (layerView) {
+            return layerView.layer.id === urid;
+        }, function (error) {
+            console.log('Error activeLayerView: ' + error.message);
+            return null;
+        });
+        $('altype').value = activeLayer.type;
+    } else {
+        console.log('ERROR: UNKNOWN Layer FAILed to activate');
+    }
+}
+
 function toggletiletwin(urid, visible) {
     // FIND THE TILE LAYER TWIN OF A BIOS FEATURE LAYER AND TURN IT ON OR OFF
     if ($(urid + '-check') !== undefined) {

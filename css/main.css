@@ -108,19 +108,6 @@ input {
     margin: 2px;
 }
 
-nav {
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: white;
-    border-bottom: 1px solid slategray;
-    height: 50px;
-    overflow: hidden;
-    padding: 1px;
-    width: 100%;
-    z-index: 400;
-}
-
 main {
     position: absolute;
     bottom: 0;
@@ -131,6 +118,18 @@ main {
     border: 1px solid silver;
     height: auto;
     overflow: hidden;
+    width: 100%;
+}
+
+nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: white;
+    border-bottom: 1px solid slategray;
+    height: 50px;
+    overflow: hidden;
+    padding: 1px;
     width: 100%;
 }
 
@@ -331,6 +330,8 @@ label.bb {
 
 #hey {
     position: absolute;
+    left: 0;
+    top: 0;
     height: 100%;
     width: 100%;
     align-items: center;

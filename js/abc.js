@@ -13,40 +13,133 @@ var rv = (Math.random() * 10).toFixed(5);
 //================================
 // CORE COMMON Helpers (Dottyjs)
 //================================
-function $(id) { return document.getElementById(id); }
-function $class(x) { return document.getElementsByClassName(x); }
-function $name(x) { return document.getElementsByName(x); }
-function $tag(x) { return document.getElementsByTagName(x); }
-function add(a, b) { return a + b; }
-function addbrk(x) { return x + '<br />'; }//-20141111
-function addCss(id, x) { $(id).className += ' ' + x; }
-function bolden(x) { return '<b>' + x + '</b>'; }//-20141112
-function datestampoo() { return (new Date()).getTime(); }
-function echo(s) { console.log(s); }//-20170428
-function fillval(x, val) { $(x).innerHTML = val; show(x); }
-function tagh3(x) { return '<h3>' + x + '</h3>'; }//-20141112
-function hide(id) { $(id).style.display = 'none'; }
-function hid(id) { if ($(id).style.display === 'none') { return true; } else { return false; } }
-function pass(s) { var x = s; }
-function removeCss(id, x) { $(id).className.replace(x, ''); }
-function show(id) { $(id).style.display = ''; }
-function showing(id) { if ($(id).style.display !== 'none') { return true; } else { return false; } }
-function shown(id) { if ($(id).style.display !== 'none') { return true; } else { return false; } }
-function showTable(id) { $(id).style.display = 'table'; }
-function tagtitle(s) { this.title = s; }
+function $(id) {
+    return document.getElementById(id);
+}
+
+function $class(x) {
+    return document.getElementsByClassName(x);
+}
+
+function $name(x) {
+    return document.getElementsByName(x);
+}
+
+function $tag(x) {
+    return document.getElementsByTagName(x);
+}
+
+function add(a, b) {
+    return a + b;
+}
+
+function addbrk(x) {
+    return x + '<br />';
+} //-20141111
+function addCss(id, x) {
+    $(id).className += ' ' + x;
+}
+
+function bolden(x) {
+    return '<b>' + x + '</b>';
+} //-20141112
+function datestampoo() {
+    return (new Date()).getTime();
+}
+
+function echo(s) {
+    console.log(s);
+} //-20170428
+function fillval(x, val) {
+    $(x).innerHTML = val;
+    show(x);
+}
+
+function tagh3(x) {
+    return '<h3>' + x + '</h3>';
+} //-20141112
+function hide(id) {
+    $(id).style.display = 'none';
+}
+
+function hid(id) {
+    if ($(id).style.display === 'none') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function pass(s) {
+    var x = s;
+}
+
+function removeCss(id, x) {
+    $(id).className.replace(x, '');
+}
+
+function show(id) {
+    $(id).style.display = '';
+}
+
+function showing(id) {
+    if ($(id).style.display !== 'none') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function shown(id) {
+    if ($(id).style.display !== 'none') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function showTable(id) {
+    $(id).style.display = 'table';
+}
+
+function tagtitle(s) {
+    this.title = s;
+}
 //function toggle(id) { if (hid(id)) { show(id); } else { hide(id); } }
-function toggle(id) { if (shown(id)) { hide(id); } else { show(id); } }
-function wtrim(str) { return str.replace(/^\s+|\s+$/g, ''); }
-function pl(s) { console.log(s); }
-function hidex(x) { x.style.display = 'none'; }
-function showx(x) { x.style.display = ''; }//expo
-function togglex(x) { (x.style.display !== 'none') ? hidex(x) : showx(x); }
+function toggle(id) {
+    if (shown(id)) {
+        hide(id);
+    } else {
+        show(id);
+    }
+}
+
+function wtrim(str) {
+    return str.replace(/^\s+|\s+$/g, '');
+}
+
+function pl(s) {
+    console.log(s);
+}
+
+function hidex(x) {
+    x.style.display = 'none';
+}
+
+function showx(x) {
+    x.style.display = '';
+} //expo
+function togglex(x) {
+    (x.style.display !== 'none') ? hidex(x): showx(x);
+}
+
 function addscript(x) {
     var tag = document.createElement('script');
     tag.type = 'text/javascript';
     tag.src = x;
     document.head.appendChild(tag);
 }
+
 function ajaxget(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -58,6 +151,7 @@ function ajaxget(url, callback) {
     xhr.open('GET', url, true);
     xhr.send();
 }
+
 function parson(response) {
     if (typeof response !== 'object') {
         return JSON.parse(response);
@@ -65,6 +159,7 @@ function parson(response) {
         return response;
     }
 }
+
 function iconflip(x) {
     // Toggle jslib icon when clicked 20170516
     var y = x.className;
@@ -86,6 +181,7 @@ function iconflip(x) {
         x.className = y.replace('-collapse', '-expand');
     }
 }
+
 function non(x) {
     if (x === undefined || x === null || x === '') {
         return true;
@@ -93,6 +189,7 @@ function non(x) {
         return false;
     }
 }
+
 function notnon(x) {
     if (x !== undefined && x !== null && x !== '') {
         return true;
@@ -100,6 +197,7 @@ function notnon(x) {
         return false;
     }
 }
+
 function poplinks() {
     var links = document.getElementsByTagName('a');
     var atotal = 0;
@@ -109,7 +207,7 @@ function poplinks() {
             if ((a.href.indexOf('#') > 0 && a.href.indexOf(location.href) > -1)) {
                 a.target = "_self";
             } else if (a.href.indexOf("javascript:void") < 0 &&
-                    a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
+                a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
                 a.target = "_blank";
             }
             if (a.innerHTML === '' && a.className === '') {
@@ -117,7 +215,7 @@ function poplinks() {
                 if (a.title !== '') {
                     a.innerHTML = a.title + ' <br/>';
                 } else {
-                    a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '').replace('www.', '') + ' <br/>';//.replace(/\.(com|gov|net|org|io)/, '')
+                    a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '').replace('www.', '') + ' <br/>'; //.replace(/\.(com|gov|net|org|io)/, '')
                 }
             }
         }
@@ -137,6 +235,7 @@ function addEventHandler(target, evtype, listener) {
         target.addEventListener(evtype, listener, false); // returns void
     }
 }
+
 function arrayAddItem(arr, it) {
     var addnew = true;
     for (var i = 0; i < arr.length; i++) {
@@ -149,6 +248,7 @@ function arrayAddItem(arr, it) {
     }
     return arr;
 }
+
 function arrayHasItem(arr, it) {
     for (var i = 0; i < arr.length; i++) {
         if (arr[i] === it) {
@@ -214,7 +314,10 @@ function arrayShuffleToFront(arr, it) {
 function capword(s) {
     return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 }
-function datetimenow() { return (new Date()).getTime(); }
+
+function datetimenow() {
+    return (new Date()).getTime();
+}
 //--- Interpret keycode into word-20150113
 function decodeKey(e) {
     var keycode = (window.event ? event.keyCode : e.keyCode);
@@ -256,10 +359,12 @@ function arrayItemById(arr, id) {
     }
     return null;
 }
+
 function getTarget(e) {
     e = e || window.event;
     return (e.target || e.srcElement);
 };
+
 function Hob(uiid) {
     var ho = $(uiid);
     this.put = function (msg) {
@@ -290,6 +395,7 @@ function iconswap(x) {
         x.className = y.replace('-collapse', '-expand');
     }
 }
+
 function icontogglex(x) {
     var y = x.className;
     if (y.indexOf('-right-triangle-') > 0) {
@@ -317,10 +423,10 @@ function jsonAddProp(json, name, prop) {
 }
 //--- Deserialize a key-value string by certain separators and returns a JSON --20160427
 /*
-* @param {String} kvchain: a serialized key-value string like 'key1=val1&key2=val2&key3=val3'.
-* @param {String} ksep: OPTIONAL key separator character delimiting each key-value pair, like '&' or '|'.
-* @param {String} vsep: OPTIONAL value separator between an field name and its value, like '=' or ':'.
-*/
+ * @param {String} kvchain: a serialized key-value string like 'key1=val1&key2=val2&key3=val3'.
+ * @param {String} ksep: OPTIONAL key separator character delimiting each key-value pair, like '&' or '|'.
+ * @param {String} vsep: OPTIONAL value separator between an field name and its value, like '=' or ':'.
+ */
 function jsonize(kvchain, ksep, vsep) {
     var json = {};
     if (ksep === undefined) {
@@ -330,7 +436,9 @@ function jsonize(kvchain, ksep, vsep) {
             ksep = "|";
         }
     } //key-separator
-    if (vsep === undefined) { vsep = "="; } //value-separator
+    if (vsep === undefined) {
+        vsep = "=";
+    } //value-separator
     var kvpairs = kvchain.split(ksep);
     for (var i = 0; i < kvpairs.length; i++) {
         var keyval = kvpairs[i].split(vsep);
@@ -338,6 +446,7 @@ function jsonize(kvchain, ksep, vsep) {
     }
     return json;
 }
+
 function matchk(key, keys) {
     for (k = 0; k < keys.length; k++) {
         if (key === keys[k]) {
@@ -346,6 +455,7 @@ function matchk(key, keys) {
     }
     return -1;
 }
+
 function nontype(x) {
     // Check what Nonetype 20180329
     if (x === undefined) {
@@ -356,6 +466,7 @@ function nontype(x) {
         return 'empty string';
     }
 }
+
 function notfalse(x) {
     if (x !== undefined && x !== null && x !== false) {
         return true;
@@ -363,6 +474,7 @@ function notfalse(x) {
         return false;
     }
 }
+
 function nulldefy(x) {
     if (x === undefined) {
         return null;
@@ -370,6 +482,7 @@ function nulldefy(x) {
         return x;
     }
 }
+
 function removeTrailingSlash(s) {
     return s.replace(/\/$/, '');
 }
@@ -454,12 +567,11 @@ function zswap(id, a, b) {
 function ajaxGetText(url, params, callback) {
     if (window.XMLHttpRequest) {
         var xhr = new XMLHttpRequest();
-    }
-    else {
+    } else {
         var xhr = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xhr.open("GET", url + "?" + params, true);
-    xhr.onreadystatechange = function () {//handler;
+    xhr.onreadystatechange = function () { //handler;
         if (xhr.readyState === 4 && xhr.status === 200) {
             callback(xhr.responseText);
         }
@@ -471,10 +583,9 @@ function ajaxGetText(url, params, callback) {
 function ajaxPostText(url, params, callback) {
     //console.log("DO ajaxPostText: " + [url, params]);
     var xhr;
-    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+    if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
         xhr = new XMLHttpRequest();
-    }
-    else {// code for IE6-
+    } else { // code for IE6-
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xhr.open("POST", url, true);
@@ -488,6 +599,7 @@ function ajaxPostText(url, params, callback) {
         }
     }
 }
+
 function ajaxGetXml(url, params, callback) {
     if (window.XMLHttpRequest) {
         var xhr = new XMLHttpRequest();
@@ -500,12 +612,12 @@ function ajaxGetXml(url, params, callback) {
     //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     //xhr.setRequestHeader("Content-length", params.length);
     //xhr.setRequestHeader("Connection", "close");
-    xhr.onreadystatechange = function () {//handler;
+    xhr.onreadystatechange = function () { //handler;
         if (xhr.readyState === 4 && xhr.status === 200) {
             callback(xhr.responseXML);
         }
     }
-    xhr.send("");//if GET
+    xhr.send(""); //if GET
     //xhr.send(params); //if POST
     //return xhr.responseXML; //for loading local xml data synchronously but dont use for remote
 }
@@ -513,8 +625,7 @@ function ajaxGetXml(url, params, callback) {
 function loadXmlDoc(file) {
     if (window.XMLHttpRequest) {
         xhr = new XMLHttpRequest();
-    }
-    else {
+    } else {
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xhr.open("GET", file, false);
@@ -523,9 +634,9 @@ function loadXmlDoc(file) {
 }
 //--- Get Ajax Response directly as JSON REF(http://mathiasbynens.be/notes/xhr-responsetype-json)
 var ajaxGetJson = function (url, callback, errorHandler) {
-    var xhr = typeof XMLHttpRequest !== 'undefined'
-      ? new XMLHttpRequest()
-      : new ActiveXObject('Microsoft.XMLHTTP');
+    var xhr = typeof XMLHttpRequest !== 'undefined' ?
+        new XMLHttpRequest() :
+        new ActiveXObject('Microsoft.XMLHTTP');
     xhr.open('get', url, true);
     xhr.responseType = 'json';
     xhr.onreadystatechange = function () {
@@ -566,12 +677,14 @@ function loadScript(url) {
     s.src = url;
     document.getElementsByTagName('head')[0].appendChild(s);
 }
+
 function setCookie(c_name, value, exdays) {
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
     var c_value = escape(value) + ((exdays === null) ? "" : "; expires=" + exdate.toUTCString());
     document.cookie = c_name + "=" + c_value;
 }
+
 function getCookie(c_name) {
     var c_value = document.cookie;
     var c_start = c_value.indexOf(" " + c_name + "=");
@@ -590,6 +703,7 @@ function getCookie(c_name) {
     }
     return c_value;
 }
+
 function sendpage() {
     window.location = "mailto:?body=" + window.location.href;
 }
@@ -597,6 +711,7 @@ function sendpage() {
 function S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
+
 function fooid() {
     // then to call it, plus stitch in '4' in the third group
     var guid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
@@ -622,6 +737,7 @@ if (typeof WebAssembly === 'object' && typeof WebAssembly.Memory === 'function')
 } else {
     console.log('WebAssembly NOT SUPPORTED');
 }
+
 function navigatorInfo() {
     var msg = 'navigator.appName=' + navigator.appName + br +
         'navigator.cookieEnabled=' + navigator.cookieEnabled + br +
@@ -629,6 +745,7 @@ function navigatorInfo() {
         'navigator.userAgent=' + navigator.userAgent + br;
     return msg;
 }
+
 function windowInfo() {
     var msg = 'window.innerHeight=' + window.innerHeight + br +
         'window.innerWidth=' + window.innerWidth + br +
@@ -644,6 +761,39 @@ function windowInfo() {
         'window.screen.width= ' + window.screen.width;
     return msg;
 }
+
+function geturlarg(key) {
+    // GET LOCATION.SEARCH PARAMETER KEY VALUE--20190128
+    var val = '';
+    if (location.search.indexOf(key + '=') > 0) {
+        var val = location.search.split(key + '=')[1].split('&')[0];
+        if (val !== undefined && val !== null & val !== '') {
+            val = decodeURIComponent(val);
+        }
+    }
+    return val;
+}
+
+function geturlkeyal() {
+    // CONFORM BIOSDS VALUE IN URLSEARCH PARAM AL--20190128
+    var al = null;
+    if (location.search.indexOf('al=') > 0) {
+        var val = location.search.split('al=')[1].split('&')[0];
+        if (val !== undefined && val !== null) {
+            var dsid = parseInt(val.toLowerCase().replace('biosds', '').replace('ds', ''));
+            if (typeof dsid === 'number') {
+                var al = 'biosds' + dsid;
+            } else {
+                al = val;
+            }
+        }
+    }
+    return al;
+}
+
+function xysplit(s) {
+    return [parseFloat(s.split(',')[0]), parseFloat(s.split(',')[1])];
+}
 //======================================================================
 // COMMON CONSTANTS, CONVERSIONS, AND WELL-KNOWN VALUES
 //======================================================================
@@ -651,7 +801,7 @@ var OPERATOR_LIST = "|(|)|=|<>|>|>=|<|<=|NOT|LIKE|AND|OR|IS NULL|IS NOT NULL|IN 
 var DEFAULT_OPACITY = 0.77;
 var ESRIFIELDTYPE_LIST = '|esriFieldTypeOID|esriFieldTypeString|esriFieldTypeSmallInteger|esriFieldTypeGeometry|esriFieldTypeDouble|esriFieldTypeInteger|esriFieldTypeDate';
 var GDATATYPE_LIST = "'string', 'number', 'boolean', 'date', 'datetime', and 'timeofday'";
-var GEOMETRY_FIELD_LIST = "|Shape|Shape.STArea()|Shape.STLength()|";//esriFieldTypeGeometry,esriFieldTypeDouble
+var GEOMETRY_FIELD_LIST = "|Shape|Shape.STArea()|Shape.STLength()|"; //esriFieldTypeGeometry,esriFieldTypeDouble
 var GEOMETRY_TYPE_LIST = '|point|multipoint|polyline|polygon|extent';
 var LINK_FIELD_LIST = '|LINK|LINK1|Link|PHOTO|REPORT|REPORT_|REPORT1|REPORT2|URL|';
 var OID_FIELD_LIST = '|OBJECTID|ObjectID|OID|FID';
@@ -671,7 +821,7 @@ var GDATATYPE_FROM_SQLTYPE = {
     "tinyinte": "number",
     "varchar": "string"
 }
-var kMaxRecordCount = 1000;//=max number of records returned from ArcGIS Server map service tasks
+var kMaxRecordCount = 1000; //=max number of records returned from ArcGIS Server map service tasks
 var MAX_RECORD_COUNT = 1000;
 //--- Convert from dudNET System.type or MSSQL datatype to Google Table column type
 var GDATATYPE_FROM_SYSTYPE = {

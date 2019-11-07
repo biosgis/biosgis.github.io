@@ -16,12 +16,12 @@ let app = {
     },
     args: null, //=FOR SAVING TMP BOOKMARKPROPERTIES TO RESTORE
     atool: {
-        geometry: null,
         id: "",
-        oids: [],
-        selector: "",
-        target: "",
+        graphic: null,
         where: "",
+        oids: [],
+        selectlayer: "",
+        target: "",
         xy: []
     },
     bl: "topo", // streets satellite hybrid topo gray dark-gray oceans national-geographic terrain osm
@@ -46,14 +46,15 @@ let app = {
     itemId: "ae32068bbd33404991cbb56fb2124ffb", //piid=portalItemId
     json: {}, //=bookmarkJson
     job: null,
-    labels: [],    lat: 37.67015,
+    labels: [],
+    lat: 37.67015,
     latlon: [37.67, -119.82],
     layerIds: [],
     layers: {},
     layerViews: {},
     lid: -1, //TODO DEL?
     lids: [],
-    ll: [37.67, -119.8], //=lat, lon
+    ll: [-119.8, 37.67], //=longitude/latitude pair
     loaded: false,
     lon: -119.80671,
     mask: null,
@@ -552,8 +553,31 @@ let amdfun = function (
             node.classList.toggle("visible-layer");
         }
     });
-    //-- INIT CUSTOM TOOLS
+    //-- INIT BIOSBOOKMARKS
     initbb();
+    // WHEN LAYER IS CREATED MAKE APP INDEX AND ZOOM TO ACTIVELAYER
+    view.on('layerview-create', function (event) {
+        var urid = event.layer.id;
+        if (app.layers[urid] === undefined) {
+            app.layers[urid] = {
+                id: event.layer.id,
+                name: event.layer.title,
+                type: event.layer.type,
+                //tiled: ((event.layer.type === 'tile')? true: false),
+                urid: urid,
+                url: "" //event.layer.url?
+            };
+        }
+        if (urid.indexOf(app.al) === 0 || urid === app.alayer.urid) {
+            view.when(function () {
+                event.layer.when(function () {
+                    if (app.urlsearch.bookmark === undefined && app.urlsearch.zl === undefined) {
+                        view.goTo(event.layer.fullExtent);
+                    }
+                });
+            });
+        }
+    });
     // DONE AMD REQUIRED LOADER FUNCTION
 }
 require(amdlibs, amdfun);

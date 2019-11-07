@@ -33,7 +33,8 @@ function testjsons() {
 }
 
 function jtests() {
+    console.log('jtests to test HTML/CSS/JS code');
     //$('msgdiv').innerHTML = nup().toString();
     //testOfLoop();//FAIL-IE
-    testjsons();
+    //testjsons();
 }
