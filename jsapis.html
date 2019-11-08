@@ -22,6 +22,7 @@
             font-size: 1.1em;
             line-height: 1.33em;
         }
+
     </style>
 </head>
 
@@ -90,41 +91,58 @@
                 </a> 2019-10-14; include 3d scene view.
             </li>
             <li>
-                How to remove the default thousand separator on long integers in a 
-                Google Chart table cell? 
-                To have to set 
+                How to remove the default thousand separator on long integers in a
+                Google Chart table cell?
+                To have to set
                 <a href="https://developers.google.com/chart/interactive/docs/reference#formatters">
                     formatters
-                </a> on specific column would be very tidious; so tried 
+                </a> on specific column would be very tidious; so tried
                 <a href="https://developers.google.com/chart/interactive/docs/basic_load_libs#loadwithlocale">
                     language setting
-                </a> like 
-                <code>google.charts.load('current', { 'packages': ['table'], 'language': null });</code> 
+                </a> like
+                <code>google.charts.load('current', { 'packages': ['table'], 'language': null });</code>
                 but it did not work.
             </li>
             <li>
                 <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer-sublayers/index.html">MapImageLayer - Toggle sublayer visibility</a>
             </li>
             <li class="doing">
-                <a href="https://developers.arcgis.com/javascript/latest/sample-code/editing-applyedits/index.html">Update FeatureLayer using</a> 
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/editing-applyedits/index.html">Update FeatureLayer using</a>
                 <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#applyEdits">applyEdits</a>
             </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html">Query</a> check latest code samples
+            </li>
         </ol>
-        <h2>Fails</h2>
+        <h2>
+            Fails
+        </h2>
         <ol>
             <li>
-                JS new syntax <code>tag.onload = () => callback(args)</code> function notation 
+                JS new syntax <code>tag.onload = () => callback(args)</code> function notation
                 fails IE.
             </li>
             <li>
-                JS loop syntax <code>for (var x of document.getElementsByClassName(y))</code>  
+                JS loop syntax <code>for (var x of document.getElementsByClassName(y))</code>
                 fails in IE and Edge.
             </li>
             <li>
-                Edit feature must have correct field name or will not work. 
+                Edit feature must have correct field name or will not work.
                 Edit feature can have null geometry.
-                Fields not specified in the inpu edit feature will not be changed 
+                Fields not specified in the inpu edit feature will not be changed
                 and will keep their existing values. 2019-10-23
+            </li>
+        </ol>
+        <h2>
+            Solutions
+        </h2>
+        <ol>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#toMap">view.toMap(mouseEvent)</a> method convenient for Identify tool
+            </li>
+            <li>
+                <a href="https://codepen.io/tjvantoll/pen/JEKIu">Fixed Table Header</a>
+                code sample
             </li>
         </ol>
     </main>

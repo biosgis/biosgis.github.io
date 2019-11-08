@@ -141,6 +141,21 @@ deflayers = [
         name: "CDFW Facilities"
     }];
 let GISSERVER = 'https://map.dfg.ca.gov';
+//var JSDIR = window.location.href.split("/" + app.site)[0] + app.site + "/js/";
+var JSDIR = function () {
+    var hostpath = location.href.split(location.host)[0] + location.host;
+    var jspath = location.pathname.replace(DEFAULT_PAGE, '') + 'js/';
+    return hostpath + jspath;
+}(); // 20181128 FAIL WHEN LOADED BY FILE
+console.log('JSDIR=' + JSDIR);
+
+function addmsg(s) {
+    document.getElementById('msgbox').innerHTML += s + '<br/>';
+}
+// TO CLEAN UP UNWANTED OUTPUTS IN PRODUCTION RENAME ABOVE FUNCTION TO BELOW
+function xxaddmsg(s) {
+    return false;
+}
 //=========================
 // AMD REQUIRED LOADER
 //=========================

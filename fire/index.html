@@ -17,7 +17,6 @@
                 document.getElementById('warning').style.display = 'block';
             });
         }
-        DEFAULT_PAGE = 'index.html';
 
     </script>
     <link rel="stylesheet" href="../css/main.css">
@@ -27,6 +26,7 @@
     <script src="https://js.arcgis.com/4.13/"></script>
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <script>
+        DEFAULT_PAGE = 'index.html';
         var avn = 20191106;
         var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
         var fullversion = bvn + '.' + avn.toString().substr(6, 2);
@@ -58,8 +58,19 @@
 
         window.addEventListener('load', function() {
             console.log('DOM loaded');
+            let t = 10000;
+            window.setTimeout(function() {
+                console.log(t + 'ms WAITED');
+            }, t);
             om = poplinks();
             jtests();
+            if (getCookie('ssid') === null) {
+                setCookie('ssid', ssid, 90);
+                console.log('ssid=' + ssid);
+            } else {
+                ssid = getCookie('ssid');
+                console.log('PREVIOUS SESSIONID=' + ssid);
+            }
             $('bvn').innerHTML = 'v6.' + bvn;
             $('fullversion').innerHTML = fullversion;
             $('sessionid').innerHTML = ssid;
@@ -93,11 +104,15 @@
         <div class="maindiv">
             <div style="display: flex; align-items: stretch;">
                 <label>al:</label>
-                <div><input type="text" id="al" value="" title="Active Layer" style="position: relative; width: 90%;"></div>
+                <div><input type="text" id="al" name="app" value="" title="Active Layer" style="position: relative; width: 90%;"></div>
             </div>
             <div>
                 <label>bl</label>:
-                <input type="text" id="bl" value="" title="Basemap Layer" style="display: flex;">
+                <input type="text" id="bl" name="bb" value="" title="Basemap">
+            </div>
+            <div>
+                <label>ssid</label>:
+                <input type="text" id="ssid" name="bb" value="" title="SessionID">
             </div>
         </div>
     </aside>

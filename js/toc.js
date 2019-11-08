@@ -49,6 +49,22 @@ function tocActivate(urid) {
     }
 }
 
+function tochelp(dsnum) {
+    var href;
+    switch (dsnum) {
+        case 45:
+            href = "https://nrm.dfg.ca.gov/FileHandler.ashx?DocumentID=72009";
+            break;
+        case 85:
+            href = "https://nrm.dfg.ca.gov/FileHandler.ashx?DocumentID=72009";
+            break;
+        case 704:
+            href = "https://nrm.dfg.ca.gov/FileHandler.ashx?DocumentID=71831";
+            break;
+    }
+    return href;
+}
+
 function toggletiletwin(urid, visible) {
     // FIND THE TILE LAYER TWIN OF A BIOS FEATURE LAYER AND TURN IT ON OR OFF
     if ($(urid + '-check') !== undefined) {
