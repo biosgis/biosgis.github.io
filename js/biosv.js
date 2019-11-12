@@ -1,5 +1,5 @@
 // biosv.js 20190927 dfgchiang
-console.log('Loading biosv.js');
+console.log('Loading biosv');
 const esriFieldTypesNumber = 'esriFieldTypeDouble,esriFieldTypeFloat,esriFieldTypeInteger,esriFieldTypeOID,esriFieldTypeSmallInteger';
 const esriFieldTypeToColumnType = {
     "esriFieldTypeBlob": "image",
@@ -92,4 +92,4 @@ function toctugtiletwin(urid, vis) {
 function xysplit(s) {
     return [parseFloat(s.split(',')[0]), parseFloat(s.split(',')[1])];
 }
-console.log('Loaded biosv.js');
+console.log('Loaded biosv');

@@ -5,6 +5,167 @@ var toc = {
     name: "Contents"
 }
 
+function TocLayer(args) {
+    addmsg('DO TocLayers ' + args.urid);
+    var urid = args.urid; //ids[0];
+    var url = args.url; //urls[0];
+    var name = args.name;
+    var type = args.type;
+    var tiled = args.tiled;
+    var show = args.visible;
+    var vis = args.visibles;
+    if (args.ftype === undefined) {
+        ftype = '';
+    } else {
+        ftype = args.ftype;
+    }
+    var item = document.createElement('li');
+    item.classList.add('layeritem');
+    item.id = urid + '-item';
+    var toggler = document.createElement('span');
+    toggler.id = urid + '-toggle';
+    if (type.indexOf('MapServer') >= 0 || type.indexOf('MapImageLayer') >= 0 || type.indexOf('map-image') >= 0 || type.indexOf('Group Layer') >= 0) {
+        toggler.classList.add('esri-icon-right');
+    } else if (type.indexOf('FeatureServer') >= 0 || type.indexOf('feature') >= 0) {
+        toggler.classList.add('esri-icon-feature-layer');
+        if (ftype.toLowerCase().indexOf('line') >= 0) {
+            toggler.classList.add('esri-icon-polyline');
+        } else if (ftype.toLowerCase().indexOf('line') >= 0) {
+            toggler.classList.add('esri-icon-polyline');
+        } else if (ftype.toLowerCase().indexOf('line') >= 0) {
+            toggler.classList.add('esri-icon-polyline');
+        }
+    } else if (type.indexOf('Raster Layer') >= 0 || ftype.toLowerCase().indexOf('raster') >= 0) {
+        toggler.classList.add('esri-icon-default-action');
+    } else {
+        toggler.classList.add('esri-icon-right-triangle-arrow');
+    }
+    toggler.classList.add('layericon');
+    item.appendChild(toggler);
+    var labeler = document.createElement('label');
+    labeler.id = urid + '-name';
+    labeler.innerHTML = name;
+    labeler.style.marginRight = '5px';
+    item.appendChild(labeler);
+    var dots = document.createElement('span');
+    dots.classList.add('esri-icon-handle-horizontal');
+    dots.classList.add('layericon');
+    item.appendChild(dots);
+    var menu = document.createElement('div');
+    menu.style.backgroundColor = 'ghostwhite';
+    menu.style.border = '1px solid gainsboro';
+    menu.style.display = 'none';
+    menu.style.marginLeft = '15px';
+    item.appendChild(menu);
+    dots.onclick = function () {
+        togglex(menu);
+    }
+    var linker = document.createElement('a');
+    linker.classList.add('esri-icon-link');
+    linker.classList.add('layericon');
+    linker.id = urid + '-link';
+    linker.href = url;
+    linker.target = '_blank';
+    menu.appendChild(linker);
+    var list = document.createElement('ol');
+    list.id = urid + '-list';
+    if (type.indexOf('Server') > 0 || type.indexOf('Group') > 0) {
+        list.classList.add('layerlist');
+    }
+    list.style.marginLeft = '20px';
+    item.appendChild(list);
+    return item;
+}
+
+function tocAddLayers(layers) {
+    addmsg('DO tocAddLayers');
+    for (var urid in layers) {
+        var args = layers[urid];
+        if (urid.indexOf('biosds') !== 0) {
+            var biosds = null; // NO NEED TO QUERY BIOSMANIFEST
+        }
+        if (args.type.indexOf('map-image') >= 0) {
+            addMapImageLayer(args);
+        }
+    }
+}
+// SUBLAYERS--https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html
+function addMapImageLayer(args) {
+    addmsg('DO addMapImageLayer ' + args.urid);
+    var sid = args.urid;
+    var surl = args.url;
+    asRequest(surl + "?f=json", {
+        responseType: "json"
+    }).then(function (response) {
+        console.log('currentVersion: ' + response.data.currentVersion);
+        ENV = 'CDFW';
+        addmsg(sid);
+        var sublayers = [];
+        var layers = response.data.layers;
+        for (var i = 0; i < layers.length; i++) {
+            var sublayer = {
+                id: layers[i].id,
+                visible: layers[i].defaultVisibility
+            }
+            sublayers.push(sublayer);
+            addmsg([layers[i].id, layers[i].name]);
+        }
+        var layer = new EsriMapImageLayer({
+            id: sid,
+            url: surl,
+            sublayers: sublayers
+        });
+        map.add(layer);
+        args['sublayers'] = sublayers;
+        var k = tocAddMapImageLayerItem(args);
+    }).catch((err) => {
+        console.error('Error encountered', err);
+    });
+}
+
+function tocAddMapImageLayerItem(args) {
+    addmsg('DO tocAddMapImageLayerItem ' + args.urid);
+    var k = 0;
+    var item = new TocLayer(args);
+    if (args.tocgroup === undefined) {
+        //if (args.urid.indexOf('biosds') === 0 || args.url.indexOf('BIOS_') > 0) {
+        //    var layergroup = 'bios';
+        //}
+        var tocgroup = 'proj';
+    } else {
+        var layergroup = args.tocgroup;
+    }
+    if ($(layergroup + '-layers-list') === null) {
+        var tocgroup = 'proj';
+    }
+    var list = $(tocgroup + '-layers-list');
+    list.appendChild(item);
+    k += 1;
+    if (args.sublayers !== undefined) {
+        var sid = args.urid;
+        var surl = args.url;
+        var sublayers = args.sublayers;
+        for (var i = 0; i < sublayers.length; i++) {
+            var info = sublayers[i];
+            var urid = sid + ':' + info.id;
+            var url = surl + '/' + info.id;
+            info.urid = urid;
+            info.url = url;
+            info.type = 'Layer'; // DONT KNOW WHETHER FEATURE, GROUP, OR RASTER
+            if (info.subLayerIds !== null && info.subLayerIds.length > 0) {
+                info.type = 'Group Layer';
+            }
+            info.ftype = ''; // FEATUREGEOMETRYTYPE UNKNOWN
+            if (info.parentLayerId === -1) {
+                var prid = sid;
+            } else {
+                var prid = sid + ':' + info.parentLayerId;
+            }
+        }
+    }
+    return k;
+}
+
 function applayerprops(urid) {
     if (app.layers[urid] === undefined) {
         app.layers[urid] = {

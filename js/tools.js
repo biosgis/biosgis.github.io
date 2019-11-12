@@ -1,4 +1,5 @@
 // tools.js 20191104 dfgchiang
+console.log('Loading tools');
 var tools = {
     "toollist": {
         name: "Tools",

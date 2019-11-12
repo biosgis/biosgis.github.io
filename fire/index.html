@@ -27,13 +27,15 @@
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <script>
         DEFAULT_PAGE = 'index.html';
-        var avn = 20191106;
+        var avn = 20191110;
         var bvn = ((avn - 20000000) / 10000).toFixed(2); //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
         var fullversion = bvn + '.' + avn.toString().substr(6, 2);
         var rv = (Math.random() * 10).toFixed(5);
         var ssid = 't' + Date.now() + 'r' + parseInt(rv * 10000); //parseInt(Math.random() * 1000000);//=SESSIONID
         var cssfiles = ['main.css'];
-        var jsfiles = ['amd.js', 'ace.js', 'bb.js', 'biosv.js', 'tests.js'];
+        var jsfiles = ['app.js', 'ace.js', 'bb.js', 'biosv.js',
+            'tests.js', 'toc.js', 'tools.js', 'tv.js', 'amd.js'
+        ];
         for (var i = 0; i < cssfiles.length; i++) {
             let x = document.createElement('link');
             x.setAttribute('rel', 'stylesheet');
@@ -218,35 +220,41 @@
         </h2>
         <div class="maindiv">
             <article>
-                <h3>
-                    User Added Layers
-                </h3>
-                <div class="padded">
+                <h4 id="toc-al" onclick="toggle('al-layers')">
+                    Active/Selected Layer
+                </h4>
+                <div id="al-layers" class="padded">
+                    <label class="alayer"></label>
                 </div>
             </article>
             <article>
-                <h3>
-                    BIOS Layers
+                <h3 id="toc-proj" onclick="toggle('proj-layers')">
+                    Project Layers
                 </h3>
-                <div class="padded">
+                <div id="proj-layers" class="padded">
+                    <ol class="layerlist" id="proj-layers-list"></ol>
                 </div>
             </article>
-            <article>
-                <h3>
+            <article style="display: none;">
+                <h3 id="toc-ops" onclick="toggle('ops-layers')">
                     Operational Layers
                 </h3>
-                <div class="padded">
+                <div id="ops-layers" class="padded">
+                    <ol class="layerlist" id="ops-layers-list"></ol>
                 </div>
             </article>
             <article>
-                <h3>
+                <h3 id="toc-ref" onclick="toggle('ref-layers')">
                     Reference Layers
                 </h3>
-                <div class="sublayers esri-widget">
-                    <div class="sublayers-item" data-id="0">Cities</div>
-                    <div class="sublayers-item" data-id="1">Highways</div>
-                    <!--                    <div class="sublayers-item" data-id="4">Railroads</div>-->
-                    <div class="sublayers-item" data-id="2">States</div>
+                <div id="ref-layers">
+                    <ol class="layerlist" id="ref-layers-list"></ol>
+                    <div class="sublayers esri-widget">
+                        <div class="sublayers-item" data-id="0">Cities</div>
+                        <div class="sublayers-item" data-id="1">Highways</div>
+                        <!--<div class="sublayers-item" data-id="4">Railroads</div>-->
+                        <div class="sublayers-item" data-id="2">States</div>
+                    </div>
                 </div>
             </article>
         </div>
@@ -447,14 +455,11 @@
     <aside id="msgbar" style="display: none;">
         <h2>
             <span class="esri-icon-dock-top"></span>
-            Log Messages
+            Messages
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
-        <div id="msgdiv" class="maindiv">
-            <h3 style="top: 0;">
-                <input type="text" id="cmdbox" value="" style="width: 96%;">
-            </h3>
-            <div id="msglog" class="padded" style="position: relative; background-color: black; color: white;">
+        <div id="msgdiv" class="maindiv noscroll">
+            <div id="msgbox" class="subdiv" style="background-color: black; color: white; position: relative; top: 0; height: 444px;">
                 <div>
                     Messages
                     <script>
@@ -465,7 +470,9 @@
                 </div>
                 <hr>
             </div>
-            <div id="msgbox" class="padded" style="position: relative; background-color: black; color: white;"></div>
+            <h3 style="bottom: 5px;">
+                <input type="text" id="cmdbox" value="" style="width: 96%;">
+            </h3>
         </div>
     </aside>
     <footer style="display: none;">
@@ -499,7 +506,7 @@
                 </li>
                 <li onclick="navview('databar')">
                     <span class="esri-icon-menu"></span>
-                    <label>Data Table</label>
+                    <label>Data</label>
                 </li>
                 <li onclick="navview('getdata')" title="Get Data">
                     <span class="esri-icon-down-arrow-circled"></span>

@@ -1,146 +1,5 @@
 // amd.js 20191023 dfgchiang
-console.log('Loading amd.js');
-let app = {
-    al: "",
-    alayer: {
-        def: "",
-        dfield: "",
-        lid: -1,
-        name: "",
-        orid: "",
-        sql: "",
-        type: "",
-        urid: "",
-        url: "",
-        urlast: ""
-    },
-    args: null, //=FOR SAVING TMP BOOKMARKPROPERTIES TO RESTORE
-    atool: {
-        id: "",
-        graphic: null,
-        where: "",
-        oids: [],
-        selectlayer: "",
-        target: "",
-        xy: []
-    },
-    bl: "topo", // streets satellite hybrid topo gray dark-gray oceans national-geographic terrain osm
-    bookmark: null,
-    center: [-119.8, 37.67], //=lon,lat separated by comma or esriGeometryPoint
-    clientId: "O59X894aUmrlXei5", //=ArcGIS Developers Registered App ID
-    col: "",
-    def: null,
-    description: "Biogeographic Information Observation System",
-    dsid: 0,
-    dsids: [],
-    dsl: [], //=dslist
-    dslist: "",
-    dsname: null,
-    dstags: null,
-    fields: [],
-    filterg: null,
-    graphics: [],
-    id: "bios",
-    identify: {}, //aurid:{graphic: null, oids: []}
-    ingress: 0,
-    itemId: "ae32068bbd33404991cbb56fb2124ffb", //piid=portalItemId
-    json: {}, //=bookmarkJson
-    job: null,
-    labels: [],
-    lat: 37.67015,
-    latlon: [37.67, -119.82],
-    layerIds: [],
-    layers: {},
-    layerViews: {},
-    lid: -1, //TODO DEL?
-    lids: [],
-    ll: [-119.8, 37.67], //=longitude/latitude pair
-    loaded: false,
-    lon: -119.80671,
-    mask: null,
-    mouse: null,
-    name: "Bios",
-    oids: [],
-    point: null,
-    defs: {}, //aurid: {where: ""}
-    filters: {}, //aurid:{graphic: null, count: 0}
-    selections: {}, //aurid:{graphic: null, count: 0, outFields: ["*"], selectlayer: "", features: []}
-    queries: {}, //aurid: {where: ""}
-    selectg: null,
-    sid: "",
-    site: "bios6",
-    sql: null,
-    status: 0,
-    subtask: null,
-    surl: "",
-    task: null,
-    timestart: (new Date()).getTime(),
-    title: "BIOS",
-    token: null,
-    tool: "",
-    urid: "",
-    url: window.location.href,
-    urlsearch: null, //=FOR ONE TIME STORE OF LOCATION SEARCH PARAMS
-    agolname: "anonymous", //=guest
-    agolgroups: "Everyone", //=Public
-    userName: "guest",
-    userGroups: "Public",
-    version: "6." + (parseInt((avn - 20170000) / 100) + 12) + "." + (avn % 100),
-    viewer: "bios",
-    x: -13535187.9774,
-    y: 4495589.15484,
-    xy: [-13535187.9774, 4495589.15484],
-    zl: 10,
-    zoom: 10
-};
-app.site = function () {
-    var y = 'bios6';
-    var x = location.pathname.replace(/^\/|\/$/g, '');
-    if (x.indexOf('/') < 0) {
-        if (x.indexOf('.') < 0) {
-            return x;
-        }
-    } else {
-        let a = x.split('/');
-        for (var i = 0; i < a.length; i++) {
-            let b = a.pop();
-            if (b.indexOf('.') < 0) {
-                return b;
-            }
-        }
-    }
-    return y;
-}();
-console.log('app.site=' + app.site);
-if (location.search.indexOf('viewer=') > 0) {
-    app.viewer = location.search.split('viewer=')[1].split('&')[0];
-    //    if (configs[app.viewer] != undefined) {
-    //        viewer = configs[app.viewer];
-    //        viewer.layers = configs[app.viewer].layers;
-    //    }
-    //} else if (configs[app.site] != undefined) {
-    //    viewer = configs[app.site];
-    //    viewer.layers = configs[app.site].layers;
-    //} else {
-    //    viewer = configs.bios;
-    //    viewer.layers = configs.bios.layers;
-}
-console.log('app.viewer=' + app.viewer);
-//TODO CONFIGURE VIEWER
-deflayers = [
-    {
-        id: "CalTrans_Lane_Closures",
-        url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
-        type: "kml",
-        name: "CalTrans Lane Closures"
-    },
-    {
-        id: "DFG_Properties:0",
-        url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
-        type: "feature",
-        name: "CDFW Facilities"
-    }];
-let GISSERVER = 'https://map.dfg.ca.gov';
+console.log('Loading amd');
 //var JSDIR = window.location.href.split("/" + app.site)[0] + app.site + "/js/";
 var JSDIR = function () {
     var hostpath = location.href.split(location.host)[0] + location.host;
@@ -149,13 +8,6 @@ var JSDIR = function () {
 }(); // 20181128 FAIL WHEN LOADED BY FILE
 console.log('JSDIR=' + JSDIR);
 
-function addmsg(s) {
-    document.getElementById('msgbox').innerHTML += s + '<br/>';
-}
-// TO CLEAN UP UNWANTED OUTPUTS IN PRODUCTION RENAME ABOVE FUNCTION TO BELOW
-function xxaddmsg(s) {
-    return false;
-}
 //=========================
 // AMD REQUIRED LOADER
 //=========================
@@ -346,7 +198,7 @@ let amdfun = function (
         //                    ymax: 4247784,
         //                    spatialReference: 102100
         //                },
-        layers: [csvLayer, geojsonLayer] //permitsLayer
+        layers: [csvLayer] //permitsLayer, geojsonLayer
     });
     map.add(soilsLayer);
 
@@ -568,6 +420,7 @@ let amdfun = function (
             node.classList.toggle("visible-layer");
         }
     });
+    //=== INIT TOOLS
     //-- INIT BIOSBOOKMARKS
     initbb();
     // WHEN LAYER IS CREATED MAKE APP INDEX AND ZOOM TO ACTIVELAYER
@@ -593,6 +446,8 @@ let amdfun = function (
             });
         }
     });
+    //=== INIT VIEWER DEFAULT LAYERS
+    ace.init();
     // DONE AMD REQUIRED LOADER FUNCTION
 }
 require(amdlibs, amdfun);
@@ -664,7 +519,7 @@ window.addEventListener('load', function () {
     };
 });
 
-console.log('LOADED amd.js');
+console.log('LOADED amd');
 /* 
  * [open-license](https://project-open-data.cio.gov/open-licenses/)
  * [opengov3](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)

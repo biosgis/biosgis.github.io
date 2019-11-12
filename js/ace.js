@@ -57,32 +57,7 @@ ace.layers = {
     }
 };
 ace.init = function () {
-    for (var urid in ace.layers) {
-        var layer = new EsriMapImageLayer({
-            url: ace.layers[urid].url,
-            id: urid
-        });
-    }
+    addmsg('DO ace.init');
+    tocAddLayers(ace.layers);
 }
-// SUBLAYERS--https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html
-function loadmaplayers(url, urid) {
-    asRequest(url + "f=json", {
-        responseType: "json"
-    }).then(function (response) {
-        console.log('currentVersion: ' + response.data.currentVersion);
-        ENV = 'CDFW';
-        var sublayers = [];
-        var layers = response.data.layers;
-        for (var i = 0; i < layers.length; i++) {
-            var sublayer = {
-                id: layers[i].id,
-                visible: layers[i].defaultVisibility
-            }
-            sublayers.push(sublayer);
-        }
-    }).catch((err) => {
-        console.error('Error encountered', err);
-    });
-
-}
-console.log('LOADED ace');
+console.log('Loaded ace');

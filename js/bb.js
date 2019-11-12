@@ -3,7 +3,7 @@
 /*global console*/
 /* eslint no-console: "off" */
 
-console.log('Loading bb.js');
+console.log('Loading bb');
 var fieldcols = {
     "OBJECTID": "OID",
     "BookmarkID": "ID"
@@ -372,4 +372,4 @@ function bbupdate() {
         console.log('bbclearBug: ' + err.message);
     });
 }
-console.log('LOADED bb.js');
+console.log('Loaded bb');
