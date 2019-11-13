@@ -40,6 +40,13 @@ function TocLayer(args) {
     } else {
         toggler.classList.add('esri-icon-right-triangle-arrow');
     }
+    var types = type.split(' ');
+    for (var i = 0; i < types.length; i++) {
+        item.classList.add(types[i]);
+    }
+    if (ftype !== '') {
+        item.classList.add(ftype);
+    }
     toggler.classList.add('layericon');
     item.appendChild(toggler);
     var labeler = document.createElement('label');
@@ -72,8 +79,12 @@ function TocLayer(args) {
     if (type.indexOf('Server') > 0 || type.indexOf('Group') > 0) {
         list.classList.add('layerlist');
     }
-    list.style.marginLeft = '20px';
+    list.style.marginLeft = '10px';
+    list.style.padding = '0px';
     item.appendChild(list);
+    toggler.onclick = function () {
+        togglex(list);
+    }
     return item;
 }
 
@@ -116,7 +127,7 @@ function addMapImageLayer(args) {
             sublayers: sublayers
         });
         map.add(layer);
-        args['sublayers'] = sublayers;
+        args['sublayers'] = layers;
         var k = tocAddMapImageLayerItem(args);
     }).catch((err) => {
         console.error('Error encountered', err);
@@ -139,7 +150,8 @@ function tocAddMapImageLayerItem(args) {
         var tocgroup = 'proj';
     }
     var list = $(tocgroup + '-layers-list');
-    list.appendChild(item);
+    //list.appendChild(item);
+    list.insertBefore(item, list.childNodes[0]);
     k += 1;
     if (args.sublayers !== undefined) {
         var sid = args.urid;
@@ -151,7 +163,7 @@ function tocAddMapImageLayerItem(args) {
             var url = surl + '/' + info.id;
             info.urid = urid;
             info.url = url;
-            info.type = 'Layer'; // DONT KNOW WHETHER FEATURE, GROUP, OR RASTER
+            info.type = 'sublayer'; // DONT KNOW WHETHER FEATURE, GROUP, OR RASTER
             if (info.subLayerIds !== null && info.subLayerIds.length > 0) {
                 info.type = 'Group Layer';
             }
@@ -161,11 +173,13 @@ function tocAddMapImageLayerItem(args) {
             } else {
                 var prid = sid + ':' + info.parentLayerId;
             }
+            var subitem = new TocLayer(info);
+            $(prid + '-list').appendChild(subitem);
         }
     }
     return k;
 }
-
+//************************************************ NOT YET
 function applayerprops(urid) {
     if (app.layers[urid] === undefined) {
         app.layers[urid] = {

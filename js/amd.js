@@ -396,10 +396,10 @@ let amdfun = function (
             var id = sublayer.id;
             var visible = sublayer.visible;
             var node = document.querySelector(
-                ".sublayers-item[data-id='" + id + "']"
+                ".esri-sublayers-item[data-id='" + id + "']"
             );
             if (visible) {
-                node.classList.add("visible-layer");
+                node.classList.add("esri-visible-layer");
             }
         });
     });
@@ -408,16 +408,16 @@ let amdfun = function (
      * Listen for when buttons on the page have been clicked to turn
      * layers on and off in the Map Service.
      *****************************************************************/
-    var sublayersElement = document.querySelector(".sublayers");
+    var sublayersElement = document.querySelector(".esri-sublayers");
     sublayersElement.addEventListener("click", function (event) {
         var id = event.target.getAttribute("data-id");
         if (id) {
             var sublayer = layer.findSublayerById(parseInt(id));
             var node = document.querySelector(
-                ".sublayers-item[data-id='" + id + "']"
+                ".esri-sublayers-item[data-id='" + id + "']"
             );
             sublayer.visible = !sublayer.visible;
-            node.classList.toggle("visible-layer");
+            node.classList.toggle("esri-visible-layer");
         }
     });
     //=== INIT TOOLS

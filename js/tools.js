@@ -88,5 +88,27 @@ gfilter.filterclear = function () {
     }
     app.layers[activeLayer.id]['def'] = null;
 }
-
+//************************************************** NOT YET
+function qrelated(reltblid, fieldname, val, orid) {
+    addmsg('DO queryRelatedRestfully...');
+    // #ace3-relationships-20171019
+    //if (reltblid !== null && relkey !== null && fieldname === relkey) 
+    var sid = activeLayer.id.split(':')[0];
+    relurid = sid + ':' + reltblid;
+    relurl = aLayer.url.split('Server/')[0] + 'Server/' + reltblid;
+    kurl = relurl + '/query?where=' + fieldname + '=' + val + '&returnCountOnly=true&f=json';
+    // #ace3-queryRelatedRecords-20171031 ***METHOD LACKS ORDERBYFIELDS SORTING-20171208
+    qurl = aLayer.url + '/queryRelatedRecords?objectIds=' + orid + // attributes['OBJECTID'] +
+        '&relationshipId=' + relid + '&outFields=*&definitionExpression=&returnGeometry=false&f=json';
+    //20171208 Query related table directly
+    qurl = relurl + '/query?where=' + fieldname + '=' + val + '&outFields=*&returnGeometry=false&f=json';
+    if (activeLayer.id.indexOf('ace3') === 0) {
+        qurl += '&orderByFields=Sci_Name'; // WARNING: WRONG FIELDNAME WILL RETURN ERROR!
+    }
+    if (userGroups !== 'Public') {
+        qurl = qurl + '&token=' + biosToken;
+    }
+    //val = '<a target="_blank" href="' + qurl + '">' + val + '</a>';//TEST
+    val = '<a id="' + relurid + '-qurl" href="javascript:void(0)" onclick="idqueRelated(\'' + qurl + '\')">' + val + '</a>';
+}
 console.log('Loaded tools');

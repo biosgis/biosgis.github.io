@@ -249,11 +249,11 @@
                 </h3>
                 <div id="ref-layers">
                     <ol class="layerlist" id="ref-layers-list"></ol>
-                    <div class="sublayers esri-widget">
-                        <div class="sublayers-item" data-id="0">Cities</div>
-                        <div class="sublayers-item" data-id="1">Highways</div>
-                        <!--<div class="sublayers-item" data-id="4">Railroads</div>-->
-                        <div class="sublayers-item" data-id="2">States</div>
+                    <div class="esri-sublayers esri-widget">
+                        <div class="esri-sublayers-item" data-id="0">Cities</div>
+                        <div class="esri-sublayers-item" data-id="1">Highways</div>
+                        <!--<div class="esri-sublayers-item" data-id="4">Railroads</div>-->
+                        <div class="esri-sublayers-item" data-id="2">States</div>
                     </div>
                 </div>
             </article>
@@ -281,9 +281,23 @@
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="maindiv">
-            <div class="padded">
-                AIOS Version: <span id="fullversion"></span>
-            </div>
+            <article>
+                <h4>
+                    About
+                </h4>
+                <div class="padded">
+                    AIOS Version: <span id="fullversion"></span>
+                </div>
+                <h5>Terms of Use</h5>
+                <p id="publicense">
+                    <strong><em>License for Public Data</em></strong>:
+                    This work is licensed under Creative Commons Attribution 4.0 International License (
+                    <a href="https://creativecommons.org/licenses/by/4.0/">https://creativecommons.org/licenses/by/4.0/</a>).
+                    Using the citation standards recommended for BIOS datasets (
+                    <a href="https://www.wildlife.ca.gov/Data/BIOS/Citing-BIOS">https://www.wildlife.ca.gov/Data/BIOS/Citing-BIOS</a>)
+                    satisfies the attribution requirements of this license.
+                </p>
+            </article>
             <article class="">
                 <h4>References and Resources</h4>
                 <ol>
@@ -555,40 +569,49 @@
             </ol>
         </div>
     </aside>
-    <section id="splash" class="centered" style="border: 5px solid thistle; border-radius: 5px; bottom: 10%; left: 5%; right: 5%; width: auto;">
-        <h2>
-            Operational Map <span id="bvn"></span>
-            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h2>
-        <div class="maindiv" style="height: 88%;">
-            <article>
-                <h3>Biogeographic Incident Obsevation System</h3>
-                <div class="margined">
-                    <p></p>
-                </div>
-                <div class="padded">
-                    <button id="splash-ok" type="button" name="button" onclick="hide('splash')">OK</button>
-                </div>
-            </article>
-            <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
-                <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
-            </a>
-        </div>
-    </section>
     <div id="hey">
-        <div id="hello" class="centered">
+        <div id="hello" class="centered" style="display: none;">
             <h2>
-                Center
+                Hello
                 <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'"></span>
             </h2>
             <div>
                 <article>
-                    <h3>Splash</h3>
+                    <h3>World</h3>
                     <div class="padded">
                         <p>Perfectly aligned center</p>
                         <button onclick="hide('hey')">OK</button>
                     </div>
                 </article>
+            </div>
+        </div>
+        <div id="splash" class="centered" style="background-color: white; border: 5px solid thistle; border-radius: 5px; margin: 5%; width: auto;">
+            <h2>
+                Operational Map <span id="bvn"></span>
+                <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'"></span>
+            </h2>
+            <div class="maindiv" style="height: 88%;">
+                <article>
+                    <h3>Biogeographic Incident Obsevation System</h3>
+                    <div class="margined">
+                        <p>
+                            <strong><em>Disclaimer</em></strong>:
+                            This app makes no claims, promises, or guarantees
+                            about the accuracy, completeness, reliability, or adequacy of these data and
+                            expressly disclaims liability for errors and omissions in these data.
+                            No warranty of any kind, implied, expressed, or statutory, including but not limited to
+                            the warranties of non-infringement of third party rights, title, merchantability,
+                            fitness for a particular purpose, and freedom from computer virus,
+                            is given with respect to these data.
+                        </p>
+                    </div>
+                    <div class="padded">
+                        <button id="splash-ok" type="button" name="button" onclick="hide('hey')">OK</button>
+                    </div>
+                </article>
+                <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
+                    <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
+                </a>
             </div>
         </div>
     </div>

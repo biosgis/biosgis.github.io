@@ -29,7 +29,11 @@
         }
 
     </style>
-</head>
+    <script>
+        window.addEventListener('load', function() {
+            om = poplinks();
+        });
+    </script></head>
 
 <body>
     <header>
@@ -44,6 +48,8 @@
         </div>
     </header>
     <main>
+        <aside>
+        </aside>
         <ol>
             <li>
                 <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap">
@@ -69,6 +75,14 @@
                 </a>
             </li>
             <li>
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-layers/index.html">
+                    Intro to layers
+                </a> (Tile:
+                <a href="https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer">
+                    transportationLayer
+                </a>)
+            </li>
+            <li>
                 <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-geojson/index.html">
                     GeoJSONLayer
                 </a> 2019-10-10
@@ -82,6 +96,12 @@
                 <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-featurelayer/index.html">
                     Intro to FeatureLayer
                 </a> 2019-10-10
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html">
+                    FeatureLayer
+                </a>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-FeatureLayerView.html#properties-summary">
+                    FeatureLayerView
+                </a>
             </li>
             <li>
                 <a href="https://developers.arcgis.com/javascript/latest/sample-code/tasks-identify/index.html">
@@ -97,19 +117,10 @@
                 <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer/index.html">
                     Intro to MapImageLayer
                 </a> 2019-10-14; include 3d scene view.
-            </li>
-            <li>
-                How to remove the default thousand separator on long integers in a
-                Google Chart table cell?
-                To have to set
-                <a href="https://developers.google.com/chart/interactive/docs/reference#formatters">
-                    formatters
-                </a> on specific column would be very tidious; so tried
-                <a href="https://developers.google.com/chart/interactive/docs/basic_load_libs#loadwithlocale">
-                    language setting
-                </a> like
-                <code>google.charts.load('current', { 'packages': ['table'], 'language': null });</code>
-                but it did not work.
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html">
+                    MapImageLayer
+                </a>.
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html#createServiceSublayers">createServiceSublayers</a>
             </li>
             <li>
                 <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-mapimagelayer-sublayers/index.html">MapImageLayer - Toggle sublayer visibility</a>
@@ -123,7 +134,60 @@
             </li>
         </ol>
         <h2>
-            Fails
+            Code Recipes
+        </h2>
+        <ol>
+            <li>
+                Set map image layer opacity after the layer has loaded in
+                <code>layer.when(fxn)</code>
+            </li>
+            <li>
+                <h3>Filter Layer</h3>
+                <ol>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/featurefilter-attributes/index.html">
+                            Filter features by attribute sample
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://developers.arcgis.com/javascript/latest/sample-code/layers-scenelayer-feature-masking/index.html">
+                            Filter features by geometry with SceneLayer
+                        </a>
+                    </li>
+                    <li>
+                        Get a featureLayer's layerView dynamically selected by
+                        <pre>if (activeLayer.type === 'feature') {
+    activeLayerView = mapview.layerViews.find(function (layerView) {
+        return layerView.layer.id === urid;
+    });
+}</pre>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                Key value used to built a series of UI elements in a loop
+                cannot be dynamically accessed inside an embedded function
+                because it will always be the last key. Unique id or value
+                related to the element must be extracted from the element
+                attributes.
+            </li>
+            <li>
+                On click event handler on a parent node dynamically built
+                must not be attributed by .onclick but coded by
+                <code>element.addEventListener(event, function, useCapture)</code>
+                where userCapture is false so the handler is fired only once
+                on bubbling up from child nodes.
+                <p>
+                    Even more tricky is if hidden radio inputs are used to
+                    keep selected value for app. In a LI/LABEL-for-INPUT[radio] set
+                    of nodes, the LABEL will also click depending on whether
+                    user clicked on it when clicks the LI.
+                </p>
+            </li>
+            <li></li>
+        </ol>
+        <h2>
+            Fails and Issues
         </h2>
         <ol>
             <li>
@@ -140,17 +204,123 @@
                 Fields not specified in the inpu edit feature will not be changed
                 and will keep their existing values. 2019-10-23
             </li>
+            <li>
+                Dynamically loading amd.js (the required fxn) does not
+                automatically refreshes all the internal modules called
+                and the latest edits to the AMD modules code.
+            </li>
+            <li>
+                <code>mapview.goTo(sublayer.fullExtent)</code>
+                does not work since sublayer extent unknown for raster layers
+                under a dynamic map service.
+            </li>
+            <li>
+                How to remove the default thousand separator on long integers in a
+                Google Chart table cell?
+                To have to set
+                <a href="https://developers.google.com/chart/interactive/docs/reference#formatters">
+                    formatters
+                </a> on specific column would be very tidious; so tried
+                <a href="https://developers.google.com/chart/interactive/docs/basic_load_libs#loadwithlocale">
+                    language setting
+                </a> like
+                <code>google.charts.load('current', { 'packages': ['table'], 'language': null });</code>
+                but it did not work.
+            </li>
         </ol>
         <h2>
             Solutions
         </h2>
         <ol>
+            <li>how to
+                <a href="https://pro.arcgis.com/en/pro-app/help/sharing/overview/publish-a-map-service.htm">
+                    Publish a map service
+                </a> from ArcGIS Pro 2.3+ to standalone ArcGIS Server 10.6+
+            </li>
             <li>
                 <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#toMap">view.toMap(mouseEvent)</a> method convenient for Identify tool
             </li>
             <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#goTo">
+                    MapView.goTo(target)
+                </a>
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#layerViews">
+                    MapView.layerViews
+                </a>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#methods-summary">
+                    Collection
+                </a> stores all
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-LayerView.html">
+                    LayerView
+                </a>s of the operational layers of the map. So we can
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#find">
+                    find
+                </a> the activeLayerView in this collection.
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#layerViews">
+                    SceneView.layerViews
+                </a> collection
+            </li>
+            <li>
                 <a href="https://codepen.io/tjvantoll/pen/JEKIu">Fixed Table Header</a>
                 code sample
+            </li>
+        </ol>
+        <h2>
+            To-do List
+        </h2>
+        <ol class="todo">
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Bookmarks-BookmarksViewModel.html">
+                    BookmarksViewModel
+                </a>
+            </li>
+            <li>
+                <a href="https://www.esri.com/en-us/arcgis/products/arcgis-experience-builder/overview">
+                    ArcGIS Experience Builder
+                </a>
+                <a href="https://experience.arcgis.com/stemapp/aa3bec379e374bb184b73c25caeb780f">sample</a>
+            </li>
+        </ol>
+        <h2>
+            Web References and Help
+        </h2>
+        <ol>
+            <li>
+                <a href="https://stackoverflow.com/questions/190396/adding-html-entities-using-css-content">
+                    HTML entities in CSS::before content
+                </a>
+            </li>
+            <li>
+                <a href="https://www.w3schools.com/charsets/ref_utf_dingbats.asp">
+                    UTF-8 Dingbats
+                </a> Characters
+            </li>
+            <li>
+                <a href="https://www.w3schools.com/icons/default.asp" title="Icons Tutorial"></a>
+                <a href="https://www.w3schools.com/icons/icons_reference.asp" title="Icons Reference"></a>
+                <a href="https://www.w3schools.com/icons/fontawesome5_intro.asp">Font Awesome 5 Introduction</a>
+            </li>
+            <li>
+                <a href="http://www.alanwood.net/unicode/index.html">Alan Wood’s Unicode Resources</a>
+                Test for Unicode support in Web browsers
+                <a href="http://www.alanwood.net/unicode/miscellaneous_symbols.html">Miscellaneous Symbols</a>
+            </li>
+            <li>
+                <a href="https://www.alt-codes.net/copyright_alt_code.php">Alt-Codes</a>
+                Copyright symbol: Alt+0169 on Windows; Mac: Opt+g
+            </li>
+            <li>
+                <a href="https://www.w3schools.com/TAGs/tag_output.asp">html5 output tag</a>
+            </li>
+            <li>
+                <a href="https://www.w3schools.com/howto/howto_js_trigger_button_enter.asp"></a>
+            </li>
+            <li>
+                <a href="https://javascript.info/callbacks"></a>
             </li>
         </ol>
     </main>
