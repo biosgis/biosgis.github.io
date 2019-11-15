@@ -6,7 +6,7 @@ var toc = {
 }
 
 function TocLayer(args) {
-    addmsg('DO TocLayers ' + args.urid);
+    //addmsg('DO TocLayers ' + args.urid);
     var urid = args.urid; //ids[0];
     var url = args.url; //urls[0];
     var name = args.name;
@@ -119,7 +119,7 @@ function addMapImageLayer(args) {
                 visible: layers[i].defaultVisibility
             }
             sublayers.push(sublayer);
-            addmsg([layers[i].id, layers[i].name]);
+            //addmsg([layers[i].id, layers[i].name]);
         }
         var layer = new EsriMapImageLayer({
             id: sid,

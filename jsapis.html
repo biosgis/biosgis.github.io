@@ -33,7 +33,9 @@
         window.addEventListener('load', function() {
             om = poplinks();
         });
-    </script></head>
+
+    </script>
+</head>
 
 <body>
     <header>
@@ -132,6 +134,37 @@
             <li>
                 <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-support-Query.html">Query</a> check latest code samples 2019-11-07
             </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/tasks-query/index.html">
+                    QueryTask
+                </a> sample
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/featurelayer-query/index.html">
+                    Query features from a FeatureLayer
+                </a>
+                <b class="todo">
+                    use this technique for querying feature
+                    layer with layer filter applied
+                </b>
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/sample-code/editing-applyedits/index.html">
+                    Update FeatureLayer using applyEdits()
+                </a> sample
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-core-workers.html">workers</a>
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html">esriConfig</a>
+            </li>
+            <li>
+                <a href="https://www.w3schools.com/html/html5_webworkers.asp">HTML5 Web Workers</a>
+            </li>
+            <li>
+                <a href="https://www.html5rocks.com/en/tutorials/workers/basics/"></a>
+            </li>
         </ol>
         <h2>
             Code Recipes
@@ -186,6 +219,32 @@
             </li>
             <li></li>
         </ol>
+        <h3>
+            Tips and Tricks Learned
+        </h3>
+        <ol>
+            <li>
+                Force HTML TABLE cell TD or TH widths require the table css have specific width.
+            </li>
+            <li>
+                To hide long text in HTML TABLE cell only works if css for TD has
+                <code>{white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}</code>
+            </li>
+            <li>
+                Force HTML TABLE cell to specific height will never work without white-space nowrap
+            </li>
+            <li>
+                OBJECTID formatted to HTML required configuration option allowHtml to true
+                and specify {v: val, f: fval}
+            </li>
+            <li>
+                Date value displays more easily as string in Gtable than make new Date object.
+            </li>
+            <li>
+                Adding span as block inside table cell (TD) can fixed the cell height and width (?)
+                but when applied to header cell (TH) it shrinks the padding instead?
+            </li>
+        </ol>
         <h2>
             Fails and Issues
         </h2>
@@ -238,6 +297,14 @@
                 </a> from ArcGIS Pro 2.3+ to standalone ArcGIS Server 10.6+
             </li>
             <li>
+                <a href="https://community.esri.com/ideas/13902-publish-related-tables-from-arcgis-pro-201">
+                    Publish Related Tables in ArcGIS Pro - Documentation
+                </a> idea proposed due to this question
+                <a href="https://community.esri.com/thread/198458-publish-hosted-feature-service-with-related-tables-wont-work-with-arcgis-pro-20">
+                    Publish hosted feature service with related tables - Won't work with ArcGIS Pro
+                </a>
+            </li>
+            <li class="todo">
                 <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#toMap">view.toMap(mouseEvent)</a> method convenient for Identify tool
             </li>
             <li>
@@ -264,13 +331,13 @@
                     SceneView.layerViews
                 </a> collection
             </li>
-            <li>
+            <li class="todo">
                 <a href="https://codepen.io/tjvantoll/pen/JEKIu">Fixed Table Header</a>
                 code sample
             </li>
         </ol>
         <h2>
-            To-do List
+            To-Do List
         </h2>
         <ol class="todo">
             <li>
@@ -293,6 +360,20 @@
                 <a href="https://stackoverflow.com/questions/190396/adding-html-entities-using-css-content">
                     HTML entities in CSS::before content
                 </a>
+            </li>
+            <li>
+                <a href="https://dev.w3.org/html5/html-author/charref"></a>
+            </li>
+            <li>
+                <a href="https://docs.microsoft.com/en-us/sql/odbc/microsoft/column-name-limitations?view=sql-server-2017">
+                    MS SQL Column Name Limitations
+                </a>
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Field.html#type">
+                    Esri JSAPI Field Types
+                </a>
+                <code>small-integer | integer | single | double | long | string | date | oid | geometry | blob | raster | guid | global-id | xml</code>
             </li>
             <li>
                 <a href="https://www.w3schools.com/charsets/ref_utf_dingbats.asp">
@@ -321,6 +402,10 @@
             </li>
             <li>
                 <a href="https://javascript.info/callbacks"></a>
+            </li>
+            <li>
+                <a href="https://www.w3schools.com/js/js_date_formats.asp">JavaScript Date Formats</a>,
+                <a href="https://www.w3schools.com/jsref/jsref_obj_date.asp">JavaScript Date Reference</a>
             </li>
         </ol>
     </main>

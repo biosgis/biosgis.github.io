@@ -32,9 +32,20 @@ function testjsons() {
     document.getElementById('msgbox').innerHTML += 'Is b empty after delete? ' + (Object.entries(b).length === 0) + '<br>';
 }
 
+function tcall(a) {
+    var f = a[0];
+    var x = a[1];
+    var t = a[2];
+    setTimeout(function () {
+        f(x);
+    }, t);
+}
+
 function jtests() {
     console.log('jtests to test HTML/CSS/JS code');
     //$('msgdiv').innerHTML = nup().toString();
     //testOfLoop();//FAIL-IE
     //testjsons();
+    tcall([addmsg, 'THIS MSG IS BY tcall directly after 2 min', 180000]);
+    tcall([tcall, [addmsg, 'THIS MSG IS FROM tcall 1 min WITHIN tcall 30 sec', 60000], 30000]);
 }
