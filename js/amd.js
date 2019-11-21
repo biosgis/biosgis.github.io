@@ -496,9 +496,26 @@ window.addEventListener('load', function () {
         }
     }
     if (location.hash.indexOf('msgx') >= 0) {
-        for (var x of document.getElementsByClassName('msgx')) { //document.querySelectorAll('.msgx')
-            x.classList.remove('msgx');
-        }
+        let x = document.querySelectorAll('.msgx');
+        x.forEach(function (item) {
+            item.classList.remove('msgx');
+        });
+        // getElementsByClassName = LIVE LIST UPDATED INSTANTLY FROM ANY DOM CHANGE
+        //var nl = document.getElementsByClassName('msgx');
+        //while (nl.length > 0) {
+        //    (document.getElementsByClassName('msgx')[0].classList.remove('msgx'));
+        //}
+        // BELOW FAIL; BUG--ONLY 1 ELEM PROCESSED; SELF-TRIMMING AS LIVE INDEX DECREASES
+        //for (var x of nl) { //} document.getElementsByClassName('msgx')) {
+        //    x.classList.remove('msgx');
+        //}
+        //nl.forEach(function (x) { //FAIL IN OPERA FOR getElementsByClassName
+        //    x.classList.remove('msgx');
+        //});
+        //for (var i = 0; i < nl.length; i++) {
+        //    nl[i].classList.remove('msgx');
+        //    console.log('Element with msgx class removed');// STILL STOPS AFTER 1 ITER???
+        //}
     }
     $('sql-go').onkeyup = function (event) {
         var kc = event.which || event.keyCode;
@@ -517,6 +534,15 @@ window.addEventListener('load', function () {
     $('buffr').onchange = function (event) {
         $('buffd').value = $('buffr').value;
     };
+});
+window.addEventListener('hashchange', function () {
+    //console.log('URLocation hash changed');
+    if (location.hash.indexOf('msgx') >= 0) {
+        let x = document.querySelectorAll('.msgx');
+        x.forEach(function (item) {
+            item.classList.remove('msgx');
+        });
+    }
 });
 
 console.log('LOADED amd');

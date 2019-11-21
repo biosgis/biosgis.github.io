@@ -3,21 +3,22 @@ console.log('Loading toc');
 var toc = {
     id: "toc",
     name: "Contents"
-}
+};
 
-function TocLayer(args) {
-    //addmsg('DO TocLayers ' + args.urid);
-    var urid = args.urid; //ids[0];
-    var url = args.url; //urls[0];
-    var name = args.name;
-    var type = args.type;
-    var tiled = args.tiled;
-    var show = args.visible;
-    var vis = args.visibles;
-    if (args.ftype === undefined) {
+function TocLayer(ar) {
+    //addmsg('DO TocLayers ' + ar[0].urid);
+    var jo = ar[0];
+    var urid = jo.urid; //ids[0];
+    var url = jo.url; //urls[0];
+    var name = jo.name;
+    var type = jo.type;
+    var tiled = jo.tiled;
+    var visible = jo.visible;
+    var vls = jo.visibles;
+    if (jo.ftype === undefined) {
         ftype = '';
     } else {
-        ftype = args.ftype;
+        ftype = jo.ftype;
     }
     var item = document.createElement('li');
     item.classList.add('layeritem');
@@ -49,10 +50,42 @@ function TocLayer(args) {
     }
     toggler.classList.add('layericon');
     item.appendChild(toggler);
+    var checker = document.createElement('input');
+    checker.type = 'checkbox';
+    checker.id = urid + '-check';
+    checker.setAttribute('name', 'vislayers');
+    checker.checked = visible;
+    checker.value = urid;
+    checker.classList.add('layericon');
+    item.appendChild(checker);
+    var picker = document.createElement('input');
+    picker.type = 'radio';
+    picker.id = urid + '-pick';
+    picker.setAttribute('name', 'ace3');
+    picker.value = urid;
+    picker.classList.add('layericon');
+    item.appendChild(picker);
+    if (url.indexOf('Project_ACEIII/ace3') > 0 && type === 'sublayer') {
+        checker.style.display = 'none';
+    } else {
+        picker.style.display = 'none';
+    }
+    var chooser = document.createElement('input');
+    chooser.type = 'radio';
+    chooser.id = urid + '-radio';
+    chooser.setAttribute('name', 'toollayer');
+    chooser.value = urid;
+    chooser.classList.add('layericon');
+    chooser.style.display = 'none';
+    item.appendChild(chooser);
     var labeler = document.createElement('label');
     labeler.id = urid + '-name';
     labeler.innerHTML = name;
     labeler.style.marginRight = '5px';
+    labeler.htmlFor = urid + '-radio';
+    if (url.indexOf('Project_ACEIII/ace3') > 0) {
+        labeler.htmlFor = urid + '-pick';
+    }
     item.appendChild(labeler);
     var dots = document.createElement('span');
     dots.classList.add('esri-icon-handle-horizontal');
@@ -81,6 +114,7 @@ function TocLayer(args) {
     }
     list.style.marginLeft = '10px';
     list.style.padding = '0px';
+    list.style.display = 'none';
     item.appendChild(list);
     toggler.onclick = function () {
         togglex(list);
@@ -91,26 +125,25 @@ function TocLayer(args) {
 function tocAddLayers(layers) {
     addmsg('DO tocAddLayers');
     for (var urid in layers) {
-        var args = layers[urid];
+        var jo = layers[urid];
         if (urid.indexOf('biosds') !== 0) {
             var biosds = null; // NO NEED TO QUERY BIOSMANIFEST
         }
-        if (args.type.indexOf('map-image') >= 0) {
-            addMapImageLayer(args);
+        if (jo.type.indexOf('map-image') >= 0) {
+            addMapImageLayer(jo);
         }
     }
 }
 // SUBLAYERS--https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html
-function addMapImageLayer(args) {
-    addmsg('DO addMapImageLayer ' + args.urid);
-    var sid = args.urid;
-    var surl = args.url;
+function addMapImageLayer(jo) {
+    addmsg('DO addMapImageLayer ' + jo.urid);
+    var sid = jo.urid;
+    var surl = jo.url;
     asRequest(surl + "?f=json", {
         responseType: "json"
     }).then(function (response) {
-        console.log('currentVersion: ' + response.data.currentVersion);
+        addmsg(sid + '/currentVersion: ' + response.data.currentVersion);
         ENV = 'CDFW';
-        addmsg(sid);
         var sublayers = [];
         var layers = response.data.layers;
         for (var i = 0; i < layers.length; i++) {
@@ -127,24 +160,24 @@ function addMapImageLayer(args) {
             sublayers: sublayers
         });
         map.add(layer);
-        args['sublayers'] = layers;
-        var k = tocAddMapImageLayerItem(args);
+        jo['sublayers'] = layers;
+        var k = tocAddMapImageLayerItem(jo);
     }).catch((err) => {
         console.error('Error encountered', err);
     });
 }
 
-function tocAddMapImageLayerItem(args) {
-    addmsg('DO tocAddMapImageLayerItem ' + args.urid);
+function tocAddMapImageLayerItem(jo) {
+    addmsg('DO tocAddMapImageLayerItem ' + jo.urid);
     var k = 0;
-    var item = new TocLayer(args);
-    if (args.tocgroup === undefined) {
-        //if (args.urid.indexOf('biosds') === 0 || args.url.indexOf('BIOS_') > 0) {
+    var item = new TocLayer([jo]);
+    if (jo.tocgroup === undefined) {
+        //if (jo.urid.indexOf('biosds') === 0 || jo.url.indexOf('BIOS_') > 0) {
         //    var layergroup = 'bios';
         //}
         var tocgroup = 'proj';
     } else {
-        var layergroup = args.tocgroup;
+        var layergroup = jo.tocgroup;
     }
     if ($(layergroup + '-layers-list') === null) {
         var tocgroup = 'proj';
@@ -153,10 +186,10 @@ function tocAddMapImageLayerItem(args) {
     //list.appendChild(item);
     list.insertBefore(item, list.childNodes[0]);
     k += 1;
-    if (args.sublayers !== undefined) {
-        var sid = args.urid;
-        var surl = args.url;
-        var sublayers = args.sublayers;
+    if (jo.sublayers !== undefined) {
+        var sid = jo.urid;
+        var surl = jo.url;
+        var sublayers = jo.sublayers;
         for (var i = 0; i < sublayers.length; i++) {
             var info = sublayers[i];
             var urid = sid + ':' + info.id;
@@ -173,7 +206,7 @@ function tocAddMapImageLayerItem(args) {
             } else {
                 var prid = sid + ':' + info.parentLayerId;
             }
-            var subitem = new TocLayer(info);
+            var subitem = new TocLayer([info]);
             $(prid + '-list').appendChild(subitem);
         }
     }

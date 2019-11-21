@@ -255,6 +255,20 @@
             </article>
         </div>
     </aside>
+    <aside id="devbar" class="wide" style="display: none;">
+        <h2>
+            <span class="esri-icon-experimental"></span>
+            Devtools
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h2>
+        <div id="devdiv" class="maindiv">
+            <ol id="bbmlist" class="outdiv" style="display: none;" title="BiosBookmarks listing"></ol>
+            <ol id="bioslist" class="outdiv" style="display: none;" title="BIOS data listing"></ol>
+            <ol id="catlist" class="outdiv" style="display: none;" title="Catalog list view"></ol>
+            <ol id="obmlist" class="outdiv" style="display: none;" title="OldBookmarks listing"></ol>
+            <ol id="bbflist" class="outdiv" style="display: none;" title="BiosBookmarks filled"></ol>
+        </div>
+    </aside>
     <aside id="getdata" style="display: none;">
         <h3>
             <span class="esri-icon-down-arrow-circled hicon"></span>
@@ -441,6 +455,10 @@
                     <span class="esri-icon-dock-bottom"></span>
                     <label>Messages</label>
                 </li>
+                <li onclick="navview('devbar')" class="msgx" title="Dev Tools">
+                    <span class="esri-icon-experimental"></span>
+                    <label>Dev Tools</label>
+                </li>
             </ol>
         </div>
     </aside>
@@ -515,7 +533,7 @@
                     <label>Contents</label>
                 </li>
                 <li onclick="navview('databar')">
-                    <span class="esri-icon-menu"></span>
+                    <span class="esri-icon-menu" style="border: 1px solid dimgray;"></span>
                     <label>Data</label>
                 </li>
                 <li onclick="navview('getdata')" title="Get Data">
@@ -561,6 +579,10 @@
                 <li onclick="navview('ass')" title="App State">
                     <span class="esri-icon-dock-bottom"></span>
                     <label>App State</label>
+                </li>
+                <li onclick="navview('devbar')" class="msgx" title="Dev Tools">
+                    <span class="esri-icon-experimental"></span>
+                    <label>Devtools</label>
                 </li>
             </ol>
         </div>
