@@ -130,19 +130,59 @@ if (location.search.indexOf('viewer=') > 0) {
 }
 console.log('app.viewer=' + app.viewer);
 //TODO CONFIGURE VIEWER
-deflayers = [
-    {
-        id: "CalTrans_Lane_Closures",
-        url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
-        type: "kml",
-        name: "CalTrans Lane Closures"
-    },
-    {
-        id: "DFG_Properties:0",
-        url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
-        type: "feature",
-        name: "CDFW Facilities"
-    }];
+let configs = {
+    "ace": {},
+    "bios": {},
+    "cwhr": {},
+    "delta": {},
+    "dfg": {},
+    "fire": {},
+    "fishing": {},
+    "habitrak": {},
+    "imaps": {},
+    "lands": {},
+    "marine": {},
+    "min": {},
+    "rarefind": {},
+    "veg": {}
+}
+var imaps = {
+    id: "imaps",
+    layers: {
+        "CalTrans_Lane_Closures": {
+            id: "CalTrans_Lane_Closures",
+            url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+            type: "kml",
+            name: "CalTrans Lane Closures"
+        },
+        "DFG_Properties:0": {
+            id: "DFG_Properties:0",
+            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
+            type: "feature",
+            name: "CDFW Facilities"
+        }
+    }
+}
+app.layers["CalTrans_Lane_Closures"] = {
+    id: "CalTrans_Lane_Closures",
+    url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+    type: "kml",
+    name: "CalTrans Lane Closures"
+};
+app.layers["DFG_Properties:0"] = {
+    id: "DFG_Properties:0",
+    url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
+    type: "feature",
+    name: "CDFW Facilities"
+};
+app.layers["usa"] = {
+    id: "usa",
+    name: "USA",
+    tiled: false,
+    tocgroup: "ref",
+    type: "MapServer map=image MapImageLayer",
+    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer"
+}
 let GISSERVER = 'https://map.dfg.ca.gov';
 
 function addmsg(s) {

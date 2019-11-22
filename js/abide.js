@@ -2,7 +2,7 @@
 // All Basic App Setup and Universal Functions
 console.log('Loading abide.js');
 //==== GLOBAL VARIABLES
-var avn = 20191120;
+var avn = 20191121;
 var bvn = ((avn - 20000000) / 10000).toFixed(2);
 //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
 var fullversion = bvn + '.' + avn.toString().substr(6, 2);

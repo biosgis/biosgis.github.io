@@ -225,7 +225,8 @@ let amdfun = function (
     });
     // FEATURELAYER
     var featureLayer = new FeatureLayer({
-        url: deflayers[1].url
+        id: "DFG_Properties:0",
+        url: app.layers["DFG_Properties:0"].url
     });
     // carbon storage of trees in Warren Wilson College 
     //url="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"

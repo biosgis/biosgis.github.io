@@ -20,6 +20,13 @@ function TocLayer(ar) {
     } else {
         ftype = jo.ftype;
     }
+    if (urid.indexOf(':') > 0) {
+        var sid = urid.split(':')[0];
+        var lid = parseInt(urid.split(':')[1]);
+    } else {
+        var sid = urid;
+        var lid = -1;
+    }
     var item = document.createElement('li');
     item.classList.add('layeritem');
     item.id = urid + '-item';
@@ -55,9 +62,16 @@ function TocLayer(ar) {
     checker.id = urid + '-check';
     checker.setAttribute('name', 'vislayers');
     checker.checked = visible;
-    checker.value = urid;
+    if (urid.indexOf(':') > 0) {
+        checker.value = lid;
+    } else { // feature
+        checker.value = urid;
+    }
     checker.classList.add('layericon');
     item.appendChild(checker);
+    checker.onclick = function () {
+        tocchecked(checker);
+    }
     var picker = document.createElement('input');
     picker.type = 'radio';
     picker.id = urid + '-pick';
@@ -212,6 +226,32 @@ function tocAddMapImageLayerItem(jo) {
     }
     return k;
 }
+
+function tocchecked(checker) {
+    addmsg('DO tocchecked: ' + checker.id);
+    var urid = checker.id.split('-')[0];
+    if (map.findLayerById(urid) !== undefined) {
+        var layer = map.findLayerById(urid);
+        layer.visible = checker.checked;
+    }
+    if (urid.indexOf(':') > 0) {
+        var sid = urid.split(':')[0];
+        var lid = parseInt(urid.split(':')[1]);
+        if (map.findLayerById(sid) !== undefined) {
+            var layer = map.findLayerById(sid);
+            layer.sublayers[lid] = checker.checked;
+        }
+    } else {
+        var sid = urid;
+        var lid = -1;
+    }
+    var val = checker.value;
+    if (val.indexOf(',') > 0) {
+        var urids = val.split(',');
+        var tlid = urids[1];
+    }
+}
+
 //************************************************ NOT YET
 function applayerprops(urid) {
     if (app.layers[urid] === undefined) {
