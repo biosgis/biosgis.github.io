@@ -153,6 +153,9 @@ function addMapImageLayer(jo) {
     addmsg('DO addMapImageLayer ' + jo.urid);
     var sid = jo.urid;
     var surl = jo.url;
+    if (jo.visible === undefined) {
+        jo['visible'] = true;
+    }
     asRequest(surl + "?f=json", {
         responseType: "json"
     }).then(function (response) {
@@ -171,7 +174,9 @@ function addMapImageLayer(jo) {
         var layer = new EsriMapImageLayer({
             id: sid,
             url: surl,
-            sublayers: sublayers
+            sublayers: sublayers,
+            opacity: 0.77,
+            visible: jo.visible
         });
         map.add(layer);
         jo['sublayers'] = layers;

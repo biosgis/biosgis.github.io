@@ -151,29 +151,42 @@ var imaps = {
     layers: {
         "CalTrans_Lane_Closures": {
             id: "CalTrans_Lane_Closures",
-            url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+            name: "CalTrans Lane Closures",
             type: "kml",
-            name: "CalTrans Lane Closures"
+            url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+            visible: true
         },
         "DFG_Properties:0": {
             id: "DFG_Properties:0",
-            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
+            name: "CDFW Facilities",
             type: "feature",
-            name: "CDFW Facilities"
+            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
+            visible: true
         }
     }
 }
 app.layers["CalTrans_Lane_Closures"] = {
     id: "CalTrans_Lane_Closures",
-    url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+    name: "CalTrans Lane Closures",
     type: "kml",
-    name: "CalTrans Lane Closures"
+    url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+    visible: true
 };
+app.layers["Soil_Survey_Map"] = {
+    id: "Soil_Survey_Map",
+    name: "Soil_Survey",
+    type: "tile",
+    tiled: true,
+    tocgroup: "ref",
+    url: "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer",
+    visible: true
+}
 app.layers["DFG_Properties:0"] = {
     id: "DFG_Properties:0",
-    url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
+    name: "CDFW Facilities",
     type: "feature",
-    name: "CDFW Facilities"
+    url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
+    visible: true
 };
 app.layers["usa"] = {
     id: "usa",
@@ -181,7 +194,8 @@ app.layers["usa"] = {
     tiled: false,
     tocgroup: "ref",
     type: "MapServer map=image MapImageLayer",
-    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer"
+    url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer",
+    visible: true
 }
 let GISSERVER = 'https://map.dfg.ca.gov';
 
@@ -200,7 +214,8 @@ var als = {
         tiled: false,
         tocgroup: "ref",
         urid: "EDW_ExistingVegetationRegion05_01",
-        url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_ExistingVegetationRegion05_01/MapServer"
+        url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_ExistingVegetationRegion05_01/MapServer",
+        visible: true
     }
 }
 console.log('Loaded app');
