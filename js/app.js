@@ -191,6 +191,28 @@ app.layers["DFG_Properties:0"] = {
 app.layers["usa"] = {
     id: "usa",
     name: "USA",
+    sublayers: [
+        {
+            id: 0,
+            name: "Cites",
+            visible: true
+        },
+        {
+            id: 1,
+            name: "Highways",
+            visible: true
+        },
+        {
+            id: 2,
+            name: "States",
+            visible: true
+        },
+        {
+            id: 3,
+            name: "Counties",
+            visible: true
+        }
+    ],
     tiled: false,
     tocgroup: "ref",
     type: "MapServer map=image MapImageLayer",
@@ -217,5 +239,11 @@ var als = {
         url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_ExistingVegetationRegion05_01/MapServer",
         visible: true
     }
+}
+app.initLayers = function () {
+    addmsg('DO app.initLayers');
+    var jo = app.layers['usa'];
+    jo = tocFillMapImageLayerSubinfos(jo);
+    tocAddMapImageLayerItem(jo);
 }
 console.log('Loaded app');

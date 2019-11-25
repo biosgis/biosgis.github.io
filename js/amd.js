@@ -421,6 +421,7 @@ let amdfun = function (
             node.classList.toggle("esri-visible-layer");
         }
     });
+    app.initLayers();
     //=== INIT TOOLS
     //-- INIT BIOSBOOKMARKS
     initbb();

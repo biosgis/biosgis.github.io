@@ -14,7 +14,9 @@ function TocLayer(ar) {
     var type = jo.type;
     var tiled = jo.tiled;
     var visible = jo.visible;
-    var vls = jo.visibles;
+    if (jo.visibles !== undefined) {
+        var vls = jo.visibles;
+    }
     if (jo.ftype === undefined) {
         ftype = '';
     } else {
@@ -150,12 +152,24 @@ function tocAddLayers(layers) {
 }
 // SUBLAYERS--https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html
 function addMapImageLayer(jo) {
-    addmsg('DO addMapImageLayer ' + jo.urid);
-    var sid = jo.urid;
-    var surl = jo.url;
+    addmsg('DO addMapImageLayer ' + jo.id);
+    // TODO FIGURE AND FILL OUT ALL ATTRIBUTES IF MISSING LIKE NAME AND URID IF ID IS INTEGER
+    if (jo.urid === undefined) {
+        var urid = jo.id;
+        jo['urid'] = urid;
+    }
+    if (jo.name === undefined) {
+        jo['name'] = jo.urid;
+    }
+    if (jo.tiled === undefined) {
+        jo['tiled'] = false;
+    }
     if (jo.visible === undefined) {
         jo['visible'] = true;
     }
+    var sid = jo.urid;
+    var surl = jo.url;
+    // TODO DIFF BLOKS FOR IF LAYERINFO HAS FULL SUBLAYERS OR NOT
     asRequest(surl + "?f=json", {
         responseType: "json"
     }).then(function (response) {
@@ -192,13 +206,13 @@ function tocAddMapImageLayerItem(jo) {
     var item = new TocLayer([jo]);
     if (jo.tocgroup === undefined) {
         //if (jo.urid.indexOf('biosds') === 0 || jo.url.indexOf('BIOS_') > 0) {
-        //    var layergroup = 'bios';
+        //    var tocgroup = 'bios';
         //}
         var tocgroup = 'proj';
     } else {
-        var layergroup = jo.tocgroup;
+        var tocgroup = jo.tocgroup;
     }
-    if ($(layergroup + '-layers-list') === null) {
+    if ($(tocgroup + '-layers-list') === null) {
         var tocgroup = 'proj';
     }
     var list = $(tocgroup + '-layers-list');
@@ -216,11 +230,13 @@ function tocAddMapImageLayerItem(jo) {
             info.urid = urid;
             info.url = url;
             info.type = 'sublayer'; // DONT KNOW WHETHER FEATURE, GROUP, OR RASTER
-            if (info.subLayerIds !== null && info.subLayerIds.length > 0) {
+            if (info.subLayerIds !== undefined && info.subLayerIds !== null && info.subLayerIds.length > 0) {
                 info.type = 'Group Layer';
             }
             info.ftype = ''; // FEATUREGEOMETRYTYPE UNKNOWN
-            if (info.parentLayerId === -1) {
+            if (info.parentLayerId === undefined) {
+                var prid = sid;
+            } else if (info.parentLayerId === -1) {
                 var prid = sid;
             } else {
                 var prid = sid + ':' + info.parentLayerId;
@@ -257,6 +273,25 @@ function tocchecked(checker) {
     }
 }
 
+function tocFillMapImageLayerSubinfos(jo) {
+    addmsg('DO tocFillMapImageLayerSubinfos ' + jo.id);
+    // SO BASIC SUBLAYER IFNO LIKE LAYER USA CAN BE PASSED INTO TOCLAYER TO MAKE TOCITEM
+    var sid = jo.id;
+    var surl = jo.url;
+    if (jo.urid === undefined) {
+        jo.urid = sid;
+    }
+    if ((jo.sublayers !== undefined && jo.sublayers.length > 0) && jo.sublayers[0].urid === undefined) {
+        for (var i = 0; i < jo.sublayers.length; i++) {
+            var urid = sid + ':' + jo.sublayers[i].id;
+            jo.sublayers[i].urid = urid;
+            var url = surl + '/' + jo.sublayers[i].id;
+            jo.sublayers[i]['url'] = url;
+            // DONT EVEN KNOW TYPE GROUPLAYR OR WHAT
+        }
+    }
+    return jo;
+}
 //************************************************ NOT YET
 function applayerprops(urid) {
     if (app.layers[urid] === undefined) {
