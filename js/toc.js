@@ -59,6 +59,9 @@ function TocLayer(ar) {
     }
     toggler.classList.add('layericon');
     item.appendChild(toggler);
+    toggler.onclick = function () {
+        togglex(list);
+    }
     var checker = document.createElement('input');
     checker.type = 'checkbox';
     checker.id = urid + '-check';
@@ -81,11 +84,6 @@ function TocLayer(ar) {
     picker.value = urid;
     picker.classList.add('layericon');
     item.appendChild(picker);
-    if (url.indexOf('Project_ACEIII/ace3') > 0 && type === 'sublayer') {
-        checker.style.display = 'none';
-    } else {
-        picker.style.display = 'none';
-    }
     var chooser = document.createElement('input');
     chooser.type = 'radio';
     chooser.id = urid + '-radio';
@@ -99,10 +97,20 @@ function TocLayer(ar) {
     labeler.innerHTML = name;
     labeler.style.marginRight = '5px';
     labeler.htmlFor = urid + '-radio';
-    if (url.indexOf('Project_ACEIII/ace3') > 0) {
-        labeler.htmlFor = urid + '-pick';
-    }
     item.appendChild(labeler);
+    if (url.indexOf('Project_ACEIII/ace3') > 0 && type === 'sublayer') {
+        checker.style.display = 'none';
+        labeler.htmlFor = urid + '-pick';
+        picker.addEventListener('click', function () {
+            checker.click();
+            chooser.click();
+        });
+    } else {
+        picker.style.display = 'none';
+        if (type.indexOf('feature') >= 0 || type === 'sublayer') {
+            labeler.htmlFor = urid + '-radio';
+        }
+    }
     var dots = document.createElement('span');
     dots.classList.add('esri-icon-handle-horizontal');
     dots.classList.add('layericon');
@@ -132,9 +140,6 @@ function TocLayer(ar) {
     list.style.padding = '0px';
     list.style.display = 'none';
     item.appendChild(list);
-    toggler.onclick = function () {
-        togglex(list);
-    }
     return item;
 }
 
@@ -266,6 +271,7 @@ function tocchecked(checker) {
         var sid = urid;
         var lid = -1;
     }
+    // BIOSDSFXN TODO
     var val = checker.value;
     if (val.indexOf(',') > 0) {
         var urids = val.split(',');
