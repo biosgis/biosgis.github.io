@@ -162,6 +162,15 @@ var imaps = {
             type: "feature",
             url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
             visible: true
+        },
+        "Wetlands": {
+            id: "Wetlands",
+            name: "Wetlands",
+            tocgroup: "ref",
+            type: "MapServer map-image",
+            url: "https://www.fws.gov/wetlands/arcgis/rest/services/Wetlands/MapServer",
+            visible: true,
+            website: "https://www.fws.gov/wetlands/"
         }
     }
 }
@@ -179,6 +188,16 @@ app.layers["Soil_Survey_Map"] = {
     tiled: true,
     tocgroup: "ref",
     url: "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer",
+    visible: true
+}
+app.layers["EVEG"] = {
+    id: "EDW_ExistingVegetationRegion05_01",
+    name: "Existing Vegetation",
+    type: "MapServer",
+    tiled: false,
+    tocgroup: "ref",
+    urid: "EDW_ExistingVegetationRegion05_01",
+    url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_ExistingVegetationRegion05_01/MapServer",
     visible: true
 }
 app.layers["DFG_Properties:0"] = {
@@ -228,22 +247,32 @@ function addmsg(s) {
 function xxaddmsg(s) {
     return false;
 }
-var als = {
-    "EVEG": {
-        id: "EDW_ExistingVegetationRegion05_01",
-        name: "Existing Vegetation",
-        type: "MapServer",
-        tiled: false,
-        tocgroup: "ref",
-        urid: "EDW_ExistingVegetationRegion05_01",
-        url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_ExistingVegetationRegion05_01/MapServer",
-        visible: true
-    }
-}
 app.initLayers = function () {
     addmsg('DO app.initLayers');
     var jo = app.layers['usa'];
     jo = tocFillMapImageLayerSubinfos(jo);
     tocAddMapImageLayerItem(jo);
 }
+window.addEventListener('load', function () {
+    if (window.Worker) {
+        var myWorker = new Worker('../js/worker.js');
+        var first = $('devin1');
+        var second = $('devin2');
+        var resultp = $('resoutp');
+        first.onchange = function () {
+            myWorker.postMessage([first.value, second.value]);
+            console.log('Message posted to worker by devin1');
+        }
+
+        second.onchange = function () {
+            myWorker.postMessage([first.value, second.value]);
+            console.log('Message posted to worker by devin2');
+        }
+        myWorker.onmessage = function (e) {
+            resultp.textContent = e.data;
+            console.log('Message received from worker');
+            $('devout').value = e.data;
+        }
+    }
+});
 console.log('Loaded app');

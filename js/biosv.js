@@ -1,5 +1,8 @@
 // biosv.js 20190927 dfgchiang
 console.log('Loading biosv');
+let viewer = {
+    id: "bios"
+}
 const esriFieldTypesNumber = 'esriFieldTypeDouble,esriFieldTypeFloat,esriFieldTypeInteger,esriFieldTypeOID,esriFieldTypeSmallInteger';
 const esriFieldTypeToColumnType = {
     "esriFieldTypeBlob": "image",
