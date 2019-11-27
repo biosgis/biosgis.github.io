@@ -31,8 +31,7 @@ aside {
 aside.auto {
     box-shadow: -3px 3px 3px 3px gray;
     bottom: auto;
-    height: auto;
-    max-height: 90%;
+    height: 80%;
     width: auto;
 }
 
@@ -75,7 +74,7 @@ h2 {
 h3 {
     position: relative;
     background-color: lightsteelblue;
-    border-bottom: 1px solid silver;
+    border-bottom: 1px solid lavender;
     cursor: default;
     margin: 0;
     padding: 8px;
@@ -83,8 +82,8 @@ h3 {
 
 h4 {
     position: relative;
-    background-color: lavender;
-    border: 1px solid gainsboro;
+    background-color: gainsboro;
+    border: 1px solid lightgray;
     border-width: 1px 0;
     cursor: default;
     margin: 0;
