@@ -28,7 +28,7 @@
     <script>
         DEFAULT_PAGE = 'index.html';
         var cssfiles = ['main.css'];
-        var jsfiles = ['abide.js', 'app.js', 'ace.js', 'bb.js', 'biosv.js',
+        var jsfiles = ['abide.js', 'config.js', 'app.js', 'ace.js', 'bb.js', 'biosv.js',
             'tests.js', 'toc.js', 'tools.js', 'tv.js', 'amd.js'
         ];
         for (var i = 0; i < cssfiles.length; i++) {
@@ -98,7 +98,7 @@
             Application Session State
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
-        <div class="maindiv">
+        <div class="maindiv" style="padding: 5px;">
             <div style="display: flex; align-items: stretch;">
                 <label>al:</label>
                 <div><input type="text" id="al" name="app" value="" title="Active Layer" style="position: relative; width: 90%;"></div>
@@ -111,6 +111,17 @@
                 <label>ssid</label>:
                 <input type="text" id="ssid" name="bb" value="" title="SessionID">
             </div>
+        </div>
+    </aside>
+    <aside id="basemaps">
+        <h3>
+            <span class="esri-icon-basemaps hicon"></span>
+            Basemaps
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h3>
+        <div class="maindiv auto">
+            <ol class="menu">
+            </ol>
         </div>
     </aside>
     <aside id="bookmarks" class="wide" style="display: none;">
@@ -217,10 +228,12 @@
         <div class="maindiv">
             <article>
                 <h4 id="toc-al" onclick="toggle('al-layers')">
-                    Active/Selected Layer
+                    Active/Selected/Target Layer
                 </h4>
                 <div id="al-layers" class="padded">
                     <label class="alayer"></label>
+                    <label class="alname"></label>
+                    <label class="altype"></label>
                 </div>
             </article>
             <article>
@@ -245,12 +258,14 @@
                 </h3>
                 <div id="ref-layers">
                     <ol class="layerlist" id="ref-layers-list"></ol>
+                    <!--
                     <div class="esri-sublayers esri-widget">
                         <div class="esri-sublayers-item" data-id="0">Cities</div>
                         <div class="esri-sublayers-item" data-id="1">Highways</div>
-                        <!--<div class="esri-sublayers-item" data-id="4">Railroads</div>-->
+                        <div class="esri-sublayers-item" data-id="4">Railroads</div>
                         <div class="esri-sublayers-item" data-id="2">States</div>
                     </div>
+-->
                 </div>
             </article>
         </div>
@@ -484,13 +499,13 @@
             <div id="gtablediv"></div>
         </div>
     </section>
-    <aside id="msgbar" style="display: none;">
+    <section id="msgbar" style="display: none;">
         <h2>
             <span class="esri-icon-dock-top"></span>
             Messages
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
-        <div id="msgdiv" class="maindiv noscroll">
+        <div id="msgdiv" class="maindiv noscroll" style="height: 88%;">
             <h3 style="top: 0;">
                 <input type="text" id="cmdbox" value="" style="width: 96%;">
             </h3>
@@ -506,7 +521,7 @@
                 <hr>
             </div>
         </div>
-    </aside>
+    </section>
     <footer style="display: none;">
         <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work
         is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons

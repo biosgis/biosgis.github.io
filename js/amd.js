@@ -179,6 +179,7 @@ let amdfun = function (
     // use IdentifyTask to query the service to add interactivity to the app
     var soilsLayer = new TileLayer({
         url: soilURL,
+        id: "Soil_Survey_Map",
         opacity: 0.85
     });
     // MAPIMAGELAYER SAMPLE
@@ -392,7 +393,7 @@ let amdfun = function (
      * Wait for Layer to load and update the page to refelect which
      * layers are visible in the Map Service.
      *****************************************************************/
-    usalayer.when(function () {
+    /*usalayer.when(function () {
         layer.sublayers.map(function (sublayer) {
             var id = sublayer.id;
             var visible = sublayer.visible;
@@ -403,13 +404,12 @@ let amdfun = function (
                 node.classList.add("esri-visible-layer");
             }
         });
-    });
-
+    });*/
     /*****************************************************************
      * Listen for when buttons on the page have been clicked to turn
      * layers on and off in the Map Service.
      *****************************************************************/
-    var sublayersElement = document.querySelector(".esri-sublayers");
+    /*var sublayersElement = document.querySelector(".esri-sublayers");
     sublayersElement.addEventListener("click", function (event) {
         var id = event.target.getAttribute("data-id");
         if (id) {
@@ -420,7 +420,7 @@ let amdfun = function (
             sublayer.visible = !sublayer.visible;
             node.classList.toggle("esri-visible-layer");
         }
-    });
+    });*/
     app.initLayers();
     //=== INIT TOOLS
     //-- INIT BIOSBOOKMARKS
@@ -502,6 +502,7 @@ window.addEventListener('load', function () {
         x.forEach(function (item) {
             item.classList.remove('msgx');
         });
+        show('msgbar');
         // getElementsByClassName = LIVE LIST UPDATED INSTANTLY FROM ANY DOM CHANGE
         //var nl = document.getElementsByClassName('msgx');
         //while (nl.length > 0) {

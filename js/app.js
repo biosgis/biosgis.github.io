@@ -129,51 +129,6 @@ if (location.search.indexOf('viewer=') > 0) {
     //    viewer.layers = configs.bios.layers;
 }
 console.log('app.viewer=' + app.viewer);
-//TODO CONFIGURE VIEWER
-let configs = {
-    "ace": {},
-    "bios": {},
-    "cwhr": {},
-    "delta": {},
-    "dfg": {},
-    "fire": {},
-    "fishing": {},
-    "habitrak": {},
-    "imaps": {},
-    "lands": {},
-    "marine": {},
-    "min": {},
-    "rarefind": {},
-    "veg": {}
-}
-var imaps = {
-    id: "imaps",
-    layers: {
-        "CalTrans_Lane_Closures": {
-            id: "CalTrans_Lane_Closures",
-            name: "CalTrans Lane Closures",
-            type: "kml",
-            url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
-            visible: true
-        },
-        "DFG_Properties:0": {
-            id: "DFG_Properties:0",
-            name: "CDFW Facilities",
-            type: "feature",
-            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
-            visible: true
-        },
-        "Wetlands": {
-            id: "Wetlands",
-            name: "Wetlands",
-            tocgroup: "ref",
-            type: "MapServer map-image",
-            url: "https://www.fws.gov/wetlands/arcgis/rest/services/Wetlands/MapServer",
-            visible: true,
-            website: "https://www.fws.gov/wetlands/"
-        }
-    }
-}
 app.layers["CalTrans_Lane_Closures"] = {
     id: "CalTrans_Lane_Closures",
     name: "CalTrans Lane Closures",
@@ -181,25 +136,6 @@ app.layers["CalTrans_Lane_Closures"] = {
     url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
     visible: true
 };
-app.layers["Soil_Survey_Map"] = {
-    id: "Soil_Survey_Map",
-    name: "Soil_Survey",
-    type: "tile",
-    tiled: true,
-    tocgroup: "ref",
-    url: "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer",
-    visible: true
-}
-app.layers["EVEG"] = {
-    id: "EDW_ExistingVegetationRegion05_01",
-    name: "Existing Vegetation",
-    type: "MapServer",
-    tiled: false,
-    tocgroup: "ref",
-    urid: "EDW_ExistingVegetationRegion05_01",
-    url: "https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_ExistingVegetationRegion05_01/MapServer",
-    visible: true
-}
 app.layers["DFG_Properties:0"] = {
     id: "DFG_Properties:0",
     name: "CDFW Facilities",
@@ -240,18 +176,18 @@ app.layers["usa"] = {
 }
 let GISSERVER = 'https://map.dfg.ca.gov';
 
-function addmsg(s) {
-    document.getElementById('msgbox').innerHTML += s + '<br/>';
-}
-// TO CLEAN UP UNWANTED OUTPUTS IN PRODUCTION RENAME ABOVE FUNCTION TO BELOW
-function xxaddmsg(s) {
-    return false;
-}
 app.initLayers = function () {
     addmsg('DO app.initLayers');
     var jo = app.layers['usa'];
     jo = tocFillMapImageLayerSubinfos(jo);
     tocAddMapImageLayerItem(jo);
+    var jo = imaps.layers['Soil_Survey_Map'];
+    jo = tocFillMapImageLayerSubinfos(jo);
+    tocAddMapImageLayerItem(jo);
+    var jo = lands.layers['DFG_Lands'];
+    //jo = tocFillMapImageLayerSubinfos(jo);
+    //tocAddMapImageLayerItem(jo);
+    addMapImageLayer(jo);
 }
 window.addEventListener('load', function () {
     if (window.Worker) {

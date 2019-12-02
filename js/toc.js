@@ -105,12 +105,17 @@ function TocLayer(ar) {
             checker.click();
             chooser.click();
         });
+        labeler.classList.add('feature');
     } else {
         picker.style.display = 'none';
         if (type.indexOf('feature') >= 0 || type === 'sublayer') {
             labeler.htmlFor = urid + '-radio';
+            labeler.classList.add('feature');
         }
     }
+    chooser.onclick(function () {
+        tocpicked(chooser);
+    })
     var dots = document.createElement('span');
     dots.classList.add('esri-icon-handle-horizontal');
     dots.classList.add('layericon');
@@ -253,6 +258,16 @@ function tocAddMapImageLayerItem(jo) {
     return k;
 }
 
+function tocpicked(chooser) {
+    addmsg('DO tocpicked: ' + chooser.id);
+    var urid = chooser.id.split('-')[0];
+    var name = $(urid + '-name');
+    var x = document.querySelectorAll('.alname');
+    for (var i = 0; i < x.length; i++) {
+        x[i].innerHTML = name;
+    }
+}
+
 function tocchecked(checker) {
     addmsg('DO tocchecked: ' + checker.id);
     var urid = checker.id.split('-')[0];
@@ -265,7 +280,9 @@ function tocchecked(checker) {
         var lid = parseInt(urid.split(':')[1]);
         if (map.findLayerById(sid) !== undefined) {
             var layer = map.findLayerById(sid);
-            layer.sublayers[lid] = checker.checked;
+            //layer.sublayers[lid] = checker.checked;
+            var sublayer = layer.findSublayerById(lid);
+            sublayer.visible = checker.checked;
         }
     } else {
         var sid = urid;

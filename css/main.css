@@ -244,6 +244,11 @@ table.bbtable td {
     width: 120px;
 }
 
+.alname {
+    font-size: smaller;
+    font-weight: bold;
+}
+
 .atotal {
     font-size: 80%;
 }
@@ -362,6 +367,10 @@ label.bb {
     padding: 5px;
 }
 
+.feature:hover {
+    background-color: aliceblue;
+}
+
 .todo {
     color: tomato;
 }
@@ -431,6 +440,16 @@ label.bb {
     text-align: center;
     vertical-align: middle;
     word-spacing: 2em;
+}
+
+#msgbar {
+    border: 2px solid silver;
+    bottom: 0;
+    height: 60%;
+    left: 20%;
+    right: 20%;
+    position: absolute;
+    width: 60%;
 }
 
 #viewdivide {
