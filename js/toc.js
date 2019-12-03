@@ -83,6 +83,7 @@ function TocLayer(ar) {
     picker.setAttribute('name', 'ace3');
     picker.value = urid;
     picker.classList.add('layericon');
+    picker.style.display = 'none';
     item.appendChild(picker);
     var chooser = document.createElement('input');
     chooser.type = 'radio';
@@ -100,22 +101,22 @@ function TocLayer(ar) {
     item.appendChild(labeler);
     if (url.indexOf('Project_ACEIII/ace3') > 0 && type === 'sublayer') {
         checker.style.display = 'none';
-        labeler.htmlFor = urid + '-pick';
+        picker.style.display = 'normal';
         picker.addEventListener('click', function () {
-            checker.click();
-            chooser.click();
+            checker.checked = picker.checked;
+            if (app.alayer.urid.indexOf('ace3') === 0) {
+                $(app.alayer.urid + '-check').checked = false;
+            }
         });
         labeler.classList.add('feature');
     } else {
-        picker.style.display = 'none';
         if (type.indexOf('feature') >= 0 || type === 'sublayer') {
-            labeler.htmlFor = urid + '-radio';
             labeler.classList.add('feature');
         }
     }
-    chooser.onclick(function () {
+    chooser.onclick = function () {
         tocpicked(chooser);
-    })
+    }
     var dots = document.createElement('span');
     dots.classList.add('esri-icon-handle-horizontal');
     dots.classList.add('layericon');
@@ -261,11 +262,26 @@ function tocAddMapImageLayerItem(jo) {
 function tocpicked(chooser) {
     addmsg('DO tocpicked: ' + chooser.id);
     var urid = chooser.id.split('-')[0];
-    var name = $(urid + '-name');
+    var checker = $(urid + '-check');
+    if (urid.indexOf('ace3') === 0) {
+        $(urid + '-pick').checked = true;
+        $(app.alayer.urid + '-check').checked = false;
+    } else {
+        if (!checker.checked) {
+            checker.click();
+        }
+    }
+    var name = $(urid + '-name').innerHTML;
     var x = document.querySelectorAll('.alname');
     for (var i = 0; i < x.length; i++) {
         x[i].innerHTML = name;
     }
+    app.alayer.uridlast = app.alayer.urid;
+    app.alyer.urid = urid;
+    $('al').value = urid;
+    var y = document.querySelector('.activeLayer');
+    y.classList.remove('activeLayer');
+    $(urid + '-item').classList.add('activeLayer');
 }
 
 function tocchecked(checker) {
@@ -298,7 +314,7 @@ function tocchecked(checker) {
 
 function tocFillMapImageLayerSubinfos(jo) {
     addmsg('DO tocFillMapImageLayerSubinfos ' + jo.id);
-    // SO BASIC SUBLAYER IFNO LIKE LAYER USA CAN BE PASSED INTO TOCLAYER TO MAKE TOCITEM
+    // PASS SUBLAYER INFO LIKE SAMPLE USA CAN BE PASSED INTO TOCLAYER TO MAKE TOCITEM
     var sid = jo.id;
     var surl = jo.url;
     if (jo.urid === undefined) {

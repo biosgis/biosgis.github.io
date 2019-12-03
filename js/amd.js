@@ -31,8 +31,11 @@ let amdlibs = [
     "esri/tasks/support/Query",
     "esri/views/MapView",
     "esri/views/SceneView",
-    "esri/widgets/Legend",
+    "esri/widgets/BasemapGallery",
+    "esri/widgets/BasemapToggle",
     "esri/widgets/Expand",
+    "esri/widgets/Home",
+    "esri/widgets/Legend",
     "esri/widgets/FeatureForm"
 ];
 let amdfun = function (
@@ -53,8 +56,11 @@ let amdfun = function (
     QueryTask, Query,
     MapView,
     SceneView,
+    BasemapGallery,
+    BasemapToggle,
+    Expand, Home,
     Legend,
-    Expand, FeatureForm
+    FeatureForm
 ) {
     esriConfig.geometryServiceUrl = "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer";
     //esriConfig.portalUrl = "https://cdfw.maps.arcgis.com";
@@ -224,6 +230,25 @@ let amdfun = function (
         container: "view3div",
         map: map
     });
+    // GLOBALIZE
+    mapview = view;
+    sceneview = view3d;
+    // BASEMAP GALLERY SIDEBAR
+    var basemapgal = new BasemapGallery({
+        view: view,
+        container: "basemapgal"
+    });
+    // BASEMAP TOGGLE WIDGET
+    var basemaptoggle = new BasemapToggle({
+        view: view, // view that provides access to the map's initial basemap
+        nextBasemap: "hybrid" // allows for toggling to the 'hybrid' basemap
+    });
+    view.ui.add(basemaptoggle, "bottom-left");
+    // HOME WIDGET
+    var homeWidget = new Home({
+        view: view
+    });
+    view.ui.add(homeWidget, "top-left");
     // FEATURELAYER
     var featureLayer = new FeatureLayer({
         id: "DFG_Properties:0",
@@ -450,6 +475,10 @@ let amdfun = function (
     });
     //=== INIT VIEWER DEFAULT LAYERS
     ace.init();
+    view.when(function () {
+        console.info(mapview.extent);
+        addmsg('mapview.extent.xmin=' + mapview.extent.xmin); //.x TypeError: Cannot read property 'x' of null
+    });
     // DONE AMD REQUIRED LOADER FUNCTION
 }
 require(amdlibs, amdfun);
@@ -545,6 +574,7 @@ window.addEventListener('hashchange', function () {
         x.forEach(function (item) {
             item.classList.remove('msgx');
         });
+        show('msgbar');
     }
 });
 

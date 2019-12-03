@@ -113,15 +113,14 @@
             </div>
         </div>
     </aside>
-    <aside id="basemaps">
+    <aside id="basemaps" style="display: none; left: auto; width: auto;">
         <h3>
-            <span class="esri-icon-basemaps hicon"></span>
+            <span class="esri-icon-basemap hicon"></span>
             Basemaps
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
-        <div class="maindiv auto">
-            <ol class="menu">
-            </ol>
+        <div class="maindiv">
+            <div id="basemapgal"></div>
         </div>
     </aside>
     <aside id="bookmarks" class="wide" style="display: none;">
@@ -438,6 +437,10 @@
         </h2>
         <div class="maindiv">
             <ol class="menu">
+                <li onclick="navview('basemaps')" title="Basemap Gallery">
+                    <span class="esri-icon-basemap"></span>
+                    <label>Basemaps</label>
+                </li>
                 <li onclick="navview('bookmarks')" title="BiosBookmarks">
                     <span class="esri-icon-bookmark"></span>
                     <label>BIOS Bookmarks</label>
@@ -487,7 +490,7 @@
             Data
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
-        <div id="msgdiv" class="maindiv"></div>
+        <div id="msgdiv" class="mainlow"></div>
     </section>
     <section id="gtablebar" style="display: none;">
         <h2>
@@ -495,31 +498,8 @@
             Table
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
-        <div id="msgdiv" class="maindiv">
+        <div id="msgdiv" class="mainlow">
             <div id="gtablediv"></div>
-        </div>
-    </section>
-    <section id="msgbar" style="display: none;">
-        <h2>
-            <span class="esri-icon-dock-top"></span>
-            Messages
-            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h2>
-        <div id="msgdiv" class="maindiv noscroll" style="height: 88%;">
-            <h3 style="top: 0;">
-                <input type="text" id="cmdbox" value="" style="width: 96%;">
-            </h3>
-            <div id="msgbox" class="subdiv" style="background-color: black; color: white; position: relative; top: 0; height: 90%;">
-                <div>
-                    Messages
-                    <script>
-                        document.write(document.lastModified);
-
-                    </script>
-                    <span id="sessionid"></span>
-                </div>
-                <hr>
-            </div>
         </div>
     </section>
     <footer style="display: none;">
@@ -539,6 +519,10 @@
         </h2>
         <div class="maindiv">
             <ol class="menu" onclick="this.parentNode.parentNode.style.display='none'">
+                <li onclick="navview('basemaps')" title="Basemap Gallery">
+                    <span class="esri-icon-basemap"></span>
+                    <label>Basemaps</label>
+                </li>
                 <li onclick="navview('bookmarks')" title="BiosBookmarks">
                     <span class="esri-icon-bookmark"></span>
                     <label>BIOS Bookmarks</label>
@@ -627,7 +611,7 @@
                 Operational Map <span id="bvn"></span>
                 <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'"></span>
             </h2>
-            <div class="maindiv" style="height: 88%;">
+            <div class="mainlow" style="height: 88%;">
                 <article>
                     <h3>Biogeographic Incident Obsevation System</h3>
                     <div class="margined">
@@ -649,6 +633,29 @@
                 <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
                     <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
                 </a>
+            </div>
+        </div>
+    </div>
+    <div id="msgbar" style="display: none;">
+        <h2>
+            <span class="esri-icon-dock-top"></span>
+            Messages
+            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+        </h2>
+        <div id="msgdiv" class="mainlow noscroll" style="background-color: darkslategray;">
+            <h3 style="top: 0;">
+                <input type="text" id="cmdbox" value="" style="width: 96%;">
+            </h3>
+            <div id="msgbox" class="subdiv" style="background-color: black; color: white; position: relative; top: 0; height: 90%; padding-bottom: 10px;">
+                <div>
+                    Messages
+                    <script>
+                        document.write(document.lastModified);
+
+                    </script>
+                    <span id="sessionid"></span>
+                </div>
+                <hr>
             </div>
         </div>
     </div>

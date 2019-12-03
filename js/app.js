@@ -14,6 +14,7 @@ let app = {
         sql: "",
         type: "",
         urid: "",
+        uridlast: "",
         url: "",
         urlast: ""
     },
