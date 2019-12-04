@@ -25,13 +25,14 @@ aside {
     border: 1px solid silver;
     height: auto;
     overflow: hidden;
-    width: 30%;
+    width: auto;
+    max-width: 90%;
 }
 
 aside.auto {
     box-shadow: -3px 3px 3px 3px gray;
     bottom: auto;
-    height: 80%;
+    /*    height: 80%;*/
     width: auto;
 }
 
@@ -177,6 +178,7 @@ span.closer {
 
 span.closer:hover {
     border: 1px solid lavenderblush;
+    margin-left: 20px;
 }
 
 span.hicon {

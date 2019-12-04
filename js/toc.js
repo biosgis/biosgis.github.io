@@ -1,12 +1,46 @@
 // toc.js 20191104 dfgchiang
 console.log('Loading toc');
 var toc = {
+    created: 20191030,
     id: "toc",
-    name: "Contents"
+    name: "contents",
+    title: "Contents"
 };
+//=================
+// TOC CONTENTS
+//=================
+toc.LayerItem = function (layer) {
+    addmsg('DO LayerItem: ' + layer.id);
+    var urid = layer.id;
+    var url = layer.url;
+    var type = layer.type;
+    if (layer.title !== undefined && layer.title !== null) {
+        var title = layer.title;
+    }
+    var item = document.createElement('li');
+    item.id = urid + '-item';
+    return item;
+}
+toc.picklayer = function (urid) {
+    if (app.layers[urid] === undefined) {
+        app.layers[urid] = {
+            "def": null,
+            "filterg": null,
+            "oids": [],
+            "selectg": null,
+            "sql": null
+        };
+    }
+    return urid;
+}
 
 function TocLayer(ar) {
     //addmsg('DO TocLayers ' + ar[0].urid);
+    var a = ar[0];
+    if (ar.length > 1) {
+        var b = ar[1];
+    }
+    var urid = a.id;
     var jo = ar[0];
     var urid = jo.urid; //ids[0];
     var url = jo.url; //urls[0];

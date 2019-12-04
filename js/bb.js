@@ -302,35 +302,6 @@ function val2link(s) {
     return '<a href="' + s + '" target="_blank">LINK</a>';
 }
 //=================
-// TOC CONTENTS
-//=================
-toc = {
-    id: "contents",
-    created: 20191030
-}
-toc.LayerItem = function (args) {
-    var a = args[0];
-    if (args.length > 1) {
-        var b = args[1];
-    }
-    var urid = a.id;
-    var item = document.createElement('li');
-    item.id = urid + '-item';
-    return item;
-}
-toc.picklayer = function (urid) {
-    if (app.layers[urid] === undefined) {
-        app.layers[urid] = {
-            "def": null,
-            "filterg": null,
-            "oids": [],
-            "selectg": null,
-            "sql": null
-        };
-    }
-    return urid;
-}
-//=================
 // TODO LIST
 //=================
 function bbincr() {

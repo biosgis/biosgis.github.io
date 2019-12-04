@@ -2,7 +2,7 @@
 // All Basic App Setup and Universal Functions
 console.log('Loading abide.js');
 //==== GLOBAL VARIABLES
-var avn = 20191130;
+var avn = 20191203;
 var bvn = ((avn - 20000000) / 10000).toFixed(2);
 //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
 var fullversion = bvn + '.' + avn.toString().substr(6, 2);
@@ -51,6 +51,47 @@ function arrayhas(a, b) {
         }
     }
     return false;
+}
+
+function datestamp() {
+    let d = new Date();
+    // Starting 2018 as year 1
+    let y = d.getFullYear() - 2017;
+    // DayNumberOfYear/CurrentDayNumber: 1..365
+    let m = d.getMonth();
+    let mdays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var n = 0;
+    for (let i = 0; i < m; i++) {
+        n = n + mdays[i];
+    }
+    n = n + d.getDate();
+    // SecondsOfTheDay 1..86400
+    let s = (d.getHours() * 60 * 60) + (d.getMinutes() * 60) + d.getSeconds();
+    return y * 100000000 + n * 100000 + s;
+}
+
+function extn2poly(extent) {
+    // Convert extent to polygon for addfeature geometry
+    var xmax = extent.xmax;
+    var xmin = extent.xmin;
+    var ymax = extent.ymax;
+    var ymin = extent.ymin;
+    var rings = [
+        [
+            [xmin, ymin],
+            [xmin, ymax],
+            [xmax, ymax],
+            [xmax, ymin],
+            [xmin, ymin]
+        ]
+    ];
+    var polygon = new EsriPolygon({
+        hasZ: false,
+        hasM: false,
+        rings: rings,
+        spatialReference: extent.spatialReference
+    });
+    return polygon;
 }
 
 function urlarg(key) {
