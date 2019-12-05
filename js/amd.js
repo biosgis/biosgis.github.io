@@ -238,6 +238,10 @@ let amdfun = function (
         view: view,
         container: "basemapgal"
     });
+    basemapgal.on('click', function () {
+        $('bl').value = map.basemap.id;
+    });
+
     // BASEMAP TOGGLE WIDGET
     var basemaptoggle = new BasemapToggle({
         view: view, // view that provides access to the map's initial basemap
@@ -291,6 +295,7 @@ let amdfun = function (
     }
     // WHEN MAPVIEW LOADED AND READY DO IDENTIFY ON MAP CLICK
     view.when(function () {
+        $('bl').value = map.basemap.id;
         // executeIdentifyTask() is called each time the view is clicked
         view.on("click", executeIdentifyTask);
 
