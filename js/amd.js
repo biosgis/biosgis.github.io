@@ -238,10 +238,9 @@ let amdfun = function (
         view: view,
         container: "basemapgal"
     });
-    basemapgal.on('click', function () {
-        $('bl').value = map.basemap.id;
-    });
-
+    //basemapgal.on('click', function () {
+    //    $('bl').value = map.basemap.id;// FAIL--RETURNS BLANK
+    //});
     // BASEMAP TOGGLE WIDGET
     var basemaptoggle = new BasemapToggle({
         view: view, // view that provides access to the map's initial basemap
@@ -571,6 +570,9 @@ window.addEventListener('load', function () {
     $('buffr').onchange = function (event) {
         $('buffd').value = $('buffr').value;
     };
+    $('basemapgal').addEventListener('click', function () {
+        $('bl').value = basemap2id[map.basemap.title];
+    });
 });
 window.addEventListener('hashchange', function () {
     //console.log('URLocation hash changed');

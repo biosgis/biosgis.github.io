@@ -101,16 +101,26 @@
         </h2>
         <div class="maindiv" style="padding: 5px;">
             <div style="display: flex; align-items: stretch;">
-                <label>al:</label>
-                <div><input type="text" id="al" name="app" value="" title="Active Layer" style="position: relative; width: 90%;"></div>
-            </div>
-            <div>
-                <label>bl</label>:
-                <input type="text" id="bl" name="bb" value="" title="Basemap">
-            </div>
-            <div>
-                <label>ssid</label>:
-                <input type="text" id="ssid" name="bb" value="" title="SessionID">
+                <ol>
+                    <li>
+                        <label>al:</label>
+                        <input type="text" id="al" name="app" value="" title="Active Layer">
+                    </li>
+                    <li>
+                        <label>bl</label>:
+                        <input type="text" id="bl" name="bb" value="" title="Basemap">
+                    </li>
+                    <li>
+                        <label>ssid</label>:
+                        <input type="text" id="ssid" name="bb" value="" title="SessionID">
+                    </li>
+                    <li>
+                        <label>tool</label>:
+                        <input type="text" id="tool" name="bb" value="" title="Tool selected">
+                    </li>
+                    <li></li>
+                    <li></li>
+                </ol>
             </div>
         </div>
     </aside>
@@ -231,6 +241,7 @@
                     Active/Selected/Target Layer
                 </h4>
                 <div id="al-layers" class="padded">
+                    <label class="atool"></label>
                     <label class="alayer"></label>
                     <label class="alname"></label>
                     <label class="altype"></label>
@@ -644,10 +655,7 @@
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div id="msgdiv" class="mainlow noscroll" style="background-color: darkslategray;">
-            <h3 style="top: 0;">
-                <input type="text" id="cmdbox" value="" style="width: 96%;">
-            </h3>
-            <div id="msgbox" class="subdiv" style="background-color: black; color: white; position: relative; top: 0; height: 90%; padding-bottom: 10px;">
+            <div id="msgbox" class="subdiv" style="background-color: black; color: white; position: relative; top: 0; height: 80%; padding-bottom: 10px;">
                 <div>
                     Messages
                     <script>
@@ -658,6 +666,9 @@
                 </div>
                 <hr>
             </div>
+            <h3>
+                <input type="text" id="cmdbox" value="" style="width: 96%;">
+            </h3>
         </div>
     </div>
     <div id="warning" style="display: none;">

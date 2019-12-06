@@ -88,6 +88,40 @@ gfilter.filterclear = function () {
     }
     app.layers[activeLayer.id]['def'] = null;
 }
+
+function navview(id) {
+    if (id === 'viewDiv') {
+        show('viewdivide');
+        show('viewDiv');
+    } else if (id === 'view3div') {
+        hide('viewDiv');
+        hide('viewdivide');
+    } else {
+        toggle(id);
+        var tag = $(id).tagName;
+        if (tag === 'ASIDE') {
+            var a = document.getElementsByTagName('aside');
+            for (var i = 0; i < a.length; i++) {
+                if (a[i].id !== id) {
+                    hidex(a[i]);
+                }
+            }
+        } else if (tag === 'SECTION') {
+            var b = document.getElementsByTagName('section');
+            for (var i = 0; i < b.length; i++) {
+                if (b[i].id !== id) {
+                    hidex(b[i]);
+                }
+            }
+            hide('tools');
+            hide('toolsbin');
+        }
+        if (id !== 'ass') {
+            $('tool').value = id;
+            document.getElementsByClassName('atool')[0].innerHTML = event.target.innerHTML;
+        }
+    }
+}
 //************************************************** NOT YET
 function qrelated(reltblid, fieldname, val, orid) {
     addmsg('DO queryRelatedRestfully...');

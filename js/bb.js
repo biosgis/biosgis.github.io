@@ -233,36 +233,6 @@ function fs2table(fset) {
     return j;
 }
 
-function navview(id) {
-    if (id === 'viewDiv') {
-        show('viewdivide');
-        show('viewDiv');
-    } else if (id === 'view3div') {
-        hide('viewDiv');
-        hide('viewdivide');
-    } else {
-        toggle(id);
-        var tag = $(id).tagName;
-        if (tag === 'ASIDE') {
-            var a = document.getElementsByTagName('aside');
-            for (var i = 0; i < a.length; i++) {
-                if (a[i].id !== id) {
-                    hidex(a[i]);
-                }
-            }
-        } else if (tag === 'SECTION') {
-            var b = document.getElementsByTagName('section');
-            for (var i = 0; i < b.length; i++) {
-                if (b[i].id !== id) {
-                    hidex(b[i]);
-                }
-            }
-            hide('tools');
-            hide('toolsbin');
-        }
-    }
-}
-
 function f2topcols(feature, row) {
     // featureToHeaderColumns
     var i = 0;

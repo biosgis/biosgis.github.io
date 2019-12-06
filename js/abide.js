@@ -2,14 +2,45 @@
 // All Basic App Setup and Universal Functions
 console.log('Loading abide.js');
 //==== GLOBAL VARIABLES
-var avn = 20191204;
+var avn = 20191205;
 var bvn = ((avn - 20000000) / 10000).toFixed(2);
 //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
 var fullversion = bvn + '.' + avn.toString().substr(6, 2);
 var rv = (Math.random() * 10).toFixed(5);
 var ssid = 't' + Date.now() + 'r' + parseInt(rv * 10000);
 //parseInt(Math.random() * 1000000);//=SESSIONID
+//==== GLOBAL CONSTANTS
+const basemap2id = {
+    "Imagery": "satellite",
+    "Imagery Hybrid": "hybrid",
+    "Streets": "streets",
+    "Topographic": "topo",
+    "Navigation": "streets-navigation-vector",
+    "Streets (Night)": "streets-night-vector",
+    "Terrain with Labels": "terrain",
+    "Light Gray Canvas": "gray",
+    "Dark Gray Canvas": "dark-gray",
+    "Oceans": "oceans",
+    "National Geographic Style Map": "national-geographic",
+    "OpenStreetMap": "osm",
+    "xxx": "topo",
+    "Charted Territory Map": "topo-vector",
+    "Community Map": "topo-vector",
+    "Navigation (Dark Mode)": "streets-night-vector",
+    "Newspaper Map": "topo",
+    "Human Geography Map": "topo",
+    "Human Geography Dark Map": "dark-gray-vector",
+    "Modern Antique Map": "topo",
+    "Mid-Century Map": "topo",
+    "Nova Map": "streets-night-vector",
+    "Colored Pencil Map": "topo",
+    "Firefly Imagery Hybrid": "topo",
+    "USA Topo Maps": "streets-relief-vector"
+}
 
+function btitle2id(title) {
+    return (basemap2id[title] ? basemap2id[title] : 'topo');
+}
 //==== GLOBAL FUNCTIONS
 function addcss(files, rv, dir) {
     for (var i = 0; i < files.length; i++) {

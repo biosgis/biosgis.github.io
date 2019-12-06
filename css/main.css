@@ -172,13 +172,13 @@ span.closer {
     cursor: default;
     float: right;
     font-size: large;
+    margin-left: 20px;
     margin-right: 5px;
     padding: 2px 4px;
 }
 
 span.closer:hover {
     border: 1px solid lavenderblush;
-    margin-left: 20px;
 }
 
 span.hicon {
@@ -252,7 +252,12 @@ table.bbtable td {
 }
 
 .alname {
-    font-size: smaller;
+    color: darkslategray;
+    font-weight: bold;
+}
+
+.atool {
+    color: tomato;
     font-weight: bold;
 }
 
