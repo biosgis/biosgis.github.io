@@ -2,7 +2,7 @@
 // All Basic App Setup and Universal Functions
 console.log('Loading abide.js');
 //==== GLOBAL VARIABLES
-var avn = 20191205;
+var avn = 20191206;
 var bvn = ((avn - 20000000) / 10000).toFixed(2);
 //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
 var fullversion = bvn + '.' + avn.toString().substr(6, 2);
@@ -66,8 +66,8 @@ function addlibs(files, rv, dir) {
 }
 
 function addmsg(s) {
+    document.getElementById('msgbox').innerHTML += s + '<br/>';
     var msgbox = document.getElementById('msgbox');
-    msgbox.innerHTML += s + '<br/>';
     msgbox.scrollTop = msgbox.scrollHeight;
 }
 // TO CLEAN UP UNWANTED OUTPUTS IN PRODUCTION RENAME ABOVE FUNCTION TO BELOW

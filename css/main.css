@@ -247,8 +247,8 @@ table.bbtable td {
 }
 
 .activeLayer {
-    background-color: aliceblue;
-    border: 1px solid lightblue;
+    background-color: aliceblue !important;
+    border: 1px solid lightblue !important;
 }
 
 .alname {
@@ -311,10 +311,10 @@ label.bb {
 }
 
 .layeritem {
-    border-bottom: 1px solid lightcyan;
+    border: 1px solid transparent;
     line-height: 1.23em;
     list-style: none;
-    padding: 2px 0;
+    padding: 5px 0;
 }
 
 .layericon {
@@ -326,6 +326,12 @@ label.bb {
 .layericon:hover {
     background-color: antiquewhite;
 }
+.feature {
+    font-weight: bold;
+}
+.feature:hover {
+    background-color: aliceblue;
+}
 
 .Group,
 .MapServer,
@@ -335,7 +341,6 @@ label.bb {
 }
 
 .sublayer {
-    background-color: white;
     font-style: normal;
 }
 
@@ -386,10 +391,6 @@ label.bb {
     height: auto;
     overflow: auto;
     padding: 5px;
-}
-
-.feature:hover {
-    background-color: aliceblue;
 }
 
 .todo {
@@ -466,10 +467,9 @@ label.bb {
 #msgbar {
     position: absolute;
     bottom: 0;
-    left: 20%;
-    right: 20%;
-    height: 60%;
-    width: 60%;
+    left: 0;
+    height: 80%;
+    width: 50%;
     background-color: white;
     border: 2px solid silver;
     overflow: hidden;
