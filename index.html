@@ -4,357 +4,470 @@ biosgis.github.io 20190519 dchiang
 -->
 <html>
 
-<head>
-    <title>biosgis@github</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="dfgchiang">
-    <meta name="description" content="">
-    <meta name="generator" content="biosgis-20190308">
-    <meta name="robots" content="noindex, nofollow, noarchive">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/css/main.css">
-    <script src="https://js.arcgis.com/4.11/"></script>
-    <script src="https://dfgchiang.github.io/js/abc.js"></script>
-    <style>
-        body {
-            font-family: Consolas, Monaco, monospace;
-            font-size: 123%;
-            line-height: 150%;
-            margin: 0;
-            padding: 0;
-        }
+    <head>
+        <title>biosgis@github</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="dfgchiang">
+        <meta name="description" content="">
+        <meta name="generator" content="biosgis-20190308">
+        <meta name="robots" content="noindex, nofollow, noarchive">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/css/main.css">
+        <script src="https://js.arcgis.com/4.11/"></script>
+        <script src="https://dfgchiang.github.io/js/abc.js"></script>
+        <style>
+            body {
+                font-size: 123%;
+                line-height: 150%;
+                margin: 0;
+                padding: 0;
+            }
 
-        a {
-            text-decoration: none;
-        }
+            a {
+                text-decoration: none;
+            }
 
-        a:hover {
-            text-decoration: underline;
-        }
+            a:hover {
+                text-decoration: underline;
+            }
 
-        article {
-            border-bottom: 1px solid navajowhite;
-        }
+            article {
+                border-bottom: 1px solid navajowhite;
+            }
 
-        aside {
-            position: relative;
-            background-color: white;
-            border: 1px solid silver;
-            box-shadow: gray -5px 5px 5px;
-            float: right;
-            padding: 1%;
-            z-index: 200;
-        }
+            aside {
+                position: relative;
+                background-color: white;
+                border: 1px solid silver;
+                box-shadow: gray -5px 5px 5px;
+                float: right;
+                padding: 1%;
+                z-index: 200;
+            }
 
-        details {
-            margin: 1px 2px 3px 4px;
-            padding-left: 1%;
-        }
+            details {
+                margin: 1px 2px 3px 4px;
+                padding-left: 1%;
+            }
 
-        summary {
-            font-size: larger;
-            font-weight: bold;
-        }
+            summary {
+                font-size: larger;
+                font-weight: bold;
+            }
 
-        footer {
-            position: relative;
-            border-top: 1px solid silver;
-            font-size: smaller;
-            padding: 1%;
-        }
+            footer {
+                position: relative;
+                border-top: 1px solid silver;
+                font-family: Consolas, Monaco, monospace;
+                font-size: smaller;
+                padding: 1%;
+            }
 
-        h1 {
-            font-family: fantasy;
-            margin-top: 0;
-        }
+            h1 {
+                font-family: fantasy;
+                margin-top: 0;
+            }
 
-        h2 {
-            border-top: 1px solid floralwhite;
-            font-family: Arial, sans-serif;
-        }
+            h2 {
+                border-top: 1px solid floralwhite;
+                font-family: Arial, sans-serif;
+            }
 
-        h3 {
-            font-family: Georgia, serif;
-        }
+            h3 {
+                font-family: Georgia, serif;
+            }
 
-        h4 {
-            font-family: Verdana, sans-serif;
-        }
+            h4 {
+                font-family: Verdana, sans-serif;
+            }
 
-        h5 {
-            font-family: 'Comic Sans MS', cursive;
-        }
+            h5 {
+                font-family: 'Comic Sans MS', cursive;
+            }
 
-        h6 {
-            font-family: Georgia, monospace;
-        }
+            h6 {
+                font-family: Consolas, Monaco, monospace;
+            }
 
-        header {
-            position: relative;
-            border-bottom: 1px solid silver;
-            padding: 1%;
-        }
+            header {
+                position: relative;
+                border-bottom: 1px solid silver;
+                padding: 1%;
+            }
 
-        li {
-            border-top: 1px solid lavender;
-            line-height: 123%;
-            padding: 2px 0;
-        }
+            li {
+                line-height: 150%;
+                padding: 2px 0;
+            }
 
-        main {
-            position: relative;
-            padding: 1%;
-        }
+            main {
+                position: relative;
+                padding: 1%;
+            }
 
-        nav {
-            position: relative;
-            border-bottom: 1px solid silver;
-            padding: 1px;
-        }
+            nav {
+                position: relative;
+                border-bottom: 1px solid silver;
+                padding: 1px;
+            }
 
-        nav ul {
-            display: inline;
-            margin: 0;
-            padding: 0;
-        }
+            nav ul {
+                display: inline;
+                margin: 0;
+                padding: 0;
+            }
 
-        nav li {
-            border-right: 1px solid silver;
-            display: inline;
-            margin: 0;
-            padding: 2px 8px;
-        }
+            nav li {
+                border-right: 1px solid silver;
+                display: inline;
+                margin: 0;
+                padding: 2px 8px;
+            }
 
-        nav li:hover {
-            background-color: azure;
-        }
+            nav li:hover {
+                background-color: azure;
+            }
 
-        ol {
-            border-bottom: 1px solid azure;
-        }
+            ol {
+                border-bottom: 1px solid azure;
+            }
 
-        pre {
-            background-color: ghostwhite;
-            border-left: 4px solid gainsboro;
-            font-size: smaller;
-            line-height: 110%;
-            padding: 5px;
-        }
-        .hide {
-            display: none;
-        }
+            pre {
+                background-color: ghostwhite;
+                border-left: 4px solid gainsboro;
+                font-size: smaller;
+                line-height: 110%;
+                padding: 5px;
+            }
+            .atile {
+                border: 1px solid lightblue;
+                margin: 0 5px;
+            }
+            .hide {
+                display: none;
+            }
 
-        .togl {
-            background-color: floralwhite;
-            border: 1px solid silver;
-            cursor: default;
-            font-size: 200%;
-            padding: 0 8px;
-        }
+            .togl {
+                background-color: floralwhite;
+                border: 1px solid silver;
+                cursor: default;
+                font-size: 200%;
+                padding: 0 8px;
+            }
 
-        .togl:hover {
-            background-color: aliceblue;
-        }
+            .togl:hover {
+                background-color: aliceblue;
+            }
 
-    </style>
-    <script>
-        window.addEventListener('load', function() {
-            om = poplinks();
-        });
-    </script>
-</head>
+            @media print {
+                body {
+                    font-size: 150%;
+                }
+            }
+        </style>
+        <script>
+            window.addEventListener('load', function () {
+                om = poplinks();
+            });
+        </script>
+    </head>
 
-<body>
-    <header>
-        <h1>BIOS GIS Lab</h1>
-        <div style="position: absolute; bottom: 5px; right: 5px; font-size: smaller;">
-            <script>
-                document.write(document.lastModified);
-            </script>
-        </div>
-    </header>
-    <nav>
-        <ul>
-            <li>
-            </li>
-            <li>
-                <a href="https://www.arcgis.com">AGOL</a>
-            </li>
-            <li>
-                <a href="https://map.dfg.ca.gov/arcgis/">AGS</a>
-            </li>
-            <li>
-                <a href="https://developers.arcgis.com/dashboard" title="ArcGIS Developers Dashboard">ArcDev</a>
-            </li>
-            <li>
+    <body>
+        <header>
+            <h1>BIOS GIS Lab</h1>
+            <div style="position: absolute; bottom: 5px; right: 5px; font-size: smaller;">
+                <script>
+                    document.write(document.lastModified);
+                </script>
+            </div>
+        </header>
+        <nav>
+            <ul>
+                <li>
+                </li>
+                <li>
+                    <a href="https://www.arcgis.com">AGOL</a>
+                </li>
+                <li>
+                    <a href="https://map.dfg.ca.gov/arcgis/">AGS</a>
+                </li>
+                <li>
+                    <a href="https://developers.arcgis.com/dashboard" title="ArcGIS Developers Dashboard">ArcDev</a>
+                </li>
+                <li>
+                    <a href="https://portal.azure.com/#dashboard" title="Azure Portal Dashboard">Azure</a>
+                </li>
+                <li>
+                    <a href="https://outlook.office365.com/owa/">Office</a>
+                </li>
+                <li>
+                    <a href="https://outlook.com">Outlook</a>
+                </li>
+                <li>
+                    <a href="https://visualstudio.com/" title="Visual Studio">VSTS</a>
+                </li>
+            </ul>
+        </nav>
+        <aside style="display: none;">
+            <a href="https://docs.appdynamics.com/" title="AppDynamics Doc"></a>
+            <a href="https://anaconda.org/" title="Anaconda"></a>
+            <a href="https://blogs.esri.com/esri/arcgis/" title="ArcGIS Blog"></a>
+            <a href="https://developers.arcgis.com" title="ArcGIS Developers"></a>
+            <a href="https://desktop.arcgis.com/en/" title="ArcDesktop"></a>
+            <a href="https://hub.arcgis.com/" title="ArcGIS Hub"></a>
+            <a href="http://www.arcgis.com/" title="ArcGIS Online"></a>
+            <a href="http://opendata.arcgis.com/" title="ArcGIS OpenData"></a>
+            <a href="http://resources.arcgis.com/en/home/" title="ArcGIS Resources"></a>
+            <a href="http://notebooks.esri.com" title="ArcGIS Notebook"></a>
+            <a href="http://solutions.arcgis.com/" title="ArcGIS Solutions"></a>
+            <a href="https://portal.azure.com/#dashboard" title="Azure Dashboard"></a>
+            <a href="https://bitbucket.org" title="BitBucket"></a>
+            <a href="https://codepen.io/" title="CodePen"></a>
+            <a href="http://www.esri.com/videos/" title="Esri Videos"></a>
+            <a href="https://esri.github.io/" title="esri.github.io"></a>
+            <a href="https://community.esri.com/" title="GeoNyet"></a>
+            <a href="https://github.com" title="GitHub"></a>
+            <a href="https://gitlab.com" title="GitLab"></a>
+            <a href="https://dashboard.heroku.com/" title="Heroku"></a>
+            <a href="https://msdn.microsoft.com/en-us" title="MSDN"></a>
+            <a href="https://developer.microsoft.com/en-us/" title="MS Developer"></a>
+            <a href="https://technet.microsoft.com/en-us" title="MS TechNet"></a>
+            <a href="https://blogs.technet.microsoft.com/serverandtools/" title="MS TN Blogs"></a>
+            <a href="https://my.esri.com/welcome" title="ArcGIS software Downloads" title="My Esri"></a>
+            <a href="https://my.visualstudio.com/getstarted" title="My Visual Studio"></a>
+            <a href="https://code.nasa.gov/" title="NASA Open Source"></a>
+            <a href="https://outlook.office365.com/owa" title="Outlook"></a>
+            <hr>
+            <a href="https://data.ca.gov/" data-title="California Open Data Portal"></a>
+            <a href="https://gis-california.opendata.arcgis.com/" title="California State Geoportal"></a>
+            <a href="https://github.com/Office-of-Digital-Innovation" title="CA State Templates"></a>
+            <a href="https://data-cdfw.opendata.arcgis.com/" title="CDFW Open Data"></a>
+            <a href="https://data.cnra.ca.gov/" data-title="CNRA Open Data"></a>
+            <a href="https://creativecommons.org/licenses/by/2.0/" title="Creative Commons"></a>
+            <a href="https://ftp.wildlife.ca.gov/" title="FTP"></a>
+            <a href="https://my.esri.com/welcome" title="MyEsri"></a>
+            <a href="https://outlook.office365.com/owa/" title="OWA"></a>
+            <a href="https://bitbucket.org/"></a>
+            <a href="https://github.com/"></a>
+            <a href="https://github.com/esri"></a>
+            <a href="https://esri.github.io"></a>
+            <a href="https://gitlab.com/"></a>
+            <a href="https://visualstudio.com/"></a>
+            <a href="https://biosgis.azurewebsites.net"></a>
+            <a href="https://app.powerbigov.us/home" title="Power BI"></a>
+            <hr>
+            <a href="https://www.w3schools.com/tags/ref_urlencode.asp" title="ASCII Code"></a>
+            <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/" title="Esri Icon Font"></a>
+            <a href="https://developers.arcgis.com/javascript/latest/guide/cors/index.html" title="CORS"></a>
+            <a href="https://developers.google.com/chart/" title="Google Chart"></a>
+            <a href="http://www.chartjs.org/"></a>
+            <a href="https://d3js.org/"></a>
+            <a href="https://nodejs.org/"></a>
+            <a href="https://python.org/"></a>
+            <a href="https://d3js.org/"></a>
+            <a href="https://www.test-cors.org/"></a>
+            <a href="https://jsonlint.com/"></a>
+            <a href="https://www.w3schools.com/js/js_reserved.asp" title="JavaScript Reserved Words"></a>
+            <a class="esri-icon-close" onclick="hidex(this.parentNode)"></a>
+        </aside>
+        <span class="togl" onclick="togglex(document.getElementsByTagName('aside')[0])" style="float: right; position: relative; z-index: 210;">&equiv;</span>
+        <main>
+            <h2>
+                Apps
+                <a href="https://map.dfg.ca.gov/arcgis">AGS</a>
+                <a href="https://apps.wildlife.ca.gov/bios?viewer=ace&al=ace3:4&bl=Oceans&zl=10">Aceview</a>
+                <a href="https://apps.wildlife.ca.gov/ace?al=ace3:4&bl=Oceans&zl=10">ACE</a>
+                <a href="https://apps.wildlife.ca.gov/bios?al=ds26&bl=Oceans&dslist=69,762,1234&zl=10">Bios</a>
+                <a href="https://apps.wildlife.ca.gov/bios/?dslist=45s,85s,704s,705s,1002s,1354s,2652s,156,583">CNDDB</a>
+                <a href="https://apps.wildlife.ca.gov/bios?tool=cnddbQuick">CNDDBQuickView</a>
+                <a href="https://apps.wildlife.ca.gov/bios?viewer=fishing">Fishingview</a>
+                <a href="https://apps.wildlife.ca.gov/fishing">Fishing</a>
+                <a href="https://apps.wildlife.ca.gov/lands">Lands</a>
+                <a href="https://apps.wildlife.ca.gov/marine">Marine</a>
+                <a href="https://apps.wildlife.ca.gov/rarefind/view/RareFind.aspx">Rarefind</a>
+                <a href="https://map.dfg.ca.gov/stats">Stats</a>
+            </h2>
+            <details>
+                <summary>CDFW Apps</summary>
+                <h3 title="Test ArcGIS Server performance to external clients">
+                    ArcGIS Cloud
+                    <a href="https://cdfw.maps.arcgis.com/home/">CDFW</a>
+                    <a href="http://www.arcgis.com/">AGOL</a>
+                    <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services">Features</a>
+                    <a href="https://tiles.arcgis.com/tiles/Uq9r85Potqm3MfRV/arcgis/rest/services">Tiles</a>
+                </h3>
+                <h3>
+                    ArcGIS Server
+                    <a href="https://map.dfg.ca.gov/arcgis/">REST</a>
+                    <img alt="CDFWApps" src="img/cdfw-tilebear-200x140.png" class="atile">
+                </h3>
+                <h3>
+                    ACE
+                    <a href="https://apps.wildlife.ca.gov/ace">
+                        <img alt="ACE" src="img/ACE3logo.png" height="100" class="atile"></a>
+                    <a href="https://www.wildlife.ca.gov/Data/Analysis/Ace">Home</a>
+                </h3>
+                <h3>
+                    BIOS
+                    <a href="https://apps.wildlife.ca.gov/bios?al=ds69&bl=Ocean+Basemap&zl=9">
+                        <img alt="BIOS" src="img/MapViewerBanner-BIOS.gif" class="atile"></a>
+                    <a href="https://www.wildlife.ca.gov/Data/BIOS">Home</a>
+                    <a href="https://www.wildlife.ca.gov/Data/BIOS/Dataset-Index">Metadata&amp;Download</a>
+                    <a href="ftp://ftp.dfg.ca.gov/BDB/GIS/BIOS/Public_Datasets/">FTP</a>
+                </h3>
+                <h3>
+                    CNDDB
+                    <a href="https://apps.wildlife.ca.gov/bios/?al=ds85&log=off&msg=on">COM</a>
+                    <a href="https://apps.wildlife.ca.gov/bios/?al=ds45&dslist=85,704,705,1002,1354&log=off&msg=on">Prod</a>
+                    <a href="https://www.wildlife.ca.gov/Data/CNDDB">Home</a>
+                </h3>
+                <h3 class="hide">
+                    <a class="navlink" href="https://map.dfg.ca.gov/imaps/delta">Delta</a>                    
+                </h3>
+                <h3>
+                    Quick Viewer
+                    <a href="https://apps.wildlife.ca.gov/bios?tool=cnddbQuick">Prod</a>
+                </h3>
+                <h3>
+                    Fishing Guide
+                    <a href="https://apps.wildlife.ca.gov/fishing">
+                        <img alt="Fishing" src="img/FishIcon.png" class="atile"></a>
+                    <a href="https://www.wildlife.ca.gov/Fishing">Home</a>
+                </h3>
+                <h3>
+                    Lands
+                    <a href="https://apps.wildlife.ca.gov/lands">
+                        <img alt="Lands" src="img/MapViewerBanner-Lands.gif" class="atile"></a>
+                    <a href="https://www.wildlife.ca.gov/Lands">Home</a>
+                </h3>
+                <h3>
+                    Marine
+                    <a href="https://apps.wildlife.ca.gov/marine">
+                        <img alt="Marine" src="img/MapViewerBanner-Marine.png" class="atile"></a>
+                    <a href="https://www.wildlife.ca.gov/Regions/Marine">Home</a>
+                </h3>
+                <h3>
+                    OSPR
+                    <a href="https://www.wildlife.ca.gov/ospr">
+                        <img alt="OSPR" src="img/MapViewerBanner-OSPR.jpg" class="atile"></a>                    
+                </h3>
+                <h3>
+                    <a href="https://apps.wildlife.ca.gov/rarefind/view/rarefind.aspx">RareFind5</a>
+                </h3>
+                <h3 hidden="hidden">
+                    Proxy Test
+                    <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://map.dfg.ca.gov/arcgis/rest/services/Base_Maps/GeoReference/MapServer?f=pjson">GeoReference</a>
+                    <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://map.dfg.ca.gov/arcgis/rest/services/Project_BIOS_Secure/q_BIOS_Secure_polygons00/MapServer/3?f=pjson">CNDDB</a>
+                    <a href="https://map.dfg.ca.gov/beta/proxy.ashx?https://services.gis.ca.gov/arcgis/rest/services/Boundaries/CA_School_Districts/MapServer?f=pjson">Public</a>
+                </h3>
+            </details>
+            <h2>
+                Cloud
+                <a href="http://www.arcgis.com/">AGOL</a>
+                <a href="https://developers.arcgis.com">ArcDev</a>
+                <a href="https://anaconda.org/">Anaconda</a>
+                <a href="https://portal.azure.com/#dashboard">Azure</a>
+                <a href="https://my.esri.com/welcome">MyEsri</a>
+                <a href="https://outlook.office365.com/owa/">OWA</a>
+                <a href="https://cdfw.sharepoint.com/SitePages/Home.aspx">SharePoint</a>
+            </h2>
+            <h2>
+                Git
+                <a href="https://bitbucket.org/">Bitbucket</a>
+                <a href="https://github.com/">GitHub</a>
+                <a href="https://gitlab.com/">GitLab</a>
+                <a href="https://visualstudio.com/" title="AzureDevOps">Visual Studio</a>
+            </h2>
+            <h2>
+                <a href="https://github.com/">GitHub</a>
+                <a href="https://github.com/anaconda">Anaconda</a>
+                <a href="https://github.com/apple">Apple</a>
+                <a href="https://github.com/cdfw">Cdfw</a>
+                <a href="https://github.com/esri">Esri</a>
+                <a href="https://github.com/google">Google</a>
+                <a href="https://github.com/hewlettpackard/">HP</a>
+                <a href="https://gitlab.com/ibm">IBM</a>
+                <a href="https://github.com/microsoft">Microsoft</a>
+                <a href="https://github.com/nodejs">Nodejs</a>
+                <a href="https://github.com/python">Python</a>
+            </h2>
+            <h3>
+                GitHub.io
+                <a href="https://apple.github.io">Apple</a>
+                <a href="https://cdfw.github.io">Cdfw</a>
+                <a href="https://esri.github.io">Esri</a>
+                <a href="https://google.github.io">Google</a>
+                <a href="https://python.github.io">Python</a>
+                <a href="https://ibm.github.io">Ibm</a>
+                <a href="https://microsoft.github.io">Microsoft</a>
+                <a href="https://r-arcgis.github.io/">R-ArcGIS</a>
+            </h3>
+            <h2>
+                <a href="http://localhost/apps">Localhost</a>
+            </h2>
+            <details>
+                <summary>Dir</summary>
+                <ol>
+                    <li>
+                        <h4>
+                            <a href="./"></a>
+                        </h4>
+                        <ol>
+                            <li><a href="habitrak"></a></li>
+                            <li><a href="habitrak/habitrksde"></a></li>
+                            <li><a href="tools"></a></li>
+                            <li><a href="tools/chars.html"></a></li>
+                            <li><a href="tools/colors.html"></a></li>
+                            <li><a href="tools/fonttest.html"></a></li>
+                            <li><a href="tools/htmltags.html"></a></li>
+                            <li><a href="./biosgis.html"></a></li>
+                            <li><a href="./jsapis.html"></a></li>
+                            <li><a href="./m.html"></a></li>
+                            <li><a href="./mads.html"></a></li>
+                            <li><a href="./mapp.html"></a></li>
+                        </ol>
+                    </li>
+                </ol>
+            </details>
+            <h2>
+                Microsoft
                 <a href="https://portal.azure.com/#dashboard" title="Azure Portal Dashboard">Azure</a>
-            </li>
-            <li>
+                <a href="https://dev.azure.com/cdfw/">DevOps</a>
                 <a href="https://outlook.office365.com/owa/">Office</a>
-            </li>
-            <li>
-                <a href="https://outlook.com">Outlook</a>
-            </li>
-            <li>
-                <a href="https://visualstudio.com/" title="Visual Studio">VSTS</a>
-            </li>
-        </ul>
-    </nav>
-    <aside style="display: none;">
-        <a href="http://www.arcgis.com/" title="AGOL"></a>
-        <a href="https://developers.arcgis.com" title="ArcDev"></a>
-        <a href="https://desktop.arcgis.com/en/" title="ArcDesktop"></a>
-        <a href="https://anaconda.org/" title="Anaconda"></a>
-        <a href="https://portal.azure.com/#dashboard" title="Azure"></a>
-        <a href="https://data-cdfw.opendata.arcgis.com/" title="CDFW Open Data"></a>
-        <a href="https://data.cnra.ca.gov/" data-title="CNRA Open Data"></a>
-        <a href="https://data.ca.gov/" data-title="California Open Data Portal"></a>
-        <a href="https://ftp.wildlife.ca.gov/" title="FTP"></a>
-        <a href="https://my.esri.com/welcome" title="MyEsri"></a>
-        <a href="https://outlook.office365.com/owa/" title="OWA"></a>
-        <a href="https://bitbucket.org/"></a>
-        <a href="https://github.com/"></a>
-        <a href="https://github.com/esri"></a>
-        <a href="https://esri.github.io"></a>
-        <a href="https://gitlab.com/"></a>
-        <a href="https://visualstudio.com/"></a>
-        <a href="https://biosgis.azurewebsites.net"></a>
-        <a href="https://app.powerbigov.us/home" title="Power BI"></a>
-        <hr>
-        <a href="https://www.w3schools.com/tags/ref_urlencode.asp" title="ASCII Code"></a>
-        <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/" title="Esri Icon Font"></a>
-        <a href="https://developers.arcgis.com/javascript/latest/guide/cors/index.html" title="CORS"></a>
-        <a href="https://developers.google.com/chart/" title="Google Chart"></a>
-        <a href="http://www.chartjs.org/"></a>
-        <a href="https://d3js.org/"></a>
-        <a href="https://nodejs.org/"></a>
-        <a href="https://python.org/"></a>
-        <a href="https://d3js.org/"></a>
-        <a href="https://www.test-cors.org/"></a>
-        <a href="https://jsonlint.com/"></a>
-        <a href="https://www.w3schools.com/js/js_reserved.asp" title="JavaScript Reserved Words"></a>
-        <a class="esri-icon-close" onclick="hidex(this.parentNode)"></a>
-    </aside>
-    <span class="togl" onclick="togglex(document.getElementsByTagName('aside')[0])" style="float: right; position: relative; z-index: 210;">&equiv;</span>
-    <main>
-        <h2>
-            Apps
-            <a href="https://map.dfg.ca.gov/arcgis">AGS</a>
-            <a href="https://apps.wildlife.ca.gov/bios?viewer=ace&al=ace3:4&bl=Oceans&zl=10">Aceview</a>
-            <a href="https://apps.wildlife.ca.gov/ace?al=ace3:4&bl=Oceans&zl=10">ACE</a>
-            <a href="https://apps.wildlife.ca.gov/bios?al=ds26&bl=Oceans&dslist=69,762,1234&zl=10">Bios</a>
-            <a href="https://apps.wildlife.ca.gov/bios/?dslist=45s,85s,704s,705s,1002s,1354s,2652s,156,583">CNDDB</a>
-            <a href="https://apps.wildlife.ca.gov/bios?tool=cnddbQuick">CNDDBQuickView</a>
-            <a href="https://apps.wildlife.ca.gov/bios?viewer=fishing">Fishingview</a>
-            <a href="https://apps.wildlife.ca.gov/fishing">Fishing</a>
-            <a href="https://apps.wildlife.ca.gov/lands">Lands</a>
-            <a href="https://apps.wildlife.ca.gov/marine">Marine</a>
-            <a href="https://apps.wildlife.ca.gov/rarefind/view/RareFind.aspx">Rarefind</a>
-            <a href="https://map.dfg.ca.gov/stats">Stats</a>
-        </h2>
-        <h2>
-            Cloud
-            <a href="http://www.arcgis.com/">AGOL</a>
-            <a href="https://developers.arcgis.com">ArcDev</a>
-            <a href="https://anaconda.org/">Anaconda</a>
-            <a href="https://portal.azure.com/#dashboard">Azure</a>
-            <a href="https://my.esri.com/welcome">MyEsri</a>
-            <a href="https://outlook.office365.com/owa/">OWA</a>
-            <a href="https://cdfw.sharepoint.com/SitePages/Home.aspx">SharePoint</a>
-        </h2>
-        <h2>
-            Git
-            <a href="https://bitbucket.org/">Bitbucket</a>
-            <a href="https://github.com/">GitHub</a>
-            <a href="https://gitlab.com/">GitLab</a>
-            <a href="https://visualstudio.com/" title="AzureDevOps">Visual Studio</a>
-        </h2>
-        <h2>
-            <a href="https://github.com/">GitHub</a>
-            <a href="https://github.com/anaconda">Anaconda</a>
-            <a href="https://github.com/apple">Apple</a>
-            <a href="https://github.com/cdfw">Cdfw</a>
-            <a href="https://github.com/esri">Esri</a>
-            <a href="https://github.com/google">Google</a>
-            <a href="https://github.com/hewlettpackard/">HP</a>
-            <a href="https://gitlab.com/ibm">IBM</a>
-            <a href="https://github.com/microsoft">Microsoft</a>
-            <a href="https://github.com/nodejs">Nodejs</a>
-            <a href="https://github.com/python">Python</a>
-        </h2>
-        <h3>
-            GitHub.io
-            <a href="https://apple.github.io">Apple</a>
-            <a href="https://cdfw.github.io">Cdfw</a>
-            <a href="https://esri.github.io">Esri</a>
-            <a href="https://google.github.io">Google</a>
-            <a href="https://python.github.io">Python</a>
-            <a href="https://ibm.github.io">Ibm</a>
-            <a href="https://microsoft.github.io">Microsoft</a>
-            <a href="https://r-arcgis.github.io/">R-ArcGIS</a>
-        </h3>
-        <h2>
-            <a href="http://localhost/apps">Localhost</a>
-        </h2>
-        <details>
-            <summary>Dir</summary>
+                <a href="https://app.powerbigov.us/home">PowerBI</a>
+                <a href="https://cdfw.sharepoint.com/SitePages/Home.aspx">SharePoint</a>
+            </h2>
+            <details>
+                <summary>AzureWebsites.net</summary>
+                <a href="https://biosgis.azurewebsites.net"></a>
+                <a href="https://bioslist.azurewebsites.net"></a>
+            </details>
+            <h2>Online References and Tools</h2>
             <ol>
                 <li>
-                    <h4>
-                        <a href="./"></a>
-                    </h4>
-                    <ol>
-                        <li><a href="habitrak"></a></li>
-                        <li><a href="habitrak/habitrksde"></a></li>
-                        <li><a href="tools"></a></li>
-                        <li><a href="tools/colors.html"></a></li>
-                        <li><a href="tools/fonttest.html"></a></li>
-                        <li><a href="tools/htmltags.html"></a></li>
-                        <li><a href="./biosgis.html"></a></li>
-                        <li><a href="./jsapis.html"></a></li>
-                        <li><a href="./m.html"></a></li>
-                        <li><a href="./mads.html"></a></li>
-                        <li><a href="./mapp.html"></a></li>
-                    </ol>
+                    <a href="https://wordcounter.net/character-count">Character/Word/Line Counter</a>
                 </li>
             </ol>
-        </details>
-        <h2>
-            Microsoft
-            <a href="https://portal.azure.com/#dashboard" title="Azure Portal Dashboard">Azure</a>
-            <a href="https://dev.azure.com/cdfw/">DevOps</a>
-            <a href="https://outlook.office365.com/owa/">Office</a>
-            <a href="https://app.powerbigov.us/home">PowerBI</a>
-            <a href="https://cdfw.sharepoint.com/SitePages/Home.aspx">SharePoint</a>
-        </h2>
-        <details>
-            <summary>AzureWebsites.net</summary>
-            <a href="https://biosgis.azurewebsites.net"></a>
-            <a href="https://bioslist.azurewebsites.net"></a>
-        </details>
-        <h2>Online References and Tools</h2>
-        <ol>
-            <li>
-                <a href="https://wordcounter.net/character-count">Character/Word/Line Counter</a>
-            </li>
-        </ol>
-    </main>
-    <footer>
-        <a href="biosgis@gmail.com">biosgis</a>
-        <script>
-            document.write('&copy; ' + document.lastModified);
-            document.write(' &rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight);
-            document.write(' &marker; Screen Size: ' + window.screen.width + 'x' + window.screen.height);
-            document.write(' &diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform);
-            document.write(' &bull; URL Referer: ' + document.referrer);
+            <h2>
+                Viewer Logos
+            </h2>
+        </main>
+        <footer>
+            <a href="biosgis@gmail.com">biosgis</a>
+            <script>
+                document.write('&copy; ' + document.lastModified);
+                document.write(' &rect; Window Size: ' + window.innerWidth + 'x' + window.innerHeight);
+                document.write(' &marker; Screen Size: ' + window.screen.width + 'x' + window.screen.height);
+                document.write(' &diams; Browser Client: ' + navigator.userAgent + ' on ' + navigator.platform);
+                document.write(' &bull; URL Referer: ' + document.referrer);
 
-        </script>
-        <a href="./m.html" style="text-decoration: none; color: silver;" target="_blank">&square;</a>
-        Build on
-        <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a>
-    </footer>
-</body>
+            </script>
+            <a href="./m.html" style="text-decoration: none; color: silver;" target="_blank">&square;</a>
+            Build on
+            <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a>
+        </footer>
+    </body>
 
 </html>

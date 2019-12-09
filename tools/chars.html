@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9,IE=edge" />
+        <meta name="application-name" content="blank" />
+        <meta name="author" content="deanhere@gmail.com" />
+        <meta name="creator" content="common" />
+        <meta name="description" content="character entities and unicode symbols reference" />
+        <meta name="keywords" content="character entities and unicode symbols reference" />
+        <meta name="ed" content="20150317" />
+        <title>HTML Entities Characters</title>
+        <style type="text/css">
+            body {
+                font-size: 123%;
+                font-family: Georgia, Verdana, Geneva, Arial, Helvetica, "Comic Sans MS", sans-serif;
+                /*background-color: whitesmoke;*/
+                overflow-x: hidden;
+            }
+            a {
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            a.bee {
+                background-color: white;
+                border: 1px solid gray;
+                color: dimgray;
+                border-radius: 5px;
+                font: normal normal bold small Arial;
+                margin: 5px;
+                padding: 2px;
+                text-decoration: none;
+            }
+            a.bee:hover {
+                background-color: steelblue;
+                border: 1px solid transparent;
+                color: white;
+            }
+            a.qb {
+                border: 1px solid gray;
+                border-width: 0px 1px 0px 1px;
+                font: normal normal normal small Arial, Helvetica, sans-serif;
+                margin: 0px 1px 0px 1px;
+                padding: 0px 5px 0px 5px;
+                text-decoration: none;
+            }
+            a.qb:hover {
+                text-decoration: underline;
+            }
+            a.btn {
+                border: 1px solid silver;
+                font: normal normal normal 200% Arial, Helvetica, sans-serif;
+                text-decoration: none;
+            }
+            input.btn {
+                font: normal normal bold 200% Arial, Helvetica, sans-serif;
+            }
+            em {
+                font: normal normal normal small Courier, monospace;
+            }
+            h1 {
+                border-bottom: 2px solid silver;
+            }
+            li {
+                margin-bottom: 8px;
+            }
+            p {
+                font: normal normal normal small Courier, System, Terminal;
+            }
+            pre {
+                font: normal normal normal small Courier, System, Terminal;
+            }
+            td {
+                border-color: silver;
+            }
+            tr {
+                border-color: silver;
+            }
+            #ta {
+                /*position: absolute;*/
+                top: 10%; right: 2%; bottom: auto; left: 2%;
+                height: 30%; width: 95%;/*auto defaults to html cols size*/
+            }
+            #note {
+                /*position: absolute;*/
+                top: 45%; right: 2%; bottom: 40px; left: 2%;
+                height: auto; width: auto;
+                background-color: white;
+                border: 1px solid gray;
+                font: normal normal normal 100% "Comic Sans MS", Georgia, Courier;
+                overflow: auto;
+                padding: 5px;
+            }
+            #statusbar {
+                position: absolute;
+                top: auto; right: 0px; bottom: 0px; left: 0px;
+                height: 30px; width: 100%;
+                background-color: lightgray;
+                border-top: 1px solid dimgray;
+                padding: 2px 5px 2px 5px;
+            }
+            .new 
+            {
+                background-color: Yellow;
+                font-weight: bold;
+                padding: 5px;
+            }
+            .depre {
+                background-color: silver;
+                color: dimgray;
+                font: italic small-caps normal 90% "Comic Sans MS", Verdana, Geneva, Georgia, Arial, Helvetica, sans-serif;
+                margin-top: 5px; margin-right: 5px;
+            }
+            .hide {
+                display: none;
+            }
+        </style>
+        <script type="text/javascript">
+            function poplinks() {
+                var links = document.getElementsByTagName('a');
+                var atotal = 0;
+                for (var i = 0; i < links.length; i++) {
+                    var a = links[i];
+                    if (a.href !== undefined && a.href !== '') {
+                        if (a.href.indexOf('#') < 0 && a.href.indexOf("javascript:void") < 0
+                            && a.href.indexOf("mailto:") < 0 && a.target !== '_self') {
+                            a.target = "_blank";
+                        }
+                        if (a.innerHTML === '' && a.className === '') {
+                            a.style.lineHeight = '150%';
+                            if (a.title !== '') {
+                                a.innerHTML = a.title + ' <br/>';
+                            } else {
+                                a.innerHTML = a.href.replace('https://', '').replace('http://', '').replace(/\/$/, '').replace('www.', '').replace(/\.(com|gov|net|org|io)/, '') + ' <br/>';
+                            }
+                        }
+                    }
+                    atotal = i + 1;
+                }
+                console.log(atotal + ' Links')
+                return atotal;
+            }
+            function init() {
+                var atotal = poplinks();
+                document.getElementsByTagName("h1")[0].title = atotal + " LInks";
+            }
+            window.onload = init;
+        </script>
+        <script type="text/javascript">
+            function pageLoaded() {
+                //document.getElementById('ta').focus();
+            }
+            window.onload = pageLoaded;
+        </script>
+    </head>
+    <body>
+        <a class="qb" href=".">Home</a>
+        <a class="qb" href="#browser_info" id="goto-browser_info">Browser Check</a><!--GONE: http://www.w3schools.com/js/tryit.asp?filename=try_nav_all-->
+        <a class="qb" href="http://resources.arcgis.com/">ArcGIS Resources</a>
+        <a class="qb" href="http://www.alanwood.net/unicode/">Alanwood's Unicode Resources</a>
+        <a class="qb" href="http://dev.w3.org/html5/html-author/charref">HTML Entities Reference</a>
+        <a class="qb" href="http://www.speedtest.net/">Speed Test</a>
+        <a class="qb" href="http://meyerweb.com/eric/tools/dencoder/">URL Encoder/Decoder</a>
+        <a class="qb" href="http://www.w3schools.com/">W3Schools</a>
+        <h1>Character Entities and Unicode Symbol Reference</h1>
+        <hr />
+        <h2>HTML Entities</h2>
+        <table width="100%" border="1" cellspacing="0" cellpadding="2" style="border-color: whitesmoke;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>100pct</th>
+                    <th>200PCT</th>
+                    <th>Anchor</th>
+                    <th>Button</th>
+                    <th>Tool</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Que uppercase letter</td>
+                    <td>Q</td>
+                    <td style="font-size: 200%; font-family: 'Comic Sans MS', Arial, Verdana, Geneva, Courier;">Q</td>
+                    <td><a class="btn" href="">Q</a></td>
+                    <td><input type="button" class="btn" value="Q" /></td>
+                    <td>Que, Search</td>
+                </tr>
+                <tr>
+                    <td>and, wedge</td>
+                    <td>&and;</td>
+                    <td style="font-size: 200%">&and;</td>
+                    <td><a class="btn" href="">&and;</a></td>
+                    <td><input type="button" class="btn" value="&and;" /></td>
+                    <td>Up, External link</td>
+                </tr>
+                <tr>
+                    <td>colone, coloneq, Assign</td>
+                    <td>&colone;</td>
+                    <td style="font-size: 200%">&colone;</td>
+                    <td><a class="btn" href="">&colone;</a></td>
+                    <td><input type="button" class="btn" value="&colone;" /></td>
+                    <td>Legend?</td>
+                </tr>
+                <tr>
+                    <td>Cross</td>
+                    <td>&Cross;</td>
+                    <td style="font-size: 200%">&Cross;</td>
+                    <td><a class="btn" href="">&Cross;</a></td>
+                    <td><input type="button" class="btn" value="&Cross;" /></td>
+                    <td>Cross-out? Close panel?</td>
+                </tr>
+                <tr>
+                    <td>curren</td>
+                    <td>&curren;</td>
+                    <td style="font-size: 200%">&curren;</td>
+                    <td><a class="btn" href="">&curren;</a></td>
+                    <td><input type="button" class="btn" value="&curren;" /></td>
+                    <td>Current</td>
+                </tr>
+                <tr>
+                    <td>diam</td>
+                    <td>&diam;</td>
+                    <td style="font-size: 200%">&diam;</td>
+                    <td><a class="btn" href="">&diam;</a></td>
+                    <td><input type="button" class="btn" value="&diam;" /></td>
+                    <td>Diamond</td>
+                </tr>
+                <tr>
+                    <td>diams</td>
+                    <td>&diams;</td>
+                    <td style="font-size: 200%">&diams;</td>
+                    <td><a class="btn" href="">&diams;</a></td>
+                    <td><input type="button" class="btn" value="&diams;" /></td>
+                    <td>Diamond suit</td>
+                </tr>
+                <tr>
+                    <td>epar</td>
+                    <td>&epar;</td>
+                    <td style="font-size: 200%">&epar;</td>
+                    <td><a class="btn" href="">&epar;</a></td>
+                    <td><input type="button" class="btn" value="&epar;" /></td>
+                    <td>Equal parts</td>
+                </tr>
+                <tr>
+                    <td>empty</td>
+                    <td>&empty;</td>
+                    <td style="font-size: 200%">&empty;</td>
+                    <td><a class="btn" href="">&empty;</a></td>
+                    <td><input type="button" class="btn" value="&empty;" /></td>
+                    <td>Clear, Empty</td>
+                </tr>
+                <tr>
+                    <td>equiv</td>
+                    <td>&equiv;</td>
+                    <td style="font-size: 200%">&equiv;</td>
+                    <td><a class="btn" href="">&equiv;</a></td>
+                    <td><input type="button" class="btn" value="&equiv;" /></td>
+                    <td>Main Menu</td>
+                </tr>
+                <tr>
+                    <td>#8803, u+2263</td>
+                    <td>&#8803;</td>
+                    <td style="font-size: 200%">&#8803;</td>
+                    <td><a class="btn" href="">&#8803;</a></td>
+                    <td><input type="button" class="btn" value="&#8803;" /></td>
+                    <td>STRICTLY EQUIVALENT TO (Mathematical Operators), Layers</td>
+                </tr>
+                <tr>
+                    <td>#9783, u+2637</td>
+                    <td>&#9783;</td>
+                    <td style="font-size: 200%">&#9783;</td>
+                    <td><a class="btn" href="">&#9783;</a></td>
+                    <td><input type="button" class="btn" value="&#9783;" /></td>
+                    <td>TRIGRAM FOR EARTH (Miscellaneous Symbols), Legend</td>
+                </tr>
+                <tr>
+                    <td>fltns, #9649</td>
+                    <td>&fltns;</td>
+                    <td style="font-size: 200%">&fltns;</td>
+                    <td><a class="btn" href="" style="text-shadow: 2px 2px dimgray;">&fltns;</a></td>
+                    <td><input type="button" class="btn" value="&fltns;" /></td>
+                    <td>WHITE PARALLELOGRAM</td>
+                </tr>
+                <tr>
+                    <td>hearts</td>
+                    <td>&hearts;</td>
+                    <td style="font-size: 200%">&hearts;</td>
+                    <td><a class="btn" href="">&hearts;</a></td>
+                    <td><input type="button" class="btn" value="&hearts;" /></td>
+                    <td>Heart suit</td>
+                </tr>
+                <tr>
+                    <td>hellip</td>
+                    <td>&hellip;</td>
+                    <td style="font-size: 200%">&hellip;</td>
+                    <td><a class="btn" href="">&hellip;</a></td>
+                    <td><input type="button" class="btn" value="&hellip;" /></td>
+                    <td>More tools, Options</td>
+                </tr>
+                <tr>
+                    <td>lt</td>
+                    <td>&lt;</td>
+                    <td style="font-size: 200%">&lt;</td>
+                    <td><a class="btn" href="">&lt;</a></td>
+                    <td><input type="button" class="btn" value="&lt;" /></td>
+                    <td>Back, Previous</td>
+                </tr>
+                <tr>
+                    <td>gt</td>
+                    <td>&gt;</td>
+                    <td style="font-size: 200%">&gt;</td>
+                    <td><a class="btn" href="">&gt;</a></td>
+                    <td><input type="button" class="btn" value="&gt;" /></td>
+                    <td>Forward</td>
+                </tr>
+                <tr>
+                    <td>laquo</td>
+                    <td>&laquo;</td>
+                    <td style="font-size: 200%">&laquo;</td>
+                    <td><a class="btn" href="">&laquo;</a></td>
+                    <td><input type="button" class="btn" value="&laquo;" /></td>
+                    <td>Left</td>
+                </tr>
+                <tr>
+                    <td>raquo</td>
+                    <td>&raquo;</td>
+                    <td style="font-size: 200%">&raquo;</td>
+                    <td><a class="btn" href="">&raquo;</a></td>
+                    <td><input type="button" class="btn" value="&raquo;" /></td>
+                    <td>Right</td>
+                </tr>
+                <tr>
+                    <td>lsaquo</td>
+                    <td>&lsaquo;</td>
+                    <td style="font-size: 200%">&lsaquo;</td>
+                    <td><a class="btn" href="">&lsaquo;</a></td>
+                    <td><input type="button" class="btn" value="&lsaquo;" /></td>
+                    <td>Previous</td>
+                </tr>
+                <tr>
+                    <td>rsaquo</td>
+                    <td>&rsaquo;</td>
+                    <td style="font-size: 200%">&rsaquo;</td>
+                    <td><a class="btn" href="">&rsaquo;</a></td>
+                    <td><input type="button" class="btn" value="&rsaquo;" /></td>
+                    <td>Next</td>
+                </tr>
+                <tr>
+                    <td>loz, blacklozenge</td>
+                    <td>&loz;</td>
+                    <td style="font-size: 200%">&loz;</td>
+                    <td><a class="btn" href="">&loz;</a></td>
+                    <td><input type="button" class="btn" value="&loz;" /></td>
+                    <td>Lozenge</td>
+                </tr>
+                <tr>
+                    <td>lozf, blacklozenge</td>
+                    <td>&lozf;</td>
+                    <td style="font-size: 200%">&lozf;</td>
+                    <td><a class="btn" href="">&lozf;</a></td>
+                    <td><input type="button" class="btn" value="&lozf;" /></td>
+                    <td>Lozenge</td>
+                </tr>
+                <tr>
+                    <td>marker</td>
+                    <td>&marker;</td>
+                    <td style="font-size: 200%">&marker;</td>
+                    <td><a class="btn" href="">&marker;</a></td>
+                    <td><input type="button" class="btn" value="&marker;" /></td>
+                    <td>Marker, iphone?</td>
+                </tr>
+                <tr>
+                    <td>minus</td>
+                    <td>&minus;</td>
+                    <td style="font-size: 200%">&minus;</td>
+                    <td><a class="btn" href="">&minus;</a></td>
+                    <td><input type="button" class="btn" value="&minus;" /></td>
+                    <td>Minus</td>
+                </tr>
+                <tr>
+                    <td>nabla</td>
+                    <td>&nabla;</td>
+                    <td style="font-size: 200%">&nabla;</td>
+                    <td><a class="btn" href="">&nabla;</a></td>
+                    <td><input type="button" class="btn" value="&nabla;" /></td>
+                    <td>Drilldown</td>
+                </tr>
+                <tr>
+                    <td>odot</td>
+                    <td>&odot;</td>
+                    <td style="font-size: 200%">&odot;</td>
+                    <td><a class="btn" href="">&odot;</a></td>
+                    <td><input type="button" class="btn" value="&odot;" /></td>
+                    <td>ZoomToExtent</td>
+                </tr>
+                <tr>
+                    <td>ofcir</td>
+                    <td>&ofcir;</td>
+                    <td style="font-size: 200%">&ofcir;</td>
+                    <td><a class="btn" href="">&ofcir;</a></td>
+                    <td><input type="button" class="btn" value="&ofcir;" /></td>
+                    <td>Circled bullet</td>
+                </tr>
+                <tr>
+                    <td>oplus</td>
+                    <td>&oplus;</td>
+                    <td style="font-size: 200%">&oplus;</td>
+                    <td><a class="btn" href="">&oplus;</a></td>
+                    <td><input type="button" class="btn" value="&oplus;" /></td>
+                    <td>ZoomToTarget</td>
+                </tr>
+                <tr>
+                    <td>otimes</td>
+                    <td>&otimes;</td>
+                    <td style="font-size: 200%">&otimes;</td>
+                    <td><a class="btn" href="">&otimes;</a></td>
+                    <td><input type="button" class="btn" value="&otimes;" /></td>
+                    <td>Close button</td>
+                </tr>
+                <tr>
+                    <td>ovbar</td>
+                    <td>&ovbar;</td>
+                    <td style="font-size: 200%">&ovbar;</td>
+                    <td><a class="btn" href="">&ovbar;</a></td>
+                    <td><input type="button" class="btn" value="&ovbar;" /></td>
+                    <td>Split</td>
+                </tr>
+                <tr>
+                    <td>plus</td>
+                    <td>&plus;</td>
+                    <td style="font-size: 200%">&plus;</td>
+                    <td><a class="btn" href="">&plus;</a></td>
+                    <td><input type="button" class="btn" value="&plus;" /></td>
+                    <td>Add layer</td>
+                </tr>
+                <tr>
+                    <td>plusb, boxplus</td>
+                    <td>&plusb;</td>
+                    <td style="font-size: 200%">&plusb;</td>
+                    <td><a class="btn" href="">&plusb;</a></td>
+                    <td><input type="button" class="btn" value="&plusb;" /></td>
+                    <td>Map</td>
+                </tr>
+                <tr>
+                    <td>ratio</td>
+                    <td>&ratio;</td>
+                    <td style="font-size: 200%">&ratio;</td>
+                    <td><a class="btn" href="">&ratio;</a></td>
+                    <td><input type="button" class="btn" value="&ratio;" /></td>
+                    <td>Reorder list</td>
+                </tr>
+                <tr>
+                    <td>star, bigstar</td>
+                    <td>&star;</td>
+                    <td style="font-size: 200%">&star;</td>
+                    <td><a class="btn" href="">&star;</a></td>
+                    <td><input type="button" class="btn" value="&star;" /></td>
+                    <td>Bookmark</td>
+                </tr>
+                <tr>
+                    <td>starf, bigstar</td>
+                    <td>&starf;</td>
+                    <td style="font-size: 200%">&starf;</td>
+                    <td><a class="btn" href="">&starf;</a></td>
+                    <td><input type="button" class="btn" value="&starf;" /></td>
+                    <td>Bookmarked?</td>
+                </tr>
+                <tr>
+                    <td>target</td>
+                    <td>&target;</td>
+                    <td style="font-size: 200%">&target;</td>
+                    <td><a class="btn" href="">&target;</a></td>
+                    <td><input type="button" class="btn" value="&target;" /></td>
+                    <td>Current Location</td>
+                </tr>
+                <tr>
+                    <td>rtri</td>
+                    <td>&rtri;</td>
+                    <td style="font-size: 200%">&rtri;</td>
+                    <td><a class="btn" href="">&rtri;</a></td>
+                    <td><input type="button" class="btn" value="&rtri;" /></td>
+                    <td>Right Triangle</td>
+                </tr>
+                <tr>
+                    <td>rtrif</td>
+                    <td>&rtrif;</td>
+                    <td style="font-size: 200%">&rtrif;</td>
+                    <td><a class="btn" href="">&rtrif;</a></td>
+                    <td><input type="button" class="btn" value="&rtrif;" /></td>
+                    <td>Click for more content</td>
+                </tr>
+                <tr>
+                    <td>dtri, triangledown</td>
+                    <td>&dtri;</td>
+                    <td style="font-size: 200%">&dtri;</td>
+                    <td><a class="btn" href="">&dtri;</a></td>
+                    <td><input type="button" class="btn" value="&dtri;" /></td>
+                    <td>Expanded Content</td>
+                </tr>
+                <tr>
+                    <td>dtrif, blacktriangledown, #9662</td>
+                    <td>&dtrif;</td>
+                    <td style="font-size: 200%">&dtrif;</td>
+                    <td><a class="btn" href="">&dtrif;</a></td>
+                    <td><input type="button" class="btn" value="&dtrif;" /></td>
+                    <td>Expanded Content</td>
+                </tr>
+                <tr>
+                    <td>uArr, Uparrow, DoubleUpArrow, 8657</td>
+                    <td>&uArr;</td>
+                    <td style="font-size: 200%">&uArr;</td>
+                    <td><a class="btn" href="">&uArr;</a></td>
+                    <td><input type="button" class="btn" value="&uArr;" /></td>
+                    <td>UPWARDS DOUBLE ARROW, North Arrow</td>
+                </tr>
+                <tr>
+                    <td>vellip</td>
+                    <td>&vellip;</td>
+                    <td style="font-size: 200%">&vellip;</td>
+                    <td><a class="btn" href="">&vellip;</a></td>
+                    <td><input type="button" class="btn" value="&vellip;" /></td>
+                    <td>More tools</td>
+                </tr>
+                <tr>
+                    <td>vltri, vartriangleleft, LeftTriangle</td>
+                    <td>&vltri;</td>
+                    <td style="font-size: 200%">&vltri;</td>
+                    <td><a class="btn" href="">&vltri;</a></td>
+                    <td><input type="button" class="btn" value="&vltri;" /></td>
+                    <td>PointRight</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+        <h2>ITC Zapf Dingbats font</h2>
+        <table width="100%" border="1" cellspacing="0" cellpadding="2">
+            <tr>
+                <th>Decimal &amp; Hex Unicode</th>
+                <th>100pct</th>
+                <th>200PCT</th>
+                <th>Anchor</th>
+                <th>Button</th>
+                <th>Name or Tool</th>
+            </tr>
+            <tr>
+                <td>#9993, u+2709</td>
+                <td>&#9993;</td>
+                <td style="font-size: 200%">&#9993;</td>
+                <td><a class="btn" href="">&#9993;</a></td>
+                <td><input type="button" class="btn" value="&#9993;" /></td>
+                <td>ENVELOPE, Email</td>
+            </tr>
+            <tr>
+                <td>#10005, u+2715</td>
+                <td>&#10005;</td>
+                <td style="font-size: 200%">&#10005;</td>
+                <td><a class="btn" href="">&#10005;</a></td>
+                <td><input type="button" class="btn" value="&#10005;" /></td>
+                <td>MULTIPLICATION X, Close Panel</td>
+            </tr>
+            <tr>
+                <td>#10006, u+2716</td>
+                <td>&#10006;</td>
+                <td style="font-size: 200%">&#10006;</td>
+                <td><a class="btn" href="">&#10006;</a></td>
+                <td><input type="button" class="btn" value="&#10006;" /></td>
+                <td>HEAVY MULTIPLICATION X</td>
+            </tr>
+            <tr>
+                <td>#10010, u+271A</td>
+                <td>&#10010;</td>
+                <td style="font-size: 200%">&#10010;</td>
+                <td><a class="btn" href="">&#10010;</a></td>
+                <td><input type="button" class="btn" value="&#10010;" /></td>
+                <td>HEAVY GREEK CROSS, Additional Special Tool</td>
+            </tr>
+            <tr>
+                <td>#10025, u+271A</td>
+                <td>&#10025;</td>
+                <td style="font-size: 200%">&#10025;</td>
+                <td><a class="btn" href="">&#10025;</a></td>
+                <td><input type="button" class="btn" value="&#10025;" /></td>
+                <td>STRESS OUTLINED WHITE STAR, Bookmark</td>
+            </tr>
+            <tr>
+                <td>#10026, u+272A</td>
+                <td>&#10026;</td>
+                <td style="font-size: 200%">&#10026;</td>
+                <td><a class="btn" href="">&#10026;</a></td>
+                <td><input type="button" class="btn" value="&#10026;" /></td>
+                <td>CIRCLED WHITE STAR, Bookmark</td>
+            </tr>
+            <tr>
+                <td>#10047, u+273F</td>
+                <td>&#10047;</td>
+                <td style="font-size: 200%">&#10047;</td>
+                <td><a class="btn" href="">&#10047;</a></td>
+                <td><input type="button" class="btn" value="&#10047;" /></td>
+                <td>BLACK FLORETTE, Settings?</td>
+            </tr>
+            <tr>
+                <td>#10063, u+274F</td>
+                <td>&#10063;</td>
+                <td style="font-size: 200%">&#10063;</td>
+                <td><a class="btn" href="">&#10063;</a></td>
+                <td><input type="button" class="btn" value="&#10063;" /></td>
+                <td>LOWER RIGHT DROP-SHADOWED WHITE SQUARE, Basemap?</td>
+            </tr>
+            <tr>
+                <td>#10070, u+2756</td>
+                <td>&#10070;</td>
+                <td style="font-size: 200%">&#10070;</td>
+                <td><a class="btn" href="">&#10070;</a></td>
+                <td><input type="button" class="btn" value="&#10070;" /></td>
+                <td>BLACK DIAMOND MINUS WHITE X, Basemap?</td>
+            </tr>
+        </table>
+        <hr />
+        <h2>Geometric Shapes</h2>
+        <table width="100%" border="1" cellspacing="0" cellpadding="2">
+            <tr>
+                <th>Decimal &amp; Hex Unicode</th>
+                <th>100pct</th>
+                <th>200PCT</th>
+                <th>Anchor</th>
+                <th>Button</th>
+                <th>Name or Tool</th>
+            </tr>
+            <tr>
+                <td>#9635, u+25A3</td>
+                <td>&#9635;</td>
+                <td style="font-size: 200%">&#9635;</td>
+                <td><a class="btn" href="">&#9635;</a></td>
+                <td><input type="button" class="btn" value="&#9635;" /></td>
+                <td>WHITE SQUARE CONTAINING BLACK SMALL SQUARE, Inset Map?</td>
+            </tr>
+            <tr>
+                <td>#9636, u+25A4</td>
+                <td>&#9636;</td>
+                <td style="font-size: 200%">&#9636;</td>
+                <td><a class="btn" href="">&#9636;</a></td>
+                <td><input type="button" class="btn" value="&#9636;" /></td>
+                <td>SQUARE WITH HORIZONTAL FILL, Details</td>
+            </tr>
+            <tr>
+                <td>#9658, u+25BA</td>
+                <td>&#9658;</td>
+                <td style="font-size: 200%">&#9658;</td>
+                <td><a class="btn" href="">&#9658;</a></td>
+                <td><input type="button" class="btn" value="&#9658;" /></td>
+                <td>BLACK RIGHT-POINTING POINTER (present in WGL4), Content Closed</td>
+            </tr>
+            <tr>
+                <td>#9660, u+25BC</td>
+                <td>&#9660;</td>
+                <td style="font-size: 200%">&#9660;</td>
+                <td><a class="btn" href="">&#9660;</a></td>
+                <td><input type="button" class="btn" value="&#9660;" /></td>
+                <td>BLACK DOWN-POINTING TRIANGLE (present in WGL4), Content Expanded</td>
+            </tr>
+            <tr>
+                <td>#9672, u+25C8</td>
+                <td>&#9672;</td>
+                <td style="font-size: 200%">&#9672;</td>
+                <td><a class="btn" href="">&#9672;</a></td>
+                <td><input type="button" class="btn" value="&#9672;" /></td>
+                <td>WHITE DIAMOND CONTAINING BLACK SMALL DIAMOND, Identify</td>
+            </tr>
+            <tr>
+                <td>#9673, u+25C9</td>
+                <td>&#9673;</td>
+                <td style="font-size: 200%">&#9673;</td>
+                <td><a class="btn" href="">&#9673;</a></td>
+                <td><input type="button" class="btn" value="&#9673;" /></td>
+                <td>FISHEYE, Identify</td>
+            </tr>
+            <tr>
+                <td>#9703, u+25E7</td>
+                <td>&#9703;</td>
+                <td style="font-size: 200%">&#9703;</td>
+                <td><a class="btn" href="">&#9703;</a></td>
+                <td><input type="button" class="btn" value="&#9703;" /></td>
+                <td>SQUARE WITH LEFT HALF BLACK, Sidebar</td>
+            </tr>
+            <tr>
+                <td>#9704, u+25E8</td>
+                <td>&#9704;</td>
+                <td style="font-size: 200%">&#9704;</td>
+                <td><a class="btn" href="">&#9704;</a></td>
+                <td><input type="button" class="btn" value="&#9704;" /></td>
+                <td>SQUARE WITH RIGHT HALF BLACK, Sidebar</td>
+            </tr>
+            <tr>
+                <td>#9707, u+25EB</td>
+                <td>&#9707;</td>
+                <td style="font-size: 200%">&#9707;</td>
+                <td><a class="btn" href="">&#9707;</a></td>
+                <td><input type="button" class="btn" value="&#9707;" /></td>
+                <td>WHITE SQUARE WITH VERTICAL BISECTING LINE, Split Panel? Swiper?</td>
+            </tr>
+            <tr>
+                <td>#9713, u+25F1</td>
+                <td>&#9713;</td>
+                <td style="font-size: 200%">&#9713;</td>
+                <td><a class="btn" href="">&#9713;</a></td>
+                <td><input type="button" class="btn" value="&#9713;" /></td>
+                <td>WHITE SQUARE WITH LOWER LEFT QUADRANT, Inset Map? Fullscreen toggle?</td>
+            </tr>
+            <tr>
+                <td>#8962, u+2302</td>
+                <td>&#8962;</td>
+                <td style="font-size: 200%">&#8962;</td>
+                <td><a class="btn" href="">&#8962;</a></td>
+                <td><input type="button" class="btn" value="&#8962;" /></td>
+                <td>HOUSE (Miscellaneous Technical, present in WGL4), Home?</td>
+            </tr>
+            <tr>
+                <td>#8984, u+2318</td>
+                <td>&#8984;</td>
+                <td style="font-size: 200%">&#8984;</td>
+                <td><a class="btn" href="">&#8984;</a></td>
+                <td><input type="button" class="btn" value="&#8984;" /></td>
+                <td>PLACE OF INTEREST SIGN (Miscellaneous Technical), Info? Command?</td>
+            </tr>
+        </table>
+        <hr />
+        <h2></h2>
+        <textarea id="ta" cols="80" rows="8">
+scratch area
+        </textarea>
+        <h2></h2>
+        <div style="border-top: 2px solid silver; margin-top: 10px;">
+            <p style="float: right; border: 1px solid silver; padding: 5px;">Updated 
+                <script type="text/javascript">
+                    document.write(document.lastModified);
+                </script>
+            </p>
+            <p id="browser_info"></p>
+            <script type="text/javascript">
+                document.getElementById("browser_info").innerHTML =
+                        "navigator.appName=" + navigator.appName + "<br />" +
+                        "navigator.cookieEnabled=" + navigator.cookieEnabled + "<br />" +
+                        "navigator.platform(operating system)=" + navigator.platform + "<br />" +
+                        "navigator.userAgent=" + navigator.userAgent + "<br />";
+            </script>
+            <p id="window_info"></p>
+            <script type="text/javascript">
+                var br = "<br />";
+                var msg = "window.innerHeight=" + window.innerHeight + br +
+                        "window.innerWidth=" + window.innerWidth + br +
+                        "window.scrollX=" + window.scrollX + br + // Horizontal scrolling
+                        "window.scrollY=" + window.scrollY + br + // Vertical scrolling
+                        "window.screen.availHeight= " + window.screen.availHeight + br +
+                        "window.screen.availLeft= " + window.screen.availLeft + br +
+                        "window.screen.availTop= " + window.screen.availTop + br +
+                        "window.screen.availWidth= " + window.screen.availWidth + br +
+                        "window.screen.colorDepth= " + window.screen.colorDepth + br +
+                        "window.screen.height= " + window.screen.height + br +
+                        "window.screen.pixelDepth= " + window.screen.pixelDepth + br +
+                        "window.screen.width= " + window.screen.width;
+                document.getElementById("window_info").innerHTML = msg;
+            </script>
+        </div>
+    </body>
+</html>
