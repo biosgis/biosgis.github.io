@@ -66,8 +66,8 @@ function addlibs(files, rv, dir) {
 }
 
 function addmsg(s) {
+    document.getElementById('msgbox').innerHTML += s + '<br/>';
     var msgbox = document.getElementById('msgbox');
-    msgbox.innerHTML += s + '<br/>';
     msgbox.scrollTop = msgbox.scrollHeight;
 }
 // TO CLEAN UP UNWANTED OUTPUTS IN PRODUCTION RENAME ABOVE FUNCTION TO BELOW

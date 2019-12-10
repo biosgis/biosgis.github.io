@@ -4,7 +4,9 @@ var toc = {
     created: 20191030,
     id: "toc",
     name: "contents",
-    title: "Contents"
+    title: "Contents",
+    urid: "",
+    uridlast: ""
 };
 //=================
 // TOC CONTENTS
@@ -108,15 +110,13 @@ function TocLayer(ar) {
     }
     checker.classList.add('layericon');
     item.appendChild(checker);
-    checker.onclick = function () {
-        tocchecked(checker);
-    }
     var picker = document.createElement('input');
     picker.type = 'radio';
     picker.id = urid + '-pick';
     picker.setAttribute('name', 'ace3');
     picker.value = urid;
     picker.classList.add('layericon');
+    picker.style.border = '1px solid hotpink';
     picker.style.display = 'none';
     item.appendChild(picker);
     var chooser = document.createElement('input');
@@ -131,26 +131,62 @@ function TocLayer(ar) {
     labeler.id = urid + '-name';
     labeler.innerHTML = name;
     labeler.style.marginRight = '5px';
-    labeler.htmlFor = urid + '-radio';
+    if (type === 'feature' || type === 'sublayer') {
+        labeler.htmlFor = urid + '-radio';
+    } else {
+        labeler.onclick = function () {
+            togglex(list);
+        }
+    }
     item.appendChild(labeler);
     if (url.indexOf('Project_ACEIII/ace3') > 0 && type === 'sublayer') {
         checker.style.display = 'none';
-        picker.style.display = 'normal';
-        picker.addEventListener('click', function () {
-            checker.checked = picker.checked;
-            if (app.alayer.urid.indexOf('ace3') === 0) {
-                $(app.alayer.urid + '-check').checked = false;
-            }
-        });
+        //picker.style.display = 'inline';
+        chooser.style.display = 'inline';
+    }
+    if (type.indexOf('feature') >= 0 || type === 'sublayer') {
         labeler.classList.add('feature');
-    } else {
-        if (type.indexOf('feature') >= 0 || type === 'sublayer') {
-            labeler.classList.add('feature');
-        }
+    }
+    checker.onclick = function () {
+        addmsg('CLICKED ' + checker.id);
+        tocchecked(checker);
     }
     chooser.onclick = function () {
-        tocpicked(chooser);
+        addmsg('CLICKED ' + chooser.id);
+        if (chooser.checked) {
+            checker.checked = true;
+            tocchecked(checker);
+            if (toc.urid !== '') {
+                $(toc.urid + '-item').classList.remove('activeLayer');
+                if (urid.indexOf('ace3') === 0 && toc.urid.indexOf('ace3') === 0) {
+                    //$(toc.urid + '-check').click();//uncheck last ace3layer
+                    $(toc.urid + '-check').checked = false;
+                    tocchecked($(toc.urid + '-check'));
+                }
+            }
+            toc.urid = urid;
+            $('al').value = urid;
+            document.getElementsByClassName('alname')[0].innerHTML = labeler.innerHTML;
+            item.classList.add('activeLayer');
+            // if (urid.indexOf('ace3') === 0) {
+            //     picker.click();// IS THIS REALLY NECESSARY?
+            // }
+            // TODO ACTIVATE LAYER REQUESTS
+        }
     }
+    // chooser.onchange = function () {
+    //     addmsg(chooser.id + ' CHANGED');//DOESNT DETECT UNCHECK WHEN ANOTHER RADIO CLICKED?
+    //     if (urid.indexOf('ace3') === 0) {
+    //         picker.checked = chooser.checked;
+    //         checker.checked = chooser.checked;
+    //         tocchecked(checker);
+    //     }
+    // }
+    chooser.addEventListener('change', function () {
+        addmsg(chooser.id + ' CHANGED');//DOESNT DETECT UNCHECK WHEN ANOTHER RADIO CLICKED?
+        picker.checked = chooser.checked;
+    });
+    // BUG--CHECKER CHANGED OK BUT NOT CALLING CLICK ACTION?
     var dots = document.createElement('span');
     dots.classList.add('esri-icon-handle-horizontal');
     dots.classList.add('layericon');
@@ -180,6 +216,12 @@ function TocLayer(ar) {
     list.style.padding = '0px';
     list.style.display = 'none';
     item.appendChild(list);
+    function chooseItem() {
+        //itemselected
+        if (urid.indexOf('ace3') >= 0) {
+            picker.checked = true;
+        }
+    }
     return item;
 }
 
@@ -240,7 +282,7 @@ function addMapImageLayer(jo) {
         map.add(layer);
         jo['sublayers'] = layers;
         var k = tocAddMapImageLayerItem(jo);
-    }).catch((err) => {
+    }).catch(function (err) {
         console.error('Error encountered', err);
     });
 }
@@ -293,31 +335,6 @@ function tocAddMapImageLayerItem(jo) {
     return k;
 }
 
-function tocpicked(chooser) {
-    addmsg('DO tocpicked: ' + chooser.id);
-    var urid = chooser.id.split('-')[0];
-    var checker = $(urid + '-check');
-    if (urid.indexOf('ace3') === 0) {
-        $(urid + '-pick').checked = true;
-        $(app.alayer.urid + '-check').checked = false;
-    } else {
-        if (!checker.checked) {
-            checker.click();
-        }
-    }
-    var name = $(urid + '-name').innerHTML;
-    var x = document.querySelectorAll('.alname');
-    for (var i = 0; i < x.length; i++) {
-        x[i].innerHTML = name;
-    }
-    app.alayer.uridlast = app.alayer.urid;
-    app.alyer.urid = urid;
-    $('al').value = urid;
-    var y = document.querySelector('.activeLayer');
-    y.classList.remove('activeLayer');
-    $(urid + '-item').classList.add('activeLayer');
-}
-
 function tocchecked(checker) {
     addmsg('DO tocchecked: ' + checker.id);
     var urid = checker.id.split('-')[0];
@@ -364,6 +381,31 @@ function tocFillMapImageLayerSubinfos(jo) {
         }
     }
     return jo;
+}
+
+function tocpicked(chooser) {
+    addmsg('DO tocpicked: ' + chooser.id);
+    var urid = chooser.id.split('-')[0];
+    var checker = $(urid + '-check');
+    if (urid.indexOf('ace3') === 0) {
+        $(urid + '-pick').checked = true;
+        $(app.alayer.urid + '-check').checked = false;
+    } else {
+        if (!checker.checked) {
+            checker.click();
+        }
+    }
+    var name = $(urid + '-name').innerHTML;
+    var x = document.querySelectorAll('.alname');
+    for (var i = 0; i < x.length; i++) {
+        x[i].innerHTML = name;
+    }
+    app.alayer.uridlast = app.alayer.urid;
+    app.alayer.urid = urid;
+    $('al').value = urid;
+    var y = document.querySelector('.activeLayer');
+    y.classList.remove('activeLayer');
+    $(urid + '-item').classList.add('activeLayer');
 }
 //************************************************ NOT YET
 function applayerprops(urid) {
