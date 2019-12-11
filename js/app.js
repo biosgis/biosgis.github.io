@@ -137,13 +137,6 @@ app.layers["CalTrans_Lane_Closures"] = {
     url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
     visible: true
 };
-app.layers["DFG_Properties:0"] = {
-    id: "DFG_Properties:0",
-    name: "CDFW Facilities",
-    type: "feature",
-    url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
-    visible: true
-};
 app.layers["usa"] = {
     id: "usa",
     name: "USA",

@@ -78,6 +78,9 @@ biosgis.github.io 20190519 dchiang
             h3 {
                 font-family: Georgia, serif;
             }
+            h3 a::before {
+                content: '\0020\2022\0020'; /* 2218=small-white-dot; 25A1=white-square, 2666=black-diamond*/
+            }
 
             h4 {
                 font-family: Verdana, sans-serif;
@@ -235,7 +238,7 @@ biosgis.github.io 20190519 dchiang
             <a href="https://developer.microsoft.com/en-us/" title="MS Developer"></a>
             <a href="https://technet.microsoft.com/en-us" title="MS TechNet"></a>
             <a href="https://blogs.technet.microsoft.com/serverandtools/" title="MS TN Blogs"></a>
-            <a href="https://my.esri.com/welcome" title="ArcGIS software Downloads" title="My Esri"></a>
+            <a href="https://my.esri.com/welcome" title="ArcGIS software Downloads"></a>
             <a href="https://my.visualstudio.com/getstarted" title="My Visual Studio"></a>
             <a href="https://code.nasa.gov/" title="NASA Open Source"></a>
             <a href="https://outlook.office365.com/owa" title="Outlook"></a>
@@ -321,8 +324,10 @@ biosgis.github.io 20190519 dchiang
                 <h3>
                     CNDDB
                     <a href="https://apps.wildlife.ca.gov/bios/?al=ds85&log=off&msg=on">COM</a>
-                    <a href="https://apps.wildlife.ca.gov/bios/?al=ds45&dslist=85,704,705,1002,1354&log=off&msg=on">Prod</a>
+                    <a href="https://apps.wildlife.ca.gov/bios/?al=ds45&dslist=85,704,705,1002,1354&log=off&msg=on">
+                        <img alt="CNDDB" src="https://www.wildlife.ca.gov/portals/0/Images/BDB/CNDDB/CNDDB_logo_small.png"></a>
                     <a href="https://www.wildlife.ca.gov/Data/CNDDB">Home</a>
+                    <a href="https://www.wildlife.ca.gov/Data/CNDDB/Data-Updates">Download</a>
                 </h3>
                 <h3 class="hide">
                     <a class="navlink" href="https://map.dfg.ca.gov/imaps/delta">Delta</a>                    
@@ -469,7 +474,7 @@ biosgis.github.io 20190519 dchiang
             Build on
             <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a> &reg;
             <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License"
-                    style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is
+                                                                                           style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is
             licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons
                 Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
         </footer>

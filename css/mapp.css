@@ -10,10 +10,11 @@ Design for mobile first
 [class*="col-"] {
     width: 100%;
 }
+
 body {
     font-family: Consolas, Monaco, monospace;
-    font-size: 1.11em;
-    line-height: 1.33em;
+    font-size: 1.5em;
+    line-height: 1.5em;
     margin: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -31,7 +32,7 @@ aside {
     position: absolute;
     bottom: 0;
     right: 0;
-    top: 51px;
+    top: 52px;
     background-color: white;
     border: 1px solid silver;
     height: auto;
@@ -52,9 +53,11 @@ button {
     font-size: 1em;
     margin: 2px;
 }
+
 details {
     margin: 5px;
 }
+
 dialog::backdrop {
     background: rgba(128, 128, 128, 0.5);
 }
@@ -125,6 +128,7 @@ input {
 li {
     line-height: 150%;
 }
+
 main {
     position: absolute;
     bottom: 0;
@@ -151,17 +155,18 @@ nav {
 }
 
 ol.menu {
-    font-size: 1em;
+    /*font-size: 1em;*/
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
 ol.menu li {
-    border-bottom: 1px solid gainsboro;
+    border: 1px solid gainsboro;
+    border-width: 1px 0;
     list-style: none;
     margin: 0;
-    padding: 8px;
+    padding: 5px;
     text-align: justify;
 }
 
@@ -170,11 +175,17 @@ ol.menu li:hover {
     border: 1px solid lightblue;
     border-width: 1px 0;
 }
+
+ol.menu span {
+    font-size: 1.23em;
+}
+
 ol.pl {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 li.pl {
     border: 1px solid gainsboro;
     border-width: 1px 0;
@@ -183,9 +194,11 @@ li.pl {
     margin: 0;
     padding: 5px;
 }
+
 li.pl:hover {
     background-color: azure;
 }
+
 ul.pl {
     list-style: none;
     margin: 0;
@@ -209,7 +222,7 @@ span.closer {
     border-radius: 3px;
     cursor: default;
     float: right;
-    font-size: large;
+    font-size: 100%;
     margin-left: 20px;
     margin-right: 5px;
     padding: 2px 4px;
@@ -228,7 +241,7 @@ span.hicon {
 span.navtab {
     border-top: 5px solid white;
     float: right;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
     padding: 5px 10px;
 }
@@ -237,37 +250,46 @@ span.navtab:hover {
     background-color: aliceblue;
     border-top: 5px solid lightblue;
 }
+
 input {
     font-size: large;
 }
+
 select {
     font-size: 100%;
 }
+
 table {
     background-color: white;
     border-collapse: collapse;
     border: 1px solid floralwhite;
 }
+
 td {
     border: 1px solid floralwhite;
     padding: 2px;
     vertical-align: top;
 }
+
 th {
     background-color: whitesmoke;
     border: 1px solid floralwhite;
     padding: 0 5px;
     vertical-align: top;
 }
+
 tr.even {
     background-color: white;
 }
+
 tr.even:hover {
     background-color: lavender;
 }
+
 tr.odd {
     background-color: ghostwhite;
 }
+
 tr.odd:hover {
     background-color: lavender;
 }
@@ -323,14 +345,17 @@ table.bbtable td {
     font-size: medium;
     text-decoration: none;
 }
+
 .a_login:hover {
     background-color: azure;
     text-decoration: underline;
 }
+
 .activeLayer {
     background-color: aliceblue !important;
     border: 1px solid lightblue !important;
 }
+
 .activelayer:hover {
     background-color: lightpink;
 }
@@ -338,6 +363,7 @@ table.bbtable td {
 .alayer {
     font-weight: bold;
 }
+
 .alname {
     color: darkslategray;
     font-weight: bold;
@@ -352,6 +378,7 @@ table.bbtable td {
 .atotal {
     font-size: 80%;
 }
+
 .azura {
     color: azure;
 }
@@ -417,9 +444,11 @@ label.bb {
 .layericon:hover {
     background-color: antiquewhite;
 }
+
 .feature {
     font-weight: bold;
 }
+
 .feature:hover {
     background-color: aliceblue;
 }
@@ -652,6 +681,7 @@ label.bb {
     color: #fff;
     background-color: #226f0e;
 }
+
 /* 20180925 [Sketch temporary geometries](https://developers.arcgis.com/javascript/latest/sample-code/sketch-geometries/index.html)*/
 #sketchbar {
     background: #fff;
@@ -660,6 +690,7 @@ label.bb {
     left: 50%;
     padding: 10px;
 }
+
 .action-button {
     font-size: 16px;
     background-color: transparent;
@@ -670,11 +701,13 @@ label.bb {
     text-align: center;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
 }
+
 .action-button:hover,
 .action-button:focus {
     background: #0079c1;
     color: #e4e4e4;
 }
+
 .active {
     background: #0079c1;
     color: #e4e4e4;
@@ -682,29 +715,56 @@ label.bb {
 
 
 @media only screen and (min-width: 600px) {
+
     /* For tablets: */
-    .col-s-1 {width: 8.33%;}
-    .col-s-2 {width: 16.66%;}
-    .col-s-3 {width: 25%;}
+    .col-s-1 {
+        width: 8.33%;
+    }
+
+    .col-s-2 {
+        width: 16.66%;
+    }
+
+    .col-s-3 {
+        width: 25%;
+    }
+
     aside.wide {
         width: 50%;
+    }
+
+    #msgbar {
+        width: 60%;
     }
 }
 
 @media only screen and (min-width: 768px) {
+
     /* For desktop: */
-    .col-10 {width: 83.33%;}
-    .col-11 {width: 91.66%;}
-    .col-12 {width: 100%;}
+    .col-10 {
+        width: 83.33%;
+    }
+
+    .col-11 {
+        width: 91.66%;
+    }
+
+    .col-12 {
+        width: 100%;
+    }
+
     aside {
         width: 35%;
     }
+
     #bookmarks {
         width: 50%;
     }
+
     #catalog {
         width: 50%;
     }
+
     #contents {
         width: 40%;
     }
@@ -752,122 +812,158 @@ table.bgrid {
     width: auto;
     overflow: auto;
 }
+
 table.bgrid td {
     border: 1px solid gainsboro;
 }
+
 table.bgrid th {
     background-color: aliceblue;
     border: 1px solid silver;
     border-bottom: 2px solid silver;
 }
+
 table.bgrid th:hover {
     background-color: aliceblue;
 }
+
 table.bgrid tr:hover {
     background-color: ivory;
 }
+
 table.bgrid tr:nth-child(even) {
     background-color: whitesmoke;
 }
+
 table.bgrid tr:nth-child(even):hover {
     background-color: ivory;
 }
+
 table.cgrid {
     background-color: white;
     border: 1px solid slategray;
     border-collapse: collapse;
     margin: 5px;
 }
+
 table.cgrid td {
     border: 1px solid silver;
     padding: 2px;
 }
+
 table.cgrid th {
     border: 1px solid silver;
     border-right: 2px solid dimgray;
     padding: 2px;
 }
+
 table.cgrid tr:hover {
     background-color: aliceblue
 }
+
 table.cgrid tr:nth-child(even) {
     background-color: whitesmoke;
 }
+
 table.cgrid tr:nth-child(even):hover {
     background-color: aliceblue;
 }
+
 table.flat {
     background-color: white;
     border: 1px solid dimgray;
     border-collapse: collapse;
     margin: 5px;
 }
+
 table.flat td {
     border: 1px solid gainsboro;
     vertical-align: top;
     padding: 2px;
 }
+
 table.flat th {
     border: 1px solid silver;
     border-bottom: 2px solid gray;
     font-size: small;
     padding: 1px 5px;
 }
+
 table.flat tr:hover {
     background-color: aliceblue;
 }
+
 table.flat tr:nth-child(even) {
     background-color: ghostwhite;
 }
+
 table.flat tr:nth-child(even):hover {
     background-color: aliceblue;
 }
+
 table.vanilla {
     background-color: white;
     border: 1px solid beige;
     border-collapse: collapse;
     margin: 5px;
 }
+
 table.vanilla td {
     border: 1px solid gray;
     vertical-align: top;
     padding: 2px;
 }
+
 table.vanilla th {
     border: 1px solid silver;
     border-bottom: 2px solid silver;
     font-size: small;
     padding: 1px 5px;
 }
+
 table.vanilla th:hover {
     background-color: antiquewhite;
 }
+
 table.vanilla tr:hover {
     background-color: ivory;
 }
+
 table.vanilla tr:nth-child(even) {
     background-color: snow;
 }
+
 table.vanilla tr:nth-child(even):hover {
     background-color: ivory;
 }
 
 @media only screen and (min-width: 3000px) {
+
     /* TO HIDE UNUSED STYLES */
     #cat {
-        position: fixed; bottom: 55px; left: 25%; right: 25%; top: 55px;
-        height: auto; width: 50%;
+        position: fixed;
+        bottom: 55px;
+        left: 25%;
+        right: 25%;
+        top: 55px;
+        height: auto;
+        width: 50%;
         background-color: white;
         border: 1px solid slategray;
         border-width: 1px 3px 4px 2px;
         box-shadow: 2px 3px 4px #888888;
         z-index: 400;
     }
+
     #dashbar {
-        position: fixed; bottom: 0; left: 0;
-        height: 45%; width: 69.6%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 45%;
+        width: 69.6%;
         z-index: 300;
     }
+
     #databar {
         position: fixed;
         left: 0;
@@ -880,6 +976,7 @@ table.vanilla tr:nth-child(even):hover {
         border-top: 1px solid slategray;
         z-index: 300;
     }
+
     #databar-toggle {
         position: fixed;
         right: 50%;
@@ -887,6 +984,7 @@ table.vanilla tr:nth-child(even):hover {
         font-size: large;
         z-index: 300;
     }
+
     #foobar {
         position: fixed;
         left: 0;
@@ -899,11 +997,13 @@ table.vanilla tr:nth-child(even):hover {
         border-top: 1px solid slategray;
         z-index: 300;
     }
+
     #mapview {
         position: absolute;
         left: 0;
         top: 0;
     }
+
     #overviewDiv {
         position: absolute;
         top: 10px;
@@ -914,11 +1014,13 @@ table.vanilla tr:nth-child(even):hover {
         box-shadow: 2px 3px 4px #888888;
         z-index: 101;
     }
+
     #extentDiv {
         background-color: rgba(0, 0, 0, 0.5);
         position: absolute;
         z-index: 102;
     }
+
     #msgbar {
         position: fixed;
         right: 0;
@@ -928,6 +1030,7 @@ table.vanilla tr:nth-child(even):hover {
         border: 2px solid gray;
         z-index: 800;
     }
+
     #msgbar-toggle {
         position: fixed;
         right: 30px;
@@ -935,6 +1038,7 @@ table.vanilla tr:nth-child(even):hover {
         font-size: large;
         z-index: 800;
     }
+
     #msgbox {
         position: relative;
         bottom: 0;
@@ -946,6 +1050,7 @@ table.vanilla tr:nth-child(even):hover {
         overflow: auto;
         padding: 5px;
     }
+
     #nav-menu {
         position: fixed;
         top: 51px;
@@ -958,6 +1063,7 @@ table.vanilla tr:nth-child(even):hover {
         padding: 0;
         z-index: 444;
     }
+
     #splash {
         position: fixed;
         left: 0;
@@ -968,6 +1074,7 @@ table.vanilla tr:nth-child(even):hover {
         vertical-align: middle;
         z-index: 500;
     }
+
     #splash-cover {
         position: absolute;
         left: 0;
@@ -977,6 +1084,7 @@ table.vanilla tr:nth-child(even):hover {
         background-color: silver;
         opacity: 0.55;
     }
+
     #splash-main {
         position: absolute;
         left: 10%;
@@ -991,6 +1099,7 @@ table.vanilla tr:nth-child(even):hover {
         opacity: 1.0;
         padding: 10px;
     }
+
     #tools {
         z-index: 300;
     }
@@ -998,12 +1107,14 @@ table.vanilla tr:nth-child(even):hover {
     .cursd {
         cursor: default;
     }
+
     .desc {
         border: 1px solid cadetblue;
         font: italic normal normal medium Georgia, serif;
         margin: 5px;
         padding: 5px;
     }
+
     .go {
         background-color: ghostwhite;
         border: 1px solid gainsboro;
@@ -1012,10 +1123,12 @@ table.vanilla tr:nth-child(even):hover {
         padding: 1px 2px;
         text-decoration: none;
     }
+
     .go:hover {
         background-color: whitesmoke;
         border: 1px solid silver;
     }
+
     .h2bar {
         background-color: whitesmoke;
         border-bottom: 1px solid silver;
@@ -1023,6 +1136,7 @@ table.vanilla tr:nth-child(even):hover {
         margin: 0;
         padding: 5px;
     }
+
     .h3bar {
         background-color: ghostwhite;
         border: 1px solid silver;
@@ -1031,6 +1145,7 @@ table.vanilla tr:nth-child(even):hover {
         margin: 0;
         padding: 5px;
     }
+
     .h4bar {
         background-color: gainsboro;
         border-bottom: 1px solid silver;
@@ -1038,38 +1153,46 @@ table.vanilla tr:nth-child(even):hover {
         margin: 0;
         padding: 3px;
     }
+
     .h1 {
         color: #1a5f8d;
         margin: 0;
         padding: 5px;
     }
+
     .h2 {
         background-color: #4d7fb2;
         color: #ecece7;
     }
+
     .h3 {
         background-color: whitesmoke;
         border-bottom: 1px solid silver;
         color: slategray;
     }
+
     .h4 {
         background-color: #428bca;
         border-bottom: 1px solid silver;
         color: silver;
     }
+
     .larger {
         font-size: larger;
     }
+
     .layerslist {
         list-style: decimal outside none;
         margin: 1px;
         padding: 1px;
     }
+
     .layeritem {
         list-style: none;
         margin: 1px;
         padding: 1px;
     }
+
     .menulitem {
         background-color: white;
         border: 1px solid silver;
@@ -1080,9 +1203,11 @@ table.vanilla tr:nth-child(even):hover {
         margin: 0;
         padding: 5px;
     }
+
     .menulitem:hover {
         background-color: whitesmoke;
     }
+
     .nav-tab {
         border: 2px solid transparent;
         box-sizing: border-box;
@@ -1091,21 +1216,25 @@ table.vanilla tr:nth-child(even):hover {
         padding: 5px 8px 0 8px;
         vertical-align: middle;
     }
+
     .nav-tab:hover {
         background-color: whitesmoke;
         border-top: 2px solid slategray;
     }
+
     .outd {
         border: 1px solid ghostwhite;
         font-size: medium;
         margin: 5px;
         padding: 5px;
     }
+
     .panel-list {
         list-style: none;
         margin: 0;
         padding: 0;
     }
+
     .panel-listitem {
         background-color: white;
         border-bottom: 1px solid silver;
@@ -1115,44 +1244,53 @@ table.vanilla tr:nth-child(even):hover {
         margin: 0px;
         padding: 5px;
     }
+
     .panel-listitem:hover {
         background-color: lavender;
     }
+
     .panel-box {
         position: relative;
         height: 96%;
     }
+
     .panel-low {
         position: relative;
         height: 85%;
         overflow: auto;
     }
+
     .panel-main {
         position: relative;
         height: auto;
         max-height: 93%;
         overflow: auto;
     }
+
     .panel-tall {
         position: relative;
         height: 96%;
         overflow: auto;
     }
+
     .selection {
         /*lavenderblush*/
         background-color: lavender;
         border: 1px solid lightpink;
     }
+
     .sublayer {
         border-bottom: 1px solid ghostwhite;
         margin-left: 10px;
         padding: 1px;
     }
+
     .toc {
         list-style: decimal;
         margin-left: 1px;
         padding: 1px;
     }
+
     .tooltitle {
         background-color: lightslategray;
         border-top: 1px solid whitesmoke;
@@ -1164,6 +1302,7 @@ table.vanilla tr:nth-child(even):hover {
         position: relative;
         text-align: center;
     }
+
     .tooltitle .tooltiptext {
         background-color: black;
         color: white;
@@ -1174,160 +1313,201 @@ table.vanilla tr:nth-child(even):hover {
         top: 150%;
         left: 50%;
         margin-left: -100px;
-        right: 50%; top: 30px;
+        right: 50%;
+        top: 30px;
         visibility: hidden;
         width: 200px;
         opacity: 0;
         transition: opacity 1s;
     }
+
     .tooltitle .tooltiptext::after {
         content: " ";
         position: absolute;
-        bottom: 100%; /* At the top of the tooltip */
+        bottom: 100%;
+        /* At the top of the tooltip */
         left: 50%;
         margin-left: -5px;
         border-width: 5px;
         border-style: solid;
         border-color: transparent transparent black transparent;
     }
+
     .tooltitle:hover .tooltiptext {
         visibility: visible;
         opacity: 1;
     }
+
     .ulnav {
         list-style: none;
         margin: 0;
         padding: 2px;
     }
+
     .ulnav > li {
         display: inline;
         list-style: none;
     }
 
     .al {
-        background-color: lightcyan; /*;lemonchiffon ivory;*/
+        background-color: lightcyan;
+        /*;lemonchiffon ivory;*/
         border: 1px solid steelblue !important;
     }
+
     .al:hover {
         background-color: lavender;
     }
+
     .alink {
         color: slategray;
         margin: 0 5px;
         text-decoration: none;
     }
+
     .alink:hover {
         text-decoration: underline;
     }
+
     .Feature {
         color: black;
         font-style: normal;
     }
+
     .Feature:hover {
         background-color: ivory;
         border-right: 3px solid forestgreen;
     }
+
     .feature {
         color: black;
     }
+
     .feature:hover {
         background-color: ivory;
         border-right: 3px solid forestgreen;
         color: forestgreen;
     }
+
     .FeatureLayer {
         color: black;
     }
+
     .FeatureLayer:hover {
         border-right: 1px solid forestgreen;
     }
+
     .FeatureServer {
         color: black;
     }
+
     .FeatureServer:hover {
         border-right: 2px solid fuchsia;
     }
+
     .Group {
         color: dimgray;
         font-style: italic;
     }
+
     .Group:hover {
         border-right: 1px solid gainsboro;
     }
+
     .ImageServer {
         color: black;
     }
+
     .ImageServer:hover {
         border-right: 2px solid indigo;
     }
+
     .imagery {
         color: black;
     }
+
     .imagery:hover {
         background-color: lavender;
         border-right: 5px solid indigo;
         color: indigo;
     }
+
     .Layer {
         font-size: inherit;
         background-color: transparent;
         border: 1px solid transparent;
         padding: 1px;
     }
+
     .MapServer {
         color: dimgray;
     }
+
     .MapServer:hover {
         border-right: 1px solid maroon;
     }
+
     .MapImageLayer {
         color: dimgray;
     }
+
     .MapImageLayer:hover {
         border-right: 1px solid maroon;
     }
+
     .map-image {
         color: dimgray;
     }
+
     .map-image:hover {
         color: maroon;
     }
+
     .Raster {
         color: black;
         font-style: normal;
     }
+
     .Raster:hover {
         /*background-color: antiquewhite;*/
         border-right: 3px solid royalblue;
         color: brown;
     }
+
     .sublayer {
         color: black;
         font-style: normal;
     }
+
     .sublayer:hover {
         background-color: lavender;
         border-right: 3px solid slateblue;
         color: midnightblue;
     }
+
     .TileLayer {
         color: black;
     }
+
     .TileLayer:hover {
         border-right: 1px solid teal;
     }
+
     .tile {
         color: black;
     }
+
     .tile:hover {
         border-right: 3px solid teal;
         color: teal;
     }
+
     .vague {
         background-color: gainsboro;
         color: gainsboro;
         margin: 5px 10%;
     }
+
     .bs-list {
         position: relative;
         height: auto;
@@ -1338,6 +1518,7 @@ table.vanilla tr:nth-child(even):hover {
         /*padding-left: 10px; --PADDING KILLS LIST-STYLE*/
         overflow: auto;
     }
+
     .cat-list {
         position: relative;
         height: auto;
@@ -1348,6 +1529,7 @@ table.vanilla tr:nth-child(even):hover {
         /*padding-left: 10px; --PADDING KILLS LIST-STYLE*/
         overflow: auto;
     }
+
     .cat-item {
         border: 1px solid ghostwhite;
         border-width: 1px 0;
@@ -1355,11 +1537,14 @@ table.vanilla tr:nth-child(even):hover {
         padding: 2px 0;
         margin-left: 10px;
     }
+
     .cat-item:hover {
-        background-color: lavender;/*ivory*/
+        background-color: lavender;
+        /*ivory*/
         border: 1px solid gainsboro;
         border-width: 1px 0;
     }
+
     .picked {
         background-color: aliceblue;
         border: 1px solid lightblue;
@@ -1367,14 +1552,17 @@ table.vanilla tr:nth-child(even):hover {
         font-weight: bold;
     }
 
-    .qlik { /*asmalllinkbutton*/
+    .qlik {
+        /*asmalllinkbutton*/
         border: 1px solid lightblue;
         margin: 0 5px;
         padding: 1px 5px;
     }
+
     .qlik:hover {
         border: 1px solid steelblue;
     }
+
     .qliknon {
         border: 1px solid lightgray;
         opacity: 0.5;

@@ -121,7 +121,12 @@ var imaps = {
 };
 
 var lands = {
+    al: "DFG_Lands:0",
+    bl: "topo",
     id: "lands",
+    name: "CDFW Lands",
+    title: "Lands And Niche System",
+    viewer: "lands",
     layers: {
         "DFG_Lands": {
             id: "DFG_Lands",
@@ -132,6 +137,13 @@ var lands = {
             type: "MapServer map-image",
             urid: "DFG_Lands",
             url: "https://map.dfg.ca.gov/arcgis/rest/services/Project_Lands/DFG_Lands/MapServer",
+            visible: true
+        },
+        "DFG_Properties:0": {
+            id: "DFG_Properties:0",
+            name: "CDFW Facilities",
+            type: "feature",
+            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
             visible: true
         }
     }

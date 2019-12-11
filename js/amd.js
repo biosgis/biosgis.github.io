@@ -39,29 +39,29 @@ let amdlibs = [
     "esri/widgets/FeatureForm"
 ];
 let amdfun = function (
-    esriConfig,
-    esriRequest,
-    Graphic,
-    Map,
-    WebMap,
-    CSVLayer,
-    FeatureLayer,
-    GeoJSONLayer,
-    GraphicsLayer,
-    MapImageLayer,
-    SceneLayer,
-    TileLayer,
-    WMSLayer,
-    IdentifyTask, IdentifyParameters,
-    QueryTask, Query,
-    MapView,
-    SceneView,
-    BasemapGallery,
-    BasemapToggle,
-    Expand, Home,
-    Legend,
-    FeatureForm
-) {
+        esriConfig,
+        esriRequest,
+        Graphic,
+        Map,
+        WebMap,
+        CSVLayer,
+        FeatureLayer,
+        GeoJSONLayer,
+        GraphicsLayer,
+        MapImageLayer,
+        SceneLayer,
+        TileLayer,
+        WMSLayer,
+        IdentifyTask, IdentifyParameters,
+        QueryTask, Query,
+        MapView,
+        SceneView,
+        BasemapGallery,
+        BasemapToggle,
+        Expand, Home,
+        Legend,
+        FeatureForm
+        ) {
     esriConfig.geometryServiceUrl = "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer";
     //esriConfig.portalUrl = "https://cdfw.maps.arcgis.com";
     //-- GLOBALIZE FOR FUNCTIONS OUTSIDE OF AMDREQURED
@@ -78,7 +78,7 @@ let amdfun = function (
     EsriTileLayer = TileLayer;
     // CSVLAYER
     const csvurl =
-        "https://arcgis.github.io/arcgis-samples-javascript/sample-data/hurricanes.csv";
+            "https://arcgis.github.io/arcgis-samples-javascript/sample-data/hurricanes.csv";
 
     const csvLayer = new CSVLayer({
         title: "Hurricanes",
@@ -89,26 +89,26 @@ let amdfun = function (
             content: [{
                     type: "text",
                     text: "Category {Category} storm with that occurred at {ISO_time}."
-                        },
+                },
                 {
                     type: "fields",
                     fieldInfos: [{
                             fieldName: "wmo_pres",
                             label: "Pressure"
-                                },
+                        },
                         {
                             fieldName: "wmo_wind",
                             label: "Wind Speed (mph)"
-                                }
-                            ]
                         }
-                    ],
-            fieldInfos: [{
-                fieldName: "ISO_time",
-                format: {
-                    dateFormat: "short-date-short-time"
+                    ]
                 }
-                    }]
+            ],
+            fieldInfos: [{
+                    fieldName: "ISO_time",
+                    format: {
+                        dateFormat: "short-date-short-time"
+                    }
+                }]
         },
         renderer: {
             type: "unique-value",
@@ -132,16 +132,16 @@ let amdfun = function (
     // If external files are not on the same domain as your website, a CORS enabled server
     // or a proxy is required.
     const geojsonurl =
-        "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
+            "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
     const template = {
         title: "Earthquake Info",
         content: "Magnitude {mag} {type} hit {place} on {time}",
         fieldInfos: [{
-            fieldName: "time",
-            format: {
-                dateFormat: "short-date-short-time"
-            }
-                }]
+                fieldName: "time",
+                format: {
+                    dateFormat: "short-date-short-time"
+                }
+            }]
     };
 
     const renderer = {
@@ -155,18 +155,18 @@ let amdfun = function (
             }
         },
         visualVariables: [{
-            type: "size",
-            field: "mag",
-            stops: [{
-                    value: 2.5,
-                    size: "4px"
-                        },
-                {
-                    value: 8,
-                    size: "40px"
-                        }
-                    ]
-                }]
+                type: "size",
+                field: "mag",
+                stops: [{
+                        value: 2.5,
+                        size: "4px"
+                    },
+                    {
+                        value: 8,
+                        size: "40px"
+                    }
+                ]
+            }]
     };
 
     const geojsonLayer = new GeoJSONLayer({
@@ -178,7 +178,7 @@ let amdfun = function (
     // IDENTIFY TASK ON SOILS TILE LAYER
     // URL to the map service where the identify will be performed
     var soilURL =
-        "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer";
+            "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer";
 
     // Add the map service as a TileLayer for fast rendering
     // Tile layers are composed of non-interactive images. For that reason we'll
@@ -186,7 +186,8 @@ let amdfun = function (
     var soilsLayer = new TileLayer({
         url: soilURL,
         id: "Soil_Survey_Map",
-        opacity: 0.85
+        opacity: 0.77,
+        visible: false
     });
     // MAPIMAGELAYER SAMPLE
     var permitsLayer = new MapImageLayer({
@@ -253,13 +254,13 @@ let amdfun = function (
     });
     view.ui.add(homeWidget, "top-left");
     // FEATURELAYER
-    var featureLayer = new FeatureLayer({
-        id: "DFG_Properties:0",
-        url: app.layers["DFG_Properties:0"].url
-    });
     // carbon storage of trees in Warren Wilson College 
     //url="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
-    map.add(featureLayer);
+    var featureLayer = new FeatureLayer({
+        id: lands.layers["DFG_Properties:0"].id,
+        url: lands.layers["DFG_Properties:0"].url
+    });
+    //map.add(featureLayer);
     // LEGEND WIDGET FOR CSVLAYER
     const legendExpand = new Expand({
         view: view,
@@ -272,15 +273,15 @@ let amdfun = function (
 
     function createUniqueValueInfos() {
         const fireflyImages = [
-                    "cat1.png",
-                    "cat2.png",
-                    "cat3.png",
-                    "cat4.png",
-                    "cat5.png"
-                ];
+            "cat1.png",
+            "cat2.png",
+            "cat3.png",
+            "cat4.png",
+            "cat5.png"
+        ];
 
         const baseUrl =
-            "https://arcgis.github.io/arcgis-samples-javascript/sample-data/";
+                "https://arcgis.github.io/arcgis-samples-javascript/sample-data/";
 
         return fireflyImages.map(function (url, i) {
             return {
@@ -321,43 +322,43 @@ let amdfun = function (
         // A custom popupTemplate is set for each feature based on the layer it
         // originates from
         identifyTask
-            .execute(params)
-            .then(function (response) {
-                var results = response.results;
+                .execute(params)
+                .then(function (response) {
+                    var results = response.results;
 
-                return results.map(function (result) {
-                    var feature = result.feature;
-                    var layerName = result.layerName;
+                    return results.map(function (result) {
+                        var feature = result.feature;
+                        var layerName = result.layerName;
 
-                    feature.attributes.layerName = layerName;
-                    if (layerName === "Soil Survey Geographic") {
-                        feature.popupTemplate = {
-                            // autocasts as new PopupTemplate()
-                            title: "{Map Unit Name}",
-                            content: "<b>Dominant order:</b> {Dominant Order} ({Dom. Cond. Order %}%)" +
-                                "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dom. Cond. Suborder %}%)" +
-                                "<br><b>Dominant Drainage Class:</b> {Dom. Cond. Drainage Class} ({Dom. Cond. Drainage Class %}%)" +
-                                "<br><b>Farmland Class:</b> {Farmland Class}"
-                        };
-                    } else if (layerName === "State Soil Geographic") {
-                        feature.popupTemplate = {
-                            // autocasts as new PopupTemplate()
-                            title: "{Map Unit Name}",
-                            content: "<b>Dominant order:</b> {Dominant Order} ({Dominant %}%)" +
-                                "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dominant Sub-Order %}%)"
-                        };
-                    } else if (layerName === "Global Soil Regions") {
-                        feature.popupTemplate = {
-                            // autocasts as new PopupTemplate()
-                            title: layerName,
-                            content: "<b>Dominant order:</b> {Dominant Order}" +
-                                "<br><b>Dominant sub-order:</b> {Dominant Sub-Order}"
-                        };
-                    }
-                    return feature;
-                });
-            })
-            .then(showPopup); // Send the array of features to showPopup()
+                        feature.attributes.layerName = layerName;
+                        if (layerName === "Soil Survey Geographic") {
+                            feature.popupTemplate = {
+                                // autocasts as new PopupTemplate()
+                                title: "{Map Unit Name}",
+                                content: "<b>Dominant order:</b> {Dominant Order} ({Dom. Cond. Order %}%)" +
+                                        "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dom. Cond. Suborder %}%)" +
+                                        "<br><b>Dominant Drainage Class:</b> {Dom. Cond. Drainage Class} ({Dom. Cond. Drainage Class %}%)" +
+                                        "<br><b>Farmland Class:</b> {Farmland Class}"
+                            };
+                        } else if (layerName === "State Soil Geographic") {
+                            feature.popupTemplate = {
+                                // autocasts as new PopupTemplate()
+                                title: "{Map Unit Name}",
+                                content: "<b>Dominant order:</b> {Dominant Order} ({Dominant %}%)" +
+                                        "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dominant Sub-Order %}%)"
+                            };
+                        } else if (layerName === "Global Soil Regions") {
+                            feature.popupTemplate = {
+                                // autocasts as new PopupTemplate()
+                                title: layerName,
+                                content: "<b>Dominant order:</b> {Dominant Order}" +
+                                        "<br><b>Dominant sub-order:</b> {Dominant Sub-Order}"
+                            };
+                        }
+                        return feature;
+                    });
+                })
+                .then(showPopup); // Send the array of features to showPopup()
 
         // Shows the results of the Identify in a popup once the promise is resolved
         function showPopup(response) {
@@ -384,38 +385,43 @@ let amdfun = function (
     var usalayer = new MapImageLayer({
         url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer",
         id: "usa",
-        sublayers: [{
-                id: 2,
-                visible: true
-                    },
-                    //                    {
-                    //                        id: 4,
-                    //                        visible: false,
-                    //                        title: "Railroads",
-                    //                        renderer: railrenderer,
-                    //                        source: {
-                    //                            // indicates the source of the sublayer is a dynamic data layer
-                    //                            type: "data-layer",
-                    //                            // this object defines the data source of the layer
-                    //                            // in this case it's a feature class table from a file geodatabase
-                    //                            dataSource: {
-                    //                                type: "table",
-                    //                                // workspace name
-                    //                                workspaceId: "MyDatabaseWorkspaceIDSSR2",
-                    //                                // table name
-                    //                                dataSourceName: "ss6.gdb.Railroads"
-                    //                            }
-                    //                        }
-                    //                    },
-            {
-                id: 1,
-                visible: true
-                    },
+        sublayers: [
+            //                    {
+            //                        id: 4,
+            //                        visible: false,
+            //                        title: "Railroads",
+            //                        renderer: railrenderer,
+            //                        source: {
+            //                            // indicates the source of the sublayer is a dynamic data layer
+            //                            type: "data-layer",
+            //                            // this object defines the data source of the layer
+            //                            // in this case it's a feature class table from a file geodatabase
+            //                            dataSource: {
+            //                                type: "table",
+            //                                // workspace name
+            //                                workspaceId: "MyDatabaseWorkspaceIDSSR2",
+            //                                // table name
+            //                                dataSourceName: "ss6.gdb.Railroads"
+            //                            }
+            //                        }
+            //                    },
             {
                 id: 0,
                 visible: true
-                    }
-                ]
+            },
+            {
+                id: 1,
+                visible: true
+            },
+            {
+                id: 2,
+                visible: true
+            },
+            {
+                id: 3,
+                visible: true
+            }
+        ]
     });
     map.add(usalayer)
     /*****************************************************************
@@ -423,33 +429,33 @@ let amdfun = function (
      * layers are visible in the Map Service.
      *****************************************************************/
     /*usalayer.when(function () {
-        layer.sublayers.map(function (sublayer) {
-            var id = sublayer.id;
-            var visible = sublayer.visible;
-            var node = document.querySelector(
-                ".esri-sublayers-item[data-id='" + id + "']"
-            );
-            if (visible) {
-                node.classList.add("esri-visible-layer");
-            }
-        });
-    });*/
+     layer.sublayers.map(function (sublayer) {
+     var id = sublayer.id;
+     var visible = sublayer.visible;
+     var node = document.querySelector(
+     ".esri-sublayers-item[data-id='" + id + "']"
+     );
+     if (visible) {
+     node.classList.add("esri-visible-layer");
+     }
+     });
+     });*/
     /*****************************************************************
      * Listen for when buttons on the page have been clicked to turn
      * layers on and off in the Map Service.
      *****************************************************************/
     /*var sublayersElement = document.querySelector(".esri-sublayers");
-    sublayersElement.addEventListener("click", function (event) {
-        var id = event.target.getAttribute("data-id");
-        if (id) {
-            var sublayer = layer.findSublayerById(parseInt(id));
-            var node = document.querySelector(
-                ".esri-sublayers-item[data-id='" + id + "']"
-            );
-            sublayer.visible = !sublayer.visible;
-            node.classList.toggle("esri-visible-layer");
-        }
-    });*/
+     sublayersElement.addEventListener("click", function (event) {
+     var id = event.target.getAttribute("data-id");
+     if (id) {
+     var sublayer = layer.findSublayerById(parseInt(id));
+     var node = document.querySelector(
+     ".esri-sublayers-item[data-id='" + id + "']"
+     );
+     sublayer.visible = !sublayer.visible;
+     node.classList.toggle("esri-visible-layer");
+     }
+     });*/
     app.initLayers();
     //=== INIT TOOLS
     //-- INIT BIOSBOOKMARKS

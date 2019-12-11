@@ -54,6 +54,28 @@ ace.layers = {
         "tiled": false,
         "visible": true,
         "mapIndex": 13
+    },
+    "Hydrography:10": {
+        "url": "https://gisdev.ad.dfg.ca.gov/arcgis/rest/services/Base_Hydrography/Hydrography/MapServer/10",
+        "id": "Hydrography:10",
+        "name": "WBD HUC12 Watersheds",
+        "tocgroup": "ace",
+        "type": "Feature Layer",
+        "tiled": false,
+        "urid": "Hydrography:10",
+        "visible": false,
+        "mapIndex": 14
+    },
+    "Ecoregions_1997GVNS:0": {
+        "url": "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/Ecoregions_1997GVNS/FeatureServer/0",
+        "id": "Ecoregions_1997GVNS:0",
+        "name": "Ecoregion Sections",
+        "tocgroup": "ace",
+        "type": "feature",
+        "tiled": false,
+        "urid": "Ecoregions_1997GVNS:0",
+        "visible": true,
+        "mapIndex": 15
     }
 };
 ace.init = function () {

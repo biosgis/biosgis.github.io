@@ -49,14 +49,18 @@ function TocLayer(ar) {
     var name = jo.name;
     var type = jo.type;
     var tiled = jo.tiled;
-    var visible = jo.visible;
+    if (jo.defaultVisibility !== undefined) {
+        var visible = jo.defaultVisibility;
+    } else {
+        var visible = jo.visible;
+    }
     if (jo.visibles !== undefined) {
         var vls = jo.visibles;
     }
     if (jo.ftype === undefined) {
-        ftype = '';
+        var ftype = '';
     } else {
-        ftype = jo.ftype;
+        var ftype = jo.ftype;
     }
     if (urid.indexOf(':') > 0) {
         var sid = urid.split(':')[0];
@@ -183,7 +187,7 @@ function TocLayer(ar) {
     //     }
     // }
     chooser.addEventListener('change', function () {
-        addmsg(chooser.id + ' CHANGED');//DOESNT DETECT UNCHECK WHEN ANOTHER RADIO CLICKED?
+        addmsg(chooser.id + ' CHANGED'); //DOESNT DETECT UNCHECK WHEN ANOTHER RADIO CLICKED?
         picker.checked = chooser.checked;
     });
     // BUG--CHECKER CHANGED OK BUT NOT CALLING CLICK ACTION?
@@ -216,6 +220,7 @@ function TocLayer(ar) {
     list.style.padding = '0px';
     list.style.display = 'none';
     item.appendChild(list);
+
     function chooseItem() {
         //itemselected
         if (urid.indexOf('ace3') >= 0) {
@@ -232,10 +237,78 @@ function tocAddLayers(layers) {
         if (urid.indexOf('biosds') !== 0) {
             var biosds = null; // NO NEED TO QUERY BIOSMANIFEST
         }
+        if (jo.type.toLowerCase().indexOf('feature') >= 0) {
+            addFeatureLayer(jo);
+        }
         if (jo.type.indexOf('map-image') >= 0) {
             addMapImageLayer(jo);
         }
     }
+}
+
+function addFeatureLayer(jo) {
+    if (jo.id === undefined) {
+        addmsg('DO addFeatureLayer: ' + jo.url);
+        if (jo.url.indexOf('/FeatureServer/') > 0) {
+            var pieces = jo.url.split('/FeatureServer/');
+            if (pieces[1] === undefined) {
+                var lid = 0;
+            } else {
+                var lid = parseInt(pieces[1]);
+            }
+        } else {
+            var pieces = jo.url.split('/FeatureServer');
+            var lid = 0;
+        }
+        var url = pieces[0] + '/FeatureServer/' + lid;
+        jo.url = url;
+        var parts = pieces[0].split('/');
+        var sid = parts[(parts.length - 1)];
+        var urid = sid + ':' + lid;
+        // TODO IF ONLY URL SUPPLIED REQUEST MORE REST INFO
+        jo['id'] = urid;
+        jo['urid'] = urid;
+        jo['name'] = urid;
+        jo['type'] = 'feature';
+        jo['visible'] = true;
+    } else {
+        addmsg('DO addFeatureLayer: ' + jo.id);
+        if (jo.id.indexOf(':') < 0) { // POSSIBLY MISSING LAYERINDEX
+            var url = jo.url.split('FeatureServer')[0] + 'FeatureServer/0';
+            jo.url = url;
+        }
+        if (jo.urid === undefined) {
+            var urid = jo.id;
+            jo['urid'] = urid;
+        }
+        if (jo.name === undefined) {
+            jo['name'] = jo.urid.split(':')[0];
+        }
+        if (jo.tiled === undefined) {
+            jo['tiled'] = false;
+        }
+        if (jo.visible === undefined) {
+            jo['visible'] = true;
+        }
+    }
+    var layer = new EsriFeatureLayer({
+        id: jo.id,
+        opacity: 0.77,
+        title: jo.name,
+        url: jo.url,
+        visible: jo.visible
+    });
+    map.add(layer);
+    var item = new TocLayer([jo]);
+    var list = $('proj-layers-list');
+    //if (jo.urid.indexOf('biosds') === 0 || jo.url.indexOf('BIOS_') > 0) {
+    //    var tocgroup = 'bios';
+    //}
+    if (jo.tocgroup !== undefined && $(jo.tocgroup + '-layers-list') !== null) {
+        var list = $(tocgroup + '-layers-list');
+    }
+    list.insertBefore(item, list.childNodes[0]);
+    // DONE AddFeatureLayerByJson
 }
 // SUBLAYERS--https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-Sublayer.html
 function addMapImageLayer(jo) {
