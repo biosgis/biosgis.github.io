@@ -13,7 +13,7 @@
         IE = false;
         if (navigator.userAgent.indexOf('Trident') > 0) {
             IE = true;
-            window.addEventListener('load', function () {
+            window.addEventListener('load', function() {
                 document.getElementById('warning').style.display = 'block';
             });
         }
@@ -46,17 +46,17 @@
             let x = document.createElement('script');
             x.type = 'text/javascript';
             x.src = f + '?v=' + rv;
-            x.onload = function () {
+            x.onload = function() {
                 addlibs(files, rv, dir);
             }
             document.head.appendChild(x);
         }
         addlibs(jsfiles, rv, '../js/');
 
-        window.addEventListener('load', function () {
+        window.addEventListener('load', function() {
             console.log('DOM loaded');
             let t = 10000;
-            window.setTimeout(function () {
+            window.setTimeout(function() {
                 console.log(t + 'ms WAITED');
             }, t);
             om = poplinks();
@@ -86,7 +86,7 @@
         <div id="viewDiv"></div>
     </main>
     <header style="display: none;">
-        <h1>Fire</h1>
+        <h1>Online Mapping Geoapp</h1>
     </header>
     <nav>
         <span class="esri-icon-drag-horizontal navtab" onclick="toggle('toolsbin')" title="Main menu"></span>
@@ -104,22 +104,59 @@
                 <ol>
                     <li>
                         <label>al:</label>
-                        <input type="text" id="al" name="app" value="" title="Active Layer">
+                        <input type="text" name="app" id="al" value="" title="Active Layer">
                     </li>
                     <li>
                         <label>bl</label>:
-                        <input type="text" id="bl" name="bb" value="" title="Basemap">
+                        <input type="text" name="bb" id="bl" value="" title="Basemap">
+                    </li>
+                    <li>
+                        <label>center</label>:
+                        <input type="text" name="bb" id="center" value="" title="Map Center">
+                    </li>
+                    <li>
+                        <label>ll</label>:
+                        <input type="text" name="bb" id="ll" value="" title="Longitude, Latitude">
+                    </li>
+                    <li>
+                        <label>xy</label>:
+                        <input type="text" name="bb" id="xy" value="" title="X-coord, Y-coord">
                     </li>
                     <li>
                         <label>ssid</label>:
-                        <input type="text" id="ssid" name="bb" value="" title="SessionID">
+                        <input type="text" name="bb" id="ssid" value="" title="SessionID">
                     </li>
                     <li>
                         <label>tool</label>:
-                        <input type="text" id="tool" name="bb" value="" title="Tool selected">
+                        <input type="text" name="bb" id="tool" value="" title="Tool selected">
                     </li>
-                    <li></li>
-                    <li></li>
+                    <li>
+                        <label>type</label>:
+                        <input type="text" name="bb" id="type" value="" title="Layer Type" />
+                    </li>
+                    <li>
+                        <input type="text" name="app" id="bsid" value="" />
+                        <input type="text" name="app" id="hashtag" value="" />
+                        <input type="text" name="app" id="last-tool" value="help" />
+                        <input type="text" name="app" id="kounter" value="0" />
+                        <input type="text" name="app" id="timestart" value="" />
+                        <input type="text" name="app" id="vu" value="uname:guest|vname:bios6" />
+                        <input type="text" name="app" id="website" value="bios6" />
+                        <input type="text" name="bb" id="dsid" value="" />
+                        <input type="text" name="bb" id="dsname" value="" />
+                        <input type="text" name="bb" id="lid" value="" />
+                        <input type="text" name="bb" id="urid" value="" />
+                        <input type="text" name="bb" id="url" value="" />
+                        <input type="text" name="bb" id="viewer" value="bios6" />
+                    </li>
+                    <li>
+                        <label>zl</label>:
+                        <input type="text" name="bb" id="zl" value="" title="Zoom Level" />
+                    </li>
+                    <li>
+                        <label>userip</label>:
+                        <input type="text" name="log" id="userip" value="" />
+                    </li>
                 </ol>
             </div>
         </div>
@@ -151,14 +188,11 @@
                         <label>Author</label>:
                         <input type="text" id="Author" value="" placeholder="Enter a name" required>
                         <label>Bookmark ID</label>:
-                        <input type="text" id="BookmarkID" value="" placeholder="1234"
-                            title="If blank a new bookmark ID will be assigned when created" style="width: 80px;"
-                            readonly>
+                        <input type="text" id="BookmarkID" value="" placeholder="1234" title="If blank a new bookmark ID will be assigned when created" style="width: 80px;" readonly>
                     </div>
                     <div>
                         <label>Description</label>:
-                        <input type="text" id="Description" value="" placeholder="Enter a brief description"
-                            style="max-width: 88%; min-width: 66%;" required>
+                        <input type="text" id="Description" value="" placeholder="Enter a brief description" style="max-width: 88%; min-width: 66%;" required>
                     </div>
                     <div>
                         <label>Tags</label>:
@@ -167,8 +201,7 @@
                     <input type="button" id="bb-create" value="Create New Bookmark">
                     <input type="button" id="bb-update" value="Save Current Edits" disabled="disabled">
                     <input type="button" id="bb-delete" value="Delete" disabled="disabled">
-                    <button type="button" id="bb-details" class="esri-icon-edit" value="Details"
-                        onclick="toggle('bb-edit')">Details</button>
+                    <button type="button" id="bb-details" class="esri-icon-edit" value="Details" onclick="toggle('bb-edit')">Details</button>
                     <div>
                         <span class="esri-icon-handle-horizontal detailsdots" id="bbdots"></span>
                         <div class="padded" style="display: none;">
@@ -250,6 +283,16 @@
                     <label class="alname"></label>
                     <label class="altype"></label>
                 </div>
+                <div>
+                    Map click: xy(<label id="clickxy"></label>),
+                    lonlat(<label id="lonlat"></label>)
+                </div>
+                <div>
+                    <label>Map Zoom</label>:
+                    <input type="text" name="app" id="zoom" value="" title="Map Zoom" /> &amp;
+                    <label>Scale 1</label>:
+                    <input type="text" name="app" id="mapscale" value="" title="Map Scale" />
+                </div>
             </article>
             <article>
                 <h3 id="toc-proj" onclick="toggle('proj-layers')">
@@ -313,8 +356,7 @@
             <article>
                 <h4>Add Layer Dynamically by URL</h4>
                 <div class="padded">
-                    <input type="text" id="addurl" value="" placeholder="Map or feature service or file URL"
-                        style="width: 90%;">
+                    <input type="text" id="addurl" value="" placeholder="Map or feature service or file URL" style="width: 90%;">
                 </div>
             </article>
         </div>
@@ -332,6 +374,8 @@
                 </h4>
                 <div class="padded">
                     AIOS Version: <span id="fullversion"></span>
+                    Build on
+                    <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a>
                 </div>
             </article>
             <article>
@@ -357,8 +401,7 @@
                 <h4>References and Resources</h4>
                 <ol>
                     <li>
-                        <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html"
-                            title="Esri Icon Font (Calcite theme) 20180621"></a>
+                        <a href="https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html" title="Esri Icon Font (Calcite theme) 20180621"></a>
                     </li>
                     <li>
                         <a href="../jsapis.html">JS APIs</a>
@@ -379,11 +422,13 @@
                 <p id="publicense">
                     <strong><em>License for Public Data</em></strong>:
                     This work is licensed under Creative Commons Attribution 4.0 International License (
-                    <a
-                        href="https://creativecommons.org/licenses/by/4.0/">https://creativecommons.org/licenses/by/4.0/</a>).
+                    <a href="https://creativecommons.org/licenses/by/4.0/">
+                        https://creativecommons.org/licenses/by/4.0/
+                    </a>).
                     Using the citation standards recommended for BIOS datasets (
-                    <a
-                        href="https://www.wildlife.ca.gov/Data/BIOS/Citing-BIOS">https://www.wildlife.ca.gov/Data/BIOS/Citing-BIOS</a>)
+                    <a href="https://www.wildlife.ca.gov/Data/BIOS/Citing-BIOS">
+                        https://www.wildlife.ca.gov/Data/BIOS/Citing-BIOS
+                    </a>)
                     satisfies the attribution requirements of this license.
                 </p>
             </article>
@@ -430,8 +475,7 @@
     <aside id="gselect" style="display: none;">
         <h3>
             Select and Filter
-            <span class="esri-icon-close closer" style="cursor: default; float: right; font-size: 1.23em;"
-                onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+            <span class="esri-icon-close closer" style="cursor: default; float: right; font-size: 1.23em;" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="maindiv">
             <article class="">
@@ -448,8 +492,7 @@
                     Geographic Selection
                 </h4>
                 <div class="centered margined padded">
-                    <input type="range" id="buffr" name="buffer" min="0" max="10000"
-                        style="position: relative; width: 80%;">
+                    <input type="range" id="buffr" name="buffer" min="0" max="10000" style="position: relative; width: 80%;">
                     <input type="text" id="buffd" name="buffer" value="">
                     <label for="buffd">meters</label>
                 </div>
@@ -530,8 +573,7 @@
         </div>
     </section>
     <footer style="display: none;">
-        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License"
-                style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work
         is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons
             Attribution-NonCommercial 4.0 International License</a>
     </footer>
@@ -622,8 +664,7 @@
         <div id="hello" class="centered" style="display: none;">
             <h2>
                 Hello
-                <span class="esri-icon-close closer"
-                    onclick="this.parentNode.parentNode.parentNode.style.display = 'none'"></span>
+                <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'"></span>
             </h2>
             <div>
                 <article>
@@ -635,12 +676,10 @@
                 </article>
             </div>
         </div>
-        <div id="splash" class="centered"
-            style="background-color: white; border: 5px solid thistle; border-radius: 5px; margin: 5%; width: auto;">
+        <div id="splash" class="centered" style="background-color: white; border: 5px solid thistle; border-radius: 5px; margin: 5%; width: auto;">
             <h2>
                 Operational Map <span id="bvn"></span>
-                <span class="esri-icon-close closer"
-                    onclick="this.parentNode.parentNode.parentNode.style.display = 'none'"></span>
+                <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'"></span>
             </h2>
             <div class="mainlow" style="height: 88%;">
                 <article>
@@ -661,10 +700,8 @@
                         <button id="splash-ok" type="button" name="button" onclick="hide('hey')">OK</button>
                     </div>
                 </article>
-                <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/"
-                    target="_blank">
-                    <img id="cagov-img" style="height: 50px;" alt="CA.gov"
-                        src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
+                <a id="cagov-link" style="position: absolute; bottom: 10px; left: 10px;" href="https://www.ca.gov/" target="_blank">
+                    <img id="cagov-img" style="height: 50px;" alt="CA.gov" src="https://portal-california.azureedge.net/wp-content/uploads/2018/11/ca.gov-portal-logo-bear.png">
                 </a>
             </div>
         </div>
@@ -676,8 +713,7 @@
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div id="msgdiv" class="mainlow noscroll">
-            <div id="msgbox" class="subdiv"
-                style="background-color: black; color: white; position: relative; top: 0; height: 88%; padding-bottom: 10px;">
+            <div id="msgbox" class="subdiv" style="background-color: black; color: white; position: relative; top: 0; height: 88%; padding-bottom: 10px;">
                 <div>
                     Messages
                     <script>

@@ -21,7 +21,7 @@ let app = {
     args: null, //=FOR SAVING TMP BOOKMARKPROPERTIES TO RESTORE
     atool: {
         id: "",
-        graphic: null,
+        geometry: null,
         where: "",
         oids: [],
         selectlayer: "",
@@ -58,7 +58,7 @@ let app = {
     layerViews: {},
     lid: -1, //TODO DEL?
     lids: [],
-    ll: [-119.8, 37.67], //=longitude/latitude pair
+    ll: [-119.8, 37.67], //=longitude, latitude pair
     loaded: false,
     lon: -119.80671,
     mask: null,

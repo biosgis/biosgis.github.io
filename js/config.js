@@ -94,7 +94,7 @@ var imaps = {
             tocgroup: "ref",
             type: "MapServer tile",
             urid: "Soil_Survey_Map",
-            visible: true
+            visible: false
         },
         "EVEG": {
             id: "EDW_ExistingVegetationRegion05_01",

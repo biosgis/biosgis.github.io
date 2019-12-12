@@ -1,10 +1,12 @@
 /* def.css 20191022 dfgchiang */
 body {
-    font-family: Consolas, Monaco, monospace;
     font-size: 123%;
+    /*
+    font-family: Consolas, Monaco, monospace;
     line-height: 150%;
     margin: 0;
     padding: 0;
+*/
 }
 
 a {
@@ -30,13 +32,12 @@ aside {
 }
 
 details {
-    margin: 1px 2px 3px 4px;
+    margin: 5px;
     padding-left: 1%;
 }
 
-summary {
-    font-size: larger;
-    font-weight: bold;
+details ol {
+    margin-left: 1%;
 }
 
 footer {
@@ -84,7 +85,7 @@ header {
 
 li {
     border-top: 1px solid lavender;
-    line-height: 123%;
+    line-height: 150%;
     padding: 2px 0;
 }
 
@@ -97,6 +98,11 @@ nav {
     position: relative;
     border-bottom: 1px solid silver;
     padding: 1px;
+}
+
+nav a {
+    padding: 0 8px;
+    border-right: 1px solid gainsboro;
 }
 
 nav ul {
@@ -126,6 +132,12 @@ pre {
     font-size: smaller;
     line-height: 110%;
     padding: 5px;
+}
+
+summary {
+    font-size: larger;
+    font-style: italic;
+    font-weight: bold;
 }
 
 .bug {

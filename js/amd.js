@@ -39,29 +39,29 @@ let amdlibs = [
     "esri/widgets/FeatureForm"
 ];
 let amdfun = function (
-        esriConfig,
-        esriRequest,
-        Graphic,
-        Map,
-        WebMap,
-        CSVLayer,
-        FeatureLayer,
-        GeoJSONLayer,
-        GraphicsLayer,
-        MapImageLayer,
-        SceneLayer,
-        TileLayer,
-        WMSLayer,
-        IdentifyTask, IdentifyParameters,
-        QueryTask, Query,
-        MapView,
-        SceneView,
-        BasemapGallery,
-        BasemapToggle,
-        Expand, Home,
-        Legend,
-        FeatureForm
-        ) {
+    esriConfig,
+    esriRequest,
+    Graphic,
+    Map,
+    WebMap,
+    CSVLayer,
+    FeatureLayer,
+    GeoJSONLayer,
+    GraphicsLayer,
+    MapImageLayer,
+    SceneLayer,
+    TileLayer,
+    WMSLayer,
+    IdentifyTask, IdentifyParameters,
+    QueryTask, Query,
+    MapView,
+    SceneView,
+    BasemapGallery,
+    BasemapToggle,
+    Expand, Home,
+    Legend,
+    FeatureForm
+) {
     esriConfig.geometryServiceUrl = "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer";
     //esriConfig.portalUrl = "https://cdfw.maps.arcgis.com";
     //-- GLOBALIZE FOR FUNCTIONS OUTSIDE OF AMDREQURED
@@ -78,7 +78,7 @@ let amdfun = function (
     EsriTileLayer = TileLayer;
     // CSVLAYER
     const csvurl =
-            "https://arcgis.github.io/arcgis-samples-javascript/sample-data/hurricanes.csv";
+        "https://arcgis.github.io/arcgis-samples-javascript/sample-data/hurricanes.csv";
 
     const csvLayer = new CSVLayer({
         title: "Hurricanes",
@@ -104,10 +104,10 @@ let amdfun = function (
                 }
             ],
             fieldInfos: [{
-                    fieldName: "ISO_time",
-                    format: {
-                        dateFormat: "short-date-short-time"
-                    }
+                fieldName: "ISO_time",
+                format: {
+                    dateFormat: "short-date-short-time"
+                }
                 }]
         },
         renderer: {
@@ -132,15 +132,15 @@ let amdfun = function (
     // If external files are not on the same domain as your website, a CORS enabled server
     // or a proxy is required.
     const geojsonurl =
-            "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
+        "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
     const template = {
         title: "Earthquake Info",
         content: "Magnitude {mag} {type} hit {place} on {time}",
         fieldInfos: [{
-                fieldName: "time",
-                format: {
-                    dateFormat: "short-date-short-time"
-                }
+            fieldName: "time",
+            format: {
+                dateFormat: "short-date-short-time"
+            }
             }]
     };
 
@@ -155,15 +155,15 @@ let amdfun = function (
             }
         },
         visualVariables: [{
-                type: "size",
-                field: "mag",
-                stops: [{
-                        value: 2.5,
-                        size: "4px"
+            type: "size",
+            field: "mag",
+            stops: [{
+                    value: 2.5,
+                    size: "4px"
                     },
-                    {
-                        value: 8,
-                        size: "40px"
+                {
+                    value: 8,
+                    size: "40px"
                     }
                 ]
             }]
@@ -178,7 +178,7 @@ let amdfun = function (
     // IDENTIFY TASK ON SOILS TILE LAYER
     // URL to the map service where the identify will be performed
     var soilURL =
-            "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer";
+        "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer";
 
     // Add the map service as a TileLayer for fast rendering
     // Tile layers are composed of non-interactive images. For that reason we'll
@@ -281,7 +281,7 @@ let amdfun = function (
         ];
 
         const baseUrl =
-                "https://arcgis.github.io/arcgis-samples-javascript/sample-data/";
+            "https://arcgis.github.io/arcgis-samples-javascript/sample-data/";
 
         return fireflyImages.map(function (url, i) {
             return {
@@ -296,19 +296,57 @@ let amdfun = function (
     // WHEN MAPVIEW LOADED AND READY DO IDENTIFY ON MAP CLICK
     view.when(function () {
         $('bl').value = map.basemap.id;
-        // executeIdentifyTask() is called each time the view is clicked
-        view.on("click", executeIdentifyTask);
+        view.on('click', function (event) {
+            $('clickxy').innerHTML = [event.mapPoint.x.toFixed(3), event.mapPoint.y.toFixed(3)];
+            $('lonlat').innerHTML = [event.mapPoint.longitude.toFixed(6), event.mapPoint.latitude.toFixed(6)];
+            $('xy').value = [event.mapPoint.x, event.mapPoint.y];
+            $('ll').value = [event.mapPoint.longitude, event.mapPoint.latitude];
+            app.xy = [event.mapPoint.x, event.mapPoint.y];
+            app.ll = [event.mapPoint.longitude, event.mapPoint.latitude];
+            app.atool.geometry = event.mapPoint;
+            app.selectg = event.mapPoint;
+            // MOVED IDENTIFY TASK SAMPLE BLOCK HERE-2019.12.11
+            if (app.tool === 'identify' && activeLayer.url === soilURL) {
+                // executeIdentifyTask() is called each time the view is clicked
+                //view.on("click", executeIdentifyTask);
 
-        // Create identify task for the specified map service
-        identifyTask = new IdentifyTask(soilURL);
+                // Create identify task for the specified map service
+                identifyTask = new IdentifyTask(soilURL);
 
-        // Set the parameters for the Identify
-        params = new IdentifyParameters();
-        params.tolerance = 3;
-        params.layerIds = [0, 1, 2];
-        params.layerOption = "top";
-        params.width = view.width;
-        params.height = view.height;
+                // Set the parameters for the Identify
+                params = new IdentifyParameters();
+                params.tolerance = 3;
+                params.layerIds = [0, 1, 2];
+                params.layerOption = "top";
+                params.width = view.width;
+                params.height = view.height;
+                executeIdentifyTask(event);
+            }
+        });
+        view.watch("scale", function (newValue, oldValue, propertyName, target) {
+            //console.log(propertyName + " changed from " + oldValue + " to " + newValue);//scale changed from
+            $('zl').value = mapview.zoom;
+            $('zoom').value = mapview.zoom;
+            let lonlat = webMercatorUtils.xyToLngLat(mapview.center.x, mapview.center.y);
+            let ll = [lonlat[0].toFixed(3), lonlat[1].toFixed(3)];
+            $('center').value = ll + ' | xy(' + [mapview.center.x.toFixed(3), mapview.center.y.toFixed(3)] + ')';
+            $('mapscale').value = parseInt(mapview.scale);
+            //console.log('map pixel width,height=' + [mapview.width, mapview.height]);
+            //console.log('map extent horizontal,vertical=' + [(mapview.extent.xmax - mapview.extent.xmin), (mapview.extent.ymax - mapview.extent.ymin)]);
+        });
+        // UPDATE MAPVIEW KEYBOARD
+        $('zoom').addEventListener('keyup', function (event) {
+            var kc = event.which || event.keyCode;
+            if (kc === 13) {
+                mapview.zoom = parseInt($('zoom').value);
+            }
+        });
+        $('mapscale').addEventListener('keyup', function (event) {
+            var kc = event.which || event.keyCode;
+            if (kc === 13) {
+                mapview.scale = parseInt($('mapscale').value);
+            }
+        });
     });
 
     // Executes each time the view is clicked
@@ -322,43 +360,43 @@ let amdfun = function (
         // A custom popupTemplate is set for each feature based on the layer it
         // originates from
         identifyTask
-                .execute(params)
-                .then(function (response) {
-                    var results = response.results;
+            .execute(params)
+            .then(function (response) {
+                var results = response.results;
 
-                    return results.map(function (result) {
-                        var feature = result.feature;
-                        var layerName = result.layerName;
+                return results.map(function (result) {
+                    var feature = result.feature;
+                    var layerName = result.layerName;
 
-                        feature.attributes.layerName = layerName;
-                        if (layerName === "Soil Survey Geographic") {
-                            feature.popupTemplate = {
-                                // autocasts as new PopupTemplate()
-                                title: "{Map Unit Name}",
-                                content: "<b>Dominant order:</b> {Dominant Order} ({Dom. Cond. Order %}%)" +
-                                        "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dom. Cond. Suborder %}%)" +
-                                        "<br><b>Dominant Drainage Class:</b> {Dom. Cond. Drainage Class} ({Dom. Cond. Drainage Class %}%)" +
-                                        "<br><b>Farmland Class:</b> {Farmland Class}"
-                            };
-                        } else if (layerName === "State Soil Geographic") {
-                            feature.popupTemplate = {
-                                // autocasts as new PopupTemplate()
-                                title: "{Map Unit Name}",
-                                content: "<b>Dominant order:</b> {Dominant Order} ({Dominant %}%)" +
-                                        "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dominant Sub-Order %}%)"
-                            };
-                        } else if (layerName === "Global Soil Regions") {
-                            feature.popupTemplate = {
-                                // autocasts as new PopupTemplate()
-                                title: layerName,
-                                content: "<b>Dominant order:</b> {Dominant Order}" +
-                                        "<br><b>Dominant sub-order:</b> {Dominant Sub-Order}"
-                            };
-                        }
-                        return feature;
-                    });
-                })
-                .then(showPopup); // Send the array of features to showPopup()
+                    feature.attributes.layerName = layerName;
+                    if (layerName === "Soil Survey Geographic") {
+                        feature.popupTemplate = {
+                            // autocasts as new PopupTemplate()
+                            title: "{Map Unit Name}",
+                            content: "<b>Dominant order:</b> {Dominant Order} ({Dom. Cond. Order %}%)" +
+                                "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dom. Cond. Suborder %}%)" +
+                                "<br><b>Dominant Drainage Class:</b> {Dom. Cond. Drainage Class} ({Dom. Cond. Drainage Class %}%)" +
+                                "<br><b>Farmland Class:</b> {Farmland Class}"
+                        };
+                    } else if (layerName === "State Soil Geographic") {
+                        feature.popupTemplate = {
+                            // autocasts as new PopupTemplate()
+                            title: "{Map Unit Name}",
+                            content: "<b>Dominant order:</b> {Dominant Order} ({Dominant %}%)" +
+                                "<br><b>Dominant sub-order:</b> {Dominant Sub-Order} ({Dominant Sub-Order %}%)"
+                        };
+                    } else if (layerName === "Global Soil Regions") {
+                        feature.popupTemplate = {
+                            // autocasts as new PopupTemplate()
+                            title: layerName,
+                            content: "<b>Dominant order:</b> {Dominant Order}" +
+                                "<br><b>Dominant sub-order:</b> {Dominant Sub-Order}"
+                        };
+                    }
+                    return feature;
+                });
+            })
+            .then(showPopup); // Send the array of features to showPopup()
 
         // Shows the results of the Identify in a popup once the promise is resolved
         function showPopup(response) {
