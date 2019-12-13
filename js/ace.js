@@ -4,9 +4,13 @@ console.log('Loading ace');
 var ace = {
     al: "ace3:3",
     bl: "topo",
+    homepage: "https://www.wildlife.ca.gov/Data/Analysis/ACE",
     id: "ace",
+    layers: {},
+    logo: "https://www.wildlife.ca.gov/portals/0/Images/BDB/ACE/ACE%20logo.png", //"img/ACE3logo.png",
     name: "ACE",
-    title: "Alwways Conserve the Environment",
+    title: "Always Conserve the Environment",
+    version: "3.0",
     viewer: "ace"
 };
 ace.layerIds = ["stressors", "swap", "ace3"];
@@ -56,7 +60,7 @@ ace.layers = {
         "mapIndex": 13
     },
     "Hydrography:10": {
-        "url": "https://gisdev.ad.dfg.ca.gov/arcgis/rest/services/Base_Hydrography/Hydrography/MapServer/10",
+        "url": "https://map.dfg.ca.gov/arcgis/rest/services/Base_Hydrography/Hydrography/MapServer/10",
         "id": "Hydrography:10",
         "name": "WBD HUC12 Watersheds",
         "tocgroup": "ace",
@@ -78,6 +82,7 @@ ace.layers = {
         "mapIndex": 15
     }
 };
+configs.ace = ace;
 ace.init = function () {
     addmsg('DO ace.init');
     tocAddLayers(ace.layers);

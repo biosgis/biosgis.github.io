@@ -223,8 +223,7 @@ span.closer {
     cursor: default;
     float: right;
     font-size: 100%;
-    margin-left: 20px;
-    margin-right: 5px;
+    margin: 0 5px auto 10px;
     padding: 2px 4px;
 }
 
@@ -338,6 +337,10 @@ table.bbtable td {
     vertical-align: top;
     white-space: nowrap;
     width: 120px;
+}
+
+textarea {
+    font-size: 1.1em;
 }
 
 .a_login {
@@ -473,7 +476,7 @@ label.bb {
     top: 0px;
     bottom: 10px;
     clear: both;
-    height: 94%;
+    height: 82%;
     overflow: auto;
 }
 
@@ -539,6 +542,23 @@ label.bb {
     content: '\2022\0020\0020';
 }
 
+#appname {
+    color: slategray;
+    font-family: Geneva, Tahoma, 'Arial Black', sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 5px;
+}
+
+#apptitle {
+    color: slategray;
+    display: none;
+    font-family: Arial, 'Arial Narrow', sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 5px;
+}
+
 #bbtablediv {
     position: relative;
     height: 45%;
@@ -588,7 +608,7 @@ label.bb {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 80%;
+    height: 60%;
     width: 80%;
     background-color: white;
     border: 2px solid silver;
@@ -716,7 +736,7 @@ label.bb {
 
 @media only screen and (min-width: 600px) {
 
-    /* For tablets: */
+    /* For tablets or larger: */
     .col-s-1 {
         width: 8.33%;
     }
@@ -729,8 +749,17 @@ label.bb {
         width: 25%;
     }
 
+    body {
+        font-size: 123%;
+        line-height: 100%;
+    }
+
     aside.wide {
         width: 50%;
+    }
+
+    .maindiv {
+        height: 90%;
     }
 
     #msgbar {
@@ -753,8 +782,16 @@ label.bb {
         width: 100%;
     }
 
+    body {
+        font-size: 111%;
+    }
+
     aside {
         width: 35%;
+    }
+
+    #appname {
+        display: none;
     }
 
     #bookmarks {
@@ -767,6 +804,13 @@ label.bb {
 
     #contents {
         width: 40%;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+
+    #apptitle {
+        display: inline-block;
     }
 }
 

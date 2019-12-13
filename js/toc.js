@@ -541,6 +541,21 @@ function tochelp(dsnum) {
     return href;
 }
 
+function toctugtiletwin(urid, visible) {
+    var tlid = urid.replace('_f', '_c');
+    if (map.findLayerById(tlid) !== undefined) {
+        map.findLayerById(tlid).visible = visible;
+        if (visible === true) {
+            map.findLayerById(urid).minScale = 72000;
+        } else {
+            map.findLayerById(urid).minScale = 0;
+        }
+        return tlid;
+    } else {
+        return null;
+    }
+}
+
 function toggletiletwin(urid, visible) {
     // FIND THE TILE LAYER TWIN OF A BIOS FEATURE LAYER AND TURN IT ON OR OFF
     if ($(urid + '-check') !== undefined) {

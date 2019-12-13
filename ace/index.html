@@ -28,8 +28,8 @@
     <script>
         DEFAULT_PAGE = 'index.html';
         var cssfiles = ['mapp.css'];
-        var jsfiles = ['abide.js', 'config.js', 'app.js', 'ace.js', 'bb.js', 'biosv.js',
-            'tests.js', 'toc.js', 'tools.js', 'tv.js', 'amd.js'
+        var jsfiles = ['abide.js', 'config.js', 'ace.js', 'bb.js', 'biosv.js',
+            'tests.js', 'toc.js', 'tools.js', 'tv.js', 'app.js', 'amd.js'
         ];
         for (var i = 0; i < cssfiles.length; i++) {
             let x = document.createElement('link');
@@ -89,17 +89,21 @@
         <h1>Online Mapping Geoapp</h1>
     </header>
     <nav>
+        <a id="apphome"><img alt="App Logo" id="applogo" height="48px" style="display: inline-block; vertical-align: middle;"></a>
+        <label id="appname"></label>
+        <label id="apptitle"></label>
         <span class="esri-icon-drag-horizontal navtab" onclick="toggle('toolsbin')" title="Main menu"></span>
         <span class="esri-icon-settings2 navtab" onclick="navview('tools')" title="Tools"></span>
         <span class="esri-icon-layers navtab" onclick="navview('contents')" title="Contents"></span>
         <span class="esri-icon-collection navtab" onclick="navview('catalog')" title="Catalog"></span>
     </nav>
     <aside id="ass">
-        <h2>
+        <h3>
+            <span class="esri-icon-environment-settings hicon"></span>
             Application Session State
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-        </h2>
-        <div class="maindiv" style="padding: 5px;">
+        </h3>
+        <div class="padded" style="top: 0; bottom: 0; height: auto; overflow: auto;">
             <div style="display: flex; align-items: stretch;">
                 <ol>
                     <li>
@@ -283,16 +287,6 @@
                     <label class="alname"></label>
                     <label class="altype"></label>
                 </div>
-                <div>
-                    Map click: xy(<label id="clickxy"></label>),
-                    lonlat(<label id="lonlat"></label>)
-                </div>
-                <div>
-                    <label>Map Zoom</label>:
-                    <input type="text" name="app" id="zoom" value="" title="Map Zoom" /> &amp;
-                    <label>Scale 1</label>:
-                    <input type="text" name="app" id="mapscale" value="" title="Map Scale" />
-                </div>
             </article>
             <article>
                 <h3 id="toc-proj" onclick="toggle('proj-layers')">
@@ -324,6 +318,43 @@
                         <div class="esri-sublayers-item" data-id="2">States</div>
                     </div>
 -->
+                </div>
+            </article>
+            <article>
+                <h3 id="toc-map" onclick="toggle('map-info')">
+                    Map Info
+                </h3>
+                <div id="map-info" class="padded">
+                    <ol class="layerlist" id="map-info-list">
+                        <li>
+                            <label>Map Click</label>:
+                            xy(<label id="clickxy"></label>),
+                            lonlat(<label id="lonlat"></label>),
+                            box(<label id="clickbox"></label>)
+                        </li>
+                        <li>
+                            <label>Address (Reverse Geocode)</label>:
+                        </li>
+                        <li>
+                            <label>Map Dimension</label>:
+                            <label id="mapdim"></label>
+                        </li>
+                        <li>
+                            <label>Map Size (px)</label>:
+                            <label id="mapsize"></label>
+                        </li>
+                        <li>
+                            <label>Map Zoom</label>:
+                            <input type="text" name="app" id="zoom" value="" title="Map Zoom" size="4" /> &amp;
+                            <label>Scale 1</label>:
+                            <input type="text" name="app" id="mapscale" value="" title="Map Scale" size="12" />
+                        </li>
+                        <li>
+                            <label>Map Extent</label>
+                            <button id="mapexthen">Get</button>:<br>
+                            <textarea id="mapext" style="height: 50px; width: 96%;"></textarea>
+                        </li>
+                    </ol>
                 </div>
             </article>
         </div>
@@ -650,7 +681,7 @@
                     <label>Messages</label>
                 </li>
                 <li onclick="navview('ass')" title="App State">
-                    <span class="esri-icon-dock-bottom"></span>
+                    <span class="esri-icon-environment-settings"></span>
                     <label>App State</label>
                 </li>
                 <li onclick="navview('devbar')" class="msgx" title="Dev Tools">
@@ -678,6 +709,7 @@
         </div>
         <div id="splash" class="centered" style="background-color: white; border: 5px solid thistle; border-radius: 5px; margin: 5%; width: auto;">
             <h2>
+                <span class="esri-icon-dial hicon"></span>
                 Operational Map <span id="bvn"></span>
                 <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'"></span>
             </h2>
@@ -708,7 +740,7 @@
     </div>
     <div id="msgbar" style="display: none;">
         <h2>
-            <span class="esri-icon-dock-top"></span>
+            <span class="esri-icon-dock-bottom hicon"></span>
             Messages
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>

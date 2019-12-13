@@ -43,6 +43,7 @@ let app = {
     dstags: null,
     fields: [],
     filterg: null,
+    geometry: null,
     graphics: [],
     id: "bios",
     identify: {}, //aurid:{graphic: null, oids: []}
@@ -63,7 +64,7 @@ let app = {
     lon: -119.80671,
     mask: null,
     mouse: null,
-    name: "Bios",
+    name: "BIOS",
     oids: [],
     point: null,
     defs: {}, //aurid: {where: ""}
@@ -79,7 +80,7 @@ let app = {
     surl: "",
     task: null,
     timestart: (new Date()).getTime(),
-    title: "BIOS",
+    title: "Biogeographic Information Observation System",
     token: null,
     tool: "",
     urid: "",
@@ -97,39 +98,6 @@ let app = {
     zl: 10,
     zoom: 10
 };
-app.site = function () {
-    var y = 'bios6';
-    var x = location.pathname.replace(/^\/|\/$/g, '');
-    if (x.indexOf('/') < 0) {
-        if (x.indexOf('.') < 0) {
-            return x;
-        }
-    } else {
-        let a = x.split('/');
-        for (var i = 0; i < a.length; i++) {
-            let b = a.pop();
-            if (b.indexOf('.') < 0) {
-                return b;
-            }
-        }
-    }
-    return y;
-}();
-console.log('app.site=' + app.site);
-if (location.search.indexOf('viewer=') > 0) {
-    app.viewer = location.search.split('viewer=')[1].split('&')[0];
-    //    if (configs[app.viewer] != undefined) {
-    //        viewer = configs[app.viewer];
-    //        viewer.layers = configs[app.viewer].layers;
-    //    }
-    //} else if (configs[app.site] != undefined) {
-    //    viewer = configs[app.site];
-    //    viewer.layers = configs[app.site].layers;
-    //} else {
-    //    viewer = configs.bios;
-    //    viewer.layers = configs.bios.layers;
-}
-console.log('app.viewer=' + app.viewer);
 app.layers["CalTrans_Lane_Closures"] = {
     id: "CalTrans_Lane_Closures",
     name: "CalTrans Lane Closures",
@@ -168,7 +136,84 @@ app.layers["usa"] = {
     url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer",
     visible: true
 }
-let GISSERVER = 'https://map.dfg.ca.gov';
+app.site = function () {
+    var y = 'bios6';
+    var x = location.pathname.replace(/^\/|\/$/g, '');
+    if (x.indexOf('/') < 0) {
+        if (x.indexOf('.') < 0) {
+            return x;
+        }
+    } else {
+        let a = x.split('/');
+        for (var i = 0; i < a.length; i++) {
+            let b = a.pop();
+            if (b.indexOf('.') < 0) {
+                return b;
+            }
+        }
+    }
+    return y;
+}();
+console.log('app.site=' + app.site);
+if (location.search.indexOf('viewer=') > 0) {
+    app.viewer = location.search.split('viewer=')[1].split('&')[0];
+    if (configs[app.viewer] != undefined) {
+        viewer = configs[app.viewer];
+        viewer.layers = configs[app.viewer].layers;
+    }
+} else if (configs[app.site] != undefined) {
+    viewer = configs[app.site];
+    viewer.layers = configs[app.site].layers;
+} else {
+    viewer = configs.bios;
+    viewer.layers = configs.bios.layers;
+}
+console.log('app.viewer=' + app.viewer);
+
+function appstart() {
+    // APP.START
+    if (location.search.indexOf('al=') > 0) {
+        var al = location.search.split('al=')[1].split('&')[0];
+        if (al !== '') {
+            var dsid = parseInt(al.toLowerCase().replace('biosds', '').replace('ds', ''));
+            if (typeof dsid === 'number') {
+                app.al = 'biosds' + al;
+                $('al').value = app.al;
+                // Load a BIOS layer
+                app.dsid = dsid;
+                $('dsid').value = dsid;
+                // TODO: bios.addbiosds(dsid);
+            }
+        }
+    }
+    if (location.search.indexOf('dslist=') > 0) {
+        var dslist = location.search.split('dslist=')[1].split('&')[0];
+    } else if (location.search.indexOf('dsl=') > 0) {
+        var dslist = location.search.split('dsl=')[1].split('&')[0];
+    }
+    if (dslist !== '') {
+        if (dslist.indexOf('|') > 0) {
+            var dsl = val.replace(/\|/g, ',');
+        } else {
+            var dsl = val;
+        }
+        app.dslist = dsl;
+        $('dslist').value = dsl;
+        if (dsl.indexOf(',') > 0) {
+            let dsar = dsl.split(',');
+            let dsids = [];
+            for (let i = 0; i < dsar.length; i++) {
+                var dsno = parseInt(dsar[i]);
+                dsids.push(dsno);
+            }
+            app.dsids = dsids;
+        } else {
+            app.dsids = [parseInt(dsl)];
+        }
+        // TODO: bios.adddslist(dsl);
+    }
+}
+app.start = appstart;
 
 app.initLayers = function () {
     addmsg('DO app.initLayers');
@@ -204,5 +249,19 @@ window.addEventListener('load', function () {
             $('devout').value = e.data;
         }
     }
+    // VIEWER CONFIG
+    document.title = viewer.name;
+    $('apphome').href = viewer.homepage;
+    $('apphome').target = '_blank';
+    $('apphome').title = viewer.name + ' homepage';
+    $('applogo').src = viewer.logo;
+    if (viewer.id === 'ace') {
+        $('applogo').style.height = '80px';
+        $('applogo').style.marginTop = '-15px';
+    }
+    $('appname').innerHTML = viewer.name;
+    $('appname').title = viewer.title;
+    $('apptitle').innerHTML = viewer.title;
+    $('apptitle').title = viewer.name;
 });
 console.log('Loaded app');

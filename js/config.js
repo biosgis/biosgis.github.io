@@ -1,6 +1,8 @@
 // config.js 20191128 dfgchiang
 //TODO CONFIGURE VIEWER
-let configs = {
+console.log('Loading config');
+var GISSERVER = 'https://map.dfg.ca.gov';
+var configs = {
     "ace": {},
     "bios": {},
     "cwhr": {},
@@ -16,6 +18,16 @@ let configs = {
     "rarefind": {},
     "veg": {}
 };
+configs.bios = {
+    homepage: "https://www.wildlife.ca.gov/Data/BIOS",
+    id: "bios",
+    layers: {},
+    logo: "https://apps.wildlife.ca.gov/bios/images/MapViewerBanner-BIOS.png",
+    name: "BIOS",
+    site: "bios",
+    title: "Biogeographic Integrated Observation Synthesis",
+    viewer: "bios"
+}
 var dfg = {
     id: "dfg",
     layers: {
@@ -66,6 +78,7 @@ var dfg = {
         }
     }
 };
+
 var imaps = {
     id: "imaps",
     layers: {
@@ -123,10 +136,12 @@ var imaps = {
 var lands = {
     al: "DFG_Lands:0",
     bl: "topo",
+    homepage: "https://www.wildlife.ca.gov/Lands",
     id: "lands",
+    layers: {},
+    logo: "https://apps.wildlife.ca.gov/bios/images/MapViewerBanner-Lands.png",
     name: "CDFW Lands",
-    title: "Lands And Niche System",
-    viewer: "lands",
+    title: "Lands And Niche Decision System",
     layers: {
         "DFG_Lands": {
             id: "DFG_Lands",
@@ -146,5 +161,8 @@ var lands = {
             url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
             visible: true
         }
-    }
+    },
+    viewer: "lands"
 };
+configs.lands = lands;
+console.log('Loaded config');

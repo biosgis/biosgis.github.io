@@ -37,10 +37,23 @@ const basemap2id = {
     "Firefly Imagery Hybrid": "topo",
     "USA Topo Maps": "streets-relief-vector"
 }
-
-function btitle2id(title) {
-    return (basemap2id[title] ? basemap2id[title] : 'topo');
+const esriFieldTypesNumber = 'esriFieldTypeDouble,esriFieldTypeFloat,esriFieldTypeInteger,esriFieldTypeOID,esriFieldTypeSmallInteger';
+const esriFieldTypeToColumnType = {
+    "esriFieldTypeBlob": "image",
+    "esriFieldTypeDate": "date",
+    "esriFieldTypeDouble": "number",
+    "esriFieldTypeGeometry": "object",
+    "esriFieldTypeGlobalID": "text",
+    "esriFieldTypeGUID": "text",
+    "esriFieldTypeInteger": "number",
+    "esriFieldTypeOID": "number",
+    "esriFieldTypeRaster": "image",
+    "esriFieldTypeSingle": "number",
+    "esriFieldTypeSmallInteger": "number",
+    "esriFieldTypeString": "text",
+    "esriFieldTypeXML": "text"
 }
+
 //==== GLOBAL FUNCTIONS
 function addcss(files, rv, dir) {
     for (var i = 0; i < files.length; i++) {
@@ -84,6 +97,10 @@ function arrayhas(a, b) {
     return false;
 }
 
+function btitle2id(title) {
+    return (basemap2id[title] ? basemap2id[title] : 'topo');
+}
+
 function datestamp() {
     let d = new Date();
     // Starting 2018 as year 1
@@ -125,7 +142,7 @@ function extn2poly(extent) {
     return polygon;
 }
 
-function urlarg(key) {
+function geturlarg(key) {
     // GET LOCATION.SEARCH PARAMETER KEY VALUE--20190128
     var val = '';
     if (location.search.indexOf(key + '=') > 0) {
@@ -137,6 +154,48 @@ function urlarg(key) {
     return val;
 }
 
+function ptbox(p) {
+    // BOX A POINT LIKE A MAP CLICK EVENT BY A RECTANGLE 1/100TH MAPDIMENSION
+    let x = p.x;
+    let y = p.y;
+    let dx = mapview.extent.width / 20;
+    let dy = mapview.extent.height / 20;
+    let xmin = x - dx;
+    let xmax = x + dx;
+    let ymin = y - dy;
+    let ymax = y + dy;
+    let box = [xmin.toFixed(2), ymin.toFixed(2), xmax.toFixed(2), ymax.toFixed(2)];
+    return box;
+}
+
+function pt2poly(p) {
+    // CONVERT A POINT LIKE A MAP CLICK EVENT TO A POLYGON BOX 1/100TH MAPDIMENSION
+    let x = p.x;
+    let y = p.y;
+    let dx = mapview.extent.width / 20;
+    let dy = mapview.extent.height / 20;
+    let xmin = x - dx;
+    let xmax = x + dx;
+    let ymin = y - dy;
+    let ymax = y + dy;
+    var rings = [
+        [
+            [xmin, ymin],
+            [xmin, ymax],
+            [xmax, ymax],
+            [xmax, ymin],
+            [xmin, ymin]
+        ]
+    ];
+    var polygon = new EsriPolygon({
+        hasZ: false,
+        hasM: false,
+        rings: rings,
+        spatialReference: mapview.spatialReference
+    });
+    return polygon;
+}
+
 function tcall(a) {
     var f = a[0];
     var x = a[1];
@@ -144,6 +203,18 @@ function tcall(a) {
     setTimeout(function () {
         f(x);
     }, t);
+}
+
+function urlarg(key) {
+    // GET LOCATION.SEARCH PARAMETER KEY VALUE--20190128
+    var val = '';
+    if (location.search.indexOf(key + '=') > 0) {
+        var val = location.search.split(key + '=')[1].split('&')[0];
+        if (val !== undefined && val !== null & val !== '') {
+            val = decodeURIComponent(val);
+        }
+    }
+    return val;
 }
 
 function xysplit(s) {

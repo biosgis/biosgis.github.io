@@ -17,6 +17,13 @@ let amdlibs = [
     "esri/Graphic",
     "esri/Map",
     "esri/WebMap",
+    "esri/core/urlUtils",
+    "esri/core/watchUtils",
+    "esri/core/workers",
+    "esri/geometry/Point",
+    "esri/geometry/Polygon",
+    "esri/geometry/geometryEngine",
+    "esri/geometry/support/webMercatorUtils",
     "esri/layers/CSVLayer",
     "esri/layers/FeatureLayer",
     "esri/layers/GeoJSONLayer",
@@ -44,6 +51,12 @@ let amdfun = function (
     Graphic,
     Map,
     WebMap,
+    urlUtils, watchUtils,
+    workers,
+    Point,
+    Polygon,
+    geometryEngine,
+    webMercatorUtils,
     CSVLayer,
     FeatureLayer,
     GeoJSONLayer,
@@ -296,6 +309,8 @@ let amdfun = function (
     // WHEN MAPVIEW LOADED AND READY DO IDENTIFY ON MAP CLICK
     view.when(function () {
         $('bl').value = map.basemap.id;
+        $('mapdim').innerHTML = [view.extent.width.toFixed(2), view.extent.height.toFixed(2)];
+        $('mapsize').innerHTML = [view.width, view.height];
         view.on('click', function (event) {
             $('clickxy').innerHTML = [event.mapPoint.x.toFixed(3), event.mapPoint.y.toFixed(3)];
             $('lonlat').innerHTML = [event.mapPoint.longitude.toFixed(6), event.mapPoint.latitude.toFixed(6)];
@@ -305,6 +320,8 @@ let amdfun = function (
             app.ll = [event.mapPoint.longitude, event.mapPoint.latitude];
             app.atool.geometry = event.mapPoint;
             app.selectg = event.mapPoint;
+            var clickbox = ptbox(event.mapPoint);
+            $('clickbox').innerHTML = clickbox;
             // MOVED IDENTIFY TASK SAMPLE BLOCK HERE-2019.12.11
             if (app.tool === 'identify' && activeLayer.url === soilURL) {
                 // executeIdentifyTask() is called each time the view is clicked
@@ -325,16 +342,14 @@ let amdfun = function (
         });
         view.watch("scale", function (newValue, oldValue, propertyName, target) {
             //console.log(propertyName + " changed from " + oldValue + " to " + newValue);//scale changed from
-            $('zl').value = mapview.zoom;
-            $('zoom').value = mapview.zoom;
+            $('zl').value = parseInt(mapview.zoom);
+            $('zoom').value = parseInt(mapview.zoom);
             let lonlat = webMercatorUtils.xyToLngLat(mapview.center.x, mapview.center.y);
             let ll = [lonlat[0].toFixed(3), lonlat[1].toFixed(3)];
             $('center').value = ll + ' | xy(' + [mapview.center.x.toFixed(3), mapview.center.y.toFixed(3)] + ')';
             $('mapscale').value = parseInt(mapview.scale);
-            //console.log('map pixel width,height=' + [mapview.width, mapview.height]);
-            //console.log('map extent horizontal,vertical=' + [(mapview.extent.xmax - mapview.extent.xmin), (mapview.extent.ymax - mapview.extent.ymin)]);
         });
-        // UPDATE MAPVIEW KEYBOARD
+        // MAPVIEW EVENT HANDLERS
         $('zoom').addEventListener('keyup', function (event) {
             var kc = event.which || event.keyCode;
             if (kc === 13) {
@@ -347,6 +362,22 @@ let amdfun = function (
                 mapview.scale = parseInt($('mapscale').value);
             }
         });
+        $('mapexthen').addEventListener('click', function () {
+            let tics = {
+                xmin: mapview.extent.xmin,
+                ymin: mapview.extent.ymin,
+                xmax: mapview.extent.xmax,
+                ymax: mapview.extent.ymax,
+                spatialReference: {
+                    wkid: mapview.spatialReference.wkid
+                }
+            }
+            $('mapext').value = JSON.stringify(tics);
+        });
+        view.on('resize', function () {
+            $('mapdim').innerHTML = [mapview.extent.width.toFixed(2), mapview.extent.height.toFixed(2)];
+            $('mapsize').innerHTML = [mapview.width, mapview.height];
+        });//window.addEventListener
     });
 
     // Executes each time the view is clicked
