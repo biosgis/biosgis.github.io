@@ -2,7 +2,7 @@
 // All Basic App Setup and Universal Functions
 console.log('Loading abide.js');
 //==== GLOBAL VARIABLES
-var avn = 20191211;
+var avn = 20191213;
 var bvn = ((avn - 20000000) / 10000).toFixed(2);
 //avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
 var fullversion = bvn + '.' + avn.toString().substr(6, 2);
@@ -158,8 +158,12 @@ function ptbox(p) {
     // BOX A POINT LIKE A MAP CLICK EVENT BY A RECTANGLE 1/100TH MAPDIMENSION
     let x = p.x;
     let y = p.y;
-    let dx = mapview.extent.width / 20;
-    let dy = mapview.extent.height / 20;
+    let dx = 50;
+    let dy = 50;
+    if (map.zoom < 15) {
+        dx = mapview.extent.width / mapview.width;
+        dy = mapview.extent.height / mapview.height;
+    }
     let xmin = x - dx;
     let xmax = x + dx;
     let ymin = y - dy;
@@ -169,7 +173,7 @@ function ptbox(p) {
 }
 
 function pt2poly(p) {
-    // CONVERT A POINT LIKE A MAP CLICK EVENT TO A POLYGON BOX 1/100TH MAPDIMENSION
+    // CONVERT A POINT LIKE A MAP CLICK TO A RECTANGLE 1/10TH MAP EXTENT
     let x = p.x;
     let y = p.y;
     let dx = mapview.extent.width / 20;

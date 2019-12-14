@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <!--
 biosgis.github.io 20191010 dfgchiang
-    [CDFW Condition of Use](https://www.wildlife.ca.gov/Conditions-of-Use)
-    [Creative Commons (CC BY 2.0)](https://creativecommons.org/licenses/by/2.0/)
-    [open-license](https://project-open-data.cio.gov/open-licenses/)
-    [MIT License](https://mit-license.org/)
-    [GNU GPL v3](https://www.gnu.org/licenses/)
     [BSD 3-Clause](https://opensource.org/licenses/BSD-3-Clause)
+    [Creative Commons (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
     [FreeBSD License](https://www.freebsd.org/copyright/freebsd-license.html)
+    [GNU GPL v3](https://www.gnu.org/licenses/)
+    [MIT License](https://mit-license.org/)
+    [open-license](https://project-open-data.cio.gov/open-licenses/)
     [OpenGov3](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)
 -->
 <html>
@@ -24,108 +23,16 @@ biosgis.github.io 20191010 dfgchiang
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
     <script src="https://js.arcgis.com/4.13/"></script>
+    <link rel="stylesheet" href="https://dfgchiang.github.io/css/def.css">
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <style>
-        body {
-            font-family: Georgia, Consolas, Monaco, monospace;
-            font-size: 1.23em;
-            line-height: 1.5em;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        article {
-            border-bottom: 1px solid navajowhite;
-        }
-
-        aside {
-            position: relative;
-            background-color: white;
-            border: 1px solid silver;
-            box-shadow: gray -5px 5px 5px;
-            float: right;
-            padding: 1%;
-            z-index: 200;
-        }
-
-        details {
-            margin: 1px 2px 3px 4px;
-            padding-left: 1%;
-        }
-
-        summary {
-            font-size: larger;
-            font-weight: bold;
-        }
-
-        footer {
-            position: relative;
-            border-top: 1px solid silver;
-            font-size: smaller;
-            padding: 1%;
-        }
-
         h1 {
-            margin: 1%;
-        }
-
-        header {
-            position: relative;
-            border-bottom: 1px solid silver;
-            padding: 1%;
-        }
-
-        main {
-            position: relative;
-            padding: 1%;
-        }
-
-        nav {
-            position: relative;
-            border-bottom: 1px solid silver;
-            padding: 0;
-        }
-
-        nav>ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav>ul>li {
-            border-right: 1px solid silver;
-            display: inline-block;
-            list-style: none;
-            margin: 0;
-            padding: 5px 10px;
-        }
-
-        .bug {
-            color: red;
-        }
-
-        .future {
-            color: rebeccapurple;
-        }
-
-        .issue {
-            color: fuchsia;
-        }
-
-        .todo {
-            color: tomato;
+            font-family: Consolas, Monaco, 'Arial Black', monospace;
         }
 
     </style>
     <script>
         window.addEventListener('load', function() {
-            om = poplinks();
             $('goto').onkeyup = function(event) {
                 var kc = event.which || event.keyCode;
                 if (kc === 13) {
@@ -139,44 +46,126 @@ biosgis.github.io 20191010 dfgchiang
 
 <body>
     <nav>
+        <a href="https://www.arcgis.com">AGOL</a>
+        <a href="https://www.wildlife.ca.gov/Data/Analysis/ACE">ACE</a>
+        <a href="https://www.wildlife.ca.gov/Data/BIOS">BIOS</a>
+        <a href="https://www.wildlife.ca.gov/Data/CNDDB">CNDDB</a>
+        <a href="https://www.wildlife.ca.gov/Fishing/Guide">Fishing Guide</a>
         <ul>
-            <li>
-                <a href="https://www.arcgis.com">AGOL</a>
-            </li>
-            <li>
-                <a href="https://www.wildlife.ca.gov/Data/Analysis/ACE">ACE</a>
-            </li>
-            <li>
-                <a href="https://www.wildlife.ca.gov/Data/BIOS">BIOS</a>
-            </li>
-            <li>
-                <a href="https://www.wildlife.ca.gov/Data/CNDDB">CNDDB</a>
-            </li>
-            <li>
-                <a href="https://www.wildlife.ca.gov/Fishing/Guide">Fishing Guide</a>
-            </li>
             <li>
                 <input type="text" id="goto">
             </li>
         </ul>
     </nav>
     <header>
+        <span style="float: right; margin: 1%;">
+            <script>
+                document.write(document.lastModified);
+
+            </script>
+        </span>
         <h1>
             BIOS GIS Learning
-            <span style="float: right; font-size: medium; margin: 1%;">
-                <script>
-                    document.write(document.lastModified);
-
-                </script>
-            </span>
         </h1>
     </header>
     <main>
-        <aside>
+        <details class="sidebar">
+            <summary>&equiv;</summary>
+            <a href="https://blogs.esri.com/esri/arcgis/" title="ArcGIS Blog"></a>
+            <a href="https://developers.arcgis.com" title="ArcGIS Developers"></a>
+            <a href="http://www.arcgis.com/" title="ArcGIS Online"></a>
+            <a href="http://opendata.arcgis.com/" title="ArcGIS OpenData"></a>
+            <a href="http://resources.arcgis.com/en/home/" title="ArcGIS Resources"></a>
+            <a href="http://solutions.arcgis.com/" title="ArcGIS Solutions"></a>
+            <a href="https://blogs.msdn.microsoft.com/azuregov/" title="AzureGov blog"></a>
+            <a href="http://www.esri.com/videos/" title="Esri Videos"></a>
+            <a href="https://community.esri.com/" title="GeoNyet"></a>
+            <a href="http://www.sco.ca.gov/calaters.html" title="CalATERS"></a>
+            <a href="http://www.caltravelstore.com/" title="CalTravelStore"></a>
+            <a href="https://gis-california.opendata.arcgis.com/" title="California State Geoportal"></a>
+            <a href="https://github.com/Office-of-Digital-Innovation" title="CA State Templates"></a>
+            <a href="https://data-cdfw.opendata.arcgis.com/" title="CDFW Open Data"></a>
+            <a href="https://data.cnra.ca.gov/" data-title="CNRA Open Data"></a>
+            <a href="https://data.ca.gov/" data-title="California Open Data Portal"></a>
+            <a href="https://creativecommons.org/choose/" title="Creative Commons"></a>
+            <a href="https://cdfwsp.wildlife.ca.gov/" title="CDFW SharePoint"></a>
+            <a href="https://ftp.wildlife.ca.gov/" title="FTP"></a>
             <a href="https://git-scm.com"></a>
+            <a href="https://anaconda.org/" title="Anaconda"></a>
+            <a href="https://bitbucket.org" title="BitBucket"></a>
+            <a href="https://github.com" title="GitHub"></a>
+            <a href="https://esri.github.io"></a>
+            <a href="https://gitlab.com" title="GitLab"></a>
+            <a href="https://visualstudio.com/" title="VSTS"></a>
+            <a href="https://dashboard.heroku.com/" title="Heroku"></a>
+            <a href="https://console.bluemix.net/dashboard/apps/" title="IBM Cloud"></a>
+            <a href="https://developer.microsoft.com/en-us/" title="MS Developer"></a>
+            <a href="https://msdn.microsoft.com/en-us/default.aspx" title="MSDN"></a>
             <a href="https://nodejs.org"></a>
             <a href="https://app.powerbigov.us"></a>
-        </aside>
+            <a href="https://my.visualstudio.com/getstarted" title="My Visual Studio"></a>
+            <a href="https://trello.com/home" title="Trello"></a>
+            <a href="https://www.test-cors.org/"></a>
+            <a href="https://jsonlint.com/"></a>
+            <a href="https://biosgis.github.io" style="display: none;"></a>
+        </details>
+        <h2>
+            Geocoding
+            <a href="https://geocode.arcgis.com/arcgis/">AGOLserv</a>
+        </h2>
+        <ol>
+            <li>
+                <a href="http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer?f=pjson"></a>
+                Without correct operations path and parameters URL will return error
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html"></a>
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/rest/geocode/api-reference/geocoding-geocode-addresses.htm"></a>
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm"></a>
+            </li>
+            <li>
+                <a href="https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm"></a>
+            </li>
+        </ol>
+        <h2>
+            Resolution and Zoom Level Guide
+        </h2>
+        <ol>
+            <li>
+                <a href="https://eos.com/blog/7-top-free-satellite-imagery-sources-in-2019/"></a>
+            </li>
+            <li>
+                <a href="https://www.google.com/search?q=average+city+block+length"></a>
+            </li>
+            <li>
+                <a href="https://docs.mapbox.com/help/glossary/zoom-level/">
+                    Zoom level guide
+                </a>
+            </li>
+            <li>
+                <a href=""></a>
+            </li>
+        </ol>
+        <h2>
+            Services
+        </h2>
+        <ol>
+            <li>
+                <a href="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/CongressionalDistricts/FeatureServer/0"></a>
+            </li>
+            <li>
+                <a href="http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer?f=pjson"></a>
+            </li>
+            <li>
+                <a href="https://sampleserver6.arcgisonline.com/arcgis/rest/services/Locators/SanDiego/GeocodeServer"></a>
+            </li>
+            <li><a href="https://services.gis.ca.gov/arcgis/rest/services/Location"></a></li>
+            <li><a href="https://services.gis.ca.gov/arcgis/rest/services/Location"></a></li>
+        </ol>
         <ol>
             <li>
                 <h2>
@@ -435,6 +424,13 @@ biosgis.github.io 20191010 dfgchiang
         <a href="./m.html" style="text-decoration: none; color: silver;" target="_blank">&square;</a>
         Build on
         <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a>
+        &reg;
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+            <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+        </a><br />This work is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+            Creative Commons Attribution 4.0 International License
+        </a>.
     </footer>
 </body>
 

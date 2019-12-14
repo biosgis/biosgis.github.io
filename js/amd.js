@@ -43,7 +43,8 @@ let amdlibs = [
     "esri/widgets/Expand",
     "esri/widgets/Home",
     "esri/widgets/Legend",
-    "esri/widgets/FeatureForm"
+    "esri/widgets/FeatureForm",
+    "esri/widgets/ScaleBar"
 ];
 let amdfun = function (
     esriConfig,
@@ -73,7 +74,8 @@ let amdfun = function (
     BasemapToggle,
     Expand, Home,
     Legend,
-    FeatureForm
+    FeatureForm,
+    ScaleBar
 ) {
     esriConfig.geometryServiceUrl = "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer";
     //esriConfig.portalUrl = "https://cdfw.maps.arcgis.com";
@@ -89,7 +91,7 @@ let amdfun = function (
     EsriQueryTask = QueryTask;
     EsriQuery = Query;
     EsriTileLayer = TileLayer;
-    // CSVLAYER
+    //--- CSVLAYER
     const csvurl =
         "https://arcgis.github.io/arcgis-samples-javascript/sample-data/hurricanes.csv";
 
@@ -141,7 +143,7 @@ let amdfun = function (
     //                layers: [csvLayer]
     //            });
 
-    // GEOJSONLAYER 
+    //--- GEOJSONLAYER 
     // If external files are not on the same domain as your website, a CORS enabled server
     // or a proxy is required.
     const geojsonurl =
@@ -188,7 +190,7 @@ let amdfun = function (
         popupTemplate: template,
         renderer: renderer //optional
     });
-    // IDENTIFY TASK ON SOILS TILE LAYER
+    //--- IDENTIFY TASK ON SOILS TILE LAYER
     // URL to the map service where the identify will be performed
     var soilURL =
         "https://services.arcgisonline.com/arcgis/rest/services/Specialty/Soil_Survey_Map/MapServer";
@@ -247,7 +249,7 @@ let amdfun = function (
     // GLOBALIZE
     mapview = view;
     sceneview = view3d;
-    // BASEMAP GALLERY SIDEBAR
+    //--- BASEMAP GALLERY SIDEBAR
     var basemapgal = new BasemapGallery({
         view: view,
         container: "basemapgal"
@@ -255,18 +257,18 @@ let amdfun = function (
     //basemapgal.on('click', function () {
     //    $('bl').value = map.basemap.id;// FAIL--RETURNS BLANK
     //});
-    // BASEMAP TOGGLE WIDGET
+    //--- BASEMAP TOGGLE WIDGET
     var basemaptoggle = new BasemapToggle({
         view: view, // view that provides access to the map's initial basemap
         nextBasemap: "hybrid" // allows for toggling to the 'hybrid' basemap
     });
     view.ui.add(basemaptoggle, "bottom-left");
-    // HOME WIDGET
+    //--- HOME WIDGET
     var homeWidget = new Home({
         view: view
     });
     view.ui.add(homeWidget, "top-left");
-    // FEATURELAYER
+    //--- FEATURELAYER
     // carbon storage of trees in Warren Wilson College 
     //url="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0"
     var featureLayer = new FeatureLayer({
@@ -274,7 +276,7 @@ let amdfun = function (
         url: lands.layers["DFG_Properties:0"].url
     });
     //map.add(featureLayer);
-    // LEGEND WIDGET FOR CSVLAYER
+    //--- LEGEND WIDGET FOR CSVLAYER
     const legendExpand = new Expand({
         view: view,
         content: new Legend({
@@ -283,6 +285,14 @@ let amdfun = function (
         })
     });
     view.ui.add(legendExpand, "top-left");
+    //--- SCALEBAR WIDGET
+    var scaleBar = new ScaleBar({
+        view: view
+    });
+    // Add widget to the bottom left corner of the view
+    view.ui.add(scaleBar, {
+        position: "bottom-left"
+    });
 
     function createUniqueValueInfos() {
         const fireflyImages = [
@@ -321,7 +331,7 @@ let amdfun = function (
             app.atool.geometry = event.mapPoint;
             app.selectg = event.mapPoint;
             var clickbox = ptbox(event.mapPoint);
-            $('clickbox').innerHTML = clickbox;
+            $('clickbox').innerHTML = clickbox.join(', ');
             // MOVED IDENTIFY TASK SAMPLE BLOCK HERE-2019.12.11
             if (app.tool === 'identify' && activeLayer.url === soilURL) {
                 // executeIdentifyTask() is called each time the view is clicked
@@ -347,6 +357,8 @@ let amdfun = function (
             let lonlat = webMercatorUtils.xyToLngLat(mapview.center.x, mapview.center.y);
             let ll = [lonlat[0].toFixed(3), lonlat[1].toFixed(3)];
             $('center').value = ll + ' | xy(' + [mapview.center.x.toFixed(3), mapview.center.y.toFixed(3)] + ')';
+            $('mapdim').innerHTML = [mapview.extent.width.toFixed(2), mapview.extent.height.toFixed(2)];
+            $('mapres').innerHTML = [(mapview.extent.width / mapview.width).toFixed(1), (mapview.extent.height / mapview.height).toFixed(1)];
             $('mapscale').value = parseInt(mapview.scale);
         });
         // MAPVIEW EVENT HANDLERS
@@ -375,9 +387,8 @@ let amdfun = function (
             $('mapext').value = JSON.stringify(tics);
         });
         view.on('resize', function () {
-            $('mapdim').innerHTML = [mapview.extent.width.toFixed(2), mapview.extent.height.toFixed(2)];
             $('mapsize').innerHTML = [mapview.width, mapview.height];
-        });//window.addEventListener
+        }); //window.addEventListener
     });
 
     // Executes each time the view is clicked

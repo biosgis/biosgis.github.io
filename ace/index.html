@@ -103,28 +103,44 @@
             Application Session State
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
-        <div class="padded" style="top: 0; bottom: 0; height: auto; overflow: auto;">
+        <div class="padded" style="top: 40px; bottom: 0; height: auto; overflow: auto; position: absolute;">
             <div style="display: flex; align-items: stretch;">
                 <ol>
                     <li>
-                        <label>al:</label>
+                        <label>al</label>:
                         <input type="text" name="app" id="al" value="" title="Active Layer">
                     </li>
                     <li>
                         <label>bl</label>:
-                        <input type="text" name="bb" id="bl" value="" title="Basemap">
+                        <input type="text" name="app" id="bl" value="" title="Basemap">
                     </li>
                     <li>
                         <label>center</label>:
                         <input type="text" name="bb" id="center" value="" title="Map Center">
                     </li>
                     <li>
-                        <label>ll</label>:
-                        <input type="text" name="bb" id="ll" value="" title="Longitude, Latitude">
+                        <label>col</label>:
+                        <input type="text" name="log" id="col" value="" title="Column name" />
                     </li>
                     <li>
-                        <label>xy</label>:
-                        <input type="text" name="bb" id="xy" value="" title="X-coord, Y-coord">
+                        <label>dsid</label>:
+                        <input type="text" name="app" id="dsid" value="" title="DataSource ID">
+                    </li>
+                    <li>
+                        <label>dsname</label>:
+                        <input type="text" name="app" id="dsname" value="" title="DataSource Name">
+                    </li>
+                    <li>
+                        <label>dstype</label>:
+                        <input type="text" name="app" id="dstype" value="" title="DataSource Type" />
+                    </li>
+                    <li>
+                        <label>lid</label>:
+                        <input type="text" name="app" id="lid" value="" title="Layer Index">
+                    </li>
+                    <li>
+                        <label>ll</label>:
+                        <input type="text" name="bb" id="ll" value="" title="Longitude, Latitude">
                     </li>
                     <li>
                         <label>ssid</label>:
@@ -139,27 +155,35 @@
                         <input type="text" name="bb" id="type" value="" title="Layer Type" />
                     </li>
                     <li>
-                        <input type="text" name="app" id="bsid" value="" />
-                        <input type="text" name="app" id="hashtag" value="" />
-                        <input type="text" name="app" id="last-tool" value="help" />
-                        <input type="text" name="app" id="kounter" value="0" />
-                        <input type="text" name="app" id="timestart" value="" />
-                        <input type="text" name="app" id="vu" value="uname:guest|vname:bios6" />
-                        <input type="text" name="app" id="website" value="bios6" />
-                        <input type="text" name="bb" id="dsid" value="" />
-                        <input type="text" name="bb" id="dsname" value="" />
-                        <input type="text" name="bb" id="lid" value="" />
-                        <input type="text" name="bb" id="urid" value="" />
-                        <input type="text" name="bb" id="url" value="" />
-                        <input type="text" name="bb" id="viewer" value="bios6" />
+                        <label>urid</label>:
+                        <input type="text" name="app" id="urid" value="" title="URID">
+                    </li>
+                    <li>
+                        <label>url</label>:
+                        <input type="text" name="app" id="url" value="" title="URL">
+                    </li>
+                    <li>
+                        <label>viewer</label>:
+                        <input type="text" name="bb" id="viewer" value="bios6" title="Viewer">
+                    </li>
+                    <li>
+                        <label>xy</label>:
+                        <input type="text" name="bb" id="xy" value="" title="X-coord, Y-coord">
                     </li>
                     <li>
                         <label>zl</label>:
                         <input type="text" name="bb" id="zl" value="" title="Zoom Level" />
                     </li>
                     <li>
-                        <label>userip</label>:
+                        <label>xxx</label>:
+                        <input type="text" name="app" id="bsid" value="" />
+                        <input type="text" name="app" id="hashtag" value="" />
+                        <input type="text" name="app" id="last-tool" value="help" />
+                        <input type="text" name="app" id="kounter" value="0" />
+                        <input type="text" name="app" id="timestart" value="" title="StartTime" />
                         <input type="text" name="log" id="userip" value="" />
+                        <input type="text" name="app" id="vu" value="uname:guest|vname:bios6" />
+                        <input type="text" name="app" id="website" value="bios6" />
                     </li>
                 </ol>
             </div>
@@ -330,18 +354,22 @@
                             <label>Map Click</label>:
                             xy(<label id="clickxy"></label>),
                             lonlat(<label id="lonlat"></label>),
-                            box(<label id="clickbox"></label>)
+                            box(<label id="clickbox"></label>),
                         </li>
                         <li>
-                            <label>Address (Reverse Geocode)</label>:
+                            <label title="Reverse Geocode">address()</label>:
                         </li>
                         <li>
-                            <label>Map Dimension</label>:
-                            <label id="mapdim"></label>
+                            <label>Map Dimension (m)</label>:
+                            <label id="mapdim" title="Map extent length and distance"></label>
+                        </li>
+                        <li>
+                            <label>Map Resolution (m/px)</label>:
+                            <label id="mapres"></label>
                         </li>
                         <li>
                             <label>Map Size (px)</label>:
-                            <label id="mapsize"></label>
+                            <label id="mapsize" title="Map canvas screen size"></label>
                         </li>
                         <li>
                             <label>Map Zoom</label>:
@@ -352,7 +380,11 @@
                         <li>
                             <label>Map Extent</label>
                             <button id="mapexthen">Get</button>:<br>
-                            <textarea id="mapext" style="height: 50px; width: 96%;"></textarea>
+                            <textarea id="mapext" style="height: 60px; width: 96%;"></textarea>
+                        </li>
+                        <li class="hide">
+                            <label>Map Projection</label>:
+                            <span id="mapprj"></span>
                         </li>
                     </ol>
                 </div>

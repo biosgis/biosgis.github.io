@@ -31,6 +31,17 @@ configs.bios = {
 var dfg = {
     id: "dfg",
     layers: {
+        "NGA_US_National_Grid": {
+            url: "https://maps1.arcgisonline.com/ArcGIS/rest/services/NGA_US_National_Grid/MapServer",
+            id: "NGA_US_National_Grid",
+            name: "Land Ownership",
+            tiled: false,
+            title: "US National Grid",
+            tocgroup: "ref",
+            type: "MapServer map-image",
+            urid: "NGA_US_National_Grid",
+            visible: false
+        },
         "Land_Ownership": {
             id: "Land_Ownership",
             name: "Land Ownership",
@@ -88,6 +99,14 @@ var imaps = {
             type: "kml",
             urid: "Wetlands",
             url: "https://cdfw.maps.arcgis.com/home/item.html?id=566c65d5f9e44b118c0aded153b1fc8e",
+            visible: true
+        },
+        "CongressionalDistricts": {
+            url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/CongressionalDistricts/FeatureServer/0",
+            id: "CongressionalDistricts",
+            name: "Congressional Districts",
+            type: "feature",
+            urid: "CongressionalDistricts",
             visible: true
         },
         "DFG_Properties:0": {
