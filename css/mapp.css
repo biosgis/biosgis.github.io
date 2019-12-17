@@ -13,8 +13,7 @@ Design for mobile first
 
 body {
     font-family: Consolas, Monaco, monospace;
-    font-size: 1.5em;
-    line-height: 1.5em;
+    font-size: 1.1em;
     margin: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -252,6 +251,7 @@ span.navtab:hover {
 
 input {
     font-size: large;
+    line-height: 1.23em;
 }
 
 select {
@@ -609,7 +609,7 @@ label.bb {
     bottom: 0;
     left: 0;
     height: 60%;
-    width: 80%;
+    width: 100%;
     background-color: white;
     border: 2px solid silver;
     overflow: hidden;
