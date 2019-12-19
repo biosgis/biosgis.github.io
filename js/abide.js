@@ -2,10 +2,16 @@
 // All Basic App Setup and Universal Functions
 console.log('Loading abide.js');
 //==== GLOBAL VARIABLES
-var avn = 20191216;
+var avn = 20191218;
+var avyear = avn.toString().substr(2, 2);
+var avmonth = avn.toString().substr(4, 2);
+var avday = avn.toString().substr(6, 2);
 var bvn = ((avn - 20000000) / 10000).toFixed(2);
-//avn.toString().subst(2, 2) + '.' + avn.toString().subst(4, 2);
-var fullversion = bvn + '.' + avn.toString().substr(6, 2);
+var hexvn = avn.toString().substr(2, 6);
+var dotvn = bvn + '.' + avday;
+var monthtally = (parseInt(avyear) - 13) * 12 + parseInt(avmonth);
+var sumvn = monthtally + '.' + avday;
+var appVersion = '5.' + subvn;
 var rv = (Math.random() * 10).toFixed(5);
 var ssid = 't' + Date.now() + 'r' + parseInt(rv * 10000);
 //parseInt(Math.random() * 1000000);//=SESSIONID

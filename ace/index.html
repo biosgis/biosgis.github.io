@@ -70,7 +70,7 @@
             }
             $('ssid').value = ssid;
             $('bvn').innerHTML = 'v6.' + bvn;
-            $('fullversion').innerHTML = fullversion;
+            $('ymdvn').innerHTML = ymdvn;
             $('sessionid').innerHTML = ssid;
             $('splash-ok').focus();
             hide('loadingbar');
@@ -108,7 +108,7 @@
                 <ol>
                     <li>
                         <label>agolname</label>:
-                        <input type="text" name="app" id="agolname" value="anonymous" title="AGOL User Name">
+                        <input type="text" name="app" id="agolname" value="anyone" title="AGOL User Name">
                     </li>
                     <li>
                         <label>agolgroups</label>:
@@ -452,7 +452,7 @@
                     About
                 </h4>
                 <div class="padded">
-                    AIOS Version: <span id="fullversion"></span>
+                    AIOS Version: <span id="ymdvn"></span>
                     Build on
                     <a href="https://developers.arcgis.com/javascript/">esri-arcgis-jsapi</a>
                 </div>
