@@ -137,6 +137,12 @@ function TocLayer(ar) {
     labeler.style.marginRight = '5px';
     if (type === 'feature' || type === 'sublayer') {
         labeler.htmlFor = urid + '-radio';
+    } else if (type === 'tile' || type === 'TileLayer') {
+        labeler.onclick = function () {
+            checker.checked = true;
+            tocchecked(checker);
+            //togglex(list); // TODO SHOW LEGENDKEYS?
+        }
     } else {
         labeler.onclick = function () {
             togglex(list);

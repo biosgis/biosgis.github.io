@@ -22,7 +22,7 @@ configs.bios = {
     homepage: "https://www.wildlife.ca.gov/Data/BIOS",
     id: "bios",
     layers: {},
-    logo: "https://apps.wildlife.ca.gov/bios/images/MapViewerBanner-BIOS.png",
+    logo: "https://www.wildlife.ca.gov/Portals/0/Images/BDB/BIOS/iMap-Banner-BIOS.png", // "https://apps.wildlife.ca.gov/bios/images/MapViewerBanner-BIOS.png",
     name: "BIOS",
     site: "bios",
     title: "Biogeographic Integrated Observation Synthesis",
