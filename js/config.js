@@ -16,7 +16,9 @@ var configs = {
     "marine": {},
     "min": {},
     "rarefind": {},
-    "veg": {}
+    "veg": {},
+    "water": {},
+    "www": {}
 };
 configs.bios = {
     homepage: "https://www.wildlife.ca.gov/Data/BIOS",
@@ -27,6 +29,41 @@ configs.bios = {
     site: "bios",
     title: "Biogeographic Integrated Observation Synthesis",
     viewer: "bios"
+}
+configs.bios.layers = {
+    "gispublic.waterboards.ca.gov": {
+        url: "https://gispublic.waterboards.ca.gov/arcgis/rest/services",
+        id: "gispublic.waterboards.ca.gov",
+        name: "gispublic.waterboards.ca.gov",
+        tiled: false,
+        title: "Water Boards AGS",
+        tocgroup: "catalog",
+        type: "restdir",
+        urid: "gispublic.waterboards.ca.gov",
+        visible: false
+    },
+    "FASS_Watersheds": {
+        url: "https://gispublic.waterboards.ca.gov/arcgis/rest/services/FASS/FASS_Watersheds/MapServer",
+        id: "FASS_Watersheds",
+        name: "FASS Watersheds",
+        tiled: false,
+        title: "FASS Watersheds for DWR",
+        tocgroup: "proj",
+        type: "MapServer map-image",
+        urid: "FASS_Watersheds",
+        visible: false
+    },
+    "Points_of_Diversion": {
+        url: "https://gispublic.waterboards.ca.gov/arcgis/rest/services/Water_Rights/Points_of_Diversion/MapServer",
+        id: "Points_of_Diversion",
+        name: "Points of Diversion",
+        tiled: false,
+        title: "Points of Diversion",
+        tocgroup: "proj",
+        type: "MapServer map-image",
+        urid: "Points_of_Diversion",
+        visible: false
+    }
 }
 var dfg = {
     id: "dfg",
@@ -153,7 +190,7 @@ var imaps = {
 };
 
 var lands = {
-    al: "DFG_Lands:0",
+    al: "DFG_Properties:0",
     bl: "topo",
     homepage: "https://www.wildlife.ca.gov/Lands",
     id: "lands",
@@ -173,9 +210,35 @@ var lands = {
             url: "https://map.dfg.ca.gov/arcgis/rest/services/Project_Lands/DFG_Lands/MapServer",
             visible: true
         },
+        "DFG_Properties": {
+            id: "CDFW_Properties",
+            name: "CDFW Properties",
+            tiled: false,
+            tocgroup: "proj",
+            type: "FeatureServer",
+            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/CDFW_Properties/FeatureServer",
+            visible: true
+        },
+        "DFG_Properties:2": {
+            id: "DFG_Properties:0",
+            name: "CDFW Regions",
+            tocgroup: "proj",
+            type: "feature",
+            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/2",
+            visible: false
+        },
+        "DFG_Properties:1": {
+            id: "DFG_Properties:1",
+            name: "CDFW Public Access Lands",
+            tocgroup: "proj",
+            type: "feature",
+            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/1",
+            visible: true
+        },
         "DFG_Properties:0": {
             id: "DFG_Properties:0",
             name: "CDFW Facilities",
+            tocgroup: "proj",
             type: "feature",
             url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
             visible: true

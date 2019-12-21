@@ -12,6 +12,7 @@ var dotvn = bvn + '.' + avday;
 var monthtally = (parseInt(avyear) - 13) * 12 + parseInt(avmonth);
 var sumvn = monthtally + '.' + avday;
 var appVersion = '5.' + subvn;
+var bios5version = '5.' + (parseInt(avn / 10000 - 2013) * 12 + parseInt(avn.toString().substr(4, 2))) + '.' + avn.toString().substr(6, 2);
 var rv = (Math.random() * 10).toFixed(5);
 var ssid = 't' + Date.now() + 'r' + parseInt(rv * 10000);
 //parseInt(Math.random() * 1000000);//=SESSIONID
