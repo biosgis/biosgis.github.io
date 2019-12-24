@@ -86,7 +86,7 @@ let app = {
     urid: "",
     url: window.location.href,
     urlsearch: null, //=FOR ONE TIME STORE OF LOCATION SEARCH PARAMS
-    agolname: "anonymous", //=guest
+    agolname: "anyone", //"anonymous", //=guest
     agolgroups: "Everyone", //=Public
     userName: "guest",
     userGroups: "Public",
