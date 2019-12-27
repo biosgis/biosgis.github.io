@@ -146,12 +146,12 @@ var imaps = {
             urid: "CongressionalDistricts",
             visible: true
         },
-        "DFG_Properties:0": {
-            id: "DFG_Properties:0",
-            name: "CDFW Facilities",
-            type: "feature",
-            urid: "Wetlands",
-            url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/DFG_Properties/FeatureServer/0",
+        "nlcd2016": {
+            id: "NLCD_2016_Land_Cover_L48",
+            name: "NLCD 2016 Land Cover Lower48",
+            type: "wms",
+            urid: "NLCD_2016_Land_Cover_L48",
+            url: "https://www.mrlc.gov/geoserver/mrlc_display/NLCD_2016_Land_Cover_L48/wms?service=WMS&request=GetCapabilities",
             visible: true
         },
         "Soil_Survey_Map": {
