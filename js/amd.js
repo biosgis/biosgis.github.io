@@ -661,7 +661,7 @@ window.addEventListener('load', function () {
     });
 });
 window.addEventListener('hashchange', function () {
-    //console.log('URLocation hash changed');
+    console.log('URLocation hash changed to ' + location.hash);
     if (location.hash.indexOf('msgx') >= 0) {
         let x = document.querySelectorAll('.msgx');
         x.forEach(function (item) {
@@ -669,7 +669,46 @@ window.addEventListener('hashchange', function () {
         });
         show('msgbar');
     }
+    var s = location.hash.substr(1);
+    urlcmd(s);
 });
+
+function urlcmd(s) {
+    if (s.indexOf('&') > 0) {
+        var kva = s.split('&');
+    } else {
+        var kva = [s];
+    }
+    for (var i = 0; i < kva.length; i++) {
+        kvp = kva[i];
+        if (kvp.indexOf('=') > 0) {
+            var keyval = kvp.split('=');
+            var key = keyval[0];
+            var val = keyval[1];
+            switch (key) {
+                case 'al':
+                    var dsid = isbiosds(val);
+                    addmsg('addActiveLayer biosdsid ' + dsid);
+                    break;
+                case 'bl':
+                    // code block
+                    break;
+                default:
+                    addmsg('DO urlcmd/keyvalpair= ' + keyval);
+            }
+        }
+    }
+}
+
+function isbiosds(s) {
+    s = s.toLowerCase();
+    var dsid = parseInt(s.replace('biosds', '').replace('ds', ''));
+    if (typeof (dsid) === 'number') {
+        return dsid;
+    } else {
+        return 0;
+    }
+}
 
 console.log('LOADED amd');
 /* 
