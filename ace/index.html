@@ -303,14 +303,15 @@
             <div class="yet">Under Construction</div>
             <article>
                 <h3 onclick="toggle('biosq-main')">
-                    BIOS Data Catalog
+                    BIOS Data Search
                 </h3>
                 <div class="padded" id="biosq-main">
-                    <input type="text" id="biosq">
+                    <input type="text" id="biosq"><span class="esri-icon-search"></span>
                     <div id="biosq-msg"></div>
-                    <ol id="biosq-list">
+                    <ol id="biosq-list" class="outdiv">
                     </ol>
-                    <ol id="biosq-all">
+                    <h4>Available BIOS Catalog Datasets (<span id="biosmancount"></span>)</h4>
+                    <ol id="biosq-all" class="outdiv">
                     </ol>
                 </div>
             </article>

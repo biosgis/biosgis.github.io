@@ -5,6 +5,7 @@ var GISSERVER = 'https://map.dfg.ca.gov';
 var configs = {
     "ace": {},
     "bios": {},
+    "bios6": {},
     "cwhr": {},
     "delta": {},
     "dfg": {},
@@ -65,6 +66,7 @@ configs.bios.layers = {
         visible: false
     }
 }
+configs.bios6 = configs.bios;
 var dfg = {
     id: "dfg",
     layers: {

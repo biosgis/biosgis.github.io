@@ -508,6 +508,13 @@ label.bb {
     padding: 5px;
 }
 
+.outdiv {
+    position: relative;
+    height: 50%;
+    overflow: auto;
+    margin: 5px;
+}
+
 .subdiv {
     position: relative;
     clear: both;

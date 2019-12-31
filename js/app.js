@@ -155,15 +155,15 @@ app.site = function () {
     return y;
 }();
 console.log('app.site=' + app.site);
-if (location.search.indexOf('viewer=') > 0) {
+if (configs[app.site] != undefined) {
+    viewer = configs[app.site];
+    viewer.layers = configs[app.site].layers;
+} else if (location.search.indexOf('viewer=') > 0) {
     app.viewer = location.search.split('viewer=')[1].split('&')[0];
     if (configs[app.viewer] != undefined) {
         viewer = configs[app.viewer];
         viewer.layers = configs[app.viewer].layers;
     }
-} else if (configs[app.site] != undefined) {
-    viewer = configs[app.site];
-    viewer.layers = configs[app.site].layers;
 } else {
     viewer = configs.bios;
     viewer.layers = configs.bios.layers;
@@ -229,6 +229,21 @@ app.initLayers = function () {
     addMapImageLayer(jo);
 }
 window.addEventListener('load', function () {
+    console.log('DO appWindowOnload');
+    // VIEWER CONFIG
+    document.title = viewer.name;
+    $('apphome').href = viewer.homepage;
+    $('apphome').target = '_blank';
+    $('apphome').title = viewer.name + ' homepage';
+    $('applogo').src = viewer.logo;
+    if (viewer.id === 'ace') {
+        $('applogo').style.height = '80px';
+        $('applogo').style.marginTop = '-15px';
+    }
+    $('appname').innerHTML = viewer.name;
+    $('appname').title = viewer.title;
+    $('apptitle').innerHTML = viewer.title;
+    $('apptitle').title = viewer.name;
     if (window.Worker) {
         var myWorker = new Worker('../js/worker.js');
         var first = $('devin1');
@@ -249,19 +264,5 @@ window.addEventListener('load', function () {
             $('devout').value = e.data;
         }
     }
-    // VIEWER CONFIG
-    document.title = viewer.name;
-    $('apphome').href = viewer.homepage;
-    $('apphome').target = '_blank';
-    $('apphome').title = viewer.name + ' homepage';
-    $('applogo').src = viewer.logo;
-    if (viewer.id === 'ace') {
-        $('applogo').style.height = '80px';
-        $('applogo').style.marginTop = '-15px';
-    }
-    $('appname').innerHTML = viewer.name;
-    $('appname').title = viewer.title;
-    $('apptitle').innerHTML = viewer.title;
-    $('apptitle').title = viewer.name;
 });
 console.log('Loaded app');
