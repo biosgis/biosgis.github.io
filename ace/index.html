@@ -28,8 +28,8 @@
     <script>
         DEFAULT_PAGE = 'index.html';
         var cssfiles = ['mapp.css'];
-        var jsfiles = ['abide.js', 'config.js', 'ace.js', 'bb.js', 'biosv.js',
-            'tests.js', 'toc.js', 'tools.js', 'tv.js', 'app.js', 'amd.js'
+        var jsfiles = ['abide.js', 'config.js', 'app.js', 'ace.js', 'bb.js', 'biosv.js',
+            'tests.js', 'toc.js', 'tools.js', 'tv.js', 'amd.js'
         ];
         for (var i = 0; i < cssfiles.length; i++) {
             let x = document.createElement('link');
@@ -302,11 +302,16 @@
         <div class="maindiv">
             <div class="yet">Under Construction</div>
             <article>
-                <h3>
+                <h3 onclick="toggle('biosq-main')">
                     BIOS Data Catalog
                 </h3>
-                <div class="padded">
+                <div class="padded" id="biosq-main">
                     <input type="text" id="biosq">
+                    <div id="biosq-msg"></div>
+                    <ol id="biosq-list">
+                    </ol>
+                    <ol id="biosq-all">
+                    </ol>
                 </div>
             </article>
         </div>

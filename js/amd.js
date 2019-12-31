@@ -538,6 +538,7 @@ let amdfun = function (
      });*/
     app.initLayers();
     //=== INIT TOOLS
+    bsinit();
     //-- INIT BIOSBOOKMARKS
     initbb();
     // WHEN LAYER IS CREATED MAKE APP INDEX AND ZOOM TO ACTIVELAYER
