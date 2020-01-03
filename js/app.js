@@ -155,15 +155,16 @@ app.site = function () {
     return y;
 }();
 console.log('app.site=' + app.site);
-if (configs[app.site] != undefined) {
-    viewer = configs[app.site];
-    viewer.layers = configs[app.site].layers;
-} else if (location.search.indexOf('viewer=') > 0) {
+if (location.search.indexOf('viewer=') > 0) {
     app.viewer = location.search.split('viewer=')[1].split('&')[0];
     if (configs[app.viewer] != undefined) {
         viewer = configs[app.viewer];
         viewer.layers = configs[app.viewer].layers;
     }
+} else if (configs[app.site] != undefined) {
+    viewer = configs[app.site];
+    viewer.layers = configs[app.site].layers;
+    app.viewer = app.site;
 } else {
     viewer = configs.bios;
     viewer.layers = configs.bios.layers;

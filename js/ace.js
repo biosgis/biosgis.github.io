@@ -83,6 +83,9 @@ ace.layers = {
     }
 };
 configs.ace = ace;
+if (app.viewer === 'ace') {
+    viewer = ace;
+}
 ace.init = function () {
     addmsg('DO ace.init');
     tocAddLayers(ace.layers);
