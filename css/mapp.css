@@ -185,6 +185,11 @@ ol.pl {
     padding: 0;
 }
 
+output {
+    font-style: italic;
+    margin: 1px 5px;
+}
+
 li.pl {
     border: 1px solid gainsboro;
     border-width: 1px 0;
@@ -509,6 +514,7 @@ label.bb {
 }
 
 .outdiv {
+    border: 1px solid silver;
     position: relative;
     height: 50%;
     overflow: auto;

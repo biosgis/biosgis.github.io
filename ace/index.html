@@ -306,14 +306,21 @@
                     BIOS Data Search
                 </h3>
                 <div class="padded" id="biosq-main">
-                    <input type="text" id="biosq"><span class="esri-icon-search"></span>
+                    <input type="text" id="biosq">&nbsp;<span class="esri-icon-search"></span>
+                    <div>
+                        Searched <i id="bsqued"></i>&nbsp;
+                        returned <i id="bscount"></i> layers&nbsp;
+                        <span class="msgx">
+                            by attributes: <i id="bsmanfields"></i>
+                        </span>
+                    </div>
                     <div id="biosq-msg"></div>
-                    <ol id="biosq-list" class="outdiv">
+                    <ol id="biosq-list" class="outdiv" style="padding-left: 3em;">
                     </ol>
                     <h4 onclick="toggle('biosq-all')">
                         Available BIOS Catalog Datasets (<span id="biosmancount"></span>)
                     </h4>
-                    <ol id="biosq-all" class="outdiv">
+                    <ol id="biosq-all" class="outdiv" style="padding-left: 3em;">
                     </ol>
                 </div>
             </article>
