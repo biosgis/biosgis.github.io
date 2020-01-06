@@ -44,7 +44,8 @@ let amdlibs = [
     "esri/widgets/Home",
     "esri/widgets/Legend",
     "esri/widgets/FeatureForm",
-    "esri/widgets/ScaleBar"
+    "esri/widgets/ScaleBar",
+    "dgrid/Grid"
 ];
 let amdfun = function (
     esriConfig,
@@ -75,7 +76,8 @@ let amdfun = function (
     Expand, Home,
     Legend,
     FeatureForm,
-    ScaleBar
+    ScaleBar,
+    Grid
 ) {
     esriConfig.geometryServiceUrl = "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer";
     //esriConfig.portalUrl = "https://cdfw.maps.arcgis.com";
@@ -349,6 +351,38 @@ let amdfun = function (
                 params.height = view.height;
                 executeIdentifyTask(event);
             }
+            /*************************
+             * Create a point graphic--20200106
+             *************************/
+            // First create a point geometry (this is the location of the Titanic)
+            var point = {
+                type: "point", // autocasts as new Point()
+                longitude: event.mapPoint.longitude,
+                latitude: event.mapPoint.latitude
+                //x: event.mapPoint.x,
+                //y: event.mapPoint.y
+            };
+            // Create a symbol for drawing the point
+            var markerSymbol = {
+                size: 14,
+                //style: "x",
+                type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+                color: [255, 255, 255, 0.55],
+                outline: {
+                    // autocasts as new SimpleLineSymbol()
+                    color: "hotpink", //[255, 255, 255],
+                    width: 2
+                }
+            };
+            // Create a graphic and add the geometry and symbol to it
+            var pointGraphic = new Graphic({
+                geometry: point,
+                symbol: markerSymbol
+            });
+            // Add the graphics to the view's graphics layer
+            //view.graphics.addMany([pointGraphic]);
+            view.graphics.removeAll();
+            view.graphics.add(pointGraphic);
         });
         view.watch("scale", function (newValue, oldValue, propertyName, target) {
             //console.log(propertyName + " changed from " + oldValue + " to " + newValue);//scale changed from

@@ -118,12 +118,13 @@ function bsinit() {
 
 function bslist(features, list) {
     addmsg('DO bslist: ' + features.length + ' items into ' + list.id);
-    var k = list.length;
+    var k = list.children.length;
     for (var i = 0; i < features.length; i++) {
         var attr = features[i].attributes;
         //for (key in attr) {
         //    console.log(key + '=' + attr[key]);
         //}
+        var oid = attr['OBJECTID'];
         var dsid = attr['DataSourceID'];
         var dsname = attr['DataSourceName'];
         var dssec = attr['SecurityGroups'];
@@ -137,42 +138,48 @@ function bslist(features, list) {
         //if (i === 0) {
         //    addmsg('biosids=' + biosids);
         //}
+        console.log([dsname, oid]);
+        var item = document.createElement('li');
+        // TODO--ON HOVER IVORY HIGHLIGHT ITEM
+        var labeler = document.createElement('label');
+        labeler.innerHTML = dsname;
+        item.appendChild(labeler);
+        var ftyper = document.createElement('span');
+        let esricon = ESRI_ICON_FTYPES[dstype];
+        //if (i === 0) {
+        //    addmsg('esricon=' + esricon);
+        //}
+        ftyper.classList.add(esricon);
+        ftyper.title = dstype;
+        item.appendChild(ftyper);
+        var adder = document.createElement('button');
+        adder.style.borderColor = 'transparent';
+        adder.classList.add('esri-icon-plus');
+        adder.value = biosids;
+        item.appendChild(adder);
+        var qinfo = document.createElement('span');
+        qinfo.classList.add('esri-icon-documentation');
+        //qinfo.title = 'About ds' + dsid;
+        qinfo.title = abst; // TODO--MOVE THIS OUT TO ITS OWN PANEL OF ALL ABSTRACTS
+        // TODO--CLICK BUTTON TO SEE ABSTRACT, PURPOSE, OR MINI-METADATA
+        item.appendChild(qinfo);
         if (list.id === 'biosq-all') {
-            var itemid = 'biosmanoid-' + attr['OBJECTID'];
-        } else if (list.id === 'biosq-list') {
-            var itemid = 'bsid-' + attr['OBJECTID'];
-        }
-        if ($(itemid) === null) {
-            var item = document.createElement('li');
+            var itemid = 'biosmanoid-' + oid;
             item.id = itemid;
-            // TODO--ON HOVER IVORY HIGHLIGHT ITEM
-            var labeler = document.createElement('label');
-            labeler.innerHTML = dsname;
-            item.appendChild(labeler);
-            var ftyper = document.createElement('span');
-            let esricon = ESRI_ICON_FTYPES[dstype];
-            //if (i === 0) {
-            //    addmsg('esricon=' + esricon);
-            //}
-            ftyper.classList.add(esricon);
-            ftyper.title = dstype;
-            item.appendChild(ftyper);
-            var adder = document.createElement('button');
-            adder.style.borderColor = 'transparent';
-            adder.classList.add('esri-icon-plus');
-            adder.value = biosids;
-            item.appendChild(adder);
-            var qinfo = document.createElement('span');
-            qinfo.classList.add('esri-icon-documentation');
-            //qinfo.title = 'About ds' + dsid;
-            qinfo.title = abst; // TODO--MOVE THIS OUT TO ITS OWN PANEL OF ALL ABSTRACTS
-            // TODO--CLICK BUTTON TO SEE ABSTRACT, PURPOSE, OR MINI-METADATA
-            item.appendChild(qinfo);
             list.appendChild(item);
             k = k + 1;
+        } else if (list.id === 'biosq-list') {
+            var itemid = 'bsid-' + oid;
+            if ($(itemid) === null) {
+                item.id = itemid;
+                list.appendChild(item);
+                k = k + 1;
+            }
         }
     }
-    $('bscount').innerHTML = list.length;
+    if (list.children.length > 0) {
+        $('bscount').innerHTML = list.children.length;
+    }
     return k;
 }
 
@@ -217,6 +224,7 @@ function bstitle(q) {
         //$('biosq-msg').appendChild(list);
         var features = result.features;
         var k = bslist(features, list);
+        addmsg(k + ' result bslisted');
         $('bsmanfields').innerHTML += ' DataSourceName,';
         bsabstract(q);
     });
@@ -246,6 +254,7 @@ function bstype(q) {
         list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
+        addmsg(k + ' result bslisted');
         $('bsmanfields').innerHTML += ' DataSourceType';
     });
 }
@@ -275,6 +284,7 @@ function bskeywords(q) {
         list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
+        addmsg(k + ' result bslisted');
         $('bsmanfields').innerHTML += ' Keywords, BIOSKeywords,';
     });
 }
@@ -307,6 +317,7 @@ function bsabstract(q) {
         list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
+        addmsg(k + ' result bslisted');
         $('bsmanfields').innerHTML += ' Abstract,';
         bspurpose(q);
     });
@@ -340,6 +351,7 @@ function bspurpose(q) {
         list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
+        addmsg(k + ' result bslisted');
         $('bsmanfields').innerHTML += ' purpose,';
         bscontribs(q);
     });
@@ -375,6 +387,7 @@ function bscontribs(q) {
         list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
+        addmsg(k + ' result bslisted');
         $('bsmanfields').innerHTML += ' Contributor_Email, Contributor_Organization, Contributor_Email';
     });
 }

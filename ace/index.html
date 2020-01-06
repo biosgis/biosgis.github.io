@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
-    <script src="https://js.arcgis.com/4.13/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.14/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.14/"></script>
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <script>
         DEFAULT_PAGE = 'index.html';
@@ -306,10 +306,12 @@
                     BIOS Data Search
                 </h3>
                 <div class="padded" id="biosq-main">
-                    <input type="text" id="biosq">&nbsp;<span class="esri-icon-search"></span>
+                    <span class="esri-icon-erase" onclick="$('biosq').value='';$('biosq').focus()"></span>
+                    <input type="text" id="biosq" style="margin: 0 5px 2px 5px;">
+                    <span class="esri-icon-search"></span>
                     <div>
-                        Searched <i id="bsqued"></i>&nbsp;
-                        returned <i id="bscount"></i> layers&nbsp;
+                        Searched <i id="bsqued">?</i>&nbsp;
+                        returned <i id="bscount">0</i> layers&nbsp;
                         <span class="msgx">
                             by attributes: <i id="bsmanfields"></i>
                         </span>
@@ -317,11 +319,21 @@
                     <div id="biosq-msg"></div>
                     <ol id="biosq-list" class="outdiv" style="padding-left: 3em;">
                     </ol>
-                    <h4 onclick="toggle('biosq-all')">
-                        Available BIOS Catalog Datasets (<span id="biosmancount"></span>)
-                    </h4>
-                    <ol id="biosq-all" class="outdiv" style="padding-left: 3em;">
-                    </ol>
+                    <article>
+                        <h4 onclick="toggle('biosq-all')">
+                            Available BIOS Catalog Datasets (<span id="biosmancount"></span>)
+                        </h4>
+                        <ol id="biosq-all" class="outdiv" style="padding-left: 5em;">
+                        </ol>
+                    </article>
+                    <article style="background-color: floralwhite; display: none; position: absolute; bottom: 0; height: 40%;">
+                        <h4>
+                            About the BIOS Layer ds<i id="metadsid"></i>
+                            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+                        </h4>
+                        <ol id="biosq-ls" class="outdiv" style="padding-left: 3em;">
+                        </ol>
+                    </article>
                 </div>
             </article>
         </div>
