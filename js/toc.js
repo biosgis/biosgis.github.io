@@ -1,12 +1,14 @@
 // toc.js 20191104 dfgchiang
 console.log('Loading toc');
+// TODO--CONSTRUCT TOC AS AN ESRICOLLECTION OBJECT?
 var toc = {
     created: 20191030,
     id: "toc",
     name: "contents",
     title: "Contents",
     urid: "",
-    uridlast: ""
+    uridlast: "",
+    urids: ['basemap']
 };
 //=================
 // TOC CONTENTS

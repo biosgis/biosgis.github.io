@@ -122,7 +122,32 @@ function navview(id) {
         }
     }
 }
-//************************************************** NOT YET
+/***********************************************
+ *** NOT YET *** 
+ ***********************************************/
+function reqlayerinfo(urid, url) {
+    // Get related extended table info and save into app and dom--20180306
+    asRequest(url, {
+        responseType: "json"
+    }).then(function (response) {
+        var type = null;
+        if (response.type !== undefined) {
+            type = response.type;
+        }
+        var displayField = null;
+        if (response.displayField !== undefined) {
+            displayField = response.displayField;
+            app.alayer.dfield = displayField;
+        }
+        var relationships = null;
+        if (response.relationships !== undefined) {
+            relationships = response.relationships;
+            var urel = url.split('Server/')[0] + 'Server/' + relationships.relatedTableId;
+            var keyfield = relationships.keyField; //Hex_ID
+        }
+    });
+}
+
 function qrelated(reltblid, fieldname, val, orid) {
     addmsg('DO queryRelatedRestfully...');
     // #ace3-relationships-20171019
