@@ -125,6 +125,66 @@ function navview(id) {
 /***********************************************
  *** NOT YET *** 
  ***********************************************/
+function queryalf(ar) {
+    // Query activelayer feature by user input like a map click 20180816
+    addmsg('DO queryalf: activeFeatureLayer.geometryType= ' + activeLayer.geometryType); //point | mulitpoint | polyline | polygon | extent | mesh
+    // Get a query object for the layer's current configuration
+    let queryParams = activeLayer.createQuery();
+    queryParams.outFields = ['*'];
+    if (ar.geometry !== undefined && ar.geometry !== null) {
+        // set a geometry for filtering features by a region of interest
+        queryParams.geometry = ar.geometry;
+    }
+    if (ar.where !== undefined && ar.where !== null) {
+        // Add to the layer's current definitionExpression
+        queryParams.where = queryParams.where + ' AND ' + ar.where; // " AND TYPE = 'Extreme'";
+    }
+    // query the layer with the modified params object
+    activeLayer.queryFeatures(queryParams).then(function (results) {
+        // prints the array of result graphics to the console
+        //console.log('results.features=' + results.features);//FAIL IF RESULTISNONE
+        addmsg('CALLBACK queryalf/results(FeatureSet).features len=' + results.features.length);
+        //addmsg('results.displayFieldName=' + results.displayFieldName);
+        //addmsg('results.geometryType=' + results.geometryType);
+        //addmsg('results.fields[1].fieldName=' + results.fields[1].fieldName);
+        //addmsg('results.features[0].attributes[results.displayFieldName]=' + results.features[0].attributes[results.displayFieldName]);
+        //addmsg('results.fields=' + JSON.stringify(results.fields));
+        //addmsg('results.features[0].attributes=' + JSON.stringify(results.features[0].attributes));
+        var msg = resultput(results);
+        addmsg('Results written: ' + msg);
+    });
+}
+
+function queryalm(ar) {
+    // Query activelayer mapimage sublayer by user input like idclick 20180904
+    addmsg('DO queryalm: activeMapImageLayer.url=' + activeLayer.url);
+    //let query = {
+    //    geometry: ar.geometry,
+    //    outFields: ["*"]
+    //};
+    let query = new Query();
+    query.returnGeometry = true;
+    if (ar.geometry !== undefined && ar.geometry !== null) {
+        query.geometry = ar.geometry;
+    }
+    if (ar.where !== undefined && ar.where !== null) {
+        query.where = queryParams.where + ' AND ' + ar.where;
+    }
+    query.outFields = ['*'];
+    let queryTask = new QueryTask({
+        url: app.alayer.url
+    });
+    queryTask.execute(query).then(function (results) {
+        //console.log(results.features);
+        addmsg('CALLBACK queryalm/results(FeatureSet).features len=' + results.features.length);
+        var msg = resultput(results);
+        addmsg('Results written: ' + msg);
+    });
+    queryTask.executeForCount(query).then(function (results) {
+        console.log(results);
+    });
+}
+
 function reqlayerinfo(urid, url) {
     // Get related extended table info and save into app and dom--20180306
     asRequest(url, {
