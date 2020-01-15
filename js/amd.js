@@ -20,6 +20,10 @@ let amdlibs = [
     "esri/core/urlUtils",
     "esri/core/watchUtils",
     "esri/core/workers",
+    "esri/portal/Portal",
+    "esri/identity/OAuthInfo",
+    "esri/identity/IdentityManager",
+    "esri/portal/PortalQueryParams",
     "esri/geometry/Point",
     "esri/geometry/Polygon",
     "esri/geometry/geometryEngine",
@@ -53,8 +57,10 @@ let amdfun = function (
     Graphic,
     Map,
     WebMap,
-    urlUtils, watchUtils,
+    urlUtils,
+    watchUtils,
     workers,
+    Portal, OAuthInfo, esriId, PortalQueryParams,
     Point,
     Polygon,
     geometryEngine,
@@ -93,6 +99,87 @@ let amdfun = function (
     EsriQueryTask = QueryTask;
     EsriQuery = Query;
     EsriTileLayer = TileLayer;
+    //--- ESRI IDENTITY MANAGER OAUTH LOGIN SAMPLE--2020.01.14
+    var personalPanelElement = document.getElementById("personalizedPanel");
+    var anonPanelElement = document.getElementById("anonymousPanel");
+    var userIdElement = document.getElementById("userId");
+
+    var authinfo = new OAuthInfo({
+        // Swap this ID out with registered application ID
+        appId: "O59X894aUmrlXei5",
+        // Uncomment the next line and update if using your own portal
+        // portalUrl: "https://<host>:<port>/arcgis"
+        // Uncomment the next line to prevent the user's signed in state from being shared with other apps on the same domain with the same authNamespace value.
+        // authNamespace: "portal_oauth_inline",
+        popup: false
+    });
+    esriId.registerOAuthInfos([authinfo]);
+
+    esriId
+        .checkSignInStatus(authinfo.portalUrl + "/sharing")
+        .then(function () {
+            displayItems();
+        })
+        .catch(function () {
+            // Anonymous view
+            anonPanelElement.style.display = "block";
+            personalPanelElement.style.display = "none";
+        });
+
+    document
+        .getElementById("sign-in")
+        .addEventListener("click", function () {
+            // user will be redirected to OAuth Sign In page
+            esriId.getCredential(authinfo.portalUrl + "/sharing");
+        });
+
+    document
+        .getElementById("sign-out")
+        .addEventListener("click", function () {
+            esriId.destroyCredentials();
+            window.location.reload();
+        });
+
+    function displayItems() {
+        var portal = new Portal();
+        // Setting authMode to immediate signs the user in once loaded
+        portal.authMode = "immediate";
+        // Once loaded, user is signed in
+        portal.load().then(function () {
+            // Create query parameters for the portal search
+            var queryParams = new PortalQueryParams({
+                query: "owner:" + portal.user.username,
+                sortField: "numViews",
+                sortOrder: "desc",
+                num: 20
+            });
+            userIdElement.innerHTML = portal.user.username;
+            anonPanelElement.style.display = "none";
+            personalPanelElement.style.display = "block";
+
+            // Query the items based on the queryParams created from portal above
+            portal.queryItems(queryParams).then(createGallery);
+        });
+    }
+
+    function createGallery(items) {
+        var htmlFragment = "";
+        items.results.forEach(function (item) {
+            htmlFragment +=
+                '<div class="esri-item-container">' +
+                (item.thumbnailUrl ?
+                    '<div class="esri-image" style="background-image:url(' +
+                    item.thumbnailUrl +
+                    ');"></div>' :
+                    '<div class="esri-image esri-null-image">Thumbnail not available</div>') +
+                (item.title ?
+                    '<div class="esri-title">' + (item.title || "") + "</div>" :
+                    '<div class="esri-title esri-null-title">Title not available</div>') +
+                "</div>";
+        });
+        document.getElementById("itemGallery").innerHTML = htmlFragment;
+    }
+
     //--- CSVLAYER
     const csvurl =
         "https://arcgis.github.io/arcgis-samples-javascript/sample-data/hurricanes.csv";

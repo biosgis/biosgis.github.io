@@ -1,0 +1,48 @@
+/* esrian.css 2020.01.14 dfgchiang 
+ArcGIS JSAPI Samples Styles */
+
+/* [Access ArcGIS Online items using OAuthentication](https://developers.arcgis.com/javascript/latest/sample-code/identity-oauth-basic/index.html) 2020.01.14 */
+.esri-item-gallery .esri-item-container {
+    float: left;
+    text-align: center;
+    padding: 10px;
+    width: 204px;
+    display: inline-block;
+}
+
+.esri-item-gallery .esri-image {
+    width: 100px;
+    /* 200px;*/
+    height: 66px;
+    /*133px;*/
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+.esri-item-gallery .esri-null-image {
+    line-height: 66px;
+    /*133px;*/
+    text-align: center;
+    color: #999999;
+}
+
+.esri-item-gallery .esri-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.esri-item-gallery .esri-null-title {
+    color: #999999;
+}
+
+.action {
+    color: darkslateblue;
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: underline;
+}
+
+.f1 {
+    font-size: 1em;
+}

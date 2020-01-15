@@ -27,7 +27,7 @@
     <script src="https://dfgchiang.github.io/js/abc.js"></script>
     <script>
         DEFAULT_PAGE = 'index.html';
-        var cssfiles = ['mapp.css'];
+        var cssfiles = ['esrian.css', 'mapp.css'];
         var jsfiles = ['abide.js', 'config.js', 'app.js', 'ace.js', 'bb.js', 'biosv.js',
             'tests.js', 'toc.js', 'tools.js', 'tv.js', 'amd.js'
         ];
@@ -302,6 +302,12 @@
         <div class="maindiv">
             <div class="yet">Under Construction</div>
             <article>
+                <h3>
+                    ArcGIS Online Portal Gallery
+                </h3>
+                <div id="itemGallery" class="esri-item-gallery" style="width: 100%;"></div>
+            </article>
+            <article>
                 <h3 onclick="toggle('biosq-main')">
                     BIOS Data Search
                 </h3>
@@ -347,7 +353,7 @@
         <div class="maindiv">
             <article>
                 <h4 id="toc-al" onclick="toggle('al-layers')">
-                    Active/Selected/Target Layer
+                    Active Selected Target Layer
                 </h4>
                 <div id="al-layers" class="padded">
                     <label class="atool"></label>
@@ -696,6 +702,16 @@
         </h2>
         <div class="maindiv">
             <ol class="menu" onclick="this.parentNode.parentNode.style.display='none'">
+                <li onclick="" title="ArcIGS Online Login">
+                    <div id="anonymousPanel" style="display: none; padding: 5px; text-align: center;">
+                        <span id="sign-in" class="action f1">Sign In</span> to ArcGIS Online
+                    </div>
+                    <div id="personalizedPanel" style="display: none; padding: 5px; text-align: center;">
+                        Welcome <span id="userId" class="f1" style="font-weight: bold;"></span>
+                        <span class="esri-icon-user"></span><br>
+                        <span id="sign-out" class="action f1">Sign Out</span>
+                    </div>
+                </li>
                 <li onclick="navview('basemaps')" title="Basemap Gallery">
                     <span class="esri-icon-basemap"></span>
                     <label>Basemaps</label>
