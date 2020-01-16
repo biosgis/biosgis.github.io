@@ -622,7 +622,8 @@ let amdfun = function (
                 id: 3,
                 visible: true
             }
-        ]
+        ],
+        visible: false
     });
     map.add(usalayer)
     /*****************************************************************

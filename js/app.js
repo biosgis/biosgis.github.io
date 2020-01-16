@@ -265,5 +265,6 @@ window.addEventListener('load', function () {
             $('devout').value = e.data;
         }
     }
+    $('addurl').value = 'https://gispublic.waterboards.ca.gov/arcgis/rest/services/Water_Rights/Points_of_Diversion/MapServer';
 });
 console.log('Loaded app');
