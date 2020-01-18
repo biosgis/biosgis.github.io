@@ -61,7 +61,7 @@
             }, t);
             om = poplinks();
             jtests();
-            if (getCookie('ssid') === null) {
+            if (getCookie('ssid') === null || getCookie('ssid') === undefined) {
                 setCookie('ssid', ssid, 90);
                 console.log('ssid=' + ssid);
             } else {
@@ -70,7 +70,8 @@
             }
             $('ssid').value = ssid;
             $('bvn').innerHTML = 'v6.' + bvn;
-            $('ymdvn').innerHTML = ymdvn;
+            $('dotvn').innerHTML = dotvn;
+            $('ymdvn').innerHTML = dotvn;
             $('sessionid').innerHTML = ssid;
             $('splash-ok').focus();
             hide('loadingbar');
@@ -845,6 +846,7 @@
 
                     </script>
                     <span id="sessionid"></span>
+                    v<span id="dotvn"></span>
                 </div>
                 <hr>
             </div>

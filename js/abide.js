@@ -2,7 +2,7 @@
 // All Basic App Setup and Universal Functions
 console.log('Loading abide.js');
 //==== GLOBAL VARIABLES
-var avn = 20200115;
+var avn = 20200117;
 var avyear = avn.toString().substr(2, 2);
 var avmonth = avn.toString().substr(4, 2);
 var avday = avn.toString().substr(6, 2);

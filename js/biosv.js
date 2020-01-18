@@ -101,15 +101,7 @@ function bsinit() {
         var kc = (event.keyCode || event.which);
         if (kc === 13) {
             if (this.value !== '') {
-                var s = decodeURIComponent(this.value);
-                var q = s.trim();
-                if (q === '') {
-                    var msg = 'Please enter a non-blank search string';
-                    $('biosq-msg').innerHTML = msg;
-                    return;
-                } else {
-                    bsque(q);
-                }
+                bsque(this.value);
             }
         }
     }
@@ -183,7 +175,15 @@ function bslist(features, list) {
     return k;
 }
 
-function bsque(q) {
+function bsque(s) {
+    var s = decodeURIComponent(s);
+    s = s.replace(/\+/g, ' ');
+    var q = s.trim();
+    if (q === '') {
+        var msg = 'Please enter a non-blank search string';
+        $('biosq-msg').innerHTML = msg;
+        return;
+    }
     bs.biosman.oids = [];
     $('bsqued').innerHTML = '';
     $('bscount').innerHTML = '';

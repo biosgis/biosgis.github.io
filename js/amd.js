@@ -816,6 +816,10 @@ function urlcmd(s) {
                 case 'bl':
                     // code block
                     break;
+                case 'biosq':
+                    $('biosq').value = val;
+                    bsque(val);
+                    break;
                 default:
                     addmsg('DO urlcmd/keyvalpair= ' + keyval);
             }
