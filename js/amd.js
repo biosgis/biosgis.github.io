@@ -156,7 +156,7 @@ let amdfun = function (
             userIdElement.innerHTML = portal.user.username;
             anonPanelElement.style.display = "none";
             personalPanelElement.style.display = "block";
-
+            $('agolname').value = portal.user.username;
             // Query the items based on the queryParams created from portal above
             portal.queryItems(queryParams).then(createGallery);
         });

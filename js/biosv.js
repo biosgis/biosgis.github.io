@@ -90,7 +90,8 @@ function bsall() {
         list.innerHTML = '';
         //$('biosq-msg').appendChild(list);
         var features = result.features;
-        var k = bslist(features, list);
+        var k = bslist(features, list); //FAILS TO FINISH LISTING ALL RETURNED ITEMS
+        addmsg('biosq-all list items = ' + $('biosq-list').children.length);
         bs.biosman.features = features;
     });
 }
@@ -109,8 +110,9 @@ function bsinit() {
 }
 
 function bslist(features, list) {
-    addmsg('DO bslist: ' + features.length + ' items into ' + list.id);
+    addmsg('DO bslist: ' + features.length + ' items possible for ' + list.id);
     var k = list.children.length;
+    addmsg('Current ' + list.id + ' has ' + k + ' items');
     for (var i = 0; i < features.length; i++) {
         var attr = features[i].attributes;
         //for (key in attr) {
@@ -168,7 +170,13 @@ function bslist(features, list) {
                 k = k + 1;
             }
         }
+        if (i === (features.length - 1)) {
+            $('bscount').innerHTML = list.children.length;
+        }
     }
+    addmsg('list.children.length=' + list.children.length);
+    addmsg('k-count=' + k);
+    //addmsg('list.length=' + list.length);//=UNDEFINED
     if (list.children.length > 0) {
         $('bscount').innerHTML = list.children.length;
     }
@@ -211,7 +219,7 @@ function bstitle(q) {
         //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
         //$('biosq-msg').innerHTML = msg;
         $('bsqued').innerHTML = q;
-        $('bscount').innerHTML = count;
+        //$('bscount').innerHTML = count;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bstitle oids.len=' + ids.length);
@@ -221,10 +229,10 @@ function bstitle(q) {
         addmsg('CALLBACK biosv.bstitle/querytask: results= ' + result.features.length);
         var list = $('biosq-list'); // document.createElement('ol');
         list.innerHTML = '';
-        //$('biosq-msg').appendChild(list);
         var features = result.features;
         var k = bslist(features, list);
         addmsg(k + ' result bslisted');
+        //$('bscount').innerHTML = $('biosq-list').children.length;
         $('bsmanfields').innerHTML += ' DataSourceName,';
         bsabstract(q);
     });
@@ -242,7 +250,7 @@ function bstype(q) {
         //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
         //$('biosq-msg').innerHTML = msg;
         $('bsqued').innerHTML = q;
-        $('bscount').innerHTML = count;
+        //$('bscount').innerHTML = count;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bstype oids.len=' + ids.length);
@@ -255,6 +263,7 @@ function bstype(q) {
         var features = result.features;
         var k = bslist(features, list);
         addmsg(k + ' result bslisted');
+        //$('bscount').innerHTML = $('biosq-list').children.length;
         $('bsmanfields').innerHTML += ' DataSourceType';
     });
 }
@@ -272,7 +281,7 @@ function bskeywords(q) {
         //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
         //$('biosq-msg').innerHTML = msg;
         $('bsqued').innerHTML = q;
-        $('bscount').innerHTML = count;
+        //$('bscount').innerHTML = count;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bstype oids.len=' + ids.length);
@@ -285,6 +294,7 @@ function bskeywords(q) {
         var features = result.features;
         var k = bslist(features, list);
         addmsg(k + ' result bslisted');
+        //$('bscount').innerHTML = $('biosq-list').children.length;
         $('bsmanfields').innerHTML += ' Keywords, BIOSKeywords,';
     });
 }
@@ -305,7 +315,7 @@ function bsabstract(q) {
         //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
         //$('biosq-msg').innerHTML = msg;
         $('bsqued').innerHTML = q;
-        $('bscount').innerHTML = count;
+        //$('bscount').innerHTML = count;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bsabstract oids.len=' + ids.length);
@@ -318,6 +328,7 @@ function bsabstract(q) {
         var features = result.features;
         var k = bslist(features, list);
         addmsg(k + ' result bslisted');
+        //$('bscount').innerHTML = $('biosq-list').children.length;
         $('bsmanfields').innerHTML += ' Abstract,';
         bspurpose(q);
     });
@@ -339,7 +350,7 @@ function bspurpose(q) {
         //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
         //$('biosq-msg').innerHTML = msg;
         $('bsqued').innerHTML = q;
-        $('bscount').innerHTML = count;
+        //$('bscount').innerHTML = count;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bspurpose oids.len=' + ids.length);
@@ -352,6 +363,7 @@ function bspurpose(q) {
         var features = result.features;
         var k = bslist(features, list);
         addmsg(k + ' result bslisted');
+        //$('bscount').innerHTML = $('biosq-list').children.length;
         $('bsmanfields').innerHTML += ' purpose,';
         bscontribs(q);
     });
@@ -375,7 +387,7 @@ function bscontribs(q) {
         //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
         //$('biosq-msg').innerHTML = msg;
         $('bsqued').innerHTML = q;
-        $('bscount').innerHTML = count;
+        //$('bscount').innerHTML = count;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bscontribs oids.len=' + ids.length);
@@ -388,6 +400,7 @@ function bscontribs(q) {
         var features = result.features;
         var k = bslist(features, list);
         addmsg(k + ' result bslisted');
+        //$('bscount').innerHTML = $('biosq-list').children.length;
         $('bsmanfields').innerHTML += ' Contributor_Email, Contributor_Organization, Contributor_Email';
     });
 }

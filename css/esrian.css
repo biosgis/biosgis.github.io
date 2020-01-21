@@ -39,10 +39,6 @@ ArcGIS JSAPI Samples Styles */
 .action {
     color: darkslateblue;
     cursor: pointer;
-    font-size: 1em;
+    font-size: smaller;
     text-decoration: underline;
-}
-
-.f1 {
-    font-size: 1em;
 }

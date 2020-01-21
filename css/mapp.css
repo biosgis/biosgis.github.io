@@ -179,6 +179,10 @@ ol.menu span {
     font-size: 1.23em;
 }
 
+ol.menu span.action {
+    font-size: smaller;
+}
+
 ol.pl {
     list-style: none;
     margin: 0;
@@ -422,6 +426,10 @@ label.bb {
     text-align: center;
 }
 
+.fsm {
+    font-size: smaller;
+}
+
 .hide {
     display: none;
 }
@@ -553,6 +561,12 @@ label.bb {
 
 .yet::before {
     content: '\2022\0020\0020';
+}
+
+#apphome {
+    position: absolute;
+    left: 40px;
+    top: 0;
 }
 
 #appname {

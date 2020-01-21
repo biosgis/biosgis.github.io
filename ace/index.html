@@ -90,6 +90,12 @@
         <h1>Online Mapping Geoapp</h1>
     </header>
     <nav>
+        <span style="position: relative;">
+            <a href="https://www.wildlife.ca.gov/">
+                <!--<img src="https://www.wildlife.ca.gov/Portals/0/header_organization.png" alt="wildlife.ca.gov" style="height: 45px;">-->
+                <img src="https://wildlife.ca.gov/portals/0/Images/Explore/CDFW-Insignia-146x193.png" alt="CDFWlogo" style="height: 45px;">
+            </a>
+        </span>
         <a id="apphome"><img alt="App Logo" id="applogo" height="48px" style="display: inline-block; vertical-align: middle;"></a>
         <label id="appname"></label>
         <label id="apptitle"></label>
@@ -705,12 +711,12 @@
             <ol class="menu" onclick="this.parentNode.parentNode.style.display='none'">
                 <li onclick="" title="ArcIGS Online Login">
                     <div id="anonymousPanel" style="display: none; padding: 5px; text-align: center;">
-                        <span id="sign-in" class="action f1">Sign In</span> to ArcGIS Online
+                        <span id="sign-in" class="action">Sign In</span> to ArcGIS Online
                     </div>
                     <div id="personalizedPanel" style="display: none; padding: 5px; text-align: center;">
-                        Welcome <span id="userId" class="f1" style="font-weight: bold;"></span>
+                        Welcome <span id="userId" style="font-size: smaller; font-weight: bold;"></span>
                         <span class="esri-icon-user"></span><br>
-                        <span id="sign-out" class="action f1">Sign Out</span>
+                        <span id="sign-out" class="action" style="font-size: smaller;">Sign Out</span>
                     </div>
                 </li>
                 <li onclick="navview('basemaps')" title="Basemap Gallery">
