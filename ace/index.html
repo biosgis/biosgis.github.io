@@ -28,7 +28,7 @@
     <script>
         DEFAULT_PAGE = 'index.html';
         var cssfiles = ['esrian.css', 'mapp.css'];
-        var jsfiles = ['abide.js', 'config.js', 'app.js', 'ace.js', 'bb.js', 'biosv.js',
+        var jsfiles = ['abc.js', 'abide.js', 'config.js', 'app.js', 'ace.js', 'bb.js', 'biosv.js',
             'tests.js', 'toc.js', 'tools.js', 'tv.js', 'amd.js'
         ];
         for (var i = 0; i < cssfiles.length; i++) {
@@ -54,14 +54,15 @@
         addlibs(jsfiles, rv, '../js/');
 
         window.addEventListener('load', function() {
-            console.log('DOM loaded');
+            console.log(DEFAULT_PAGE + ' loaded');
             let t = 10000;
             window.setTimeout(function() {
                 console.log(t + 'ms WAITED');
             }, t);
             om = poplinks();
             jtests();
-            if (getCookie('ssid') === null || getCookie('ssid') === undefined) {
+            if (getCookie('ssid') === null || getCookie('ssid') === '' ||
+                getCookie('ssid') === undefined || getCookie('ssid') === 'undefined') {
                 setCookie('ssid', ssid, 90);
                 console.log('ssid=' + ssid);
             } else {
@@ -90,12 +91,10 @@
         <h1>Online Mapping Geoapp</h1>
     </header>
     <nav>
-        <span style="position: relative;">
-            <a href="https://www.wildlife.ca.gov/">
-                <!--<img src="https://www.wildlife.ca.gov/Portals/0/header_organization.png" alt="wildlife.ca.gov" style="height: 45px;">-->
-                <img src="https://wildlife.ca.gov/portals/0/Images/Explore/CDFW-Insignia-146x193.png" alt="CDFWlogo" style="height: 45px;">
-            </a>
-        </span>
+        <a href="https://www.wildlife.ca.gov/">
+            <!--<img src="https://www.wildlife.ca.gov/Portals/0/header_organization.png" alt="wildlife.ca.gov" style="height: 45px;">-->
+            <img src="https://wildlife.ca.gov/portals/0/Images/Explore/CDFW-Insignia-146x193.png" alt="CDFWlogo" style="height: 48px;position: relative; top: 1px; left: 5px;">
+        </a>
         <a id="apphome"><img alt="App Logo" id="applogo" height="48px" style="display: inline-block; vertical-align: middle;"></a>
         <label id="appname"></label>
         <label id="apptitle"></label>
@@ -150,12 +149,20 @@
                         <input type="text" name="app" id="dstype" value="" title="DataSource Type" />
                     </li>
                     <li>
+                        <label>email</label>:
+                        <input type="text" name="log" id="email" value="" title="User Email" />
+                    </li>
+                    <li>
                         <label>lid</label>:
                         <input type="text" name="app" id="lid" value="" title="Layer Index">
                     </li>
                     <li>
                         <label>ll</label>:
                         <input type="text" name="bb" id="ll" value="" title="Longitude, Latitude">
+                    </li>
+                    <li>
+                        <label>orgId</label>:
+                        <input type="text" name="log" id="orgId" value="" title="AGOL Organization ID">
                     </li>
                     <li>
                         <label>ssid</label>:
@@ -844,7 +851,7 @@
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div id="msgdiv" class="mainlow noscroll">
-            <div id="msgbox" class="subdiv" style="background-color: black; color: white; position: relative; top: 0; height: 88%; padding-bottom: 10px;">
+            <div id="msgbox" class="subdiv" style="background-color: black; color: white; position: relative; top: 0; height: 80%; padding-bottom: 8px;">
                 <div>
                     Messages
                     <script>

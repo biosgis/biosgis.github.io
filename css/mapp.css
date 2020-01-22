@@ -20,6 +20,14 @@ body {
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 article {
     position: relative;
     border: 1px solid floralwhite;
@@ -527,6 +535,7 @@ label.bb {
     height: 50%;
     overflow: auto;
     margin: 5px;
+    top: 5px;
 }
 
 .subdiv {
@@ -561,12 +570,6 @@ label.bb {
 
 .yet::before {
     content: '\2022\0020\0020';
-}
-
-#apphome {
-    position: absolute;
-    left: 40px;
-    top: 0;
 }
 
 #appname {

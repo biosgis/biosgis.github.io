@@ -24,6 +24,7 @@ var bs = {
         url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/biosmanpub/FeatureServer/0"
     },
     dscount: 0,
+    dsids: [],
     id: "bsh",
     name: "BiosSearchHost",
     oids: []
@@ -40,6 +41,19 @@ const ESRI_ICON_FTYPES = {
     "line": "esri-icon-polyline",
     "polygon": "esri-icon-polygon",
     "raster": "esri-icon-default-action"
+}
+
+function arrayadd(a, b) {
+    //addmsg('array_in=' + a);
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === b) {
+            //addmsg('array[' + i + '] already has ' + b);
+            return false;
+        }
+    }
+    //var c = a.push(b);
+    //addmsg('new array=' + c);
+    return (a.push(b));
 }
 
 function getbiosids(dsid, dssec, dstype, dyn, ftr, tl) {
@@ -90,8 +104,8 @@ function bsall() {
         list.innerHTML = '';
         //$('biosq-msg').appendChild(list);
         var features = result.features;
-        var k = bslist(features, list); //FAILS TO FINISH LISTING ALL RETURNED ITEMS
-        addmsg('biosq-all list items = ' + $('biosq-list').children.length);
+        var k = bslist(features, list); // FAILS TO FINISH LISTING ALL RETURNED ITEMS
+        addmsg('biosq-all list items = ' + list.children.length);
         bs.biosman.features = features;
     });
 }
@@ -112,7 +126,8 @@ function bsinit() {
 function bslist(features, list) {
     addmsg('DO bslist: ' + features.length + ' items possible for ' + list.id);
     var k = list.children.length;
-    addmsg('Current ' + list.id + ' has ' + k + ' items');
+    //addmsg('Current ' + list.id + ' has ' + k + ' items');
+    //addmsg('bs.dsids= ' + bs.dsids);
     for (var i = 0; i < features.length; i++) {
         var attr = features[i].attributes;
         //for (key in attr) {
@@ -132,7 +147,6 @@ function bslist(features, list) {
         //if (i === 0) {
         //    addmsg('biosids=' + biosids);
         //}
-        console.log([dsname, oid]);
         var item = document.createElement('li');
         // TODO--ON HOVER IVORY HIGHLIGHT ITEM
         var labeler = document.createElement('label');
@@ -147,7 +161,7 @@ function bslist(features, list) {
         ftyper.title = dstype;
         item.appendChild(ftyper);
         var adder = document.createElement('button');
-        adder.style.borderColor = 'transparent';
+        //adder.style.borderColor = 'transparent';
         adder.classList.add('esri-icon-plus');
         adder.value = biosids;
         item.appendChild(adder);
@@ -157,28 +171,32 @@ function bslist(features, list) {
         qinfo.title = abst; // TODO--MOVE THIS OUT TO ITS OWN PANEL OF ALL ABSTRACTS
         // TODO--CLICK BUTTON TO SEE ABSTRACT, PURPOSE, OR MINI-METADATA
         item.appendChild(qinfo);
+        var itemid = list.id + '-' + dsid;
         if (list.id === 'biosq-all') {
-            var itemid = 'biosmanoid-' + oid;
             item.id = itemid;
             list.appendChild(item);
             k = k + 1;
-        } else if (list.id === 'biosq-list') {
-            var itemid = 'bsid-' + oid;
-            if ($(itemid) === null) {
+            var a = arrayadd(bs.dsids, dsid);
+        } else {
+            //if ($(itemid) === null) {
+            //    item.id = itemid;
+            //    list.appendChild(item);
+            //    k = k + 1;
+            //}
+            var a = arrayadd(bs.dsids, dsid);
+            if (a !== false) {
                 item.id = itemid;
                 list.appendChild(item);
                 k = k + 1;
             }
         }
-        if (i === (features.length - 1)) {
-            $('bscount').innerHTML = list.children.length;
-        }
+        $('dsid').value = dsid;
+        $('kounter').value = a;
     }
-    addmsg('list.children.length=' + list.children.length);
-    addmsg('k-count=' + k);
     //addmsg('list.length=' + list.length);//=UNDEFINED
-    if (list.children.length > 0) {
-        $('bscount').innerHTML = list.children.length;
+    addmsg('bs.dsids.length=' + bs.dsids.length);
+    if (bs.dsids.length > 0) { //list.children.length > 0) {
+        $('bscount').innerHTML = bs.dsids.length; // list.children.length; // =k
     }
     return k;
 }
@@ -192,6 +210,7 @@ function bsque(s) {
         $('biosq-msg').innerHTML = msg;
         return;
     }
+    bs.dsids = [];
     bs.biosman.oids = [];
     $('bsqued').innerHTML = '';
     $('bscount').innerHTML = '';
@@ -231,9 +250,11 @@ function bstitle(q) {
         list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
-        addmsg(k + ' result bslisted');
-        //$('bscount').innerHTML = $('biosq-list').children.length;
-        $('bsmanfields').innerHTML += ' DataSourceName,';
+        //addmsg(k + ' results bslisted');
+        //addmsg(list.children.length + ' items in list');
+        //addmsg(bs.dsids.length + ' unique dsids found');
+        //$('bscount').innerHTML = list.children.length;
+        $('bsmanfields').innerHTML += ' DataSourceName';
         bsabstract(q);
     });
 }
@@ -262,8 +283,7 @@ function bstype(q) {
         list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
-        addmsg(k + ' result bslisted');
-        //$('bscount').innerHTML = $('biosq-list').children.length;
+        //$('bscount').innerHTML = list.children.length;
         $('bsmanfields').innerHTML += ' DataSourceType';
     });
 }
@@ -290,12 +310,13 @@ function bskeywords(q) {
     querytask.execute(query).then(function (result) {
         addmsg('CALLBACK biosv.bskeywords/querytask: results= ' + result.features.length);
         var list = $('biosq-list'); // document.createElement('ol');
-        list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
-        addmsg(k + ' result bslisted');
-        //$('bscount').innerHTML = $('biosq-list').children.length;
-        $('bsmanfields').innerHTML += ' Keywords, BIOSKeywords,';
+        //addmsg(k + ' results bslisted');
+        //addmsg(list.children.length + ' items in list');
+        //addmsg(bs.dsids.length + ' unique dsids found');
+        //$('bscount').innerHTML = list.children.length;
+        $('bsmanfields').innerHTML += ', Keywords, BIOSKeywords';
     });
 }
 
@@ -324,12 +345,13 @@ function bsabstract(q) {
     querytask.execute(query).then(function (result) {
         addmsg('CALLBACK biosv.bsabstract/querytask: results= ' + result.features.length);
         var list = $('biosq-list'); // document.createElement('ol');
-        list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
-        addmsg(k + ' result bslisted');
-        //$('bscount').innerHTML = $('biosq-list').children.length;
-        $('bsmanfields').innerHTML += ' Abstract,';
+        //addmsg(k + ' results bslisted');
+        //addmsg(list.children.length + ' items in list');
+        //addmsg(bs.dsids.length + ' unique dsids found');
+        //$('bscount').innerHTML = list.children.length;
+        $('bsmanfields').innerHTML += ', Abstract';
         bspurpose(q);
     });
 }
@@ -359,12 +381,13 @@ function bspurpose(q) {
     querytask.execute(query).then(function (result) {
         addmsg('CALLBACK biosv.bspurpose/querytask: results= ' + result.features.length);
         var list = $('biosq-list'); // document.createElement('ol');
-        list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
-        addmsg(k + ' result bslisted');
-        //$('bscount').innerHTML = $('biosq-list').children.length;
-        $('bsmanfields').innerHTML += ' purpose,';
+        //addmsg(k + ' results bslisted');
+        //addmsg(list.children.length + ' items in list');
+        addmsg(bs.dsids.length + ' unique dsids found');
+        //$('bscount').innerHTML = list.children.length;
+        $('bsmanfields').innerHTML += ', purpose';
         bscontribs(q);
     });
 }
@@ -396,12 +419,13 @@ function bscontribs(q) {
     querytask.execute(query).then(function (result) {
         addmsg('CALLBACK biosv.bscontribs/querytask: results= ' + result.features.length);
         var list = $('biosq-list'); // document.createElement('ol');
-        list.innerHTML = '';
         var features = result.features;
         var k = bslist(features, list);
-        addmsg(k + ' result bslisted');
-        //$('bscount').innerHTML = $('biosq-list').children.length;
-        $('bsmanfields').innerHTML += ' Contributor_Email, Contributor_Organization, Contributor_Email';
+        addmsg(k + ' results bslisted');
+        addmsg(list.children.length + ' items in list');
+        addmsg(bs.dsids.length + ' unique dsids found');
+        //$('bscount').innerHTML = list.children.length;
+        $('bsmanfields').innerHTML += ', Contributor_Email, Contributor_Organization, Contributor_Email';
     });
 }
 

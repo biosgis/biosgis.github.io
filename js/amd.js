@@ -85,6 +85,9 @@ let amdfun = function (
     ScaleBar,
     Grid
 ) {
+    if (location.hash.indexOf('msgx') >= 0) {
+        show('msgbar');
+    }
     esriConfig.geometryServiceUrl = "https://utility.arcgisonline.com/arcgis/rest/services/Geometry/GeometryServer";
     //esriConfig.portalUrl = "https://cdfw.maps.arcgis.com";
     //-- GLOBALIZE FOR FUNCTIONS OUTSIDE OF AMDREQURED
@@ -156,9 +159,11 @@ let amdfun = function (
             userIdElement.innerHTML = portal.user.username;
             anonPanelElement.style.display = "none";
             personalPanelElement.style.display = "block";
-            $('agolname').value = portal.user.username;
             // Query the items based on the queryParams created from portal above
             portal.queryItems(queryParams).then(createGallery);
+            $('agolname').value = portal.user.username;
+            $('email').value = portal.user.email;
+            $('orgId').value = portal.user.orgId;
         });
     }
 
