@@ -44,15 +44,11 @@ const ESRI_ICON_FTYPES = {
 }
 
 function arrayadd(a, b) {
-    //addmsg('array_in=' + a);
     for (var i = 0; i < a.length; i++) {
         if (a[i] === b) {
-            //addmsg('array[' + i + '] already has ' + b);
             return false;
         }
     }
-    //var c = a.push(b);
-    //addmsg('new array=' + c);
     return (a.push(b));
 }
 
@@ -86,9 +82,9 @@ function getbiosids(dsid, dssec, dstype, dyn, ftr, tl) {
 function bsall() {
     var querytask = new EsriQueryTask(biosmanurl);
     var query = new EsriQuery();
-    var sqlwhere = "DataSourceID IS NOT NULL";
+    var sqlwhere = "DataSourceName IS NOT NULL";
     query.where = sqlwhere;
-    query.orderByFields = ['DataSourceID ASC', 'DataSourceName ASC'];
+    query.orderByFields = ['DataSourceID ASC'];
     query.outFields = ['*'];
     //query.returnGeometry = true; // TODO--FOR FEATURELAYER
     querytask.executeForCount(query).then(function (count) {
@@ -104,9 +100,10 @@ function bsall() {
         list.innerHTML = '';
         //$('biosq-msg').appendChild(list);
         var features = result.features;
+        bs.biosman.features = features;
         var k = bslist(features, list); // FAILS TO FINISH LISTING ALL RETURNED ITEMS
         addmsg('biosq-all list items = ' + list.children.length);
-        bs.biosman.features = features;
+        $('dsids').value = bs.biosman.dsids;
     });
 }
 

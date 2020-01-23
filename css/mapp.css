@@ -32,7 +32,6 @@ article {
     position: relative;
     border: 1px solid floralwhite;
     border-width: 1px 0;
-    overflow: auto;
 }
 
 aside {
@@ -530,11 +529,12 @@ label.bb {
 }
 
 .outdiv {
-    border: 1px solid silver;
     position: relative;
-    height: 50%;
-    overflow: auto;
+    border: 1px solid silver;
+    height: auto;
+    max-height: 500px;
     margin: 5px;
+    overflow: auto;
     top: 5px;
 }
 

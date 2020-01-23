@@ -106,7 +106,7 @@
     <aside id="ass" class="msgx">
         <h3>
             <span class="esri-icon-environment-settings hicon"></span>
-            Application Session State
+            App Session State
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h3>
         <div class="padded" style="top: 40px; bottom: 0; height: auto; overflow: auto; position: absolute;">
@@ -153,6 +153,14 @@
                         <input type="text" name="log" id="email" value="" title="User Email" />
                     </li>
                     <li>
+                        <label>kounter</label>:
+                        <input type="text" name="app" id="kounter" value="0" />
+                    </li>
+                    <li>
+                        <label>lasttool</label>:
+                        <input type="text" name="app" id="lasttool" value="help" />
+                    </li>
+                    <li>
                         <label>lid</label>:
                         <input type="text" name="app" id="lid" value="" title="Layer Index">
                     </li>
@@ -167,6 +175,10 @@
                     <li>
                         <label>ssid</label>:
                         <input type="text" name="bb" id="ssid" value="" title="SessionID">
+                    </li>
+                    <li>
+                        <label>timestart</label>:
+                        <input type="text" name="app" id="timestart" value="" title="StartTime" />
                     </li>
                     <li>
                         <label>tool</label>:
@@ -197,6 +209,14 @@
                         <input type="text" name="bb" id="viewer" value="bios6" title="Viewer">
                     </li>
                     <li>
+                        <label>vu</label>:
+                        <input type="text" name="app" id="vu" value="uname:guest|vname:bios6" />
+                    </li>
+                    <li>
+                        <label>website</label>:
+                        <input type="text" name="app" id="website" value="bios6" />
+                    </li>
+                    <li>
                         <label>xy</label>:
                         <input type="text" name="bb" id="xy" value="" title="X-coord, Y-coord">
                     </li>
@@ -205,15 +225,14 @@
                         <input type="text" name="bb" id="zl" value="" title="Zoom Level" />
                     </li>
                     <li>
+                        <label>dsids</label>:
+                        <textarea id="dsids" title="dsids" style="height: 60px; width: 90%;"></textarea>
+                    </li>
+                    <li>
                         <label>xxx</label>:
                         <input type="text" name="app" id="bsid" value="" />
                         <input type="text" name="app" id="hashtag" value="" />
-                        <input type="text" name="app" id="last-tool" value="help" />
-                        <input type="text" name="app" id="kounter" value="0" />
-                        <input type="text" name="app" id="timestart" value="" title="StartTime" />
                         <input type="text" name="log" id="userip" value="" />
-                        <input type="text" name="app" id="vu" value="uname:guest|vname:bios6" />
-                        <input type="text" name="app" id="website" value="bios6" />
                     </li>
                 </ol>
             </div>
@@ -314,47 +333,50 @@
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
         </h2>
         <div class="maindiv">
-            <div class="yet">Under Construction</div>
+            <div class="yet hide">Under Construction</div>
             <article>
-                <h3>
+                <h3 onclick="toggle('itemGallery')">
                     ArcGIS Online Portal Gallery
                 </h3>
-                <div id="itemGallery" class="esri-item-gallery" style="width: 100%;"></div>
+                <div id="itemGallery" class="esri-item-gallery outdiv" style="width: 100%;"></div>
             </article>
             <article>
                 <h3 onclick="toggle('biosq-main')">
                     BIOS Data Search
                 </h3>
                 <div class="padded" id="biosq-main">
-                    <span class="esri-icon-erase" onclick="$('biosq').value='';$('biosq').focus()"></span>
-                    <input type="text" id="biosq" style="margin: 0 5px 2px 5px;">
-                    <span class="esri-icon-search"></span>
-                    <div>
-                        Searched <i id="bsqued">?</i>&nbsp;
-                        returned <i id="bscount">0</i> layers&nbsp;
-                        <span class="msgx">
-                            by attributes: <i id="bsmanfields"></i>
-                        </span>
+                    <div id="biosq-bar" style="position: relative;">
+                        <span class="esri-icon-erase" onclick="$('biosq').value='';$('biosq').focus()"></span>
+                        <input type="text" id="biosq" style="margin: 0 5px 2px 5px;">
+                        <span class="esri-icon-search"></span>
+                        <div>
+                            Searched <i id="bsqued">?</i>&nbsp;
+                            returned <i id="bscount">0</i> layers&nbsp;
+                            <span class="msgx">
+                                by attributes: <i id="bsmanfields"></i>
+                                <a class="esri-icon-link" href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/biosmanpub/FeatureServer/0" id="biosq-link"></a>
+                            </span>
+                        </div>
+                        <div id="biosq-msg"></div>
                     </div>
-                    <div id="biosq-msg"></div>
                     <ol id="biosq-list" class="outdiv" style="padding-left: 3em;">
                     </ol>
-                    <article>
-                        <h4 onclick="toggle('biosq-all')">
-                            Available BIOS Catalog Datasets (<span id="biosmancount"></span>)
-                        </h4>
-                        <ol id="biosq-all" class="outdiv" style="padding-left: 5em;">
-                        </ol>
-                    </article>
-                    <article style="background-color: floralwhite; display: none; position: absolute; bottom: 0; height: 40%;">
-                        <h4>
-                            About the BIOS Layer ds<i id="metadsid"></i>
-                            <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
-                        </h4>
-                        <ol id="biosq-ls" class="outdiv" style="padding-left: 3em;">
-                        </ol>
-                    </article>
                 </div>
+            </article>
+            <article>
+                <h4 onclick="toggle('biosq-all')">
+                    Available BIOS Catalog Datasets (<span id="biosmancount"></span>)
+                </h4>
+                <ol id="biosq-all" class="outdiv" style="padding-left: 3.5em;">
+                </ol>
+            </article>
+            <article style="background-color: floralwhite; display: none; position: absolute; bottom: 0; height: 40%;">
+                <h4>
+                    About the BIOS Layer ds<i id="metadsid"></i>
+                    <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display = 'none'"></span>
+                </h4>
+                <ol id="biosq-ls" class="outdiv" style="padding-left: 3em;">
+                </ol>
             </article>
         </div>
     </aside>
@@ -670,13 +692,13 @@
                     <span class="esri-icon-cursor"></span>
                     <label>Select &amp; Filter</label>
                 </li>
-                <li onclick="navview('msgbar')" title="Messages">
-                    <span class="esri-icon-dock-bottom"></span>
-                    <label>Messages</label>
-                </li>
                 <li onclick="navview('devbar')" class="msgx" title="Dev Tools">
                     <span class="esri-icon-experimental"></span>
                     <label>Dev Tools</label>
+                </li>
+                <li onclick="navview('msgbar')" title="Messages">
+                    <span class="esri-icon-dock-bottom"></span>
+                    <label>Messages</label>
                 </li>
             </ol>
         </div>
@@ -710,7 +732,7 @@
     </div>
     <aside id="toolsbin" class="auto" style="display: none;">
         <h2>
-            <span class="esri-icon-settings2"></span>
+            <span class="esri-icon-drag-horizontal hicon"></span>
             Main Menu
             <span class="esri-icon-close closer" onclick="this.parentNode.parentNode.style.display='none'"></span>
         </h2>
@@ -770,17 +792,21 @@
                     <span class="esri-icon-blank-map-pin"></span>
                     <label>Point Info</label>
                 </li>
-                <li onclick="navview('gtablebar')">
-                    <span class="esri-icon-table"></span>
-                    <label>Table</label>
-                </li>
                 <li onclick="navview('gselect')" title="Select and Filter">
                     <span class="esri-icon-cursor"></span>
                     <label>Selection &amp; Filtering</label>
                 </li>
+                <li onclick="navview('gtablebar')">
+                    <span class="esri-icon-table"></span>
+                    <label>Table</label>
+                </li>
                 <li onclick="navview('tools')" title="Tools">
                     <span class="esri-icon-settings2"></span>
                     <label>Tools</label>
+                </li>
+                <li onclick="navview('devbar')" title="Dev Tools" class="msgx">
+                    <span class="esri-icon-experimental"></span>
+                    <label>Devtools</label>
                 </li>
                 <li onclick="navview('msgbar')" title="Messages">
                     <span class="esri-icon-dock-bottom"></span>
@@ -789,10 +815,6 @@
                 <li onclick="navview('ass')" title="App State" class="msgx">
                     <span class="esri-icon-environment-settings"></span>
                     <label>App State</label>
-                </li>
-                <li onclick="navview('devbar')" title="Dev Tools" class="msgx">
-                    <span class="esri-icon-experimental"></span>
-                    <label>Devtools</label>
                 </li>
             </ol>
         </div>
