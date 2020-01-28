@@ -88,14 +88,15 @@ function bsall() {
     query.outFields = ['*'];
     //query.returnGeometry = true; // TODO--FOR FEATURELAYER
     querytask.executeForCount(query).then(function (count) {
+        console.log('bsall count=' + count);
         $('biosmancount').innerHTML = count;
     });
     querytask.executeForIds(query).then(function (ids) {
-        console.log('bsearch oids.len=' + ids.length);
+        console.log('bsall oids.len=' + ids.length);
         bs.biosman.oids = ids;
     });
     querytask.execute(query).then(function (result) {
-        addmsg('CALLBACK biosv.bsall/querytask: results= ' + result.features.length);
+        addmsg('CALLBACK bsall/querytask: results= ' + result.features.length);
         var list = $('biosq-all'); // document.createElement('ol');
         list.innerHTML = '';
         //$('biosq-msg').appendChild(list);
@@ -232,10 +233,9 @@ function bstitle(q) {
     query.outFields = ['*'];
     //query.returnGeometry = true; // TODO--FOR FEATURELAYER
     querytask.executeForCount(query).then(function (count) {
-        //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
-        //$('biosq-msg').innerHTML = msg;
+        console.log('bstitle count=' + count);
         $('bsqued').innerHTML = q;
-        //$('bscount').innerHTML = count;
+        $('bscount').innerHTML = bs.dsids.length;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bstitle oids.len=' + ids.length);
@@ -256,35 +256,6 @@ function bstitle(q) {
     });
 }
 
-function bstype(q) {
-    var querytask = new EsriQueryTask(biosmanurl);
-    var query = new EsriQuery();
-    var sqlwhere = "DataSourceType LIKE '%" + q + "%'";
-    query.where = sqlwhere;
-    query.orderByFields = ['DataSourceName ASC'];
-    query.outFields = ['*'];
-    //query.returnGeometry = true; // TODO--FOR FEATURELAYER
-    querytask.executeForCount(query).then(function (count) {
-        //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
-        //$('biosq-msg').innerHTML = msg;
-        $('bsqued').innerHTML = q;
-        //$('bscount').innerHTML = count;
-    });
-    querytask.executeForIds(query).then(function (ids) {
-        console.log('bstype oids.len=' + ids.length);
-        bs.biosman.oids = ids;
-    });
-    querytask.execute(query).then(function (result) {
-        addmsg('CALLBACK biosv.bstype/querytask: results= ' + result.features.length);
-        var list = $('biosq-list'); // document.createElement('ol');
-        list.innerHTML = '';
-        var features = result.features;
-        var k = bslist(features, list);
-        //$('bscount').innerHTML = list.children.length;
-        $('bsmanfields').innerHTML += ' DataSourceType';
-    });
-}
-
 function bsabstract(q) {
     var querytask = new EsriQueryTask(biosmanurl);
     var query = new EsriQuery();
@@ -298,10 +269,9 @@ function bsabstract(q) {
     query.outFields = ['*'];
     //query.returnGeometry = true; // TODO--FOR FEATURELAYER
     querytask.executeForCount(query).then(function (count) {
-        //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
-        //$('biosq-msg').innerHTML = msg;
+        console.log('bsabstract count=' + count);
         $('bsqued').innerHTML = q;
-        //$('bscount').innerHTML = count;
+        $('bscount').innerHTML = bs.dsids.length;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bsabstract oids.len=' + ids.length);
@@ -331,10 +301,9 @@ function bskeywords(q) {
     query.outFields = ['*'];
     //query.returnGeometry = true; // TODO--FOR FEATURELAYER
     querytask.executeForCount(query).then(function (count) {
-        //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
-        //$('biosq-msg').innerHTML = msg;
+        console.log('bskeywords count=' + count);
         $('bsqued').innerHTML = q;
-        //$('bscount').innerHTML = count;
+        $('bscount').innerHTML = bs.dsids.length;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bstype oids.len=' + ids.length);
@@ -353,6 +322,7 @@ function bskeywords(q) {
         bspurpose(q);
     });
 }
+
 function bspurpose(q) {
     var querytask = new EsriQueryTask(biosmanurl);
     var query = new EsriQuery();
@@ -366,10 +336,9 @@ function bspurpose(q) {
     query.outFields = ['*'];
     //query.returnGeometry = true; // TODO--FOR FEATURELAYER
     querytask.executeForCount(query).then(function (count) {
-        //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
-        //$('biosq-msg').innerHTML = msg;
+        console.log('bspurpose count=' + count);
         $('bsqued').innerHTML = q;
-        //$('bscount').innerHTML = count;
+        $('bscount').innerHTML = bs.dsids.length;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bspurpose oids.len=' + ids.length);
@@ -404,10 +373,9 @@ function bscontribs(q) {
     query.outFields = ['*'];
     //query.returnGeometry = true; // TODO--FOR FEATURELAYER
     querytask.executeForCount(query).then(function (count) {
-        //var msg = 'Found BIOS Catalog Dataset count=' + count + ' matching <q>' + q + '</q>';
-        //$('biosq-msg').innerHTML = msg;
+        console.log('bscontribs count=' + count);
         $('bsqued').innerHTML = q;
-        //$('bscount').innerHTML = count;
+        $('bscount').innerHTML = bs.dsids.length;
     });
     querytask.executeForIds(query).then(function (ids) {
         console.log('bscontribs oids.len=' + ids.length);
@@ -423,6 +391,34 @@ function bscontribs(q) {
         addmsg(bs.dsids.length + ' unique dsids found');
         //$('bscount').innerHTML = list.children.length;
         $('bsmanfields').innerHTML += ', Contributor_Email, Contributor_Organization, Contributor_Email';
+    });
+}
+
+function bstype(q) {
+    var querytask = new EsriQueryTask(biosmanurl);
+    var query = new EsriQuery();
+    var sqlwhere = "DataSourceType LIKE '%" + q + "%'";
+    query.where = sqlwhere;
+    query.orderByFields = ['DataSourceName ASC'];
+    query.outFields = ['*'];
+    //query.returnGeometry = true; // TODO--FOR FEATURELAYER
+    querytask.executeForCount(query).then(function (count) {
+        console.log('bstype count=' + count);
+        $('bsqued').innerHTML = q;
+        $('bscount').innerHTML = bs.dsids.length;
+    });
+    querytask.executeForIds(query).then(function (ids) {
+        console.log('bstype oids.len=' + ids.length);
+        bs.biosman.oids = ids;
+    });
+    querytask.execute(query).then(function (result) {
+        addmsg('CALLBACK biosv.bstype/querytask: results= ' + result.features.length);
+        var list = $('biosq-list'); // document.createElement('ol');
+        list.innerHTML = '';
+        var features = result.features;
+        var k = bslist(features, list);
+        //$('bscount').innerHTML = list.children.length;
+        $('bsmanfields').innerHTML += ' DataSourceType';
     });
 }
 
