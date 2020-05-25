@@ -1,0 +1,280 @@
+body {
+    font-size: 1.23em;
+    line-height: 1.33em;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a.ab::after {
+    content: "" attr(href) " ";
+    display: block;
+}
+a.abt::after {
+    content: " " attr(title) "";
+    display: block;
+}
+a.ad::after {content: " (" attr(href) ")";}
+a.al::after {content: " " attr(href) " ";}
+a.al::before {content: ' \25B6 '}
+a.ali::after {
+    content: ' ' attr(href) ' ';
+    display: list-item;
+}
+.alite::after {
+    content: ' ' attr(title) ' ';
+    display: list-item;
+}
+a.flo::after {
+    content: " #";
+    /* 007C=VERTICAL LINE, 005E=CIRCUMFLEX ACCENT */
+}
+a.bowtie::before {content: ' \22C8 '}
+a.trb::before {content: ' \25B6 '}
+/*⋈=22C8=BOWTIE,▷=25B7=WHITE RIGHT-POINTING TRIANGLE*/
+article {
+    position: relative;
+    background-color: white;
+    border-top: 1px solid silver;
+    box-shadow: 5px 5px 5px antiquewhite;
+}
+aside {
+    position: relative;
+    background-color: white;
+    border: 1px solid silver;
+    box-shadow: -5px 5px 5px gainsboro;
+    float: right;
+    z-index: 200;
+}
+aside summary {
+    display: inline-block;
+    /* white-space: nowrap; */
+}
+code {
+    background-color: cornsilk;
+    padding: 1px 3px;
+}
+details {
+    padding: 10px;
+}
+footer {
+    position: relative;
+    border-top: 1px solid silver;
+    font-family: monospace;
+    font-size: 1em;
+    margin-top: 1%;
+    padding: 1%;
+    text-align: center;
+}
+h3 a::before {
+    content: '\0020\2022\0020'; /* 2218=small-white-dot; 25A1=white-square, 2666=black-diamond*/
+}
+h4 {
+    margin: 1em 0;
+}
+header {
+    position: relative;
+    border-bottom: 1px solid silver;
+    padding: 1%;
+}
+header h1 {
+    font-family: Georgia, serif;
+    line-height: 1.5em;
+    margin: 0;
+}
+main {
+    position: relative;
+    padding: 0 2%;
+}
+nav {
+    position: relative;
+    border-bottom: 1px solid silver;
+}
+nav a {
+    border-left: 1px solid silver;
+    padding: 1px 5px;
+}
+p {
+    font-family: cursive;
+    font-size: 1em;
+}
+pre {
+    background-color: ghostwhite;
+    border-left: 2px solid whitesmoke;
+    /* font-family: monospace, Consolas, Monaco, 'Lucida Console', 'Courier New', Courier; */
+    font-size: 1em;
+    font-style: normal;
+    line-height: 1.2em;
+    margin: .5em;
+    padding: 5px;
+}
+pre.codex {
+    background-color: ghostwhite;
+    border-left: 5px solid cadetblue;
+    font-size: 1em;
+    line-height: 1em;
+    padding: 2px 2px 2px 8px;
+}
+summary h2 {
+    display: inline-block;
+}
+summary h3 {
+    display: inline-block;
+}
+summary h4 {
+    display: inline-block;
+}
+table {
+    background-color: white;
+    border: 1px solid silver;
+    border-collapse: collapse;
+}
+td {
+    border: 1px solid gainsboro;
+    border-width: 0 1px 1px 0;
+    padding: 2px;
+}
+th {
+    border: 1px solid silver;
+    border-width: 0 1px 1px 0;
+    padding: 1px 5px;
+}
+
+.abar {
+    position: relative;
+    background-color: white;
+    border: 1px solid silver;
+    box-shadow: -5px 5px 5px gainsboro;
+    float: right;
+    z-index: 200;
+}
+.fbar {
+    position: relative;
+    border-top: 1px solid silver;
+    font-family: monospace;
+    font-size: 1em;
+    margin-top: 1%;
+    padding: 1%;
+    text-align: center;
+}
+.hbar {
+    position: relative;
+    border-bottom: 1px solid silver;
+    padding: 1%;
+}
+.h1bar {
+    position: relative;
+    margin: 0;
+}
+.manifest {
+    padding: 0 2%;
+}
+.nbar {
+    position: relative;
+    border-bottom: 1px solid silver;
+}
+
+.autof {
+    overflow: auto;
+}
+.bug {
+    border-right: 5px solid red;
+    font-weight: bold;
+    padding-right: 5px;
+}
+.bugfix {
+    border-right: 5px solid green;
+    padding-right: 5px;
+}
+.centered {
+    horizontal-align: centered;
+}
+.codex {
+    position: relative;
+    font-family: monospace;
+}
+.doing {
+    border-right: 5px solid gold;
+    padding-right: 5px;
+}
+.done {
+    border-right: 5px solid blue;
+    padding-right: 5px;
+}
+.err {
+    color: crimson;
+}
+.fixed {
+    background-color: mintcream;
+    padding-right: 5px;
+}
+.future {
+    border-right: 5px solid fuchsia;
+    /*font-family: fantasy;*/
+    padding-right: 5px;
+}
+.hide {
+    display: none;
+}
+.holiday {
+    background-color: honeydew;
+    border: 1px solid transparent;
+}
+.issue {
+    border-right: 5px solid indianred;
+    font-style: italic;
+    padding-right: 5px;
+}
+.marg {
+    margin: 5px;
+}
+.msgx {
+    color: silver;
+}
+.nowrap {
+    white-space: nowrap;
+}
+.oam {
+    border-right: 5px solid cyan;
+    padding-right: 5px;
+}
+.padded {
+    padding: 10px;
+}
+.timeoff {
+    background-color: thistle;
+    border: 1px solid transparent;
+}
+.todo {
+    border-right: 5px solid turquoise;
+    font-family: Verdana, sans-serif;
+    padding-right: 5px;
+}
+.togl {
+    background-color: floralwhite;
+    border: 1px solid silver;
+    cursor: default;
+    font-size: 200%;
+    padding: 0 8px;
+}
+.togl:hover {
+    background-color: aliceblue;
+}
+.websafe {
+    font-family: sans-serif, Arial, helvetica, Verdana, Roboto, serif, 'Book Antiqua', Bookman, Georgia, 'Times New Roman', Times, cursive, 'Comic Sans MS', monospace, 'Courier New', Courier, Consolas, Monaco, fantasy, 'Arial Black', Impact, Tahoma, Geneva;
+}
+.weekend {
+    background-color: wheat;
+    border: 1px solid transparent;
+}
+
+@media handheld {
+    body {
+        font-size: 1.5em;
+    }
+    footer {
+        background-color: snow;
+    }
+}
