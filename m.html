@@ -14,16 +14,18 @@ Multi-function Mutable Mobile Minimal Map viewer 20190519 dfgchiang
         <meta name="robots" content="noindex, nofollow, noarchive">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/themes/light/main.css">
-        <script src="https://js.arcgis.com/4.11/"></script>
+        <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css">
+        <script src="https://js.arcgis.com/4.15/"></script>
         <script src="js/abc.js"></script>
         <style>
             html, body {
-                font-size: 110%;
+                font-size: 1.2em;
                 padding: 0;
                 margin: 0;
                 height: 100%;
                 width: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
             }
             a {
                 text-decoration: none;
@@ -32,7 +34,7 @@ Multi-function Mutable Mobile Minimal Map viewer 20190519 dfgchiang
                 text-decoration: underline;
             }
             aside {
-                position: fixed; bottom: 0;
+                position: absolute; bottom: 0;
                 right: 0; top: 52px;
                 height: auto; width: 35%;
                 background-color: white;
@@ -66,12 +68,13 @@ Multi-function Mutable Mobile Minimal Map viewer 20190519 dfgchiang
                 border-bottom: 1px solid silver;
             }
             nav {
-                position: fixed; top: 0;
+                position: fixed; top: 0; left: 0; right: 0;
                 height: 50px; width: 100%;
                 background-color: white;
                 border-bottom: 1px solid silver;
+                overflow: hidden;
             }
-            section {
+            article {
                 position: fixed; bottom: 0;
                 height: 40%; width: 100%;
                 background-color: white;
@@ -110,14 +113,16 @@ Multi-function Mutable Mobile Minimal Map viewer 20190519 dfgchiang
             }
             .navbtn {
                 border: 1px solid transparent;
-                font-size: 160%;
+                border-top: 5px solid transparent;
+                font-size: 1.5em;
                 font-weight: bold;
                 float: right;
-                margin: 1px;
-                padding: 8px;
+                margin: 0;
+                padding: 5px 8px;
             }
             .navbtn:hover {
                 background-color: azure;
+                border-top: 5px solid silver;
             }
             .navmenu {
                 background-color: white;
@@ -214,7 +219,7 @@ Multi-function Mutable Mobile Minimal Map viewer 20190519 dfgchiang
                     <li>
                         <a href="https://developers.arcgis.com/javascript/">
                             JavaScript API
-                        </a> Version 4.11 March 2019
+                        </a> Version 4.15 April 2020
                     </li>
                     <li>
                         <a href="https://developers.arcgis.com/javascript/latest/guide/create-a-starter-app/">
