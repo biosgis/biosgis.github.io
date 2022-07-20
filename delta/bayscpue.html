@@ -1,0 +1,1421 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Bay Study CPUE</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+    <meta name="application-name" content="baydeltamap-20211022">
+    <meta name="author" content="bios@wildlife.ca.gov">
+    <meta name="description" content="Bay Study Fish Distribution CPUE Map">
+    <meta name="generator" content="biosgis-20210930">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <link rel='SHORTCUT ICON' href='https://apps.wildlife.ca.gov/bios/images/favicon.ico' type='image/x-icon' />
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.2/dist/esri-leaflet.js"
+        integrity="sha512-myckXhaJsP7Q7MZva03Tfme/MSF5a6HC2xryjAM4FxPLHGqlh5VALCbywHnzs2uPoF/4G/QVXyYDDSkp5nPfig=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet Vector from CDN -->
+    <script src="https://unpkg.com/esri-leaflet-vector@3.1.0/dist/esri-leaflet-vector.js"
+        integrity="sha512-AAcPGWoYOQ7VoaC13L/rv6GwvzEzyknHQlrtdJSGD6cSzuKXDYILZqUhugbJFZhM+bEXH2Ah7mA1OxPFElQmNQ=="
+        crossorigin=""></script>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 1em;
+            line-height: 1.1em;
+            overflow-x: hidden;
+            padding: 0;
+        }
+
+        article.tbar {
+            position: relative;
+            height: auto;
+            background-color: ghostwhite;
+            border: silver solid 1px;
+            border-top-width: 2px;
+            padding: .5%;
+        }
+
+        button {
+            font-size: 1em;
+            line-height: 1.1em;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        footer {
+            position: relative;
+            /* background-color: floralwhite; */
+            border-top: silver solid 1px;
+            font-family: monospace;
+            margin-top: 1%;
+            padding: 1%;
+        }
+
+        h2.dtitle {
+            /* color: navy; */
+            text-align: center;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            height: 6%;
+            width: 100%;
+            background-color: whitesmoke;
+            border: silver solid 1px;
+        }
+
+        header h1 {
+            /* font-size: 2em; */
+            margin: 0;
+            padding: 1%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        input {
+            font-size: 1em;
+            line-height: 1.1em;
+        }
+
+        input[type=checkbox] {
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            margin: 5px;
+            vertical-align: middle;
+        }
+
+        #legendbar {
+            position: absolute;
+            bottom: 20%;
+            left: auto;
+            right: 1em;
+            top: auto;
+            height: 320px;
+            width: 200px;
+            background-color: white;
+            border: darkslategray solid 1px;
+            border-radius: 5px;
+            opacity: 1.0;
+            padding: 5px;
+            z-index: 400;
+        }
+
+        #map {
+            /* position: relative; */
+            position: absolute;
+            top: 20%;
+            bottom: auto;
+            right: 0;
+            left: 0;
+            height: 66%;
+            width: 100%;
+            border: silver solid 1px;
+        }
+
+        #maptitle {
+            position: absolute;
+            bottom: auto;
+            left: 80px;
+            right: auto;
+            top: 22%;
+            color: maroon;
+            z-index: 400;
+        }
+        #titlebag {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            border-radius: 3px;
+            opacity: 0.55;
+        }
+
+        #maptitle h3 {
+            margin: .5em 0;
+            padding: 0;
+        }
+
+        #maptitle h4 {
+            margin: 0;
+            padding: 0;
+        }
+
+        #agespan::before {
+            content: '(';
+        }
+
+        #agespan::after {
+            content: ')';
+        }
+
+        #beginspan::before {
+            content: '\0020(';
+        }
+
+        #endspan::after {
+            content: ')\0020';
+        }
+
+        .notsampled {
+            background-color: transparent;
+            border: 1px solid transparent;
+            color: red;
+            font-family: sans-serif;
+            font-size: large;
+            font-weight: bold;
+            left: -5px;
+            top: -10px;
+        }
+
+        option {
+            padding: 2px .5em;
+        }
+
+        section.dbar {
+            position: absolute;
+            top: 88%;
+            width: 100%;
+            border-top: silver solid 1px;
+        }
+
+        select {
+            font-size: 1em;
+            line-height: 1.1em;
+        }
+
+        #speciesbar {
+            background: white;
+            position: absolute;
+            top: 20%;
+            right: 60px;
+            padding: .5em;
+            z-index: 555;
+            /* ZINDEX 400-999 TO SHOW UP ABOVE MAPVIEW 
+            BUT SIT UNDER LAYER CONTROL */
+        }
+
+        .stationlabel {
+            background-color: transparent;
+            border: 1px solid transparent;
+            /* FOR TESTING POSITION */
+            color: mediumblue;
+            font-family: sans-serif;
+            font-size: 10;
+            font-weight: bold;
+            left: 10px;
+            top: -5px;
+        }
+
+        summary h3 {
+            display: inline-block;
+            margin: 0;
+            padding: 5px;
+        }
+
+        time::after {
+            color: tan;
+            content: '\0020\25F7' attr(datetime);
+            font-size: smaller;
+        }
+
+        table {
+            position: relative;
+            background-color: white;
+            border: dimgray solid 1px;
+            border-collapse: collapse;
+        }
+
+        .tbar {
+            position: absolute;
+            top: 6%;
+            height: auto;
+            width: 100%;
+            background-color: lavender;
+            /* ivory lightsteelblue azure */
+        }
+
+        th {
+            border: dimgray solid 1px;
+            padding: 5px;
+        }
+
+        thead {
+            border-bottom: dimgray solid 1px;
+        }
+
+        td {
+            border: slategray solid 1px;
+            padding: 5px;
+        }
+
+        .th {
+            border-right: dimgray solid 1px;
+            padding: 2px;
+            vertical-align: top;
+        }
+
+        .tbody {
+            border: silver solid 1px;
+        }
+
+        .td {
+            border-left: silver solid 1px;
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .tr {
+            border-bottom: gray solid 1px;
+        }
+
+        .legendtable {
+            border: transparent solid 1px;
+            font-size: 1em;
+        }
+
+        .legendtable td {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        .legendtable th {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        .msgr {
+            background-color: black;
+            border: silver solid 2px;
+            color: white;
+            font-family: monospace;
+            padding-left: 1%;
+            padding-bottom: 1%;
+        }
+
+        .msgr a {
+            color: cyan;
+        }
+
+        .msgr summary {
+            border-bottom: silver solid 2px;
+        }
+
+        .msgx {
+            display: none;
+        }
+
+        @media print {
+            .tbar {
+                display: none;
+            }
+        }
+    </style>
+    <script>
+        const avn = 211231;
+        if (location.search.indexOf('=') > 0) {
+            automap = true;
+        }
+        function $(id) { return document.getElementById(id); }
+        function hide(id) { $(id).style.display = 'none'; }
+        function dohide(id) { $(id).classList.add('hide'); }
+        function unhide(id) { $(id).classList.remove('hide'); }
+        function msgput(s) {
+            let args = Array.from(arguments);
+            $('msgbox').innerHTML += '<div>' + args.join(' ') + '</div>';
+        }
+        function picklistfill(list, ar) {
+            ar.forEach(x => {
+                var opt = document.createElement('option');
+                opt.value = x[0];
+                opt.innerHTML = x[1];
+                list.appendChild(opt);
+            });
+            return ar.length;
+        }
+        function pickfirst(list) {
+            if (list.length > 0) {
+                for (i = 0; i < list.length; i++) {
+                    if (list.options[i].value !== '') {
+                        list.options[i].selected = true;
+                        return list.options[i].value;
+                    }
+                }
+            }
+        }
+        function pickvalue(sel, val) {
+            let ops = sel.options;
+            for (var i = 0; i < ops.length; i++) {
+                if (ops[i].value === val) {
+                    sel.selectedIndex = i;
+                    return i
+                }
+            }
+            return -1;
+        }
+        function pickonload(key) {
+            if (urlloaded[key] == undefined && urlfind(key)) {
+                pickvalue($(key), urlfind(key));
+                urlloaded[key] = urlfind(key);
+            } else {
+                pickfirst($(key));
+            }
+        }
+        function gomaponload() {
+            if (urlloaded['species'] !== undefined && automap) {
+                automaptik = setInterval(() => {
+                    godrawmap();
+                    urlloaded = { done: true };
+                    clearInterval(automaptik);
+                }, 1000);
+            }
+        }
+        function fatable(features, fieldnames) {
+            var table = document.createElement('table');
+            table.classList.add('center');
+            var thead = document.createElement('thead');
+            table.appendChild(thead);
+            var toprow = document.createElement('tr');
+            thead.appendChild(toprow);
+            fieldnames.forEach(name => {
+                var th = document.createElement('th');
+                th.innerHTML = name;
+                toprow.appendChild(th);
+            });
+            var tbody = document.createElement('tbody');
+            table.appendChild(tbody);
+            var j = 0;
+            features.forEach(feature => {
+                var tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                var fa = feature.properties;
+                var k = 0;
+                fieldnames.forEach(name => {
+                    var cell = tr.insertCell(k);
+                    var val = fa[name];
+                    // msgput(name, val);
+                    if (name.indexOf('CPUE') > 0 && val > 0) {
+                        cell.innerHTML = (parseFloat(val)).toFixed(2);
+                    } else if (name.indexOf('Date') > -1) {
+                        cell.innerHTML = new Date(val).toLocaleDateString();
+                    } else {
+                        cell.innerHTML = val;
+                    }
+                    // cell.innerHTML = fa[name];
+                    k += 1;
+                });
+            });
+            return table;
+        }
+        function onpageload() {
+            let a = document.getElementsByTagName('A');
+            var k = 0;
+            for (let i = 0; i < a.length; i++) {
+                var x = a[i];
+                if (x.href.indexOf('#') !== 0 && x.href.indexOf('mailto:') < 0 && x.href.indexOf('tel:') < 0) {
+                    x.target = '_blank';
+                    // x.classList.add('esri-icon-link');
+                }
+                k = i;
+            }
+            console.log(k, 'links');
+            $('map').style.height = window.innerHeight * 0.66 + 'px'
+            // urlload(location.search);// AWAIT ALL PICKLISTS
+            urlload(location.hash);
+        }
+        window.addEventListener('load', onpageload);
+        const urlargs = {};
+        let urlqued = false;
+        // function init() {
+        //     // ALTERNATIVELY CAN PUT LEAFLET CODE HERE AND LOAD ONWINODWLOAD
+        // }
+        // window.addEventListener('load', init);
+        let urlloaded = {};
+        function urlload(s) {
+            console.log('DO urlload', s);
+            if (s.indexOf('?') === 0 || s.indexOf('#') === 0) {
+                s = s.substring(1);
+            }
+            if (s.indexOf('&') > 0) {
+                var kvp = s.split('&');
+            } else {
+                var kvp = [s];
+            }
+            kvp.forEach(kvt => {
+                if (kvt.indexOf('=') > 0) {
+                    var kva = kvt.split('=');
+                    urlargs[kva[0]] = kva[1];
+                    urlqued = true;
+                }
+            });
+            if (location.hash.indexOf('msgx=') > 0) {
+                var a = document.querySelectorAll('.msgx');
+                console.log('msgx elems', a.length);
+                for (var i = 0; i < a.length; i++) {
+                    a[i].classList.remove('msgx');
+                }
+            }
+        }
+        function urlfind(key, s = location.search) {
+            var val = null;
+            if (s.indexOf(key + '=') > 0) {
+                val = s.split(key + '=')[1].split('&')[0];
+                if (val !== undefined && val !== null & val !== '') {
+                    val = decodeURIComponent(val);
+                }
+                // TODO FOR COMPOUND ARGS LIKE col=x&op=y&val=z
+            } else if (s.indexOf('#' + key) >= 0) {
+                val = key;
+            }
+            return val;
+        }
+        window.addEventListener('hashchange', function () {
+            console.log('DO urlhashchanged');
+            urlload(location.hash);
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <small style="float: right; margin: 5px;">
+            <script>
+                document.write(document.lastModified.split(' ')[0]);
+            </script>
+        </small>
+        <h1>
+            Bay Study Fish Distribution Map
+        </h1>
+    </header>
+    <table class="tbar">
+        <thead>
+            <tr>
+                <th>SELECT SPECIES</th>
+                <th>YEAR</th>
+                <th>SURVEY</th>
+                <th>
+                    <label for="stationids">
+                        View Station ID:
+                    </label>
+                    <input type="checkbox" id="stationids">
+                </th>
+                <th>
+                    <label for="optmax">
+                        Optional Max Value :
+                    </label>
+                    <input type="text" id="optmax" value=""><br>
+                    <small>
+                        Note: Actual CPUE values &gt; entered max will override and set display scale
+                    </small>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>
+                    <select name="species" id="species" title="Fish Species">
+                        <option value="">--Select a Species--</option>
+                    </select>
+                </th>
+                <th>
+                    <select name="year" id="year" title="Year">
+                        <option value="">--Year--</option>
+                    </select>
+                </th>
+                <th>
+                    <select name="survey" id="survey" title="Survey">
+                        <option value="">--Survey--</option>
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </th>
+                <th>
+                    <label for="net">Net:</label>
+                    <select name="net" id="net" title="Net">
+                        <option value="1" title="Mid-Water Trawl">MWT</option>
+                        <option value="2">Otter</option>
+                    </select>
+                </th>
+                <td>
+                    <label for="age">
+                        Age Class:
+                    </label>
+                    <select name="age" id="age" title="Age Class">
+                        <option value="" title="Select a Species first">--AgeClass--</option>
+                    </select>
+                    <div style="float: right;">
+                        <button id="godrawmap">Draw Map</button>
+                    </div>
+                </td>
+            </tr>
+            <tr class="hide">
+                <td>
+                    <!-- <label for="AlphaCode">AlphaCode</label> -->
+                    <input type="hidden" id="AlphaCode" value="">
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="map" title="map"></div>
+    <div id="speciesbar" class="leaflet-bar msgx">
+        <label for="">
+            Fish Species:
+            <select name="" id="fishcodes" title="Fish Species">
+                <option value="">--Pick a Species--</option>
+            </select>
+        </label>
+    </div>
+    <div id="legendbar">
+        <fieldset>
+            <legend>
+                <b>Fish Per 10,000 Cubic Meters</b>
+            </legend>
+            <table class="legendtable">
+                <tr>
+                    <th class="notsampled">+</th>
+                    <td>Not Sampled</td>
+                </tr>
+                <tr>
+                    <!-- <td id="class0key">o</td> -->
+                    <th>
+                        <svg height="12" width="12">
+                            <circle cx="6" cy="6" r="5" stroke="dimgray" stroke-width="2" fill="white" />
+                        </svg>
+                    </th>
+                    <td>= 0 (Zero)</td>
+                </tr>
+                <tr>
+                    <th id="class1key">
+                        <svg height="18" width="18">
+                            <circle cx="9" cy="9" r="8" stroke="limegreen" stroke-width="2" fill="lightgreen"
+                                fill-opacity="55%" />
+                        </svg>
+                    </th>
+                    <td id="class1val">&lt;= max/5</td>
+                </tr>
+                <tr>
+                    <th id="class2key">
+                        <svg height="26" width="26">
+                            <circle cx="13" cy="13" r="12" stroke="green" stroke-width="2" fill="lightgreen"
+                                fill-opacity="55%" />
+                        </svg>
+                    </th>
+                    <td id="class2val">&lt;= 2*max/5</td>
+                </tr>
+                <tr>
+                    <th id="class3key">
+                        <svg height="34" width="34">
+                            <circle cx="17" cy="17" r="16" stroke="blue" stroke-width="2" fill="lightgreen"
+                                fill-opacity="55%" />
+                        </svg>
+                    </th>
+                    <td id="class3val">&lt;= 3*max/5</td>
+                </tr>
+                <tr>
+                    <th id="class4key">
+                        <svg height="42" width="42">
+                            <circle cx="21" cy="21" r="20" stroke="purple" stroke-width="2" fill="lightgreen"
+                                fill-opacity="55%" />
+                        </svg>
+                    </th>
+                    <td id="class4val">&lt;= 4*max/5</td>
+                </tr>
+                <tr>
+                    <th id="class5key">
+                        <svg height="50" width="50">
+                            <circle cx="25" cy="25" r="24" stroke="violet" stroke-width="2" fill="lightgreen"
+                                fill-opacity="55%" />
+                        </svg>
+                    </th>
+                    <td id="class5val">&lt;= Max</td>
+                </tr>
+            </table>
+            <h4 id="legendnot" class="hide">
+                There were no 
+                <span id="agenot">Age 0</span>
+                <span id="speciesnot">American Shad</span>
+                collected.
+            </h4>
+        </fieldset>
+    </div>
+    <div id="maptitle" class="hide">
+        <!-- <div id="titlebag"></div> -->
+        <h3>
+            <span id="yearspan">Year</span>
+            <span id="speciespan">Species</span>
+            <span id="agespan">Age</span>
+        </h3>
+        <h4>
+            Survey
+            <span id="surveyspan">Number</span>
+            <span id="beginspan">BeginDate</span> to
+            <span id="endspan">EndDate</span> -
+            <span id="netspan">Net</span>
+        </h4>
+    </div>
+    <section class="dbar">
+        <h2 id="outtitle" class="dtitle">
+            Please select a valid survey and click Draw Map
+        </h2>
+        <div id="outdiv"></div>
+        <footer>
+            <small style="float: right; margin: 5px;">
+                <script>
+                    document.write((document.lastModified).toLocaleString());
+                </script>
+            </small>
+            <ol class="msgx">
+                <li>
+                    Original
+                    <a href="https://www.dfg.ca.gov/delta/data/BayStudy/CPUE_Map.asp">
+                        Fish Distribution Map
+                    </a>    
+                </li>
+                <li>
+                    <a href="?year=2021&survey=1&SPECIES=&NET=1&Age=All&VSTATION=FALSE&VPERCENT=&MAX_SCALE="></a>
+                </li>
+                <li>
+                    Built on
+                    <a href="https://esri.github.io/esri-leaflet/">
+                        Esri Leaflet
+                    </a> and
+                    <a href="https://leafletjs.com/">Leaflet JS</a>    
+                </li>
+            </ol>
+        </footer>
+        <details class="msgr msgx" open>
+            <summary>
+                <h3>
+                    <a href="https://esri.github.io/esri-leaflet/api-reference/layers/vector-basemap.html">
+                        Esri Leaflet
+                    </a>&bull;
+                    <a
+                        href="https://developers.arcgis.com/documentation/mapping-apis-and-services/maps/services/basemap-layer-service/#default-basemap-styles">
+                        Development
+                    </a>&dotsquare;
+                    bdv-<output id="avn"></output>
+                </h3>
+            </summary>
+            <a href="https://cdfw.maps.arcgis.com/home/item.html?id=3f0e43e88dc04fda8c78a8b792fb0f29#overview">
+                ArcGIS Online feature data source
+            </a>
+            <div>
+                <label for="colset">Fields:</label>
+                <input type="radio" id="hits" name="colset" value="hits" checked="checked">
+                <label for="hits">Hits Only</label>
+                <input type="radio" id="agecols" name="colset" value="ages">
+                <label for="agecols">Ages</label>
+                <input type="radio" id="allcols" name="colset" value="all">
+                <label for="allcols">All</label>
+            </div>
+            <div id="msgbar">
+                <div id="msgbox"></div>
+            </div>
+        </details>
+    </section>
+    <script>
+        const APIKEY = {
+            apikey: "AAPK6b0985992bc5430a889d0bfbcaad4c69S9fMoriHLkizvSxx26HhyZhFUcjkiiYumHUbC_ASe3k4vCU9MpnRAG_2BVUVIowF"
+            // Replace with your API key FROM https://developers.arcgis.com
+        };
+        const app = {
+            id: "baystudycpue",
+            layers: {
+                "stations": {
+                    // url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/baystations/FeatureServer/0"
+                    url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bdbaystudy/FeatureServer/0"
+                },
+                "agelut": {
+                    url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bdbaystudy/FeatureServer/1"
+                },
+                "fishcodes": {
+                    url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bdbaystudy/FeatureServer/2",
+                    fields: ["AlphaCode", "CommonName"]
+                },
+                "fishcpue": {
+                    url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bdbaystudy/FeatureServer/3"
+                },
+                "boatstation": {
+                    url: "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bdbaystudy/FeatureServer/4"
+                }
+            },
+            sqlwhereyears: "SELECT DISTINCT [Year] FROM BayStudyFishCPUE ORDER BY [Year] DESC"
+        }
+        //2021-09-22 OTHER GOOD BASEMAPS= ArcGIS:Terrain:Base(but no labels)
+        const basemapnames = ['ArcGIS:DarkGray',
+            'ArcGIS:DarkGray:Base',
+            'ArcGIS:DarkGray:Labels',
+            'ArcGIS:LightGray',
+            'ArcGIS:LightGray:Base',
+            'ArcGIS:LightGray:Labels',
+            'ArcGIS:Navigation',
+            'ArcGIS:NavigationNight',
+            'ArcGIS:Streets',
+            'ArcGIS:StreetsNight',
+            'ArcGIS:StreetsRelief',
+            'ArcGIS:StreetsRelief:Base',
+            'ArcGIS:Community',
+            'ArcGIS:Terrain:Base',
+            'ArcGIS:Topographic:Base',
+            'ArcGIS:ChartedTerritory',
+            'ArcGIS:ColoredPencil',
+            'ArcGIS:Midcentury',
+            'ArcGIS:ModernAntique:Base',
+            'OSM:StreetsRelief:Base'
+        ];
+        var bl = 'ArcGIS:Terrain:Base';
+        var ll = [38, -122];// [38.5731, -121.4702]
+        var zl = 10;
+        var cpuefield = 'TotalCPUE';
+        var stationdates = {};
+        var zids = [];
+        var stationsnocatch = null;
+        var stationsnot = null;
+        function outtitle(s) {
+            let args = Array.from(arguments);
+            $('outtitle').innerHTML = args.join(' ');
+        }
+        function checkAge() {
+            if (document.getElementById("age").value === "") {
+                outtitle("Please select an age class");
+            }
+            return $('age').value;
+        }
+        const agefields = {
+            "Age0": "Age0CPUE",
+            "Age1": "Age1CPUE",
+            "Age1+": "Age1_CPUE",
+            "Age2+": "Age2_CPUE",
+            "All": "TotalCPUE"
+        }
+        function qfields(s) {
+            msgput('DO qfields', s);
+            if (s === undefined) {
+                var s = document.querySelector('input[name="colset"]:checked').value;
+            }
+            if (s === 'all') {
+                var fnames = ['Year', 'Survey', 'Station', 'Net', 'Tow', 'Species',
+                    'Age0CPUE', 'Age1_CPUE', 'Age1CPUE', 'Age2_CPUE', 'TotalCPUE'];
+            } else if (s === 'hits') {
+                var fnames = ['Station'];
+                cpuefield = agefields[$('age').value];
+                fnames.push(cpuefield);
+                // fnames.push('Year');
+                // fnames.push('Survey');
+            } else {
+                var fnames = ['Station', 'Age0CPUE', 'Age1CPUE', 'Age1_CPUE', 'Age2_CPUE', 'TotalCPUE'];
+            }
+            return fnames;
+        }
+        function qcpue() {
+            let sqlargs = [];
+            sqlargs.push("Species = '" + $('species').value + "'");
+            if ($('year').value != '') {
+                sqlargs.push("Year = " + $('year').value);
+            }
+            if ($('survey').value != '') {
+                sqlargs.push("Survey = " + $('survey').value);
+            }
+            sqlargs.push("Net = " + $('net').value);
+            let age = checkAge($('age').value);
+            // sqlargs.push(agefields[age] + " = '" + age + "'");
+            let sqlwhere = sqlargs.join(' AND ');
+            msgput(sqlwhere);
+            if (sqlwhere.indexOf('Year') < 0 && sqlwhere.indexOf('Survey') < 0) {
+                outtitle('Please pick at least a Year or a Survey');
+                return;
+            }
+            return sqlwhere;
+        }
+        // INIT UIVIEW
+        if (urlfind('net') && urlloaded['net'] == undefined) {
+            pickvalue($('net'), urlfind('net'));
+            urlloaded['net'] = urlfind('net');
+        } else {
+            om = pickfirst($('net'));
+        }
+        if (urlfind('survey') && urlloaded['survey'] == undefined) {
+            pickvalue($('survey'), urlfind('survey'));
+            urlloaded['survey'] = urlfind('survey');
+        } else {
+            om = pickfirst($('survey'));
+        }
+
+        // INIT MAP APP
+        var map = L.map('map').setView(ll, zl);
+        // L.esri.basemapLayer('Topographic').addTo(map); // DO THIS WITHOUT API KEY
+        L.esri.Vector.vectorBasemapLayer(bl, APIKEY).addTo(map);
+        // STATIONS MAP LAYER
+        // a Leaflet marker is used by default to symbolize point features.
+        var stations = L.esri.featureLayer({
+            // url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0'
+            // url: 'https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/baystations/FeatureServer/0'
+            url: app.layers.stations.url
+        }).addTo(map);
+        var notsampled = L.esri.featureLayer({
+            url: app.layers.stations.url,
+            pointToLayer: function (geojson, latlng) {
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        iconSize: null,
+                        className: "notsampled",
+                        html: '<div>+</div>'
+                    })
+                });
+            }
+        });
+        // .addTo(map);
+        // STATION LABELS LAYER AND CHECKBOX UX
+        var stationlabels = L.esri.featureLayer({
+            url: app.layers.stations.url,
+            pointToLayer: function (geojson, latlng) {
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        iconSize: null,
+                        className: "stationlabel",
+                        html: '<div>' + geojson.properties['Station'] + '</div>'
+                    })//icons[geojson.properties.direction.toLowerCase()]
+                });
+            }
+        });
+        var stationids = document.getElementById('stationids');
+        stationids.onclick = function () {
+            if (stationids.checked) {
+                map.addLayer(stationlabels);
+            } else {
+                map.removeLayer(stationlabels);
+            }
+        }
+        // STATIONS LAYER FOR DYNAMICALLY SYMBOLIZING QUERY RESULTS
+        var stationsmarked = L.esri.featureLayer({
+            url: app.layers.stations.url
+        });
+        // CONTENT LAYERS CONTROL
+        var overlays = {
+            'Stations': stations,
+            'Station IDs': stationlabels
+        };
+        // https://esri.github.io/esri-leaflet/examples/layers-control.html
+        // https://leafletjs.com/reference.html#control-layers
+        // L.control.layers(baseLayers, overlays).addTo(map);
+        L.control.layers(null, overlays).addTo(map);
+
+        // INIT FISH SPECIES PICKLIST UIUX
+        var species = document.getElementById('species');
+        var fishcodes = L.esri.featureLayer({
+            url: app.layers.fishcodes.url
+            // simplifyFactor: 0.5,
+            // precision: 4
+        }).addTo(map);
+        fishcodes.query()
+            .where("1=1")
+            .run(function (error, fc) {
+                // console.log(featureCollection);
+                var ar = [];
+                var features = fc.features;
+                features.forEach(feature => {
+                    var fa = feature.properties;
+                    ar.push([fa['AlphaCode'], fa['CommonName']]);
+                });
+                om = picklistfill($('fishcodes'), ar);
+                om = picklistfill($('species'), ar);
+                pickonload('species');
+                // msgput('URLFIND species=', urlfind('species'));
+                // msgput('URLLOADED species=', urlloaded['species']);
+                // if (urlfind('species') && urlloaded['species'] == undefined) {
+                //     om = pickvalue($('species'), urlfind('species'));
+                //     urlloaded['species'] = urlfind('species');
+                // } else {
+                //     om = pickfirst($('species'));
+                // }
+                // if (urlqued && urlargs['species']) {
+                //     // $('species').value = urlargs['species'];
+                //     pickvalue($('species'), urlargs['species']);
+                //     delete urlargs['species'];
+                // } else {
+                //     om = pickfirst($('species'));
+                // }
+                getages(species.value);
+            });
+        function getages(AlphaCode) {
+            L.esri.query({
+                url: app.layers.agelut.url
+            }).where("AlphaCode = '" + AlphaCode + "'")
+                .fields(["AgeClass"])
+                // .orderBy("Net")
+                .orderBy("AgeClass")
+                .distinct()
+                .run(function (error, fc) {
+                    if (error) {
+                        console.error(error);
+                        var msg = 'Error looking up AgeClass by AlphaCode';
+                        msgput(msg);
+                        return;
+                    }
+                    if (fc.features.length > 0) {
+                        // console.log(fc);// ERROR--invalid GeoJSON encountered [Request.js:231]
+                        var ar = [];
+                        var features = fc.features;
+                        features.forEach(feature => {
+                            fa = feature.properties;
+                            ar.push([fa['AgeClass'], fa['AgeClass']]);
+                        });
+                        $('age').innerHTML = '<option value="">--Age--</option>';
+                        om = picklistfill($('age'), ar);
+                        pickonload('age');
+                        msgput(om, ' age classes listed');
+                    } else {
+                        msgput('No age class found for ', AlphaCode);
+                    }
+                });
+        }
+        species.addEventListener('change', function () {
+            // $('AlphaCode').value = species.value;
+            msgput('Species AlphaCode = ', species.value);
+            getages(species.value);
+        });
+
+        // INIT FISH CPUE TABLE AND YEARS PICKLIST
+        var fishcpue = L.esri.featureLayer({
+            url: app.layers.fishcpue.url
+        }).addTo(map);
+        fishcpue.query()
+            .where("Year IS NOT NULL")
+            .distinct()
+            .fields(['Year'])
+            .orderBy('Year', 'DESC')
+            .run(function (error, fc) {
+                var ar = [];
+                var features = fc.features;
+                features.forEach(feature => {
+                    var fa = feature.properties;
+                    ar.push([fa['Year'], fa['Year']]);
+                });
+                om = picklistfill($('year'), ar);
+                pickonload('year');
+            });
+
+        function getspecies(year) {
+            L.esri.query({
+                url: app.layers.fishcpue.url
+            }).where("Year = " + year)
+                .distinct()
+                .fields(['Species'])
+                .groupBy(['Species'])
+                .orderBy('Species', 'ASC')
+                .run(function (error, fc) {
+                    var ar = [];
+                    var features = fc.features;
+                    features.forEach(feature => {
+                        var fa = feature.properties;
+                        ar.push([fa['Species'], fa['Species']]);
+                    });
+                });
+        }
+        function getsurveys(year) {
+            let query = L.esri.query({
+                url: app.layers.boatstation.url
+            });
+            query.where("Year = " + year)
+                .distinct()
+                .fields(['Survey'])
+                // .groupBy(['Survey'])
+                .orderBy('Survey', 'ASC');
+            // THERE MAY BE DIFF DATES PER SURVEY
+            query.params.groupByFieldsForStatistics = ["Survey"];
+            query.run(function (error, fc) {
+                var ar = [];
+                var features = fc.features;
+                features.forEach(feature => {
+                    var fa = feature.properties;
+                    ar.push([fa['Survey'], fa['Survey']]);
+                });
+            });
+        }
+        function getsamples(year, survey, callback = querycpue) {
+            msgput('DO getsamples: ', year, survey);
+            dates = [], datebegin = null, datefin = null;
+            let query = L.esri.query({
+                url: app.layers.boatstation.url
+            });
+            query.where("Year = " + year + " AND Survey = " + survey)
+                .distinct()
+                .fields(['Station', 'Date'])
+                // .groupBy(['Station'])
+                .orderBy('Station', 'ASC')
+                // THERE MAY BE DIFF DATES PER SURVEY
+                .run(function (error, fc) {
+                    stationdates = {};
+                    zids = [];
+                    datefeatures = fc.features;
+                    datefeatures.forEach(feature => {
+                        var fa = feature.properties;
+                        stationdates[fa['Station']] = new Date(fa['Date']).toLocaleDateString();// fa['Date'];
+                        // msgput(fa['Station'], new Date(fa['Date']).toLocaleDateString());
+                        dates.push(fa['Date']);
+                        zids.push(fa['Station']);
+                    });
+                    msgput('SAMPLED STATIONS: ', zids);
+                    callback();
+                });
+        }
+        function ratable(inrows) {//features, fieldnames) {
+            msgput('DO ratable'); // TO BUILD OUT FULL TABLE WITH DATES BEFORE VALUES
+            var fieldnames = inrows.shift();// qfields();
+            var table = document.createElement('table');
+            table.classList.add('center');
+            var thead = document.createElement('thead');
+            table.appendChild(thead);
+            var toprow = document.createElement('tr');
+            thead.appendChild(toprow);
+            var th = document.createElement('th');
+            th.innerHTML = '#';
+            toprow.appendChild(th);
+            fieldnames.forEach(name => {
+                var th = document.createElement('th');
+                th.innerHTML = name.replace('_', '+').replace('CPUE', ' CPUE');
+                toprow.appendChild(th);
+            });
+            var tbody = document.createElement('tbody');
+            table.appendChild(tbody);
+            var j = 0;
+            inrows.forEach(ar => {
+                j += 1;
+                var tr = document.createElement('tr');
+                tbody.appendChild(tr);
+                // var fa = feature.properties;
+                var k = 0;
+                var cell = tr.insertCell(k);
+                cell.innerHTML = j;
+                ar.forEach(val => {
+                    k += 1;
+                    var cell = tr.insertCell(k);
+                    cell.innerHTML = val;
+                });
+            });
+            return table;
+        }
+        // COMBINE SAMPLEDATES AND CPUEVALUES QUERY RESULTS
+        function mergerows() {//datefeatures, cpuefeatures) {
+            msgput('DO mergerows');
+            var fieldnames = qfields();
+            fieldnames.push('Date');
+            msgput(fieldnames);
+            trows = [fieldnames];
+            zids.forEach(zid => {
+                if (stationvals[zid] == undefined) {
+                    var ar = [zid, 0, stationdates[zid]];
+                } else {
+                    var ar = stationvals[zid];
+                    ar.push(stationdates[zid]);
+                }
+                trows.push(ar);
+                msgput(ar);
+            });
+            return trows;
+        }
+        // REST SERVICE METADATA INFO--2021-09-29
+        fishcpue.metadata(function (error, metadata) {
+            if (error) {
+                return;
+            }
+            var cols = [];
+            metadata.fields.forEach(field => {
+                cols.push([field.name, field.type, field.alias]);
+            });
+            console.log('FISHCPUE.fields=', cols.join(' | '));// JSON.stringify(metadata));
+            // var htmlContent = '<ul>';
+            // htmlContent += '<li>Name: ' + metadata.name + '</li>';
+            // htmlContent += '<li>Geometry Type: ' + metadata.geometryType + '</li>';
+            // htmlContent += '<li>Supported Query Formats: ' + metadata.supportedQueryFormats + '</li>';
+            // document.getElementById('info').innerHTML = htmlContent;
+        });
+        // DRAW MAP BY URLARGS
+        setTimeout(() => {
+            gomaponload();
+        }, 1000);
+
+        // INIT DRAWMAP BUTTON
+        $('godrawmap').addEventListener('click', godrawmap);
+        function godrawmap() {
+            $('msgbox').innerHTML = '';
+            getsamples($('year').value, $('survey').value);
+        }
+        // QUERY FISHCPUE RECORDS
+        function querycpue() {
+            let sqlwhere = qcpue();
+            L.esri.query({
+                url: app.layers.fishcpue.url
+            })
+                .where(sqlwhere)
+                .orderBy('Station')
+                .run(function (error, fc) {
+                    $('outdiv').innerHTML = '';
+                    if (error) {
+                        console.error(error);
+                        outtitle('No results found');
+                        return;
+                    }
+                    if (fc.features.length > 0) {
+                        outtitle(fc.features.length, ' results returned');
+                        var outa = [$('species').options[$('species').selectedIndex].innerHTML];
+                        outa.push($('year').value);
+                        outa.push('Survey: ' + $('survey').value);
+                        outtitle(outa.join(' '));
+                        var fieldnames = qfields();
+                        var features = fc.features;
+                        stationvals = {};
+                        features.forEach(feature => {
+                            var ar = [];
+                            fa = feature.properties;
+                            // for (name in fa) {
+                            //     ar.push(fa[name]);
+                            // } // NOT ALL OUTFIELDS
+                            ar[0] = fa['Station'];
+                            ar[1] = parseFloat(fa[cpuefield]).toFixed(2);
+                            stationvals[fa['Station']] = ar;
+                        });
+                        // datefeatures = mergerows(datefeatures, features);
+                        // var fieldnames = qfields();
+                        // fieldnames.push('Date');
+                        // var outtable = fatable(features, fieldnames);
+                        var outrows = mergerows();
+                        var outtable = ratable(outrows);
+                        $('outdiv').appendChild(outtable);
+                        drawstations(features);
+                        $('yearspan').innerHTML = $('year').value;
+                        $('speciespan').innerHTML = $('species').options[$('species').selectedIndex].innerHTML;
+                        $('agespan').innerHTML = $('age').value;
+                        $('surveyspan').innerHTML = $('survey').value;
+                        $('netspan').innerHTML = $('net').options[$('net').selectedIndex].innerHTML;
+                        unhide('maptitle');
+                    } else {
+                        outtitle('Not A Valid Survey or No results found');
+                        // map.addLayer(stations);
+                        if (stationsmarked) {
+                            map.removeLayer(stationsmarked);
+                        }
+                        if (stationsnocatch != null) {
+                            map.removeLayer(stationsnocatch);
+                        }
+                        if (stationsnot != null) {
+                            map.removeLayer(stationsnot);
+                        }
+                        classifive();
+                        dohide('maptitle');
+                    }
+                });
+            // DONE QUERYCPUE
+        }
+        // CREATE A CIRCLE EXAMPLE 
+        var circle = L.circle([37.89, -121.654], {
+            color: 'green',
+            fillColor: 'lightgreen',
+            fillOpacity: 0.55,
+            radius: 5550
+        });
+        // .addTo(map);
+        // SYMBOLIZE QUERY RESULT PER STATION MAP LAYER
+        function drawstations(features) {
+            let stids = [];
+            let vals = [];
+            var stvals = {};
+            features.forEach(feature => {
+                fa = feature.properties;
+                stids.push(fa['Station']);
+                vals.push(fa[cpuefield]);
+                stvals[fa['Station']] = fa[cpuefield];
+            });
+            msgput(vals);
+            // console.log(stvals);//=OK
+            var max = Math.max(...vals);// WITHOUT ES6: Math.max.apply(null, vals)
+            if ($('optmax').value !== '') {
+                let umax = parseFloat($('optmax').value);
+                if (umax >= max) {
+                    max = umax;
+                }
+            }
+            if (max == 0) {
+                unhide('legendnot');
+            }
+            // msgput('cpue max=', max);//=OK
+            let stationswhere = "Station IN (" + stids + ")";// zids + ")";//
+            map.removeLayer(stations);
+            map.removeLayer(stationsmarked);
+            // stationlabels.setWhere(stationswhere);
+            stationsmarked = L.esri.featureLayer({
+                url: app.layers.stations.url,
+                where: stationswhere,
+                pointToLayer: function (geojson, latlng) {
+                    // return L.marker(latlng, {
+                    //     icon: L.divIcon({
+                    //         iconSize: null,
+                    //         className: "stationlabel",
+                    //         html: '<div>' + geojson.properties['Station'] + '</div>'
+                    //     })//icons[geojson.properties.direction.toLowerCase()]
+                    // });
+                    let stid = geojson.properties['Station'];
+                    let val = stvals[stid];
+                    // msgput(stid, val);
+                    // *** TOTALCPUE NOT IN STATIONS LAYER SO IT IS UNDFF
+                    // return L.circle(latlng, {
+                    //     color: 'green',
+                    //     fillColor: 'lightgreen',
+                    //     fillOpacity: 0.55,
+                    //     radius: val2rad(val, max)// parseInt(val*100) //2000 // (geojson.properties[cpuefield]*100)=NaN
+                    // });
+                    return L.circleMarker(latlng, {
+                        color: val2color(val, max),// 'green',
+                        fillColor: 'lightgreen',
+                        fillOpacity: 0.55,
+                        radius: val2radpx(val, max)// parseInt(val*100) //2000 // (geojson.properties[cpuefield]*100)=NaN
+                    });
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(feature.properties.Station);
+                }
+            }).bindPopup(function (layer) {
+                return layer.feature.properties.Station;
+            }).addTo(map);
+            // NOT SAMPLED STATIONS
+            if (stationsnot != null) {
+                map.removeLayer(stationsnot);
+            }
+            stationsnot = L.esri.featureLayer({
+                url: app.layers.stations.url,
+                where: "Station NOT IN (" + zids + ")",
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "notsampled",
+                            html: '<div>+</div>'
+                        })
+                    });
+                }
+            }).addTo(map);
+            // NO CATCH STATIONS
+            if (stationsnocatch != null) {
+                map.removeLayer(stationsnocatch);
+            }
+            var nocatchids = arsub(zids, stids);
+            stationsnocatch = L.esri.featureLayer({
+                url: app.layers.stations.url,
+                where: "Station IN (" + nocatchids + ")",
+                pointToLayer: function (geojson, latlng) {
+                    // return L.marker(latlng, {
+                    //     icon: L.divIcon({
+                    //         iconSize: null,
+                    //         className: "stationlabel",
+                    //         html: '<div>' + geojson.properties['Station'] + '</div>'
+                    //     })//icons[geojson.properties.direction.toLowerCase()]
+                    // });
+                    return L.circleMarker(latlng, {
+                        color: 'gray',
+                        fillColor: 'white',
+                        fillOpacity: 1.0,
+                        radius: 5// ZERO CATCH DOTS
+                    })
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(feature.properties.Station);
+                }
+            }).bindPopup(function (layer) {
+                return layer.feature.properties.Station;
+            }).addTo(map);
+            classifive(max);
+            // BEGIN-ENDDATES
+            datebegin = new Date(Math.min(...dates)).toLocaleDateString();
+            datefin = new Date(Math.max(...dates)).toLocaleDateString();
+            $('beginspan').innerHTML = datebegin;
+            $('endspan').innerHTML = datefin;
+        }
+        // CLASSIFY CPUE INTO 5 CLASSES OF CIRCLE RADIUS SIZES
+        function classifive(x) {
+            if (x === undefined || typeof x != 'number') {
+                var a = [0, 'Max/5', '2*Max/5', '3*Max/5', '4*Max/5', 'Max'];
+            } else {
+                var a = [0];
+                for (var i = 1; i < 6; i++) {
+                    a.push((x * i / 5).toFixed(2));
+                }
+            }
+            for (var i = 1; i < 6; i++) {
+                $('class' + i + 'val').innerHTML = '&lt;= ' + a[i];
+            }
+            // return a;
+        }
+        function val2rad(val, max) {
+            // if (val === 0) {
+            //     return 0;
+            // }
+            let radii = [500, 1000, 1500, 2000, 2500, 3000];
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];// (d * i * 100);
+        }
+        function val2radpx(val, max) {
+            let radii = [5, 8, 12, 16, 20, 25];
+            // 5, 8, 12, 15, 18, 22
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];
+        }
+        function val2color(val, max) {
+            let colors = ['dimgray', 'limegreen', 'green', 'blue', 'purple', 'violet'];
+            let i = Math.ceil(val / (max / 5));
+            return colors[i];
+        }
+        function arsub(a, b) {
+            let ar = [];
+            let bs = ',' + b.join(',') + ',';
+            while (a.length > 0) {
+                var x = a.shift();
+                if (bs.indexOf(x + ',') < 0) {
+                    ar.push(x);
+                }
+            }
+            return ar;
+        }
+        // DONE INIT
+        $('avn').value = avn;
+    </script>
+</body>
+
+</html>

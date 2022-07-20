@@ -1,0 +1,337 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Esri Leaflet Quickstart</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+    <meta name="author" content="bios@wildlife.ca.gov">
+    <meta name="description" content="Bay Delta Fish Distribution Map">
+    <meta name="generator" content="biosgis-20211001">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://wildlife.ca.gov/Portals/0/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://wildlife.ca.gov/Portals/0/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://wildlife.ca.gov/Portals/0/favicon-16x16.png">
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.2/dist/esri-leaflet.js"
+        integrity="sha512-myckXhaJsP7Q7MZva03Tfme/MSF5a6HC2xryjAM4FxPLHGqlh5VALCbywHnzs2uPoF/4G/QVXyYDDSkp5nPfig=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet Vector from CDN -->
+    <script src="https://unpkg.com/esri-leaflet-vector@3.1.0/dist/esri-leaflet-vector.js"
+        integrity="sha512-AAcPGWoYOQ7VoaC13L/rv6GwvzEzyknHQlrtdJSGD6cSzuKXDYILZqUhugbJFZhM+bEXH2Ah7mA1OxPFElQmNQ=="
+        crossorigin=""></script>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 1.2em;
+            line-height: 1.3em;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        h2.dtitle {
+            /* color: navy; */
+            text-align: center;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            height: 7%;
+            width: 100%;
+            background-color: whitesmoke;
+            border: dimgray solid 1px;
+        }
+
+        header h1 {
+            /* font-size: 2em; */
+            margin: 0;
+            padding: .5%;
+        }
+
+        #map {
+            position: absolute;
+            border: silver solid 1px;
+            top: 7%;
+            bottom: auto;
+            right: 0;
+            left: 0;
+            height: 70%;
+        }
+
+        section.dbar {
+            position: absolute;
+            top: 77%;
+            width: 100%;
+            border: dimgray solid 1px;
+        }
+
+        article.tbar {
+            position: relative;
+            height: auto;
+            background-color: ghostwhite;
+            border: dimgray solid 1px;
+            border-top-width: 2px;
+            padding: .5%;
+        }
+
+        input[type=checkbox] {
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            margin: 5px;
+        }
+
+        footer {
+            position: relative;
+            background-color: floralwhite;
+            border: dimgray solid 1px;
+            font-family: monospace;
+            margin-top: 1%;
+            padding: 1%;
+        }
+
+        .grid1col {
+            display: grid;
+            grid-template-columns: auto;
+        }
+
+        #basemaps-wrapper {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 400;
+            background: white;
+            padding: 10px;
+        }
+
+        #basemaps {
+            margin-bottom: 5px;
+        }
+
+        .stationlabel {
+            background-color: transparent;
+            border: 1px solid transparent;
+            /* FOR TESTING POSITION */
+            color: mediumblue;
+            font-family: sans-serif;
+            font-size: 12;
+            font-weight: bold;
+            left: 10px;
+            top: -5px;
+        }
+    </style>
+    <script>
+        function onpageload() {
+            let als = document.getElementsByTagName('A');
+            var k = 0;
+            for (let i = 0; i < als.length; i++) {
+                var alink = als[i];
+                if (alink.href.indexOf('#') !== 0 && alink.href.indexOf('mailto:') < 0 && alink.href.indexOf('tel:') < 0) {
+                    alink.target = '_blank';
+                    // alink.classList.add('esri-icon-link');
+                }
+                k = i;
+            }
+            console.log(k, 'links');
+        }
+        window.addEventListener('load', onpageload);
+    </script>
+</head>
+
+<body>
+    <header>
+        <small style="float: right; margin: 5px;">
+            <script>
+                document.write(document.lastModified);
+            </script>
+        </small>
+        <h1>
+            Bay Delta Survey Stations
+        </h1>
+    </header>
+    <div id="map" title="map"></div>
+    <section class="dbar">
+        <article class="tbar">
+            <input type="checkbox" id="stationids">
+            <label for="stationids">Station IDs</label>
+            (All IEP stations)
+        </article>
+        <footer class="grid1col">
+            <a href="https://esri.github.io/esri-leaflet/">
+                Esri Leaflet
+            </a>
+            <a href="https://esri.github.io/esri-leaflet/examples/">
+                Esri Leaflet Quickstart
+            </a>
+            <a href="https://esri.github.io/esri-leaflet/examples/basemap-with-labels.html">
+                Basemap with labels //2021-09-22
+            </a>
+            <a href="https://esri.github.io/esri-leaflet/examples/switching-basemaps.html">
+                Switching basemaps //2021-09-22
+            </a>
+            <a href="https://esri.github.io/esri-leaflet/examples/querying-feature-layers-1.html">
+                Querying features 1 //2021-09-23
+            </a>
+            <a href="https://esri.github.io/esri-leaflet/examples/query-no-map.html">
+                Query without a Map
+            </a>
+            <a href="https://esri.github.io/esri-leaflet/examples/getting-service-metadata.html">
+                Service Metadata (REST service infojson) //2021-09-29
+            </a>
+            <a href="https://esri.github.io/esri-leaflet/api-reference/layers/feature-layer.html">
+                L.esri.FeatureLayer
+            </a>
+            <a href="https://esri.github.io/esri-leaflet/examples/labeling-features.html">
+                Labeling Features
+            </a>
+            <a href="https://leafletjs.com/reference.html#control-layers">
+                Control layers
+            </a>
+            <a href="https://esri.github.io/esri-leaflet/examples/dynamic-chart.html">
+                Dynamic feature charting with Chart.js
+            </a>
+            <a href="https://leafletjs.com/examples.html">
+                Leaflet Tutorials
+            </a>
+        </footer>
+    </section>
+    <script>
+        const APIKEY = {
+            apikey: "AAPK6b0985992bc5430a889d0bfbcaad4c69S9fMoriHLkizvSxx26HhyZhFUcjkiiYumHUbC_ASe3k4vCU9MpnRAG_2BVUVIowF"
+        };
+        // Replace with your API key - https://developers.arcgis.com
+        var bl = 'ArcGIS:ChartedTerritory';
+        var ll = [38, -122];// [38.5731, -121.4702]//Richmond, CA=[37.9358, -122.3477]
+        var zl = 9;
+        var app = {
+            layers: {
+                stations: {
+                    url: 'https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bd_stations/FeatureServer/0'
+                }
+            }
+        }
+        var map = L.map('map').setView(ll, zl);
+
+        //--- LOAD BASEMAP
+        // L.esri.Vector.vectorBasemapLayer('ArcGIS:Topographic', {
+        //     apikey: "AAPK6b0985992bc5430a889d0bfbcaad4c69S9fMoriHLkizvSxx26HhyZhFUcjkiiYumHUbC_ASe3k4vCU9MpnRAG_2BVUVIowF"
+        // }).addTo(map);
+        //2021-09-22 BASEMAPS TOOL 
+        var vectorTiles = {};
+        var allEnums = [
+            'ArcGIS:Imagery',
+            'ArcGIS:Imagery:Standard',
+            'ArcGIS:Imagery:Labels',
+            'ArcGIS:LightGray',
+            'ArcGIS:LightGray:Base',
+            'ArcGIS:LightGray:Labels',
+            'ArcGIS:DarkGray',
+            'ArcGIS:DarkGray:Base',
+            'ArcGIS:DarkGray:Labels',
+            'ArcGIS:Navigation',
+            'ArcGIS:NavigationNight',
+            'ArcGIS:Streets',
+            'ArcGIS:StreetsNight',
+            'ArcGIS:StreetsRelief',
+            'ArcGIS:StreetsRelief:Base',
+            'ArcGIS:Topographic',
+            'ArcGIS:Topographic:Base',
+            'ArcGIS:Oceans',
+            'ArcGIS:Oceans:Base',
+            'ArcGIS:Oceans:Labels',
+            'OSM:Standard',
+            'OSM:StandardRelief',
+            'OSM:StandardRelief:Base',
+            'OSM:Streets',
+            'OSM:StreetsRelief',
+            'OSM:StreetsRelief:Base',
+            'OSM:LightGray',
+            'OSM:LightGray:Base',
+            'OSM:LightGray:Labels',
+            'OSM:DarkGray',
+            'OSM-DarkGray:Base',
+            'OSM-DarkGray:Labels',
+            'ArcGIS:Terrain',
+            'ArcGIS:Terrain:Base',
+            'ArcGIS:Terrain:Detail',
+            'ArcGIS:Community',
+            'ArcGIS:ChartedTerritory',
+            'ArcGIS:ChartedTerritory:Base',
+            'ArcGIS:ColoredPencil',
+            'ArcGIS:Nova',
+            'ArcGIS:ModernAntique',
+            'ArcGIS:ModernAntique:Base',
+            'ArcGIS:Midcentury',
+            'ArcGIS:Newspaper',
+            'ArcGIS:Hillshade:Light',
+            'ArcGIS:Hillshade:Dark'
+        ];
+
+        // the L.esri.Vector.vectorBasemapLayer basemap enum defaults to 'ArcGIS:Streets' if omitted
+        vectorTiles.Default = L.esri.Vector.vectorBasemapLayer(null, APIKEY);
+        allEnums.forEach((enumString) => {
+            vectorTiles[
+                enumString
+            ] = L.esri.Vector.vectorBasemapLayer(enumString, APIKEY);
+        });
+        // L.control
+        //     .layers(vectorTiles, null, {
+        //         collapsed: false
+        //     })
+        //     .addTo(map);
+        vectorTiles.Default.addTo(map);
+
+        //--- ADD FEATURE LAYER
+        var stations = L.esri.featureLayer({
+            // url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0'
+            // url: 'https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/baystations/FeatureServer/0'
+            url: 'https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bd_stations/FeatureServer/0'
+        }).addTo(map);
+        // Add stations labels as a layer to map so can add remove-20170825
+        var stationlabels = L.esri.featureLayer({
+            url: app.layers.stations.url,
+            pointToLayer: function (geojson, latlng) {
+                return L.marker(latlng, {
+                    icon: L.divIcon({
+                        iconSize: null,
+                        className: "stationlabel",
+                        html: '<div>' + geojson.properties['STATION'] + '</div>'
+                    })//icons[geojson.properties.direction.toLowerCase()]
+                });
+            }
+        });
+        // .addTo(map);
+        var stationids = document.getElementById('stationids');
+        stationids.onclick = function () {
+            if (stationids.checked) {
+                map.addLayer(stationlabels);
+            } else {
+                map.removeLayer(stationlabels);
+            }
+        }
+        var overlays = {
+            'Stations': stations,
+            'Station IDs': stationlabels
+        };
+        // https://esri.github.io/esri-leaflet/examples/layers-control.html
+        // https://leafletjs.com/reference.html#control-layers
+        // L.control.layers(baseLayers, overlays).addTo(map);
+        L.control.layers(vectorTiles, overlays).addTo(map);
+    </script>
+</body>
+
+</html>

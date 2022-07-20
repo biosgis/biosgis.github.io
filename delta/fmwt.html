@@ -1,0 +1,685 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Fall Midwater Trawl Map</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+    <!-- ,user-scalable=no -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script> -->
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.7/dist/esri-leaflet.js"
+        integrity="sha512-ciMHuVIB6ijbjTyEdmy1lfLtBwt0tEHZGhKVXDzW7v7hXOe+Fo3UA1zfydjCLZ0/vLacHkwSARXB5DmtNaoL/g=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet Vector from CDN -->
+    <script src="https://unpkg.com/esri-leaflet-vector@3.1.2/dist/esri-leaflet-vector.js"
+        integrity="sha512-SnA/TobYvMdLwGPv48bsO+9ROk7kqKu/tI9TelKQsDe+KZL0TUUWml56TZIMGcpHcVctpaU6Mz4bvboUQDuU3w=="
+        crossorigin=""></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.2em;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .xmap {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+
+        #toolbar {
+            position: absolute;
+            top: 8%;
+            right: 5%;
+            left: 5%;
+            width: auto;
+            background-color: whitesmoke;
+        }
+
+        #map {
+            position: absolute;
+            top: 25%;
+            bottom: 10%;
+            right: 5%;
+            left: 5%;
+            border: silver solid 1px;
+        }
+
+        #maptitle {
+            position: absolute;
+            top: 26%;
+            left: 10%;
+            background-color: rgba(255, 255, 255, 0.55);
+            color: maroon;
+            line-height: 1.1em;
+            margin: 5px;
+            z-index: 555;
+        }
+
+        #legendbar {
+            position: absolute;
+            bottom: 12%;
+            right: 6%;
+            background-color: white;
+            border: silver solid 1px;
+            border-radius: 5px;
+            color: midnightblue;
+            margin: 5px;
+            padding: 5px;
+            z-index: 555;
+        }
+
+        #legendnot {
+            color: maroon;
+            font-size: 1em;
+            margin: 2px 5px;
+        }
+
+        .legendtable {
+            border: transparent solid 1px;
+            font-size: 1em;
+        }
+
+        .legendtable td {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        .legendtable th {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        .grid2a {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+
+        .griditem {
+            margin: 5px 2px;
+        }
+
+        #databar {
+            position: absolute;
+            top: 90%;
+            right: 5%;
+            left: 5%;
+            margin-bottom: 2em;
+            padding-bottom: 1em;
+        }
+
+        #outtitle {
+            color: navy;
+        }
+
+        .Month {
+            font-size: inherit;
+        }
+
+        .Species {
+            font-size: inherit;
+        }
+
+        .Survey {
+            font-size: inherit;
+        }
+
+        .Year {
+            font-size: inherit;
+        }
+
+        button {
+            font-size: 1em;
+        }
+
+        .flort {
+            float: right;
+        }
+
+        header {
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            top: 0;
+            padding: 1%;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        input {
+            font-size: 1em;
+        }
+
+        input[type=checkbox] {
+            display: inline-block;
+            height: 16px;
+            line-height: 1em;
+            margin: 2px;
+            vertical-align: bottom;
+            width: 16px;
+        }
+        .margo {
+            margin: 5px;
+        }
+        .paddy {
+            padding: 5px;
+        }
+
+        select {
+            font-size: 1em;
+        }
+
+        .stationnot {
+            color: red;
+            font-weight: bold;
+        }
+
+        .stationlabel {
+            background-color: transparent;
+            border: 1px solid transparent;
+            /* FOR TESTING POSITION */
+            color: mediumblue;
+            font-family: sans-serif;
+            font-size: 10;
+            font-weight: bold;
+            left: 10px;
+            top: -5px;
+        }
+
+        table {
+            border: darkslategray solid 1px;
+            border-collapse: collapse;
+            font-size: 1em;
+        }
+
+        td {
+            border: slategray solid 1px;
+            border-width: 0 1px 1px 0;
+            padding: 5px 10px;
+        }
+
+        th {
+            border: dimgray solid 1px;
+            border-width: 0 1px 1px 0;
+            padding: 5px 10px;
+        }
+
+        table.bgrid tr:nth-child(even) {
+            background-color: aliceblue;
+        }
+    </style>
+    <script>
+        function $(id) { return document.getElementById(id); }
+        function classifive(x) {
+            if (x === undefined || typeof x != 'number') {
+                var a = [0, 'Max/5', '2*Max/5', '3*Max/5', '4*Max/5', 'Max'];
+            } else {
+                var a = [0];
+                for (var i = 1; i < 6; i++) {
+                    a.push((x * i / 5).toFixed(2));
+                }
+            }
+            for (var i = 1; i < 6; i++) {
+                $('class' + i + 'val').innerHTML = '&lt;= ' + a[i];
+            }
+            // return a;
+        }
+        function picklistfill(list, ar) {
+            ar.forEach(x => {
+                var opt = document.createElement('option');
+                opt.value = x[0];
+                opt.innerHTML = x[1];
+                list.appendChild(opt);
+            });
+            return ar.length;
+        }
+        function selectortext(x, s) {
+            let y = document.querySelectorAll(x);
+            for (var i = 0; i < y.length; i++) {
+                y[i].innerHTML = s;
+            }
+            return y.length;
+        }
+        function val2rad(val, max) {
+            let radii = [500, 1000, 1500, 2000, 2500, 3000];
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];// (d * i * 100);
+        }
+        function val2radpx(val, max) {
+            let radii = [5, 8, 12, 16, 20, 25];
+            // 5, 8, 12, 15, 18, 22
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];
+        }
+        function val2color(val, max) {
+            let colors = ['dimgray', 'limegreen', 'green', 'blue', 'purple', 'violet'];
+            let i = Math.ceil(val / (max / 5));
+            return colors[i];
+        }
+    </script>
+    <script src="./js/def.js"></script>
+    <script>
+        let map = null;
+        const APIKEY = "AAPK6b0985992bc5430a889d0bfbcaad4c69S9fMoriHLkizvSxx26HhyZhFUcjkiiYumHUbC_ASe3k4vCU9MpnRAG_2BVUVIowF";
+        let ll = [38.18, -121.8];
+        let zl = 10;
+        let stationsurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/fmwt/FeatureServer/0";
+        let catchurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/fmwt/FeatureServer/1";
+        let stationcatch = {};
+        let stids = [];
+        let stationswhere = "STATION IN (" + stids + ")";
+        let maxval = 0;
+        if (location.host.indexOf('apps.wildlife') < 0) {
+            wlog = console.log;
+        } else {
+            wlog = function () { return; }
+        }
+        function drawmapgo() {
+            var col = $('Species').selectedOptions;
+            var cnames = [];
+            var species = [];
+            for (i = 0; i < col.length; i++) {
+                // wlog(col[i].value);
+                cnames.push(col[i].innerHTML);
+                species.push(col[i].value);
+            }
+            var sql = "Species IN ('" + species.join("', '") + "')";
+            var year = parseInt($('Year').value);
+            var begdate = new Date(year, 0, 1, 1);
+            var enddate = new Date(year, 11, 31, 23);
+            // sql += " AND Year = " + $('Year').value;
+            // sql += " AND StartDate > " + begdate + " AND EndDate <= " + enddate;
+            sql += " AND StartDate > '" + year + "-01-01'";
+            sql += " AND EndDate < '" + (year + 1) + "-01-01'";
+            sql += " AND Month = '" + $('Month').value + "'";
+            var n = selectortext('.Species', cnames.join(', '));
+            var y = selectortext('.Year', $('Year').value);
+            var m = selectortext('.Month', $('Month').value);
+            // wlog(sql);
+            querycatch(sql);
+        }
+        function labelmap() {
+            var col = $('Species').selectedOptions;
+            var cnames = [];
+            for (i = 0; i < col.length; i++) {
+                cnames.push(col[i].innerHTML);
+            }
+            var n = selectortext('.Species', cnames.join(', '));
+            var y = selectortext('.Year', $('Year').value);
+            var m = selectortext('.Month', $('Month').value);
+        }
+        function listspecies() {
+            var query = L.esri.query({
+                url: catchurl
+            });
+            var sql = "CommonName IS NOT NULL"
+            query.where(sql).fields(["Species", "CommonName"])
+                .orderBy('CommonName').distinct();
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK listspecies queryrun: ' + featureCollection.features.length + ' features found');
+                // var tbl = $('outtable');
+                var features = featureCollection.features;
+                var ar = [];
+                features.forEach(fi => {
+                    ar.push([fi.properties['Species'], fi.properties['CommonName']]);
+                });
+                var k = picklistfill($('Species'), ar);
+                // pickfirst($('Species'));
+                // pickonload('Species', '3');
+            });
+        }
+        function listyears() {
+            let x = 2021;
+            let ar = [[x, x]];
+            while (x > 1967) {
+                y = x - 1;
+                x = y;
+                ar.push([x, y]);
+            }
+            var k = picklistfill($('Year'), ar);
+            // pickonload('Year', '2017');
+        }
+        function mapresult() {
+            var stids = Object.keys(stationcatch);
+            stationswhere = "STATION IN (" + stids + ")";
+            stations.setWhere("STATION NOT IN (" + stids + ")");
+            if (map.hasLayer(stationsmarked)) {
+                map.removeLayer(stationsmarked);
+            }
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl,
+                where: stationswhere,
+                fields: ["*"],
+                pointToLayer: function (geojson, latlng) {
+                    // console.log(geojson);
+                    // return L.marker(latlng, {
+                    //     icon: L.divIcon({
+                    //         iconSize: null,
+                    //         className: "stationlabel",
+                    //         html: '<div>' + geojson.properties['Station'] + '</div>'
+                    //     })//icons[geojson.properties.direction.toLowerCase()]
+                    // });
+                    let stid = geojson.properties['STATION'];
+                    let val = stationcatch[stid];
+                    wlog(stid, val);
+                    if (val == 0) {
+                        var fillco = 'white';
+                        var fillop = 1;
+                    } else {
+                        var fillco = 'lightgreen';
+                        var fillop = 0.66;
+                    }
+                    return L.circleMarker(latlng, {
+                        color: val2color(val, maxval),// 'green',
+                        fillColor: fillco, // 'lightgreen',
+                        fillOpacity: fillop, // 0.55,
+                        radius: val2radpx(val, maxval)// parseInt(val*100) //2000 // (geojson.properties[cpuefield]*100)=NaN
+                    });
+                }
+            }).addTo(map);
+        }
+        function puttable(features) {
+            var table = $('outtable');
+            var i = 0;
+            var fields = ['StationCode', 'CommonName', 'WaterTemperature', 'ConductivityTop', 'Catch'];
+            var fieldnames = ['Station', 'Common Name', 'Water Temperature', 'Conductivity Top', 'Catch'];
+            var hrow = document.createElement('tr');
+            table.appendChild(hrow);
+            for (var j = 0; j < fields.length; j++) {
+                var hcell = document.createElement('th');
+                hrow.appendChild(hcell);
+                hcell.innerHTML = fieldnames[j];
+            }
+            var w = selectortext('.Survey', features[0].properties.Survey);
+            var begdate = (new Date(features[0].properties.StartDate)).toLocaleDateString();
+            var enddate = (new Date(features[(features.length - 1)].properties.EndDate)).toLocaleDateString();
+            $('dates').innerHTML = '(' + begdate + ' - ' + enddate + ')';
+            stationcatch = {};
+            maxval = 0;
+            features.forEach(fi => {
+                var row = document.createElement('tr');
+                table.appendChild(row);
+                for (var j = 0; j < fields.length; j++) {
+                    var cell = row.insertCell(j);
+                    cell.innerHTML = fi.properties[fields[j]];
+                }
+                var cval = fi.properties.Catch;
+                if (cval > maxval) {
+                    maxval = cval;
+                }
+                stationcatch[fi.properties.StationCode] = fi.properties.Catch;
+            });
+            wlog('StationsSampled:', Object.keys(stationcatch));
+            mapresult();
+            cssunhide('.legendtable');
+            dohide('legendnot');
+        }
+        function querycatch(sql) {
+            // let sql = "Species = '" + $('Species').value + "' AND Year = " + $('Year').value + " AND Month = " + $("Month").value;
+            wlog('DO querycatch ' + sql);
+            var query = L.esri.query({
+                url: catchurl
+            });
+            query.where(sql).orderBy('StationCode', 'ASC')
+                .orderBy('CommonName', 'ASC').orderBy('StartDate', 'ASC');
+            // Result where cpue is gt zero will have 2 records per station--20170919
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK querycatch queryrun: ' + featureCollection.features.length + ' records found');
+                $('outtable').innerHTML = '';
+                if (featureCollection.features.length === 0) {
+                    stationsmarked.remove();
+                    stations.setWhere('STATION > 0');
+                    csshide('.legendtable');
+                    unhide('legendnot');
+                    return;
+                }
+                var features = featureCollection.features;
+                // wlog('FEATURES:', features);
+                puttable(features);
+            });
+        }
+        function init() {
+            wlog('DO init');
+            map = L.map('map').setView(ll, zl);
+            // [8.913648, -79.544706], 10
+            L.esri.Vector.vectorBasemapLayer('ArcGIS:Topographic', {
+                apikey: APIKEY
+            }).addTo(map);
+            // a Leaflet marker is used by default to symbolize point features.
+            stations = L.esri.featureLayer({
+                url: stationsurl,
+                // where: "PROJECT = 'FMWT'",
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "stationnot",
+                            // html: '<div style="left: -5px; top: -5px; position: relative;"><b style="color: crimson; font-size: medium;">&plus;</b></div>'
+                            html: '<div>&plus;</div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+            }).addTo(map);
+            stationlabels = L.esri.featureLayer({
+                url: stationsurl,
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "stationlabel",
+                            html: '<div>' + geojson.properties['STATION'] + '</div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+            });//.addTo(map);
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl
+            });
+            listspecies();
+            listyears();
+            listlegend();
+            $("stationids").addEventListener('click', function () {
+                if (this.checked === true) {
+                    map.addLayer(stationlabels);
+                } else {
+                    map.removeLayer(stationlabels);
+                }
+            });
+            $('drawmap').addEventListener('click', function () {
+                // wlog('Species', $('Species').value);// JUST ONE VALUE
+                // var col = $('Species').selectedOptions;
+                // for (i = 0; i < col.length; i++) {
+                //     wlog(col[i].value);
+                // }
+                drawmapgo();
+            });
+        }
+        window.addEventListener('load', init);
+    </script>
+</head>
+
+<body>
+    <header>
+        <small class="flort">
+            <script>
+                document.write(document.lastModified.toLocaleString());
+            </script>
+        </small>
+        <h2>
+            <a href="https://wildlife.ca.gov/Conservation/Delta/Fall-Midwater-Trawl" target="_blank">
+                Fall Midwater Trawl
+            </a>
+            Fish Distribution Map
+        </h2>
+    </header>
+    <table id="toolbar">
+        <tr>
+            <th>Select Species</th>
+            <th>Year</th>
+            <th>Month</th>
+            <th>
+                <label for="stationids">
+                    View Stations ID
+                </label>
+                <input type="checkbox" name="stationids" id="stationids">
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <select name="Species" id="Species" size="3" multiple></select>
+            </td>
+            <td>
+                <select name="Year" id="Year"></select>
+            </td>
+            <td>
+                <select name="Month" id="Month">
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+            </td>
+            <th>
+                <button id="drawmap">Draw Map</button>
+            </th>
+        </tr>
+    </table>
+    <div id="map"></div>
+    <h4 id="maptitle">
+        <div>
+            <span class="Species"></span>
+        </div>
+        <div>
+            <span class="Year"></span>
+            <span class="Month"></span> - Survey
+            <span class="Survey"></span>
+        </div>
+        <div id="dates">
+        </div>
+    </h4>
+    <div id="legendbar">
+        <h4 id="legendnot" class="hide">
+            There were no
+            <span class="Species"></span>
+            collected
+        </h4>
+        <table id="legendtable" class="legendtable">
+            <caption>
+                <b>Fish Caught</b>
+            </caption>
+            <tr>
+                <th class="stationnot">+</th>
+                <td>Not Sampled</td>
+            </tr>
+            <tr>
+                <th>o</th>
+                <td>= 0 (Zero)</td>
+            </tr>
+            <tr>
+                <th id="class1key"></th>
+                <td id="class1val">&lt;= max/5</td>
+            </tr>
+            <tr>
+                <th id="class2key"></th>
+                <td id="class2val">&lt;= 2*max/5</td>
+            </tr>
+            <tr>
+                <th id="class3key"></th>
+                <td id="class3val">&lt;= 3*max/5</td>
+            </tr>
+            <tr>
+                <th id="class4key"></th>
+                <td id="class4val">&lt;= 4*max/5</td>
+            </tr>
+            <tr>
+                <th id="class5key"></th>
+                <td id="class5val">&lt;= max</td>
+            </tr>
+        </table>
+        <!-- <h4>
+            Fish Caught
+        </h4>
+        <div class="grid2a">
+            <div class="stationnot griditem">+</div>
+            <div class="griditem">Not Sampled</div>
+            <div class="griditem">o</div>
+            <div class="griditem">= 0 (Zero)</div>
+            <div class="griditem">
+            </div>
+            <div class="griditem">Class 1</div>
+            <div class="griditem">
+            </div>
+            <div class="griditem">Class 2</div>
+            <div class="griditem">
+            </div>
+            <div class="griditem">Class 3</div>
+            <div class="griditem">
+            </div>
+            <div class="griditem">Class 4</div>
+            <div class="griditem">
+            </div>
+            <div class="griditem">Class 5</div>
+        </div> -->
+    </div>
+    <section id="databar">
+        <h3 id="nontitle" class="hide">No fish species were collected</h3>
+        <h3 id="outtitle">
+            <div>
+                <!-- Species: -->
+                <span class="Species"></span>
+            </div>
+            <div>
+                <!-- Year: -->
+                <span class="Year"></span>
+                <!-- </div>
+            <div> -->
+                Survey
+                <span class="Survey"></span>
+            </div>
+        </h3>
+        <table id="outtable" class="bgrid">
+            <tr>
+                <th>
+                    Output Table
+                </th>
+            </tr>
+        </table>
+    </section>
+</body>
+
+</html>
+<!-- NOTES 2022-04-06 dchiang
+    [Esri Leaflet Quickstart](https://esri.github.io/esri-leaflet/examples/)
+    // bugfix--incl mapboxglcss--https://docs.mapbox.com/mapbox-gl-js/example/simple-map/ 
+    [Simple FeatureLayer](https://esri.github.io/esri-leaflet/examples/simple-feature-layer.html)
+-->

@@ -1,0 +1,2469 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Spring Kodiak Trawl Survey Map</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+    <meta name="author" content="bios@wildlife.ca.gov" />
+    <meta name="description" content="CDFW/DTD/BDB/GIS/BIOS/Maplab">
+    <meta name="generator" content="aiosgis-20220525">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <!-- ,user-scalable=no -->
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script> -->
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.7/dist/esri-leaflet.js"
+        integrity="sha512-ciMHuVIB6ijbjTyEdmy1lfLtBwt0tEHZGhKVXDzW7v7hXOe+Fo3UA1zfydjCLZ0/vLacHkwSARXB5DmtNaoL/g=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet Vector from CDN -->
+    <script src="https://unpkg.com/esri-leaflet-vector@3.1.2/dist/esri-leaflet-vector.js"
+        integrity="sha512-SnA/TobYvMdLwGPv48bsO+9ROk7kqKu/tI9TelKQsDe+KZL0TUUWml56TZIMGcpHcVctpaU6Mz4bvboUQDuU3w=="
+        crossorigin=""></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.2em;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a.af::after {
+            content: attr(href);
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #abar {
+            position: absolute;
+            left: 10%;
+            top: 11%;
+            background-color: whitesmoke;
+            border: silver solid 1px;
+            box-shadow: silver 3px 3px 3px;
+            max-width: 50%;
+            z-index: 600;
+        }
+
+        #abar h2 {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        #abar summary {
+            padding: 5px;
+            white-space: nowrap;
+        }
+
+        #abar label {
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        #abar div>div {
+            border: silver solid 1px;
+            padding: 5px;
+        }
+
+        .base-icon {
+            background-color: transparent;
+            border: 1px solid silver;
+            border-radius: 5px;
+            height: auto;
+            width: auto;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .xmap {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+
+        fieldset {
+            background-color: rgba(255, 255, 255, 0.45);
+            border: whitesmoke solid 1px;
+        }
+
+        .grid2a {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+
+        .griditem {
+            margin: 5px 2px;
+        }
+
+        #databar {
+            position: absolute;
+            top: 90%;
+            right: 5%;
+            left: 5%;
+            padding-bottom: 2em;
+            margin-bottom: 2em;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        #legendbar {
+            position: absolute;
+            bottom: 12%;
+            right: 6%;
+            background-color: white;
+            border: silver solid 1px;
+            border-radius: 5px;
+            color: midnightblue;
+            display: flex;
+            flex-direction: column;
+            margin: 5px;
+            padding: 5px;
+            z-index: 555;
+        }
+
+        #legendnot {
+            color: maroon;
+            font-size: 1em;
+            margin: 2px 5px;
+        }
+
+        /* #legendbar h4 {
+            color: navy;
+            font-size: 1em;
+            margin: 2px 5px;
+        } */
+
+        .legendtable {
+            border: transparent solid 1px;
+            font-size: 1em;
+        }
+
+        .legendtable td {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        .legendtable th {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        #legendtoo {
+            position: absolute;
+            bottom: 12%;
+            left: 6%;
+            height: 200px;
+            width: 200px;
+            background-color: transparent;
+            border: 1px solid ghostwhite;
+            z-index: 400;
+        }
+
+        #legendtoo table {
+            border: transparent solid 1px;
+            background-color: rgba(255, 255, 255, 0.55);
+        }
+
+        #legendtoo td {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        #legendtoo th {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        .legend-caption {
+            border-bottom: 1px solid dimgray;
+            font-weight: bold;
+            padding: 2px;
+            text-align: left;
+        }
+
+        .legend-title {
+            border-bottom: 1px solid dimgray;
+            font-weight: bold;
+            padding: 2px;
+            display: none;
+        }
+
+        .picon {
+            position: relative;
+            left: -50px;
+            top: -50px;
+        }
+
+        .popt {
+            border: 1px solid silver;
+        }
+
+        .popt td {
+            border: 1px solid silver;
+            padding: 2px 5px;
+        }
+
+        .popt th {
+            border: 1px solid silver;
+            padding: 2px 5px;
+        }
+
+        .poptb {
+            border: 1px solid silver;
+            border-collapse: collapse;
+        }
+
+        .poptd {
+            border: 1px solid gray;
+            padding: 1px 2px;
+        }
+
+        .svgcell {
+            font-weight: bold;
+        }
+
+        .totalcell {
+            border: 1px solid silver;
+            font-family: monospace;
+            font-weight: bold;
+            width: 40px;
+            /*FAIL--IE11*/
+        }
+
+        #mapv {
+            position: absolute;
+            top: 10%;
+            bottom: 10%;
+            right: 5%;
+            left: 5%;
+            border: silver solid 1px;
+        }
+
+        #map {
+            position: absolute;
+            top: 10%;
+            bottom: 10%;
+            right: 5%;
+            left: 5%;
+            border: silver solid 1px;
+        }
+
+        #maptitle {
+            position: absolute;
+            top: 16%;
+            left: 11%;
+            background-color: rgba(255, 255, 255, 0.55);
+            color: maroon;
+            line-height: 1.1em;
+            margin: 5px;
+            z-index: 555;
+        }
+
+        #msgbar {
+            position: relative;
+            border: silver solid 1px;
+            border-top-width: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 1em 0;
+            padding: 5px;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        #outdiv {
+            position: relative;
+            border: snow solid 1px;
+            margin: 1em 0;
+            padding: 5px;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        #outtitle {
+            color: navy;
+        }
+
+        .ReportType {
+            font-size: inherit;
+        }
+
+        .Species {
+            font-size: inherit;
+        }
+
+        .Survey {
+            font-size: inherit;
+        }
+
+        .Year {
+            font-size: inherit;
+        }
+
+        #toolbar {
+            position: absolute;
+            top: 8%;
+            right: 5%;
+            left: 5%;
+            width: auto;
+            background-color: whitesmoke;
+        }
+
+        button {
+            font-size: 1em;
+        }
+
+        .flort {
+            float: right;
+        }
+
+        header {
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            top: 0;
+            padding: 1%;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        input {
+            font-size: 1em;
+        }
+
+        input[type=checkbox] {
+            display: inline-block;
+            height: 16px;
+            line-height: 1em;
+            margin: 2px;
+            vertical-align: bottom;
+            width: 16px;
+        }
+
+        .margo {
+            margin: 5px;
+        }
+
+        .paddy {
+            padding: 5px;
+        }
+
+        select {
+            font-size: 1em;
+        }
+
+        .stationnone {
+            /* color: white; */
+            font-size: 40px;
+            /* font-weight: bold; */
+        }
+
+        .stationnot {
+            color: red;
+            font-weight: bold;
+        }
+
+        .stationlabel {
+            background-color: transparent;
+            border: 1px solid transparent;
+            /* FOR TESTING POSITION */
+            color: mediumblue;
+            font-family: sans-serif;
+            font-size: 10;
+            font-weight: bold;
+            left: 10px;
+            top: -5px;
+        }
+
+        table {
+            border: darkslategray solid 1px;
+            border-collapse: collapse;
+            font-size: 1em;
+        }
+
+        td {
+            border: slategray solid 1px;
+            border-width: 0 1px 1px 0;
+            padding: 5px 10px;
+        }
+
+        th {
+            border: dimgray solid 1px;
+            border-width: 0 1px 1px 0;
+            padding: 5px 10px;
+        }
+
+        table.bgrid tr:nth-child(even) {
+            background-color: aliceblue;
+        }
+
+        @media screen and (min-height: 800px) {}
+
+        @media screen and (max-width: 600px) {}
+
+        @media print {
+            #abar {
+                display: none;
+            }
+
+            .leaflet-control-zoom {
+                display: none;
+            }
+
+            #legacy-link {
+                display: none;
+            }
+
+            #legend {
+                top: 450px;
+            }
+
+            #map-title {
+                top: 20px;
+            }
+
+            #msgbin {
+                display: none;
+            }
+
+            #navbar {
+                display: none;
+            }
+
+            summary {
+                display: none;
+            }
+
+            .svgcell {
+                display: block;
+            }
+        }
+    </style>
+    <script>
+        function $(id) { return document.getElementById(id); }
+        function dohide(id) { $(id).classList.add('hide'); }
+        function dohidex(x) { x.classList.add('hide'); }
+        function hide(id) { $(id).style.display = 'none'; }
+        function hidex(x) { x.style.display = 'none'; }
+        function show(id) { $(id).style.display = ''; }
+        function showx(x) { x.style.display = ''; }
+        function toggle(id) { $(id).style.display = ($(id).style.display === 'none' ? '' : 'none'); }
+        function togglex(x) { x.style.display = (x.style.display === 'none' ? '' : 'none'); }
+        function unhide(id) { $(id).classList.remove('hide'); }
+        function unhidex(x) { x.classList.remove('hide'); }
+        function classifive(x) {
+            if (x === undefined || typeof x != 'number') {
+                var a = [0, 'Max/5', '2*Max/5', '3*Max/5', '4*Max/5', 'Max'];
+            } else {
+                var a = [0];
+                for (var i = 1; i < 6; i++) {
+                    a.push((x * i / 5).toFixed(2));
+                }
+            }
+            for (var i = 1; i < 6; i++) {
+                $('class' + i + 'val').innerHTML = '&lt;= ' + a[i];
+            }
+            // return a;
+        }
+        function picklistfill(list, ar) {
+            ar.forEach(x => {
+                var opt = document.createElement('option');
+                opt.value = x[0];
+                opt.innerHTML = x[1];
+                if (x.length > 2) {
+                    opt.title = x[2];
+                }
+                list.appendChild(opt);
+            });
+            return ar.length;
+        }
+        function pickvalue(sel, val) {
+            let ops = sel.options;
+            for (var i = 0; i < ops.length; i++) {
+                if (ops[i].value === val) {
+                    sel.selectedIndex = i;
+                    // ops[i].click();
+                    return i
+                }
+            }
+            return -1;
+        }
+        function selectortext(x, s) {
+            let y = document.querySelectorAll(x);
+            for (var i = 0; i < y.length; i++) {
+                y[i].innerHTML = s;
+            }
+            return y.length;
+        }
+        function urlfind(key) {
+            var val = null;
+            key = key.toLocaleLowerCase();
+            var uras = [location.search, location.hash];
+            uras.forEach(s => {
+                s = s.toLocaleLowerCase();
+                if (s.indexOf(key + '=') > 0) {
+                    val = s.split(key + '=')[1].split('&')[0];
+                    if (val !== undefined && val !== null & val !== '') {
+                        val = decodeURIComponent(val);
+                    }
+                    // TODO FOR COMPOUND ARGS LIKE col=x&op=y&val=z
+                } else if (s.indexOf('#' + key) >= 0) {
+                    val = key;
+                }
+            });
+            return val;
+        }
+        function urlload(x) {
+            if (location.hash.indexOf('msgx') > 0) {
+                unhide('msgbar');
+            }
+            var i = -1;
+            if (x != undefined) {
+                var y = urlfind(x);
+                if (y) {
+                    // TODO--IF $X.CLASSLIST.CONTAINS(PICKER|INPOOT)
+                    i = pickvalue($(x), y);
+                }
+            } else {
+                var species = urlfind('species');
+                if (species) {
+                    //  $('Species').value = species;
+                    i = pickvalue($('Species'), species);
+                }
+                var year = urlfind('year');
+                if (year) {
+                    // $('Year').value = year;
+                    i = pickvalue($('Year'), year);
+                }
+            }
+            return i;
+        }
+        function val2rad(val, max) {
+            let radii = [500, 1000, 1500, 2000, 2500, 3000];
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];// (d * i * 100);
+        }
+        function val2radpx(val, max) {
+            let radii = [5, 10, 15, 20, 25, 30];
+            // 5, 8, 12, 16, 20, 25
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];
+        }
+        function val2color(val, max) {
+            let colors = ['dimgray', 'limegreen', 'green', 'blue', 'purple', 'violet'];
+            let i = Math.ceil(val / (max / 5));
+            return colors[i];
+        }
+        function autable(features, tabid) {
+            if (tabid != undefined) {
+                var table = $(tabid);
+                table.innerHTML = '';
+            } else {
+                var table = document.createElement('table');
+            }
+            var f0 = features[0];
+            var fa = f0.properties;
+            var keys = Object.keys(fa);
+            var cols = [];
+            var hrow = table.insertRow(0);
+            keys.forEach(key => {
+                if (fields2skip.indexOf(';' + key + ';') < 0) {
+                    var th = document.createElement('th');
+                    hrow.appendChild(th);
+                    th.innerHTML = key;
+                    cols.push(key);
+                }
+            });
+            features.forEach(fi => {
+                var row = table.insertRow(table.rows.length);
+                for (var j = 0; j < cols.length; j++) {
+                    var key = cols[j];
+                    var cell = row.insertCell(j);
+                    var val = fi.properties[key];
+                    if (typeof val === 'number') {
+                        if (key.indexOf('Date') > 0) {
+                            val = (new Date(val)).toLocaleDateString();
+                        } else if (val.toString().indexOf('.') > 0) {
+                            val = val.toFixed(2);
+                        }
+                    }
+                    cell.innerHTML = val;
+                }
+            });
+            return table;
+        }
+    </script>
+    <script>
+        let map = null;
+        const APIKEY = "AAPK6b0985992bc5430a889d0bfbcaad4c69S9fMoriHLkizvSxx26HhyZhFUcjkiiYumHUbC_ASe3k4vCU9MpnRAG_2BVUVIowF";
+        let ll = [38.1, -121.8];
+        let zl = 10;
+        let stationsurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/skt/FeatureServer/0";
+        let speciesurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/1";
+        let cpueurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/2";
+        let surveyurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/3";
+        let dscatchurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/3"; // SKT_DeltaSmeltCatch
+        let ratiourl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/4";
+        let dsratiourl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/4"; // SKT_DeltaSmelt_SexRatio
+        let ssratiourl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/5"; // SKT_Salmon_Steelhead_AdiposeRatio
+        let catchurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/6";
+        let sscatchurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/6"; // SKT_SalmonSteelheadOtherSpeciesCatch
+        let stationcatch = {};
+        let stids = [];
+        let stationswhere = "Station IN (" + stids + ")";
+        let maxval = 0;
+        let rtype = 'others';
+        let species = 0;
+        let sqlwhere = '';
+        let survey = 1;
+        let year = 2022;
+        let fields2skip = ';OBJECTID;Id;Year;Survey;SurveyStartDate;SurveyEndDate;Latitude;Longitude;Species;CommonName;';
+        if (location.host.indexOf('apps.wildlife') < 0) {
+            wlog = console.log;
+        } else {
+            wlog = function () { return; }
+        }
+        let categories = [
+            ['sexratio', 'unknown', 'male', 'female'],
+            ['Undetermined', 'Pre-spawn', 'Pre-spawn', 'Pre-spawn', 'Pre-spawn', 'Ripe', 'Spent'],
+            ['Undetermined', 'Pre-spawn', 'Pre-spawn', 'Pre-spawn', 'Ripe', 'Failed to spawn', 'Post-spawn']
+        ];//20170926--Changed from '', 'Funct mature'|'', 'Mature', 'Spawn precluded', 'Spent'
+        //index:0=sexratio, 1=male, 2=female
+        let colors = [
+            ['white', 'khaki', 'deepskyblue', 'hotpink'],
+            ['white', 'khaki', 'cyan', 'cornflowerblue', 'steelblue', 'lightseagreen', 'palegreen'],
+            ['white', 'khaki', 'pink', 'magenta', 'purple', 'coral', 'palegreen']
+        ];
+        let piecolors = [
+            ['khaki', 'deepskyblue', 'hotpink'],
+            ['khaki', 'cyan', 'cornflowerblue', 'steelblue', 'lightseagreen', 'palegreen'],
+            ['khaki', 'pink', 'magenta', 'purple', 'coral', 'palegreen']
+        ];
+        let olayer = null; // overlay operational layergroup of markers with custom icons to show sample result
+        function getcatchurl(x) {
+            if (x == 24 || x == 'Delta Smelt') {
+                return dscatchurl;
+            } else {
+                return sscatchurl;
+            }
+        }
+        function getratiourl(x) {
+            if (x == 24) {
+                return dsratiourl;
+            } else if (x == 9 || x == 32) {
+                return ssratiourl;
+            } else {
+                return '';
+            }
+        }
+        function drawmapgo() {
+            // var col = $('Species').selectedOptions;
+            // var cnames = [];
+            // var species = [];
+            // for (i = 0; i < col.length; i++) {
+            //     // wlog(col[i].value);
+            //     cnames.push(col[i].innerHTML);
+            //     species.push(col[i].value);
+            // }
+            // var sql = "Species IN ('" + species.join("', '") + "')";
+            rtype = $('ReportType').value;
+            species = parseInt($('Species').value);
+            var cname = $('Species').options[$('Species').selectedIndex].innerHTML;
+            var reptype = $('ReportType').options[$('ReportType').selectedIndex].innerHTML;
+            var sqls = [];
+            if (species != 24) {
+                sqls.push("Species = " + $('Species').value);
+            }
+            survey = parseInt($('Survey').value);
+            // var sql = "Species = " + $('Species').value;
+            year = parseInt($('Year').value);
+            var begdate = new Date(year, 0, 1, 1);
+            var enddate = new Date(year, 11, 31, 23);
+            // sql += " AND SurveyYear = " + $('Year').value;
+            // sql += " AND SurveyStartDate > " + begdate + " AND SurveyEndDate <= " + enddate;
+            // sql += " AND SurveyStartDate > '" + year + "-01-01'";
+            // sql += " AND SurveyEndDate < '" + (year + 1) + "-01-01'";
+            // if (catchurl.indexOf('skt/FeatureServer/3') > 0) {
+            //     // sql += " AND Survey = '" + $('Survey').value + "'";
+            // }
+            sqls.push("Year = " + $('Year').value);
+            sqls.push("Survey = " + $('Survey').value);
+            // sqls.push("SurveyStartDate > '" + year + "-01-01'");
+            // sqls.push("SurveyEndDate < '" + (year + 1) + "-01-01'");
+            if (rtype == 1) {
+                sqls.push("Sex = 1");
+            } else if (rtype == 2) {
+                sqls.push("Sex = 2");
+            } else if (rtype == 0) {
+                sqls.push("Total > 0");
+            } else if (rtype === 'clipped') {
+                sqls.push("AdiposeNonClipped = 0");
+            } else if (rtype === 'nonclipped') {
+                sqls.push("AdiposeNonClipped = 1");
+            }
+            var sql = sqls.join(" AND ");
+            var n = selectortext('.Species', cname); // cnames.join(', '));
+            var r = selectortext('.ReportType', reptype);
+            var y = selectortext('.Year', $('Year').value);
+            var m = selectortext('.Survey', $('Survey').value);
+            sqlwhere = sql;
+            // wlog(sql);
+            if (olayer !== null) {
+                map.removeLayer(olayer);
+            }
+            if (stationsmarked !== null) {
+                stationsmarked.remove();
+            }
+            stations.setWhere('Station > 0');
+            $('msgtable').innerHTML = '';
+            $('outtable').innerHTML = '';
+            querycatch(sql);
+        }
+        function labelmap() {
+            var col = $('Species').selectedOptions;
+            var cnames = [];
+            for (i = 0; i < col.length; i++) {
+                cnames.push(col[i].innerHTML);
+            }
+            var n = selectortext('.Species', cnames.join(', '));
+            var y = selectortext('.Year', $('Year').value);
+            var m = selectortext('.Survey', $('Survey').value);
+        }
+        function listspecies() {
+            var query = L.esri.query({
+                url: speciesurl
+            });
+            var sql = "CommonName IS NOT NULL"
+            query.where(sql).fields(["Species", "CommonName"])
+                .orderBy('CommonName').distinct();
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK listspecies queryrun: ' + featureCollection.features.length + ' features found');
+                // var tbl = $('outtable');
+                var features = featureCollection.features;
+                var ar = [];
+                features.forEach(fi => {
+                    ar.push([fi.properties['Species'], fi.properties['CommonName'],
+                    'species-' + fi.properties['Species']]);
+                });
+                var k = picklistfill($('Species'), ar);
+                // pickfirst($('Species'));                
+                $('Species').addEventListener('change', function (ev) {
+                    selectOnchange(this.id);// ev.target.id);
+                });
+                om = urlload('Species');
+                selectOnchange('Species');
+            });
+        }
+        function selectOnchange(id) {
+            var val = $(id).value;
+            if (id === 'Species') {
+                catchurl = getcatchurl(val);
+                ratiourl = getratiourl(val);
+                $('pcatchurl').href = catchurl;
+                $('pcatchurl').innerHTML = catchurl;
+                $('pratiourl').href = ratiourl;
+                $('pratiourl').innerHTML = ratiourl;
+                // wlog('Species, CatchUrl= ' + val, catchurl);
+                if (val == 24) {
+                    $('repothers').disabled = true;
+                    $('repsalmon').disabled = true;
+                    $('repsmelt').disabled = false;
+                    $('ReportType').value = 1;
+                } else if (val == 9 || val == 32) {
+                    $('repothers').disabled = true;
+                    $('repsalmon').disabled = false;
+                    $('repsmelt').disabled = true;
+                    $('ReportType').value = 'clipped';// 'false';
+                } else {
+                    $('repothers').disabled = false;
+                    $('repsalmon').disabled = true;
+                    $('repsmelt').disabled = true;
+                    $('ReportType').value = 'others';// 'Catch';
+                }
+                // TODO--UPDATE YEAR AND SURVEY LISTS FOR ONLY AVAILABLE--2022-06-03
+            }
+        }
+        function listyears() {
+            let x = 2022;
+            let ar = [[x, x]];
+            while (x > 2002) {
+                y = x - 1;
+                x = y;
+                ar.push([x, y]);
+            }
+            var k = picklistfill($('Year'), ar);
+            om = urlload('Year');
+        }
+        function listsurveys() {
+            wlog('DO listsurveys');
+            var query = L.esri.query({
+                url: surveyurl
+            });
+            var sql = "Survey IS NOT NULL"; // , "CommonName"
+            query.where(sql).fields(["Survey"])
+                .orderBy('Survey').distinct();
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK listsurveys queryrun: ' + featureCollection.features.length + ' features found');
+                // var tbl = $('outtable');
+                var features = featureCollection.features;
+                var ar = [];
+                features.forEach(fi => {
+                    ar.push([fi.properties['Survey'], fi.properties['Survey']]);
+                });
+                var k = picklistfill($('Survey'), ar);
+                om = urlload('Survey');
+            });
+        }
+        function listlegend() {
+            const legendvs = [
+                {
+                    "height": 12,
+                    "width": 12,
+                    "graphic": "circle",
+                    "cx": 6,
+                    "cy": 6,
+                    "r": 5,
+                    "stroke": "dimgray",
+                    "strokeWidth": 2,
+                    "fill": "white",
+                    "opacity": "100%",
+                    "value": "= 0 (zero)"
+                },
+                {
+                    "height": 18,
+                    "width": 18,
+                    "graphic": "circle",
+                    "cx": 9,
+                    "cy": 9,
+                    "r": 8,
+                    "stroke": "limegreen",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE max/5"
+                },
+                {
+                    "height": 26,
+                    "width": 26,
+                    "graphic": "circle",
+                    "cx": 13,
+                    "cy": 13,
+                    "r": 12,
+                    "stroke": "green",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE 2*max/5"
+                },
+                {
+                    "height": 34,
+                    "width": 34,
+                    "graphic": "circle",
+                    "cx": 17,
+                    "cy": 17,
+                    "r": 16,
+                    "stroke": "blue",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE 3*max/5"
+                },
+                {
+                    "height": 42,
+                    "width": 42,
+                    "graphic": "circle",
+                    "cx": 21,
+                    "cy": 21,
+                    "r": 20,
+                    "stroke": "purple",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE 4*max/5"
+                },
+                {
+                    "height": 50,
+                    "width": 50,
+                    "graphic": "circle",
+                    "cx": 25,
+                    "cy": 25,
+                    "r": 24,
+                    "stroke": "violet",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE max"
+                }
+            ];
+            for (var i = 1; i < legendvs.length; i++) {
+                var info = legendvs[i];
+                // var rag = document.createElement('svg');
+                // $('class' + i + 'key').appendChild(rag);
+                // rag.style.height = info.height;
+                // rag.style.width = info.width;
+                // rag.setAttribute('height', info.height);
+                // rag.setAttribute('width', info.width);//FAIL
+                // var tag = document.createElement('circle');
+                // rag.appendChild(tag);
+                // tag.style.cx = info.cx;
+                // tag.style.cy = info.cy;
+                // tag.style.r = info.r;
+                // tag.style.stroke = info.stroke;
+                // tag.style['stroke-width'] = info.strokeWidth;
+                // tag.style.fill = info.fill;
+                // tag.style['fill-opacity'] = info.opacity;
+                // tag.setAttribute('cx', info.cx);
+                // tag.setAttribute('cy', info.cy);
+                // tag.setAttribute('r', info.r);
+                // tag.setAttribute('stroke', info.stroke);
+                // tag.setAttribute('stroke-width', info.strokeWidth);
+                // tag.setAttribute('fill', info.fill);
+                // tag.setAttribute('fill-opacity', info.opacity);
+                var cell = $('class' + i + 'key');
+                cell.innerHTML = '<svg height="' + info.height + '" width="' + info.width + '">' +
+                    '<circle cx="' + info.cx + '" cy="' + info.cy + '" r="' + info.r + '" stroke="' + info.stroke + '"' +
+                    ' stroke-width="1" fill="lightgreen" fill-opacity="55%"></circle>' +
+                    // '<rect height="18" width="30" style="fill:' + color + ';stroke-width:1;stroke:silver" />' +
+                    '</svg>';
+            }
+        }
+        function mapresult() {
+            var stids = Object.keys(stationcatch);
+            stationswhere = "Station IN (" + stids + ")";
+            stations.setWhere("Station NOT IN (" + stids + ")");
+            if (map.hasLayer(stationsmarked)) {
+                map.removeLayer(stationsmarked);
+            }
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl,
+                where: stationswhere,
+                fields: ["*"],
+                pointToLayer: function (geojson, latlng) {
+                    // console.log(geojson);
+                    // return L.marker(latlng, {
+                    //     icon: L.divIcon({
+                    //         iconSize: null,
+                    //         className: "stationlabel",
+                    //         html: '<div>' + geojson.properties['Station'] + '</div>'
+                    //     })//icons[geojson.properties.direction.toLowerCase()]
+                    // });
+                    let stid = geojson.properties['Station'];
+                    let val = stationcatch[stid];
+                    // wlog(stid, val);
+                    if (val == 0) {
+                        var fillco = 'white';
+                        var fillop = 1;
+                    } else {
+                        var fillco = 'lightgreen';
+                        var fillop = 0.66;
+                    }
+                    return L.circleMarker(latlng, {
+                        color: val2color(val, maxval),// 'green',
+                        fillColor: fillco, // 'lightgreen',
+                        fillOpacity: fillop, // 0.55,
+                        radius: val2radpx(val, maxval)// parseInt(val*100) //2000 // (geojson.properties[cpuefield]*100)=NaN
+                    });
+                }
+            }).addTo(map);
+        }
+        function puttable(features) {
+            var table = $('outtable');
+            var i = 0;
+            var fields = [
+                'Station',
+                'SurfaceTemp',
+                'Turbidity',
+                'SurfaceEC',
+                'NumberOfTows',
+                'AverageCPUE'];
+            var colnames = [
+                'Station',
+                'Surface Temp',
+                'Turbidity',
+                'Surface EC',
+                'Number Of Tows',
+                'Average CPUE'];
+            var catchcol = 'AverageCPUE';
+            var valcols = ',AverageCPUE,';
+            var hrow = document.createElement('tr');
+            table.appendChild(hrow);
+            for (var j = 0; j < fields.length; j++) {
+                var hcell = document.createElement('th');
+                hrow.appendChild(hcell);
+                hcell.innerHTML = colnames[j];
+            }
+            if (features[0].properties.Survey != undefined) {
+                var w = selectortext('.Survey', features[0].properties.Survey);
+            }
+            var begdate = (new Date(features[0].properties.SurveyStartDate)).toLocaleDateString();
+            var enddate = (new Date(features[(features.length - 1)].properties.SurveyEndDate)).toLocaleDateString();
+            $('dates').innerHTML = '(' + begdate + ' - ' + enddate + ')';
+            stationcatch = {};
+            maxval = 0;
+            features.forEach(fi => {
+                var row = document.createElement('tr');
+                table.appendChild(row);
+                for (var j = 0; j < fields.length; j++) {
+                    var cell = row.insertCell(j);
+                    var val = fi.properties[fields[j]];
+                    if (valcols.indexOf(',' + fields[j] + ',') >= 0) {
+                        val = val.toFixed(2);
+                    }
+                    cell.innerHTML = val;// fi.properties[fields[j]];
+                }
+                var cval = fi.properties[catchcol];
+                if (cval > maxval) {
+                    maxval = cval;
+                }
+                stationcatch[fi.properties.Station] = fi.properties[catchcol];
+            });
+            wlog('StationsSampled:', Object.keys(stationcatch));
+            mapresult();
+            classifive(maxval);
+            dohide('legendnot');
+            unhide('legendtable');
+        }
+        function querycatch(sql) {
+            // let sql = "Species = '" + $('Species').value + "' AND SurveyYear = " + $('Year').value + " AND Survey = " + $("Survey").value;
+            wlog('DO querycatch ' + sql);
+            $('sqlcode').innerHTML = sql;
+            var rtype = $('ReportType').value;
+            if (rtype == 0 || rtype == 'adipose') {
+                var queryurl = ratiourl;
+            } else {
+                var queryurl = catchurl;
+            }
+            var query = L.esri.query({
+                url: queryurl
+            });
+            // if ($('Species').value == 24) {
+            //     query.where(sql).orderBy('Station', 'ASC')
+            //         .orderBy('CommonName', 'ASC')
+            //         .orderBy('SurveyStartDate', 'ASC');
+            // }
+            query.where(sql).orderBy('Station', 'ASC')
+                .orderBy('SurveyStartDate', 'ASC');
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK querycatch queryrun', featureCollection);//.features.length + ' records found');
+                var features = featureCollection.features;
+                if (features.length === 0) {
+                    show('legendbar');
+                    hide('legendtoo');
+                    dohide('legendtable');
+                    unhide('legendnot');
+                    return;
+                }
+                // wlog('FEATURES:', features);
+                // puttable(features);
+                var tmp = autable(features, 'msgtable');
+                var tmp = autable(features, 'outtable');
+                if (rtype === 'others') {
+                    om = mapcatch(features);
+                    show('legendbar');
+                    hide('legendtoo');
+                } else {
+                    hide('legendbar');
+                    show('legendtoo');
+                    if (parseInt(rtype) >= 0) {//} rtype == 1 || rtype == 2) {
+                        om = mapgender(features, sql);
+                        show('legend-keys');
+                        hide('legend-clips');
+                    } else {//} if (rtype == 'clipped' || rtype == 'nonclipped' || rtype == 'adipose') {
+                        om = mapclips(features, sql);
+                        hide('legend-keys');
+                        show('legend-clips');
+                    }
+                }
+            });
+        }
+        function showlegend(x, ar) {
+            ar.forEach(y => {
+                if (y === x) {
+                    show('legend-' + y);
+                } else {
+                    hide('legend-' + y);
+                }
+            });
+            return ar.length;
+        }
+        function mapclips(features, sql) {
+            wlog('DO mapclips');
+            var rtype = $('ReportType').value;
+            showlegend(rtype, ['adipose', 'clipped', 'nonclipped']);
+            // if (sqlwhere.indexOf('AdiposeNonClipped') > 0) {}
+            if (rtype === 'adipose') {
+                var cols = ['Total', 'NonClipped', 'Clipped'];
+                var data = [cols];
+                var tally = [0, 0, 0];
+                var colors = ['transparent', 'chartreuse', 'mediumpurple'];
+            } else {
+                var cols = ['Total', 'Fall', 'LateFall', 'Spring', 'Winter'];
+                var data = [cols];
+                var tally = [0, 0, 0, 0, 0];
+                if (rtype === 'clipped') {
+                    var colors = ['mediumpurple', 'khaki', 'plum', 'fuchsia', 'darkorchid'];
+                } else {
+                    var colors = ['chartreuse', 'khaki', 'lightskyblue', 'dodgerblue', 'steelblue'];
+                }
+            }
+            var i = 0;
+            var min = 0;
+            var max = 0;
+            maxval = 0;
+            var stationdata = {};
+            var stids = [];
+            var sumtotal = 0;
+            features.forEach(fi => {
+                var fa = fi.properties;
+                if (i == 0) {
+                    var borntime = fa['SurveyStartDate'];
+                    var endtime = fa['SurveyEndDate'];
+                    var borndate = new Date(borntime);
+                    var enddate = new Date(endtime);
+                    var borned = borndate.getMonth() + 1 + '/' + borndate.getDate() + '/' + borndate.getFullYear();
+                    var ended = enddate.getMonth() + 1 + '/' + enddate.getDate() + '/' + enddate.getFullYear();
+                    var msg = ' (' + borned + ' - ' + ended + ')';
+                    $('dates').innerHTML = msg;
+                    i += 1;
+                }
+                // if (rtype === 'adipose') {
+                //     var rec = [0, 0, 0];
+                // } else {
+                //     var rec = [0, 0, 0, 0, 0];
+                // }
+                var rec = [];
+                for (var j = 0; j < cols.length; j++) {
+                    rec.push(0);
+                    var col = cols[j];
+                    var val = parseInt(fa[col]);
+                    if (val > 0) {
+                        rec[j] = val;
+                        tally[j] += val;
+                    }
+                }
+                // wlog('rec=' + rec);
+                var total = parseInt(fa.Total);
+                if (total > max) {
+                    max = total;
+                }
+                if (min === 0) {
+                    min = total;
+                } else if (total < min) {
+                    min = total;
+                }
+                maxval = max;
+                sumtotal += total;
+                var station = parseInt(fa['Station']);
+                stids.push(station);
+                stationdata[station] = rec;
+            });
+            // wlog('Tally: ' + tally + ' EQ? ', sumtotal);
+            // wlog('Min=' + min + ', max=' + max);
+            // wlog('StationData: ', stationdata);
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl,
+                where: "Station IN (" + stids + ")",
+                fields: ["*"],
+                pointToLayer: function (geojson, latlng) {
+                    let stid = geojson.properties['Station'];
+                    let arr = stationdata[stid];
+                    let val = stationdata[stid][0];
+                    if (val == 0) {
+                        var fillco = 'white';
+                        var fillop = 0.77;
+                    } else {
+                        var fillco = colors[0];// 'lightgreen';
+                        var fillop = 0.88;
+                    }
+                    var popt = '<b>Station ' + stid + '</b><table class="popt">';
+                    for (i = 0; i < arr.length; i++) {
+                        if (arr[i] > 0) {
+                            popt += '<tr><th>' + cols[i] + '</th><td>' + arr[i] + '</td></tr>';
+                        }
+                    }
+                    popt += '</table>';
+                    if (species === 32 && rtype != 'adipose') {
+                        var rcolor = colors[0];
+                        return L.circleMarker(latlng, {
+                            color: 'silver',// val2color(val, maxval),//=strokeColor=borderlineColor 'green',
+                            weight: 1, //=strokeWeight=borderlineWidth, DEFAULT:3
+                            fillColor: fillco, // 'lightgreen',
+                            fillOpacity: fillop, // 0.55,
+                            radius: val2radpx(val, maxval)// parseInt(val*100) //2000 // (geojson.properties[cpuefield]*100)=NaN
+                        }).bindPopup(popt);
+                    } else {
+                        var piecon = piemaker(arr, cols, colors, maxval);
+                        return L.marker(latlng, { icon: piecon }).bindPopup(popt);
+                    }
+                }
+            }).addTo(map);
+            putlegendpie(tally, cols, colors);
+        }
+        function mapgender(features, sql) {
+            wlog('DO mapgender');
+            var rtype = parseInt($('ReportType').value);
+            // var tbl = $('outtable');
+            // tbl.innerHTML = '';
+            var markers = [];
+            if (sql.indexOf('Sex') > 0) {
+                var data = [['Station', 1, 2, 3, 4, 5, 6, 'Sum']];
+                var rec = [0, 0, 0, 0, 0, 0, 0, 0];
+                var tally = ['Total', 0, 0, 0, 0, 0, 0, 0]; // final_record_summary_total
+            } else {
+                var data = [['Station', 0, 1, 2, 'Sum']];
+                var rec = [0, 0, 0, 0, 0];
+                var tally = ['Total', 0, 0, 0, 0];
+            }
+            let stids = [];
+            var sumtotal = 0;
+            for (var i = 0; i < features.length; i++) {
+                // SET BLANK ROWDATA PER STATION RECORD
+                var sum = 0;
+                if (sql.indexOf('Sex') > 0) {
+                    var rec = [0, 0, 0, 0, 0, 0, 0, 0];
+                } else {
+                    var rec = [0, 0, 0, 0, 0];
+                }
+                var fi = features[i];
+                var fa = fi.properties;
+                if (i == 0) {
+                    var borntime = fa['SurveyStartDate'];
+                    var endtime = fa['SurveyEndDate'];
+                    var borndate = new Date(borntime);
+                    var enddate = new Date(endtime);
+                    var borned = borndate.getMonth() + 1 + '/' + borndate.getDate() + '/' + borndate.getFullYear();
+                    var ended = enddate.getMonth() + 1 + '/' + enddate.getDate() + '/' + enddate.getFullYear();
+                    var msg = ' (' + borned + ' - ' + ended + ')';
+                    $('dates').innerHTML = msg;
+                }
+                var station = parseInt(fa['Station']);
+                stids.push(station);
+                rec[0] = station;
+                var lat = fa['Latitude'];
+                var lon = fa['Longitude'];
+                var score = parseInt(fa['Total']); //['Catch'];
+                rec[(rec.length - 1)] = score;// sum;
+                if (sql.indexOf('Sex') > 0) {
+                    for (var j = 1; j < 7; j++) {
+                        var col = 'Stage' + j;
+                        var x = parseInt(fa[col]);
+                        // wlog(station + '.' + col, x);
+                        if (typeof x === 'number' && x > 0) {
+                            rec[j] = x;
+                            tally[j] = tally[j] + x;// score;
+                            sum += x;
+                        }
+                    }
+                } else {
+                    var cols = ['Station', 'Undetermined', 'Male', 'Female', 'Total'];
+                    // var stype = parseInt(fa['Sex']);
+                    // rec[3] = score;
+                    for (var j = 0; j < cols.length; j++) {
+                        var col = cols[j];
+                        var x = parseInt(fa[col]);
+                        if (typeof x === 'number' && x > 0) {
+                            rec[j] = x;
+                            if (j > 0) {
+                                tally[j] = tally[j] + x;
+                            }
+                            sum += x;
+                        }
+                    }
+                    // tally[3] = tally[3] + score;
+                }
+                wlog('Sum should equal Total:' + score, sum)
+                data.push(rec);
+                // Make marker with SVG Pie Chart icon-20170731
+                var marker = piemarker(rec, lat, lon); // with lat-lon from previous station-20170801
+                markers.push(marker);
+                sumtotal += score;
+                // NO NEED FOR LASTSTATION VAR FOR PAST REPEATED STATION DATA NOW--2022-06-16
+                // At end of features push final rowdata and tally into datagrid
+                if (i === (features.length - 1)) {
+                    // data.push(rec);
+                    // var marker = piemarker(rec, lat, lon);
+                    // markers.push(marker);
+                    tally[(rec.length - 1)] = sumtotal;
+                    data.push(tally);
+                    wlog('SumTotal=', sumtotal);
+                }
+                // END LOOP FEATURES
+            }
+            olayer = L.layerGroup(markers).addTo(map);
+            // var stationlist = puttable(data);
+            // var stids = stationlist.slice(2, (stationlist.length)).split(',');
+            var nullstations = "Station NOT IN (" + stids.join(', ') + ")";
+            wlog(nullstations);
+            stations.setWhere(nullstations);
+            legendPieChart(data);
+            if (rtype === 0) {
+                hide('legend-male');
+                hide('legend-female');
+                show('legend-ratio');
+            } else if (rtype === 1) {
+                show('legend-male');
+                hide('legend-female');
+                hide('legend-ratio');
+            } else if (rtype === 2) {
+                hide('legend-male');
+                show('legend-female');
+                hide('legend-ratio');
+            }
+            return stids.length;
+        }
+        function mapcatch(features) {
+            wlog('DO mapcatch ', features);
+            if (catchurl == dscatchurl) {
+                var valuefieldname = 'Total';
+            } else if (catchurl == sscatchurl) {
+                var valuefieldname = 'Total';
+            }
+            stationcatch = {};
+            var maxval = 0;
+            var totalv = 0;
+            var vals = [];
+            features.forEach(fi => {
+                var stid = fi.properties.Station;
+                var val = fi.properties[valuefieldname];
+                stationcatch[stid] = val;
+                totalv += + val;
+                vals.push(val);
+            });
+            maxval = Math.max(...vals);
+            wlog('maxval, totalv= ', [maxval, totalv].join(', '));
+            var stids = Object.keys(stationcatch);
+            stations.setWhere("Station NOT IN (" + stids + ")");
+            if (map.hasLayer(stationsmarked)) {
+                map.removeLayer(stationsmarked);
+            }
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl,
+                where: "Station IN (" + stids + ")",
+                fields: ["*"],
+                pointToLayer: function (geojson, latlng) {
+                    let stid = geojson.properties['Station'];
+                    let val = stationcatch[stid];
+                    // wlog(stid, val);
+                    if (val == 0) {
+                        var fillco = 'white';
+                        var fillop = 1;
+                    } else {
+                        var fillco = 'lightgreen';
+                        var fillop = 0.66;
+                    }
+                    return L.circleMarker(latlng, {
+                        color: val2color(val, maxval),//=strokeColor=borderlineColor 'green',
+                        weight: 2, //=strokeWeight=borderlineWidth, DEFAULT:3
+                        fillColor: fillco, // 'lightgreen',
+                        fillOpacity: fillop, // 0.55,
+                        radius: val2radpx(val, maxval)// parseInt(val*100) //2000 // (geojson.properties[cpuefield]*100)=NaN
+                    });
+                }
+            }).addTo(map);
+            $('catchtotal').innerHTML = totalv;
+            classifive(maxval);
+            dohide('legendnot');
+            unhide('legendtable');
+            return features.length;
+        }
+        function init() {
+            wlog('DO init');
+            map = L.map('map').setView(ll, zl);
+            // [8.913648, -79.544706], 10
+            L.esri.Vector.vectorBasemapLayer('ArcGIS:Topographic', {
+                apikey: APIKEY
+            }).addTo(map);
+            map.scrollWheelZoom.disable();
+            map.boxZoom.disable();
+            map.keyboard.disable();
+            map.on('click', function (ev) {
+                wlog(ev.latlng); //20170825-REF--https://leafletjs.com/reference-1.2.0.html#renderer
+            });
+            if (map.tap) map.tap.disable();
+            // a Leaflet marker is used by default to symbolize point features.
+            stations = L.esri.featureLayer({
+                url: stationsurl,
+                pointToLayer: function (geojson, latlng) {
+                    var popt = 'Station ' + geojson.properties['Station'];
+                    // + '<br>' + geojson.properties['Latitude'] 
+                    // + '<br>' + geojson.properties['Longitude'];
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            // className: "stationnot",
+                            className: "stationnot",// "stationnone",
+                            // html: '<div style="left: -5px; top: -5px; position: relative;"><b style="color: crimson; font-size: medium;">&plus;</b></div>'
+                            html: '<div>&plus;</div>' // RING--NEEDS 50PX
+                            // html: '<div>&ring;</div>'
+                        })
+                        //icons[geojson.properties.direction.toLowerCase()]
+                    });//.bindPopup(popt);
+                }
+            }).addTo(map);
+            stationlabels = L.esri.featureLayer({
+                url: stationsurl,
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "stationlabel",
+                            html: '<div>' + geojson.properties['Station'] + '</div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+            });//.addTo(map);
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl
+            });
+            listspecies();
+            listsurveys();
+            listyears();
+            listlegend();
+            $("stationids").addEventListener('click', function () {
+                if (this.checked === true) {
+                    map.addLayer(stationlabels);
+                } else {
+                    map.removeLayer(stationlabels);
+                }
+            });
+            $('drawmap').addEventListener('click', function () {
+                // wlog('Species', $('Species').value);// JUST ONE VALUE
+                // var col = $('Species').selectedOptions;
+                // for (i = 0; i < col.length; i++) {
+                //     wlog(col[i].value);
+                // }
+                drawmapgo();
+            });
+            layerfields = [];
+            [0, 1, 2, 3, 4, 5, 6, 7].forEach(i => {
+                var url = 'https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/skt/FeatureServer/' + i;
+                L.esri.request(url, {}, function (error, response) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        layerfields[i] = {
+                            "name": response.name,
+                            "type": response.type,
+                            "fields": response.fields
+                        };
+                    }
+                });
+            });
+            wlog(layerfields);
+            // google.charts.load('current', { 'packages': ['corechart'] });
+            // google.charts.setOnLoadCallback(drawChart);
+            // testtrig();
+        }
+        window.addEventListener('hashchange', function () {
+            om = urlload();
+        });
+        window.addEventListener('load', function () {
+            om = urlload('ReportType');
+        });
+        window.addEventListener('load', init);
+        window.addEventListener('load', onPageLoad);
+        // PIECHART FXNS
+        function drawChart() {
+            //SAMPLE--https://developers.google.com/chart/interactive/docs/gallery/piechart
+            var data = google.visualization.arrayToDataTable([
+                ['Stage', 'Percentage'],
+                ['1', 0],
+                ['2 (Pre-spawn)', 0],
+                ['3 (Pre-spawn)', 75],
+                ['4 (Pre-spawn)', 25],
+                ['5 (Funct mature)', 0],
+                ['6 (Spent)', 0]
+            ]);
+
+            var options = {
+                //title: 'Delta Smelt Stages',
+                colors: [
+                    'khaki', 'cyan', 'cornflowerblue', 'steelblue', 'lightseagreen', 'palegreen'
+                ],
+                backgroundColor: 'transparent',
+                height: 200,
+                width: 200,
+                legend: { position: 'none' }
+            };// bottom, right
+
+            var chart = new google.visualization.PieChart(document.getElementById('gchart'));
+
+            chart.draw(data, options);
+        }
+        function putlegendpie(tally, cols, colors) {
+            var rtype = $('ReportType').value;
+            var arr = [['Catch', 'Percentage']];
+            var colours = [];
+            // var pcts = [];
+            var sum = tally[0];
+            for (var i = 1; i < cols.length; i++) {
+                var val = tally[i];
+                var desc = cols[i];
+                var pct = ((val / sum) * 100).toFixed(1);// Math.round(tally[i] / sum);
+                arr.push([desc, val]);
+                // pcts.push(pct);
+                colours.push(colors[i]);
+                if (val > 0) {
+                    $(rtype + '-' + desc.toLocaleLowerCase() + '-pct').innerHTML = '(' + pct + '%)';
+                    $(rtype + '-' + desc.toLocaleLowerCase() + '-svg').childNodes[3].innerHTML = val;// '(' + pct + '%)';
+                    // wlog(rtype + '-' + desc.toLocaleLowerCase() + '-pct.innerHTML = ' + pct);
+                    // wlog(rtype + '-' + desc.toLocaleLowerCase() + '-svg = ' + val);
+                } else {
+                    $(rtype + '-' + desc.toLocaleLowerCase() + '-pct').innerHTML = '';
+                    $(rtype + '-' + desc.toLocaleLowerCase() + '-svg').childNodes[3].innerHTML = '';
+                }
+            }
+            wlog('arr4data=', arr);
+            var data = google.visualization.arrayToDataTable(arr);
+            var options = {
+                title: "Total: " + sum,
+                colors: colours,
+                backgroundColor: 'transparent',//'white',//
+                height: 200,
+                width: 200,
+                legend: { position: 'none' }
+            }
+            var chart = new google.visualization.PieChart(document.getElementById('gchart'));
+            chart.draw(data, options);
+        }
+        function legendPieChart(rows) {
+            //--- Per query sumtotal breakdown pie chart--20170807
+            //SAMPLE--https://developers.google.com/chart/interactive/docs/gallery/piechart
+            var rtype = parseInt($('ReportType').value);
+            var trow = rows.pop();//=TALLYROW
+            var sumtotal = trow.pop();
+            wlog('DO legendPieChart: ' + [trow, sumtotal]);
+            var arr = [];
+            if (rtype === 0) {
+                arr.push(['Sex', 'Percentage']);
+            } else {
+                arr.push(['Sex', 'Percentage']);
+            }
+            var pcts = [];
+            for (var i = 1; i < trow.length; i++) {
+                var desc = i + ' (' + categories[rtype][i] + ')';
+                var pct = Math.round(trow[i] / sumtotal);
+                arr.push([desc, trow[i]]);
+                pcts.push(pct);
+            }
+            wlog(arr.join('<br />'));
+            var data = google.visualization.arrayToDataTable(arr);
+            var incolors = piecolors[rtype];
+            wlog('colors: ' + incolors);
+            var options = {
+                title: 'Total: ' + sumtotal,// 'Delta Smelt Stages',
+                colors: piecolors[rtype],
+                backgroundColor: 'transparent',//'white',//
+                height: 200,
+                width: 200,
+                legend: { position: 'none' }
+            };// bottom, right
+            //$('gchart').innerHTML = '';
+            var chart = new google.visualization.PieChart(document.getElementById('gchart'));
+            chart.draw(data, options);
+            //20170829-- Fill legend info
+            var sexdesc = ['ratio', 'male', 'female'];
+            for (var j = 1; j < trow.length; j++) {
+                if (trow[j] > 0) {
+                    $(sexdesc[rtype] + '-stage-' + j + '-pct').innerHTML = '(' + ((parseInt(trow[j]) / sumtotal) * 100).toFixed(1) + '%)';
+                    if (IE) {
+                        $(sexdesc[rtype] + '-stage-' + j + '-total').innerHTML = trow[j];
+                    } else {
+                        $(sexdesc[rtype] + '-stage-' + j + '-svg').childNodes[3].innerHTML = trow[j];
+                    }
+                } else {
+                    $(sexdesc[rtype] + '-stage-' + j + '-pct').innerHTML = '';
+                    if (IE) {
+                        $(sexdesc[rtype] + '-stage-' + j + '-total').innerHTML = '&nbsp;&nbsp;';
+                    } else {
+                        $(sexdesc[rtype] + '-stage-' + j + '-svg').childNodes[3].innerHTML = '';
+                    }
+                }
+            }
+            //return pcts;
+        }
+        function onPageLoad() {
+            // $('msgbin-show').value = 'b' + app.avn;
+            // $('Year').value = app.year;
+            // $('SurveyNumber').value = app.survey;
+            // $('ReportType').value = app.rtype;
+            // $('showlabels').checked = app.showlabels;
+            // $('showtable').checked = app.showtable;
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+            // testtrig();//=ok
+            // if (window.location.search.indexOf('msg=') > 0) {
+            //     show('legacy-link');
+            //     show('msgbin-show');
+            //     show('msgbin');
+            // }
+            IE = false;
+            if (navigator.userAgent.indexOf('Trident') > 0) {
+                IE = true;
+            }
+            //20170829-TEST--IE11=FAIL to alter svgchildren
+            //$('male-stage-1-svg').childNodes[3].innerHTML = '00';
+            //20170829-BUG--IE11 fails to render fieldset borders
+            if (IE) {
+                var legs = document.getElementsByClassName('legend-title');
+                for (var i = 0; i < legs.length; i++) {
+                    legs[i].style.borderBottom = '1px solid dimgray';
+                    legs[i].style.width = '100px';
+                }
+                var cells = document.getElementsByClassName('svgcell');
+                for (var i = 0; i < cells.length; i++) {
+                    //wlog('hide ' + cells[i].id);
+                    hide(cells[i].id);
+                }
+            } else {
+                var cells = document.getElementsByClassName('totalcell');
+                for (var i = 0; i < cells.length; i++) {
+                    //wlog('hide ' + cells[i].id);
+                    hide(cells[i].id);
+                }
+            }
+            var svgs = document.getElementsByTagName('svg');//=OK
+            for (var i = 0; i < svgs.length; i++) {
+                var s = svgs[i].id;
+                //hide(svgs[i].id);
+            }
+            if (window.innerHeight >= 640) {
+                $('tooldet').open = true;
+            }
+            $('outtog').addEventListener('click', function () {
+                if ($('outdet').hasAttribute('open')) {
+                    // IF OUTDET WAS OPEN ONCLICK WILL CLOSE IT SO PUT SHOW TEXT
+                    this.innerHTML = 'Show Table';
+                } else {
+                    this.innerHTML = 'Hide Table';
+                }
+            });
+        }
+        function piecut(ang, degfrom, lx, ly, r) {
+            var center = 'm' + r + ',' + r + ' ';
+            var line = 'L' + lx + ',' + ly + ' ';
+            // Calculate the degto and arcto x,y
+            var degto = degfrom + ang;
+            if (degto > 360) {
+                degto = 360;
+            }
+            var rad = (degto / 180) * Math.PI;
+            var dy = Math.round(Math.sin(rad) * r);//change normal trig result for circle of radius 100
+            var dx = Math.round(Math.cos(rad) * r);
+            msg = 'from ' + degfrom + '-deg (' + lx + ', ' + ly + ') arc ' + ang + ' dx=' + dx + ', dy=' + dy;
+            //wlog(msg);
+            // Normal trig circle sweeping counter-clockwise starting zero degree from due East at g(200,100)
+            var ax = r + dx;
+            var ay = r - dy;
+            var cond = ' 1 0 0 ';
+            if (ang > 180) {
+                cond = ' 1 1 0 ';
+            }
+            // Circle sweeping clockwise starting zero degree from top due North at g(100,0)
+            var ax = r + dy;
+            var ay = r - dx;
+            var cond = ' 0 0 1 ';
+            if (ang > 180) {
+                cond = ' 0 1 1 ';
+            }
+            var arc = 'A' + r + ',' + r + cond + ax + ',' + ay + ' ';
+            var d = center + line + arc + 'Z';
+            return [degto, ax, ay, d];
+        }
+        function piemaker(arr, cols, colors, maxval) {//, station
+            wlog('DO piemaker')
+            var total = arr[0];
+            var r = val2radpx(total, maxval);
+            var pcts = [];
+            var degs = [];
+            arr.forEach(k => {
+                pcts.push(0);
+                degs.push(0);
+            });
+            pcts.push(100);
+            degs.push(360);
+            // var icondiv = '<div class="picon" id="mark-' + station + '" style="left:-' + r + 'px; top: -' + r + 'px;"><svg width="' + (r * 2) + '" height="' + (r * 2) + '">';
+            var icondiv = '<div class="picon" style="left:-' + r + 'px; top: -'
+                + r + 'px;"><svg width="' + (r * 2) + '" height="' + (r * 2) + '">';
+            var degfrom = 0; // degree on circle where arc starting from
+            var lx = r * 2; // zero-deg starting point x-coord to line-to from center
+            var ly = r; // zero-deg starting point y-coord to line-to from centerj
+            // Bearing starts at top due North sweeping clockwise
+            var lx = r;
+            var ly = 0;
+            var ang = 0; // angle of arc of the pie slice
+            var ax = r; // arc-to point x-coord on circle
+            var ay = 0; // arc-to point y-coord on circle
+            for (var i = 1; i < arr.length; i++) {
+                var val = arr[i];
+                if (val > 0) {
+                    pct = Math.round(arr[i] * 100 / total);
+                    //degs[i] = Math.round(arr[i] * 360 / total);
+                    ang = Math.round(arr[i] * 360 / total);
+                    if (ang === 360) {
+                        var shape = '<circle cx="' + r + '" cy="' + r + '" r="' + r
+                            + '" stroke="dimgray" stroke-width="1" fill="' + colors[i] + '" />';
+                    } else {
+                        var pathinfo = piecut(ang, degfrom, lx, ly, r);
+                        degfrom = pathinfo[0];
+                        lx = pathinfo[1];
+                        ly = pathinfo[2];
+                        var d = pathinfo[3];
+                        // wlog("degto=" + degfrom + " d=" + d);
+                        var shape = '<path d="' + d + '" style="fill:' + colors[i]
+                            + ';stroke:dimgray;stroke-width:1;" />';
+                    }
+                    icondiv = icondiv + shape;
+                }
+            }
+            icondiv = icondiv + '</svg></div>';
+            // wlog('IconDiv', icondiv);
+            var iconOptions = {
+                className: "base-icon",
+                html: icondiv
+            };
+            var icon = L.divIcon(iconOptions);
+            // wlog('icon=', icon);
+            // var marker = L.marker([lat, lon], { icon: icon }).bindPopup(popt);
+            // return marker;
+            return icon;
+        }
+        function piemarker(arr, lat, lon) {
+            wlog('DO piemarker: ' + [arr, lat, lon]);
+            var rtype = parseInt($('ReportType').value);
+            var sext = [
+                ['Undefined', 'Undetermined', 'Male', 'Female'],
+                ['Unknown', 'Stage-1', 'Stage-2', 'Stage-3', 'Stage-4', 'Stage-5', 'Stage-6'],
+                ['Unknown', 'Stage-1', 'Stage-2', 'Stage-3', 'Stage-4', 'Stage-5', 'Stage-6']
+            ]
+            var station = arr[0];
+            var sum = arr[(arr.length - 1)];
+            var r = radiusForSum(sum); //25; // radius of piecircle, size of marker. TODO: calculate from sum spread over total
+            var pcts = [station, 0, 0, 0, 0, 0, 0, 100];
+            var degs = [station, 0, 0, 0, 0, 0, 0, 360];
+            var circ = '<circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />';
+            var rect = '<rect width="10" height="80" style="fill:blue;stroke:pink;stroke-width:2;fill-opacity:0.5;stroke-opacity:0.9" />';
+            var d = '<path d="m50,50 L50,10 A40,40 1 1 0 90,50  Z" style="fill:powderblue;stroke:pink;stroke-width:2;fill-opacity:0.5;stroke-opacity:0.9" />'
+            var icondiv = '<div class="picon" id="mark-' + station + '" style="left:-' + r + 'px; top: -' + r + 'px;"><svg width="' + (r * 2) + '" height="' + (r * 2) + '">';
+            cnt = 0; // pieces of pie slices or wedges count
+            var degfrom = 0; // degree on circle where arc starting from
+            var lx = r * 2; // zero-deg starting point x-coord to line-to from center
+            var ly = r; // zero-deg starting point y-coord to line-to from centerj
+            // Bearing starts at top due North sweeping clockwise
+            var lx = r;
+            var ly = 0;
+            var ang = 0; // angle of arc of the pie slice
+            var ax = r; // arc-to point x-coord on circle
+            var ay = 0; // arc-to point y-coord on circle
+            var popt = '<table class="poptb"><tr><th>Station</th><td>' + station + '</td></tr>';
+            for (var i = 1; i < (arr.length - 1); i++) {
+                // Check for nonzero caught through each stage
+                if (arr[i] > 0) {
+                    //pcts[i] = Math.round(arr[i] * 100 / sum);
+                    pct = Math.round(arr[i] * 100 / sum);
+                    //degs[i] = Math.round(arr[i] * 360 / sum);
+                    ang = Math.round(arr[i] * 360 / sum);
+                    cnt += 1;
+                    popt += '<tr><th class="poptd">' + sext[rtype][i] + '</th><td class="poptd">' + arr[i] + ' (' + pct + '%)</td></tr>';
+                    //TEST-- first nonzero stage
+                    //if (cnt === 1) {
+                    //}
+                    // wlog("#" + station + ", s" + i + "-" + colors[rtype][i] + ", " + pct + "%, from=" + degfrom + ", ang=" + ang);
+                    if (ang === 360) {
+                        var shape = '<circle cx="' + r + '" cy="' + r + '" r="' + r + '" stroke="white" stroke-width="1" fill="' + colors[rtype][i] + '" />';
+                    } else {
+                        var pathinfo = piecut(ang, degfrom, lx, ly, r);
+                        degfrom = pathinfo[0];
+                        lx = pathinfo[1];
+                        ly = pathinfo[2];
+                        var d = pathinfo[3];
+                        // wlog("degto=" + degfrom + " d=" + d);
+                        var shape = '<path d="' + d + '" style="fill:' + colors[rtype][i] + ';stroke:white;stroke-width:1;" />';
+                        //if (rtype === 0 && i === 3) {
+                        //    var shape = '<path d="' + d + '" style="fill:' + colors[rtype][0] + ';stroke:white;stroke-width:1;" />';
+                        //}
+                    }
+                    icondiv = icondiv + shape;
+                }
+            }
+            popt += '<tr><th class="poptd">Total</th><td class="poptd">' + sum + '</td></tr></table>';
+            // wlog("Station " + station + " has " + cnt + " slices");
+            // wlog("Percentages: " + pcts);
+            // wlog("Degrees: " + degs);
+            icondiv = icondiv + '</svg></div>';
+            var iconOptions = {
+                className: "base-icon",
+                html: icondiv
+            };
+            var myIcon = L.divIcon(iconOptions);//{ className: 'my-div-icon' }
+            var marker = L.marker([lat, lon], { icon: myIcon }).bindPopup(popt);// station);
+            return marker;
+        }
+        function radiusForSum(n) {
+            //--- Convert per station sum to pie chart radius size--20170808
+            if (n === 1) {
+                return 15;
+            } else if (n > 1 && n <= 5) {
+                return 30;
+            } else if (n > 5 && n <= 25) {
+                return 40;
+            } else if (n > 25 && n <= 50) {
+                return 50;
+            } else if (n > 50 && n <= 75) {
+                return 60;
+            } else if (n > 75 && n <= 100) {
+                return 70;
+            } else if (n > 100 && n <= 200) {
+                return 80;
+            } else if (n > 200) {
+                return 100;
+            }
+        }
+        function testtrig() {
+            var degs = [0, 15, 30, 45, 60, 90, 120, 135, 180, 225, 240, 270, 315, 330, 360];
+            var degfrom = 0;
+            var degto = null;
+            var ang = 15;
+            var r = 100;
+            var lx = 100;
+            var ly = 0;
+            var dx = null;
+            var dy = null;
+            var ax = null;
+            var ay = null;
+            for (var i = 0; i < degs.length; i++) {
+                degto = degs[i];
+                var rad = (degto / 180) * Math.PI;
+                var dy = Math.round(Math.sin(rad) * r);//change normal trig result for circle of radius 100
+                var dx = Math.round(Math.cos(rad) * r);
+                msg = 'deg=' + degto + ', dx=' + dx + ', dy=' + dy + '; f(' + degto + ')=[' + dx + ', ' + dy + ']';
+                wlog(msg);
+                degfrom = degto;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <small class="flort">
+            <script>
+                document.write(document.lastModified.toLocaleString());
+            </script>
+        </small>
+        <h2>
+            <a href="https://wildlife.ca.gov/Conservation/Delta/Spring-Kodiak-Trawl" target="_blank">
+                Spring Kodiak Trawl</a> Catch Distribution Map
+        </h2>
+    </header>
+    <!-- <table id="toolbar">
+        <tr>
+            <th>Select Species</th>
+            <th>Year</th>
+            <th>Survey</th>
+            <th>Report Type</th>
+            <th>CWT</th>
+            <th>
+                <label for="stationids">
+                    View Stations ID
+                </label>
+                <input type="checkbox" name="stationids" id="stationids">
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <select name="Species" id="Species"></select>
+            </td>
+            <td>
+                <select name="Year" id="Year"></select>
+            </td>
+            <td>
+                <select name="MONTH" id="MONTH" class="hide"></select>
+                <select name="Survey" id="Survey"></select>
+            </td>
+            <td>
+                <select id="ReportType" name="ReportType">
+                    <optgroup id="repothers" label="Others">
+                        <option value="0" title="No Ratio">Catch</option>
+                    </optgroup>
+                    <optgroup id="repsmelt" label="Delta Smelt" disabled="disabled">
+                        <option value="1">Males</option>
+                        <option value="2">Females</option>
+                        <option value="R">Sex Ratios</option>
+                    </optgroup>
+                    <optgroup id="repsalmon" label="Salmon/steelhead" disabled="disabled">
+                        <option value="false">Clipped</option>
+                        <option value="true">Non-Clipped</option>
+                        <option value="AR">Adipose Ratios</option>
+                    </optgroup>
+                </select>
+            </td>
+            <td>
+                <input type="checkbox">
+            </td>
+            <th>
+                <button id="drawmap" title="Run Query">Draw Map</button>
+            </th>
+        </tr>
+    </table> -->
+    <aside id="abar">
+        <details id="tooldet">
+            <summary id="tooltog">
+                <h2>
+                    &equiv;
+                </h2>
+            </summary>
+            <div id="toolpanel">
+                <div>
+                    <label for="Species">Species</label>
+                    <select name="Species" id="Species"></select>
+                </div>
+                <div>
+                    <label for="Year">Year</label>
+                    <select name="Year" id="Year"></select>
+                </div>
+                <div>
+                    <label for="Survey">Survey</label>
+                    <select name="Survey" id="Survey"></select>
+                </div>
+                <div>
+                    <label for="ReportType">Report Type</label>
+                    <select id="ReportType" name="ReportType">
+                        <optgroup id="repothers" label="Others">
+                            <option value="others" title="Catch">Catch</option>
+                        </optgroup>
+                        <optgroup id="repsmelt" label="Delta Smelt" disabled="disabled">
+                            <option value="1">Males</option>
+                            <option value="2">Females</option>
+                            <option value="0">Sex Ratios</option>
+                        </optgroup>
+                        <optgroup id="repsalmon" label="Salmon/steelhead" disabled="disabled">
+                            <option value="clipped" title="false">Clipped</option>
+                            <option value="nonclipped" title="true">Non-Clipped</option>
+                            <option value="adipose" title="AR">Adipose Ratios</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div>
+                    <label for="CWT">CWT</label>
+                    <input type="checkbox">
+                </div>
+                <div>
+                    <label for="stationids">
+                        View Stations ID
+                    </label>
+                    <input type="checkbox" name="stationids" id="stationids">
+                </div>
+                <div class="centered">
+                    <button id="drawmap" title="Run Query">Draw Map</button>
+                </div>
+            </div>
+        </details>
+    </aside>
+    <div id="map"></div>
+    <h4 id="maptitle">
+        <div>
+            <span class="Species"></span>
+            <span class="ReportType"></span>
+        </div>
+        <div>
+            <span class="Year"></span>
+            Survey
+            <span class="Survey"></span>
+        </div>
+        <div>
+            <span id="dates"></span>
+        </div>
+    </h4>
+    <div id="legendbar" style="display: none;">
+        <h4 id="legendnot" class="hide">
+            There were no
+            <span class="Species"></span>
+            collected
+        </h4>
+        <table id="legendtable" class="legendtable">
+            <caption>
+                <b>Fish Catch</b>
+            </caption>
+            <tr>
+                <th class="stationnot">+</th>
+                <!-- <td>Not Sampled</td> -->
+                <td>No Catch</td>
+            </tr>
+            <tr>
+                <th>o</th>
+                <td>= 0 (Zero)</td>
+            </tr>
+            <tr>
+                <th id="class1key"></th>
+                <td id="class1val">&lt;= max/5</td>
+            </tr>
+            <tr>
+                <th id="class2key"></th>
+                <td id="class2val">&lt;= 2*max/5</td>
+            </tr>
+            <tr>
+                <th id="class3key"></th>
+                <td id="class3val">&lt;= 3*max/5</td>
+            </tr>
+            <tr>
+                <th id="class4key"></th>
+                <td id="class4val">&lt;= 4*max/5</td>
+            </tr>
+            <tr>
+                <th id="class5key"></th>
+                <td id="class5val">&lt;= max</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td id="catchtotal"></td>
+            </tr>
+        </table>
+    </div>
+    <div id="legendtoo" style="display: none;">
+        <div id="gchart" style="position: absolute; left: 0; bottom: 0; width: 200px;"></div>
+        <div id="legend-keys"
+            style="position: absolute; left: 200px; bottom: 0; font-size: small; white-space: nowrap;">
+            <fieldset id="legend-male">
+                <legend class="legend-title">Stage</legend>
+                <table>
+                    <caption class="legend-caption">Stage</caption>
+                    <tr>
+                        <td id="male-stage-1-total" class="totalcell" style="background-color: khaki;">&nbsp;&nbsp;</td>
+                        <td id="male-stage-1-sum" class="svgcell" style="background-color: khaki;">
+                            <svg id="male-stage-1-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:khaki;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                            <!--stroke-width:1;stroke:silver-->
+                        </td>
+                        <td>1 (Pre-spawn)</td>
+                        <td id="male-stage-1-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-2-total" class="totalcell" style="background-color: cyan;"></td>
+                        <td id="male-stage-2-sum" class="svgcell" style="background-color: cyan;">
+                            <svg id="male-stage-2-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:cyan;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>2 (Pre-spawn)</td>
+                        <td id="male-stage-2-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-3-total" class="totalcell" style="background-color: cornflowerblue;"></td>
+                        <td id="male-stage-3-sum" class="svgcell" style="background-color: cornflowerblue;">
+                            <svg id="male-stage-3-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:cornflowerblue;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>3 (Pre-spawn)</td>
+                        <td id="male-stage-3-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-4-total" class="totalcell" style="background-color: steelblue;"></td>
+                        <td id="male-stage-4-sum" class="svgcell" style="background-color: steelblue;">
+                            <svg id="male-stage-4-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:steelblue;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>4 (Pre-spawn)</td>
+                        <td id="male-stage-4-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-5-total" class="totalcell" style="background-color: lightseagreen;"></td>
+                        <td id="male-stage-5-sum" class="svgcell" style="background-color: lightseagreen;">
+                            <svg id="male-stage-5-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:lightseagreen;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>5 (Ripe)</td>
+                        <td id="male-stage-5-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="male-stage-6-total" class="totalcell" style="background-color: palegreen;"></td>
+                        <td id="male-stage-6-sum" class="svgcell" style="background-color: palegreen;">
+                            <svg id="male-stage-6-svg" height="12" width="25" class="symbo">
+                                <rect height="12" width="25" style="fill:palegreen;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>6 (Spent)</td>
+                        <td id="male-stage-6-pct"></td>
+                    </tr>
+                    <tr style="color: crimson;">
+                        <td style="font-size: medium; font-weight: bold; text-align: center;">&plus;</td>
+                        <td>No Catch</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset id="legend-female" style="display: none;">
+                <legend class="legend-title">Stage</legend>
+                <table>
+                    <caption class="legend-caption">Stage</caption>
+                    <tr>
+                        <td id="female-stage-1-total" class="totalcell" style="background-color: khaki;">&nbsp;&nbsp;
+                        </td>
+                        <td id="female-stage-1-sum" class="svgcell" style="background-color: khaki;">
+                            <svg id="female-stage-1-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:khaki;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                            <!--stroke-width:1;stroke:silver-->
+                        </td>
+                        <td>1 (Pre-spawn)</td>
+                        <td id="female-stage-1-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-2-total" class="totalcell" style="background-color: pink;"></td>
+                        <td id="female-stage-2-sum" class="svgcell" style="background-color: pink;">
+                            <svg id="female-stage-2-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:pink;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>2 (Pre-spawn)</td>
+                        <td id="female-stage-2-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-3-total" class="totalcell" style="background-color: magenta;"></td>
+                        <td id="female-stage-3-sum" class="svgcell" style="background-color: magenta;">
+                            <svg id="female-stage-3-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:magenta;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>3 (Pre-spawn)</td>
+                        <td id="female-stage-3-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-4-total" class="totalcell" style="background-color: purple;"></td>
+                        <td id="female-stage-4-sum" class="svgcell" style="background-color: purple;">
+                            <svg id="female-stage-4-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:purple;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>4 (Ripe)</td>
+                        <td id="female-stage-4-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-5-total" class="totalcell" style="background-color: coral;"></td>
+                        <td id="female-stage-5-sum" class="svgcell" style="background-color: coral;">
+                            <svg id="female-stage-5-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:coral;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>5 (Failed to spawn)</td>
+                        <td id="female-stage-5-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="female-stage-6-total" class="totalcell" style="background-color: palegreen;"></td>
+                        <td id="female-stage-6-sum" class="svgcell" style="background-color: palegreen;">
+                            <svg id="female-stage-6-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:palegreen;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>6 (Post-spawn)</td>
+                        <td id="female-stage-6-pct"></td>
+                    </tr>
+                    <tr style="color: crimson;">
+                        <td style="font-size: medium; font-weight: bold; text-align: center;">&plus;</td>
+                        <td>No Catch</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset id="legend-ratio" style="display: none;">
+                <legend class="legend-title"></legend>
+                <table>
+                    <caption class="legend-caption"></caption>
+                    <tr>
+                        <td id="ratio-stage-1-total" class="totalcell" style="background-color: khaki;">&nbsp;&nbsp</td>
+                        <td id="ratio-stage-1-sum" class="svgcell" style="background-color: khaki;">
+                            <svg id="ratio-stage-1-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:khaki;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                            <!--stroke-width:1;stroke:silver-->
+                        </td>
+                        <td>Undetermined</td>
+                        <td id="ratio-stage-1-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="ratio-stage-2-total" class="totalcell" style="background-color: deepskyblue;"></td>
+                        <td id="ratio-stage-2-sum" class="svgcell" style="background-color: deepskyblue;">
+                            <svg id="ratio-stage-2-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:deepskyblue;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Males</td>
+                        <td id="ratio-stage-2-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="ratio-stage-3-total" class="totalcell" style="background-color: hotpink;"></td>
+                        <td id="ratio-stage-3-sum" class="svgcell" style="background-color: hotpink;">
+                            <svg id="ratio-stage-3-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:hotpink;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Females</td>
+                        <td id="ratio-stage-3-pct"></td>
+                    </tr>
+                    <tr style="color: crimson; display: none;">
+                        <td style="font-size: medium; font-weight: bold; text-align: center;">&plus;</td>
+                        <td>No Catch</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        <div id="legend-clips"
+            style="position: absolute; left: 200px; bottom: 0; font-size: small; white-space: nowrap;">
+            <fieldset id="legend-clipped">
+                <legend>Clipped</legend>
+                <table>
+                    <tr>
+                        <td id="clipped-fall-total" class="totalcell" style="background-color: khaki;">
+                        </td>
+                        <td id="clipped-fall-sum" class="svgcell" style="background-color: khaki;">
+                            <svg id="clipped-fall-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:khaki;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Fall</td>
+                        <td id="clipped-fall-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="clipped-latefall-total" class="totalcell" style="background-color: plum;"></td>
+                        <td id="clipped-latefall-sum" class="svgcell" style="background-color: plum;">
+                            <svg id="clipped-latefall-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:plum;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>LateFall</td>
+                        <td id="clipped-latefall-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="clipped-spring-total" class="totalcell" style="background-color: fuchsia;"></td>
+                        <td id="clipped-spring-sum" class="svgcell" style="background-color: fuchsia;">
+                            <svg id="clipped-spring-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:fuchsia;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Spring</td>
+                        <td id="clipped-spring-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="clipped-winter-total" class="totalcell" style="background-color: darkorchid;"></td>
+                        <td id="clipped-winter-sum" class="svgcell" style="background-color: darkorchid;">
+                            <svg id="clipped-winter-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:darkorchid;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Winter</td>
+                        <td id="clipped-winter-pct"></td>
+                    </tr>
+                    <tr style="color: crimson; display: none;">
+                        <td style="font-size: medium; font-weight: bold; text-align: center;">&plus;</td>
+                        <td>No Catch</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset id="legend-nonclipped">
+                <legend>Non-Clipped</legend>
+                <table>
+                    <tr>
+                        <td id="nonclipped-fall-total" class="totalcell" style="background-color: khaki;"></td>
+                        <td id="nonclipped-fall-sum" class="svgcell" style="background-color: khaki;">
+                            <svg id="nonclipped-fall-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:khaki;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Fall</td>
+                        <td id="nonclipped-fall-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="nonclipped-latefall-total" class="totalcell" style="background-color: lightskyblue;">
+                        </td>
+                        <td id="nonclipped-latefall-sum" class="svgcell" style="background-color: lightskyblue;">
+                            <svg id="nonclipped-latefall-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:lightskyblue;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>LateFall</td>
+                        <td id="nonclipped-latefall-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="nonclipped-spring-total" class="totalcell" style="background-color: dodgerblue;"></td>
+                        <td id="nonclipped-spring-sum" class="svgcell" style="background-color: dodgerblue;">
+                            <svg id="nonclipped-spring-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:dodgerblue;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Spring</td>
+                        <td id="nonclipped-spring-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="nonclipped-winter-total" class="totalcell" style="background-color: steelblue;"></td>
+                        <td id="nonclipped-winter-sum" class="svgcell" style="background-color: steelblue;">
+                            <svg id="nonclipped-winter-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:steelblue;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Winter</td>
+                        <td id="nonclipped-winter-pct"></td>
+                    </tr>
+                    <tr style="color: crimson; display: none;">
+                        <td style="font-size: medium; font-weight: bold; text-align: center;">&plus;</td>
+                        <td>No Catch</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset id="legend-adipose">
+                <legend>Adipose Ratio</legend>
+                <table>
+                    <tr>
+                        <td id="adipose-clipped-total" class="totalcell" style="background-color: mediumpurple;"></td>
+                        <td id="adipose-clipped-sum" class="svgcell" style="background-color: mediumpurple;">
+                            <svg id="adipose-clipped-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:mediumpurple;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Clipped</td>
+                        <td id="adipose-clipped-pct"></td>
+                    </tr>
+                    <tr>
+                        <td id="adipose-nonclipped-total" class="totalcell" style="background-color: chartreuse;"></td>
+                        <td id="adipose-nonclipped-sum" class="svgcell" style="background-color: chartreuse;">
+                            <svg id="adipose-nonclipped-svg" height="12" width="25">
+                                <rect height="12" width="25" style="fill:chartreuse;"></rect>
+                                <text x="2" y="12" fill="black"></text>
+                            </svg>
+                        </td>
+                        <td>Non-Clipped</td>
+                        <td id="adipose-nonclipped-pct"></td>
+                    </tr>
+                    <tr style="color: crimson; display: none;">
+                        <td style="font-size: medium; font-weight: bold; text-align: center;">&plus;</td>
+                        <td>No Catch</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+    <section id="databar">
+        <h3 id="nontitle" class="hide">No fish species were collected</h3>
+        <h3 id="outtitle">
+            <div>
+                <!-- Species: -->
+                <span class="Species"></span>
+                <span class="ReportType"></span>
+                <!-- Year: -->
+                <span class="Year"></span>
+                Survey
+                <span class="Survey"></span>
+            </div>
+        </h3>
+        <details id="outdet">
+            <summary id="outtog" style="cursor: default;">Show Table
+                <label for="showtable" id="goshowtable" class="hide">
+                    Show Table
+                </label>
+                <input type="checkbox" id="showtable" style="display: none;">
+            </summary>
+            <div id="outdiv">
+                <table id="outtable" class="bgrid"></table>
+            </div>
+        </details>
+        <article id="msgbar" class="hide">
+            <p>
+                <code id="sqlcode">
+                    SQLWHERE
+                </code>
+            </p>
+            <table id="msgtable"></table>
+            <div id="msgdiv"></div>
+            <p title="CatchURL">
+                <a href="" id="pcatchurl" target="_blank">CatchURL</a>
+            </p>
+            <p title="RatioURL">
+                <a href="" id="pratiourl" target="_blank">RatioURL</a>
+            </p>
+            <p>
+                <script>
+                    var brk = '<br>';
+                    document.write(navigator.userAgent);
+                    document.write(brk + 'window.innerWidth=' + window.innerWidth);
+                    document.write(brk + 'window.innerHeight=' + window.innerHeight);
+                </script>
+            </p>
+        </article>
+    </section>
+</body>
+
+</html>
+<!-- NOTES 2022-04-06 dchiang
+    [Esri Leaflet Quickstart](https://esri.github.io/esri-leaflet/examples/)
+    // bugfix--incl mapboxglcss--https://docs.mapbox.com/mapbox-gl-js/example/simple-map/ 
+    [Simple FeatureLayer](https://esri.github.io/esri-leaflet/examples/simple-feature-layer.html)
+    [request](https://esri.github.io/esri-leaflet/api-reference/request.html)
+    [](https://leafletjs.com/examples/custom-icons/)
+    2022-06-11
+    [Visualization: Pie Chart|Charts|Google Developers](https://developers.google.com/chart/interactive/docs/gallery/piechart) 
+    COPIED LEGENDTOO OVER FROM SKTMAPLET;
+    MADE NEW TOOLBAR AS ABAR TOGGLE MENU;
+    INCL GOOGLE VIZ FOR LEGEND TOTAL PIE CHART;
+    2022-06-13 CHANGED SEX-RATION OPTION VALUE FROM R TO 0 TO FIT PREVMAPCODE;
+-->

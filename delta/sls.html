@@ -1,0 +1,854 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Smelt Larva Survey Map</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+    <!-- ,user-scalable=no -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script> -->
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.7/dist/esri-leaflet.js"
+        integrity="sha512-ciMHuVIB6ijbjTyEdmy1lfLtBwt0tEHZGhKVXDzW7v7hXOe+Fo3UA1zfydjCLZ0/vLacHkwSARXB5DmtNaoL/g=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet Vector from CDN -->
+    <script src="https://unpkg.com/esri-leaflet-vector@3.1.2/dist/esri-leaflet-vector.js"
+        integrity="sha512-SnA/TobYvMdLwGPv48bsO+9ROk7kqKu/tI9TelKQsDe+KZL0TUUWml56TZIMGcpHcVctpaU6Mz4bvboUQDuU3w=="
+        crossorigin=""></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.2em;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .xmap {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+
+        #toolbar {
+            position: absolute;
+            top: 8%;
+            right: 5%;
+            left: 5%;
+            width: auto;
+            background-color: whitesmoke;
+        }
+
+        #map {
+            position: absolute;
+            top: 25%;
+            bottom: 10%;
+            right: 5%;
+            left: 5%;
+            border: silver solid 1px;
+        }
+
+        #maptitle {
+            position: absolute;
+            top: 26%;
+            left: 10%;
+            background-color: rgba(255, 255, 255, 0.55);
+            color: maroon;
+            line-height: 1.1em;
+            margin: 5px;
+            z-index: 555;
+        }
+
+        #legendbar {
+            position: absolute;
+            bottom: 12%;
+            right: 6%;
+            background-color: white;
+            border: silver solid 1px;
+            border-radius: 5px;
+            color: midnightblue;
+            display: flex;
+            flex-direction: column;
+            margin: 5px;
+            padding: 5px;
+            z-index: 555;
+        }
+
+        #legendnot {
+            color: maroon;
+            font-size: 1em;
+            margin: 2px 5px;
+        }
+
+        /* #legendbar h4 {
+            color: navy;
+            font-size: 1em;
+            margin: 2px 5px;
+        } */
+
+        .legendtable {
+            border: transparent solid 1px;
+            font-size: 1em;
+        }
+
+        .legendtable td {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        .legendtable th {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        .grid2a {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+
+        .griditem {
+            margin: 5px 2px;
+        }
+
+        #databar {
+            position: absolute;
+            top: 90%;
+            right: 5%;
+            left: 5%;
+            padding-bottom: 2em;
+            margin-bottom: 2em;
+        }
+
+        #outtitle {
+            color: navy;
+        }
+
+        .Survey {
+            font-size: inherit;
+        }
+
+        .Species {
+            font-size: inherit;
+        }
+
+        .Survey {
+            font-size: inherit;
+        }
+
+        .Year {
+            font-size: inherit;
+        }
+
+        button {
+            font-size: 1em;
+        }
+
+        .flort {
+            float: right;
+        }
+
+        header {
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            top: 0;
+            padding: 1%;
+        }
+
+        header h2 {
+            margin: 0;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        input {
+            font-size: 1em;
+        }
+
+        input[type=checkbox] {
+            display: inline-block;
+            height: 16px;
+            line-height: 1em;
+            margin: 2px;
+            vertical-align: bottom;
+            width: 16px;
+        }
+        .margo {
+            margin: 5px;
+        }
+        .paddy {
+            padding: 5px;
+        }
+
+        select {
+            font-size: 1em;
+        }
+
+        .stationnone {
+            /* color: white; */
+            font-size: 40px;
+            /* font-weight: bold; */
+        }
+
+        .stationnot {
+            color: red;
+            font-weight: bold;
+        }
+
+        .stationlabel {
+            background-color: transparent;
+            border: 1px solid transparent;
+            /* FOR TESTING POSITION */
+            color: mediumblue;
+            font-family: sans-serif;
+            font-size: 10;
+            font-weight: bold;
+            left: 10px;
+            top: -5px;
+        }
+
+        table {
+            border: darkslategray solid 1px;
+            border-collapse: collapse;
+            font-size: 1em;
+        }
+
+        td {
+            border: slategray solid 1px;
+            border-width: 0 1px 1px 0;
+            padding: 5px 10px;
+        }
+
+        th {
+            border: dimgray solid 1px;
+            border-width: 0 1px 1px 0;
+            padding: 5px 10px;
+        }
+
+        table.bgrid tr:nth-child(even) {
+            background-color: aliceblue;
+        }
+    </style>
+    <script>
+        function $(id) { return document.getElementById(id); }
+        function dohide(id) { $(id).classList.add('hide'); }
+        function dohidex(x) { x.classList.add('hide'); }
+        function hide(id) { $(id).style.display = 'none'; }
+        function hidex(x) { x.style.display = 'none'; }
+        function show(id) { $(id).style.display = ''; }
+        function showx(x) { x.style.display = ''; }
+        function toggle(id) { $(id).style.display = ($(id).style.display === 'none' ? '' : 'none'); }
+        function togglex(x) { x.style.display = (x.style.display === 'none' ? '' : 'none'); }
+        function unhide(id) { $(id).classList.remove('hide'); }
+        function unhidex(x) { x.classList.remove('hide'); }
+        function classifive(x) {
+            if (x === undefined || typeof x != 'number') {
+                var a = [0, 'Max/5', '2*Max/5', '3*Max/5', '4*Max/5', 'Max'];
+            } else {
+                var a = [0];
+                for (var i = 1; i < 6; i++) {
+                    a.push((x * i / 5).toFixed(2));
+                }
+            }
+            for (var i = 1; i < 6; i++) {
+                $('class' + i + 'val').innerHTML = '&lt;= ' + a[i];
+            }
+            // return a;
+        }
+        function picklistfill(list, ar) {
+            ar.forEach(x => {
+                var opt = document.createElement('option');
+                opt.value = x[0];
+                opt.innerHTML = x[1];
+                list.appendChild(opt);
+            });
+            return ar.length;
+        }
+        function selectortext(x, s) {
+            let y = document.querySelectorAll(x);
+            for (var i = 0; i < y.length; i++) {
+                y[i].innerHTML = s;
+            }
+            return y.length;
+        }
+        function val2rad(val, max) {
+            let radii = [500, 1000, 1500, 2000, 2500, 3000];
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];// (d * i * 100);
+        }
+        function val2radpx(val, max) {
+            let radii = [5, 8, 12, 16, 20, 25];
+            // 5, 8, 12, 15, 18, 22
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];
+        }
+        function val2color(val, max) {
+            let colors = ['dimgray', 'limegreen', 'green', 'blue', 'purple', 'violet'];
+            let i = Math.ceil(val / (max / 5));
+            return colors[i];
+        }
+    </script>
+    <script>
+        let map = null;
+        const APIKEY = "AAPK6b0985992bc5430a889d0bfbcaad4c69S9fMoriHLkizvSxx26HhyZhFUcjkiiYumHUbC_ASe3k4vCU9MpnRAG_2BVUVIowF";
+        let ll = [38.1, -121.8];
+        let zl = 10;
+        let stationsurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/bdsls/FeatureServer/3";
+        let catchurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/bdsls/FeatureServer/1";
+        let stationcatch = {};
+        let stids = [];
+        let stationswhere = "Station IN (" + stids + ")";
+        let maxval = 0;
+        if (location.host.indexOf('apps.wildlife') < 0) {
+            wlog = console.log;
+        } else {
+            wlog = function () { return; }
+        }
+        function drawmapgo() {
+            var col = $('Species').selectedOptions;
+            var cnames = [];
+            var species = [];
+            for (i = 0; i < col.length; i++) {
+                // wlog(col[i].value);
+                cnames.push(col[i].innerHTML);
+                species.push(col[i].value);
+            }
+            var sql = "Species IN ('" + species.join("', '") + "')";
+            var year = parseInt($('Year').value);
+            var begdate = new Date(year, 0, 1, 1);
+            var enddate = new Date(year, 11, 31, 23);
+            // sql += " AND SurveyYear = " + $('Year').value;
+            // sql += " AND SurveyStartDate > " + begdate + " AND SurveyEndDate <= " + enddate;
+            sql += " AND SurveyStartDate > '" + year + "-01-01'";
+            sql += " AND SurveyEndDate < '" + (year + 1) + "-01-01'";
+            sql += " AND Survey = '" + $('Survey').value + "'";
+            var n = selectortext('.Species', cnames.join(', '));
+            var y = selectortext('.Year', $('Year').value);
+            var m = selectortext('.Survey', $('Survey').value);
+            // wlog(sql);
+            querycatch(sql);
+        }
+        function labelmap() {
+            var col = $('Species').selectedOptions;
+            var cnames = [];
+            for (i = 0; i < col.length; i++) {
+                cnames.push(col[i].innerHTML);
+            }
+            var n = selectortext('.Species', cnames.join(', '));
+            var y = selectortext('.Year', $('Year').value);
+            var m = selectortext('.Survey', $('Survey').value);
+        }
+        function listspecies() {
+            var query = L.esri.query({
+                url: catchurl
+            });
+            var sql = "SpeciesName IS NOT NULL"
+            query.where(sql).fields(["Species", "SpeciesName"])
+                .orderBy('SpeciesName').distinct();
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK listspecies queryrun: ' + featureCollection.features.length + ' features found');
+                // var tbl = $('outtable');
+                var features = featureCollection.features;
+                var ar = [];
+                features.forEach(fi => {
+                    ar.push([fi.properties['Species'], fi.properties['SpeciesName']]);
+                });
+                var k = picklistfill($('Species'), ar);
+                // pickfirst($('Species'));
+                // pickonload('Species', '3');
+            });
+        }
+        function listyears() {
+            let x = 2022;
+            let ar = [[x, x]];
+            while (x > 2009) {
+                y = x - 1;
+                x = y;
+                ar.push([x, y]);
+            }
+            var k = picklistfill($('Year'), ar);
+            // pickonload('Year', '2017');
+        }
+        function listsurveys() {
+            var query = L.esri.query({
+                url: catchurl
+            });
+            var sql = "Survey IS NOT NULL"; // , "SpeciesName"
+            query.where(sql).fields(["Survey"])
+                .orderBy('Survey').distinct();
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK listsurveys queryrun: ' + featureCollection.features.length + ' features found');
+                // var tbl = $('outtable');
+                var features = featureCollection.features;
+                var ar = [];
+                features.forEach(fi => {
+                    ar.push([fi.properties['Survey'], fi.properties['Survey']]);
+                });
+                var k = picklistfill($('Survey'), ar);
+            });
+        }
+        function listlegend() {
+            const legendvs = [
+                {
+                    "height": 12,
+                    "width": 12,
+                    "graphic": "circle",
+                    "cx": 6,
+                    "cy": 6,
+                    "r": 5,
+                    "stroke": "dimgray",
+                    "strokeWidth": 2,
+                    "fill": "white",
+                    "opacity": "100%",
+                    "value": "= 0 (zero)"
+                },
+                {
+                    "height": 18,
+                    "width": 18,
+                    "graphic": "circle",
+                    "cx": 9,
+                    "cy": 9,
+                    "r": 8,
+                    "stroke": "limegreen",
+                    "strokeWidth": 2,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE max/5"
+                },
+                {
+                    "height": 26,
+                    "width": 26,
+                    "graphic": "circle",
+                    "cx": 13,
+                    "cy": 13,
+                    "r": 12,
+                    "stroke": "green",
+                    "strokeWidth": 2,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE 2*max/5"
+                },
+                {
+                    "height": 34,
+                    "width": 34,
+                    "graphic": "circle",
+                    "cx": 17,
+                    "cy": 17,
+                    "r": 16,
+                    "stroke": "blue",
+                    "strokeWidth": 2,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE 3*max/5"
+                },
+                {
+                    "height": 42,
+                    "width": 42,
+                    "graphic": "circle",
+                    "cx": 21,
+                    "cy": 21,
+                    "r": 20,
+                    "stroke": "purple",
+                    "strokeWidth": 2,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE 4*max/5"
+                },
+                {
+                    "height": 50,
+                    "width": 50,
+                    "graphic": "circle",
+                    "cx": 25,
+                    "cy": 25,
+                    "r": 24,
+                    "stroke": "violet",
+                    "strokeWidth": 2,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE max"
+                }
+            ];
+            for (var i = 1; i < legendvs.length; i++) {
+                var info = legendvs[i];
+                // var rag = document.createElement('svg');
+                // $('class' + i + 'key').appendChild(rag);
+                // rag.style.height = info.height;
+                // rag.style.width = info.width;
+                // rag.setAttribute('height', info.height);
+                // rag.setAttribute('width', info.width);//FAIL
+                // var tag = document.createElement('circle');
+                // rag.appendChild(tag);
+                // tag.style.cx = info.cx;
+                // tag.style.cy = info.cy;
+                // tag.style.r = info.r;
+                // tag.style.stroke = info.stroke;
+                // tag.style['stroke-width'] = info.strokeWidth;
+                // tag.style.fill = info.fill;
+                // tag.style['fill-opacity'] = info.opacity;
+                // tag.setAttribute('cx', info.cx);
+                // tag.setAttribute('cy', info.cy);
+                // tag.setAttribute('r', info.r);
+                // tag.setAttribute('stroke', info.stroke);
+                // tag.setAttribute('stroke-width', info.strokeWidth);
+                // tag.setAttribute('fill', info.fill);
+                // tag.setAttribute('fill-opacity', info.opacity);
+                var cell = $('class' + i + 'key');
+                cell.innerHTML = '<svg height="' + info.height + '" width="' + info.width + '">' +
+                    '<circle cx="' + info.cx + '" cy="' + info.cy + '" r="' + info.r + '" stroke="' + info.stroke + '"' +
+                    ' stroke-width="2" fill="lightgreen" fill-opacity="55%"></circle>' +
+                    // '<rect height="18" width="30" style="fill:' + color + ';stroke-width:1;stroke:silver" />' +
+                    '</svg>';
+            }
+        }
+        function mapresult() {
+            var stids = Object.keys(stationcatch);
+            stationswhere = "Station IN (" + stids + ")";
+            stations.setWhere("Station NOT IN (" + stids + ")");
+            if (map.hasLayer(stationsmarked)) {
+                map.removeLayer(stationsmarked);
+            }
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl,
+                where: stationswhere,
+                fields: ["*"],
+                pointToLayer: function (geojson, latlng) {
+                    // console.log(geojson);
+                    // return L.marker(latlng, {
+                    //     icon: L.divIcon({
+                    //         iconSize: null,
+                    //         className: "stationlabel",
+                    //         html: '<div>' + geojson.properties['Station'] + '</div>'
+                    //     })//icons[geojson.properties.direction.toLowerCase()]
+                    // });
+                    let stid = geojson.properties['Station'];
+                    let val = stationcatch[stid];
+                    // wlog(stid, val);
+                    if (val == 0) {
+                        var fillco = 'white';
+                        var fillop = 1;
+                    } else {
+                        var fillco = 'lightgreen';
+                        var fillop = 0.66;
+                    }
+                    return L.circleMarker(latlng, {
+                        color: val2color(val, maxval),// 'green',
+                        fillColor: fillco, // 'lightgreen',
+                        fillOpacity: fillop, // 0.55,
+                        radius: val2radpx(val, maxval)// parseInt(val*100) //2000 // (geojson.properties[cpuefield]*100)=NaN
+                    });
+                }
+            }).addTo(map);
+        }
+        function puttable(features) {
+            var table = $('outtable');
+            var i = 0;
+            var fields = [
+                'Station',
+                'SurfaceTemp',
+                'Turbidity',
+                'SurfaceEC',
+                'NumberOfTows',
+                'AverageCPUE'];
+            var colnames = [
+                'Station',
+                'Surface Temp',
+                'Turbidity',
+                'Surface EC',
+                'Number Of Tows',
+                'Average CPUE'];
+            var catchcol = 'AverageCPUE';
+            var valcols = ',AverageCPUE,';
+            var hrow = document.createElement('tr');
+            table.appendChild(hrow);
+            for (var j = 0; j < fields.length; j++) {
+                var hcell = document.createElement('th');
+                hrow.appendChild(hcell);
+                hcell.innerHTML = colnames[j];
+            }
+            var w = selectortext('.Survey', features[0].properties.Survey);
+            var begdate = (new Date(features[0].properties.SurveyStartDate)).toLocaleDateString();
+            var enddate = (new Date(features[(features.length - 1)].properties.SurveyEndDate)).toLocaleDateString();
+            $('dates').innerHTML = '(' + begdate + ' - ' + enddate + ')';
+            stationcatch = {};
+            maxval = 0;
+            features.forEach(fi => {
+                var row = document.createElement('tr');
+                table.appendChild(row);
+                for (var j = 0; j < fields.length; j++) {
+                    var cell = row.insertCell(j);
+                    var val = fi.properties[fields[j]];
+                    if (valcols.indexOf(',' + fields[j] + ',') >= 0) {
+                        val = val.toFixed(2);
+                    }
+                    cell.innerHTML = val;// fi.properties[fields[j]];
+                }
+                var cval = fi.properties[catchcol];
+                if (cval > maxval) {
+                    maxval = cval;
+                }
+                stationcatch[fi.properties.Station] = fi.properties[catchcol];
+            });
+            wlog('StationsSampled:', Object.keys(stationcatch));
+            mapresult();
+            classifive(maxval);
+            dohide('legendnot');
+            unhide('legendtable');
+        }
+        function querycatch(sql) {
+            // let sql = "Species = '" + $('Species').value + "' AND SurveyYear = " + $('Year').value + " AND Survey = " + $("Survey").value;
+            wlog('DO querycatch ' + sql);
+            var query = L.esri.query({
+                url: catchurl
+            });
+            query.where(sql).orderBy('Station', 'ASC')
+                .orderBy('SpeciesName', 'ASC').orderBy('SurveyStartDate', 'ASC');
+            // Result where cpue is gt zero will have 2 records per station--20170919
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK querycatch queryrun: ' + featureCollection.features.length + ' records found');
+                $('outtable').innerHTML = '';
+                if (featureCollection.features.length === 0) {
+                    stationsmarked.remove();
+                    stations.setWhere('Station > 0');
+                    dohide('legendtable');
+                    unhide('legendnot');
+                    return;
+                }
+                var features = featureCollection.features;
+                // wlog('FEATURES:', features);
+                puttable(features);
+            });
+        }
+        function init() {
+            wlog('DO init');
+            map = L.map('map').setView(ll, zl);
+            // [8.913648, -79.544706], 10
+            L.esri.Vector.vectorBasemapLayer('ArcGIS:Topographic', {
+                apikey: APIKEY
+            }).addTo(map);
+            // a Leaflet marker is used by default to symbolize point features.
+            stations = L.esri.featureLayer({
+                url: stationsurl,
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            // className: "stationnot",
+                            className: "stationnone",
+                            // html: '<div style="left: -5px; top: -5px; position: relative;"><b style="color: crimson; font-size: medium;">&plus;</b></div>'
+                            // html: '<div>&plus;</div>' // RING--NEEDS 50PX
+                            html: '<div>&ring;</div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+            }).addTo(map);
+            stationlabels = L.esri.featureLayer({
+                url: stationsurl,
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "stationlabel",
+                            html: '<div>' + geojson.properties['Station'] + '</div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+            });//.addTo(map);
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl
+            });
+            listspecies();
+            listsurveys();
+            listyears();
+            listlegend();
+            $("stationids").addEventListener('click', function () {
+                if (this.checked === true) {
+                    map.addLayer(stationlabels);
+                } else {
+                    map.removeLayer(stationlabels);
+                }
+            });
+            $('drawmap').addEventListener('click', function () {
+                // wlog('Species', $('Species').value);// JUST ONE VALUE
+                // var col = $('Species').selectedOptions;
+                // for (i = 0; i < col.length; i++) {
+                //     wlog(col[i].value);
+                // }
+                drawmapgo();
+            });
+        }
+        window.addEventListener('load', init);
+    </script>
+</head>
+
+<body>
+    <header>
+        <small class="flort">
+            <script>
+                document.write(document.lastModified.toLocaleString());
+            </script>
+        </small>
+        <h2>
+            <a href="https://wildlife.ca.gov/Conservation/Delta/Smelt-Larva-Survey" target="_blank">
+                Smelt Larva Survey
+            </a> Fish Distribution Map
+        </h2>
+    </header>
+    <table id="toolbar">
+        <tr>
+            <th>Select Species</th>
+            <th>Year</th>
+            <th>Survey</th>
+            <th>
+                <label for="maxval">Optional Max Value : </label>
+                <input type="text" name="maxval" id="maxval">
+            </th>
+            <th>
+                <label for="stationids">
+                    View Stations ID
+                </label>
+                <input type="checkbox" name="stationids" id="stationids">
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <select name="Species" id="Species"></select>
+            </td>
+            <td>
+                <select name="Year" id="Year"></select>
+            </td>
+            <td>
+                <!-- <select name="MONTH" id="MONTH"></select> -->
+                <select name="Survey" id="Survey"></select>
+            </td>
+            <td>
+                Max values less than actual <br> maximum will be ignored
+            </td>
+            <th>
+                <button id="drawmap">Draw Map</button>
+            </th>
+        </tr>
+    </table>
+    <div id="map"></div>
+    <h4 id="maptitle">
+        <div>
+            <span class="Species"></span>
+            <span class="Year"></span>
+        </div>
+        <div>
+            Survey
+            <span class="Survey"></span>
+            <span id="dates"></span>
+        </div>
+    </h4>
+    <div id="legendbar">
+        <h4 id="legendnot" class="hide">
+            There were no
+            <span class="Species"></span>
+            collected
+        </h4>
+        <table id="legendtable" class="legendtable">
+            <caption>
+                <b>Fish per 1,000 Cubic Meters</b>
+            </caption>
+            <tr>
+                <th class="stationnot">+</th>
+                <td>Not Sampled</td>
+            </tr>
+            <tr>
+                <th>o</th>
+                <td>= 0 (Zero)</td>
+            </tr>
+            <tr>
+                <th id="class1key"></th>
+                <td id="class1val">&lt;= max/5</td>
+            </tr>
+            <tr>
+                <th id="class2key"></th>
+                <td id="class2val">&lt;= 2*max/5</td>
+            </tr>
+            <tr>
+                <th id="class3key"></th>
+                <td id="class3val">&lt;= 3*max/5</td>
+            </tr>
+            <tr>
+                <th id="class4key"></th>
+                <td id="class4val">&lt;= 4*max/5</td>
+            </tr>
+            <tr>
+                <th id="class5key"></th>
+                <td id="class5val">&lt;= max</td>
+            </tr>
+        </table>
+        <!-- <div class="grid2a">
+            <div class="stationnot griditem">+</div>
+            <div class="griditem">Not Sampled</div>
+            <div class="griditem">o</div>
+            <div class="griditem" id="class0val">= 0 (Zero)</div>
+            <div class="griditem" id="class1key">
+            </div>
+            <div class="griditem" id="class1val">Class 1</div>
+            <div class="griditem" id="class2key">
+            </div>
+            <div class="griditem" id="class2val">Class 2</div>
+            <div class="griditem" id="class3key">
+            </div>
+            <div class="griditem" id="class3val">Class 3</div>
+            <div class="griditem" id="class4key">
+            </div>
+            <div class="griditem" id="class4val">Class 4</div>
+            <div class="griditem" id="class5key">
+            </div>
+            <div class="griditem" id="class5val">Class 5</div>
+        </div> -->
+    </div>
+    <section id="databar">
+        <h3 id="nontitle" class="hide">No fish species were collected</h3>
+        <h3 id="outtitle">
+            <div>
+                <!-- Species: -->
+                <span class="Species"></span>
+                <!-- Year: -->
+                <span class="Year"></span>
+                Survey:
+                <span class="Survey"></span>
+            </div>
+        </h3>
+        <table id="outtable" class="bgrid">
+            <tr>
+                <th>
+                    Output Table
+                </th>
+            </tr>
+        </table>
+    </section>
+</body>
+
+</html>
+<!-- NOTES 2022-04-06 dchiang
+    [Esri Leaflet Quickstart](https://esri.github.io/esri-leaflet/examples/)
+    // bugfix--incl mapboxglcss--https://docs.mapbox.com/mapbox-gl-js/example/simple-map/ 
+    [Simple FeatureLayer](https://esri.github.io/esri-leaflet/examples/simple-feature-layer.html)
+-->

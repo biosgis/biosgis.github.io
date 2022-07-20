@@ -1,0 +1,983 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Summer Townet Survey CPUE Map</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+    <meta name="author" content="bios@wildlife.ca.gov" />
+    <meta name="description" content="CDFW/DTD/BDB/BIOS/GIS">
+    <meta name="generator" content="aiosgis-20220701">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <!-- ,user-scalable=no -->
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script> -->
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@^3.0.8/dist/esri-leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet-vector@3.1.3/dist/esri-leaflet-vector.js"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1em;
+            line-height: 1.23em;
+        }
+
+        button {
+            font-size: 1em;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        #databar {
+            margin-bottom: 2%;
+        }
+
+        .flexcol {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flexrow {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        input {
+            font-size: 1em;
+            margin: 5px;
+        }
+
+        input[type=checkbox] {
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            vertical-align: middle;
+        }
+
+        input:checked {
+            background-color: cyan;
+        }
+
+        #legendbar {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: white;
+            border: silver solid 1px;
+            border-radius: 5px;
+            color: midnightblue;
+            display: flex;
+            flex-direction: column;
+            margin: 5px;
+            padding: 5px;
+            width: 180px;
+            z-index: 555;
+        }
+
+        #legendnot {
+            color: maroon;
+            font-size: 1em;
+            margin: 2px 5px;
+        }
+
+        .legendtable {
+            border: transparent solid 1px;
+            font-size: 1em;
+        }
+
+        .legendtable td {
+            border: transparent solid 1px;
+            font-weight: bold;
+            padding: 1px;
+        }
+
+        .legendtable th {
+            border: transparent solid 1px;
+            padding: 1px;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #map {
+            background-color: aliceblue;
+            border: silver solid 1px;
+            height: 500px;
+            width: 90%;
+        }
+
+        #maptitle {
+            position: relative;
+            top: 10px;
+            left: 50px;
+            background-color: rgba(255, 255, 255, 0.55);
+            color: dimgray;
+            /* maroon; */
+            line-height: 1.1em;
+            margin: 5px;
+            width: 30%;
+            z-index: 555;
+        }
+
+        .paddy {
+            padding: 5px;
+        }
+
+        .qtip {
+            border: slateblue solid 2px;
+            border-radius: 12px;
+            color: slateblue;
+            display: inline-block;
+            padding: 0 6px;
+        }
+
+        .qtip:hover {
+            border: violet solid 2px;
+        }
+
+        .qtip::before {
+            content: '\2139';
+            /* '\2753'=QUESTION_SOLID */
+        }
+
+        select {
+            font-size: 1em;
+            margin: 5px;
+            /* max-width: 20%; */
+        }
+
+        .stationlabel {
+            background-color: transparent;
+            border: 1px solid transparent;
+            /* FOR TESTING POSITION */
+            color: mediumblue;
+            font-family: sans-serif;
+            font-size: 10;
+            font-weight: bold;
+            left: 10px;
+            top: -5px;
+        }
+
+        .stationnot {
+            color: red;
+            font-weight: bolder;
+            font-size: medium;
+        }
+
+        summary h2 {
+            display: inline-block;
+            margin: 5px;
+            padding: 2px;
+            vertical-align: middle;
+        }
+
+        table {
+            border: darkslategray solid 1px;
+            border-collapse: collapse;
+            font-size: 1em;
+        }
+
+        td {
+            border: slategray solid 1px;
+            border-width: 0 1px 1px 0;
+            padding: 5px 10px;
+        }
+
+        th {
+            border: dimgray solid 1px;
+            border-width: 0 1px 1px 0;
+            padding: 5px 10px;
+        }
+
+        table.bgrid tr:nth-child(even) {
+            background-color: aliceblue;
+        }
+
+        table.hcenter {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #tooldet {
+            background-color: whitesmoke;
+            border: silver solid 1px;
+            max-width: 90%;
+        }
+
+        #toolbar {
+            background-color: whitesmoke;
+            border: silver solid 1px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        #toolbar>div {
+            /* background-color: whitesmoke; */
+            border: silver solid 1px;
+            max-width: 200px;
+        }
+
+        #toolbar label {
+            font-weight: bold;
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function $(id) { return document.getElementById(id); }
+        function dohide(id) { $(id).classList.add('hide'); }
+        function dohidex(x) { x.classList.add('hide'); }
+        function hide(id) { $(id).style.display = 'none'; }
+        function hidex(x) { x.style.display = 'none'; }
+        function show(id) { $(id).style.display = ''; }
+        function showx(x) { x.style.display = ''; }
+        function toggle(id) { $(id).style.display = ($(id).style.display === 'none' ? '' : 'none'); }
+        function togglex(x) { x.style.display = (x.style.display === 'none' ? '' : 'none'); }
+        function unhide(id) { $(id).classList.remove('hide'); }
+        function unhidex(x) { x.classList.remove('hide'); }
+        if (location.host.indexOf('apps.wildlife') < 0) {
+            wlog = console.log;
+        } else {
+            wlog = function () { return; }
+        }
+        function autable(features, tabid) {
+            if (tabid != undefined) {
+                var table = $(tabid);
+                table.innerHTML = '';
+            } else {
+                var table = document.createElement('table');
+            }
+            var f0 = features[0];
+            var fa = f0.properties;
+            var keys = Object.keys(fa);
+            var cols = [];
+            var hrow = table.insertRow(0);
+            keys.forEach(key => {
+                if (fields2skip.indexOf(';' + key + ';') < 0) {
+                    var th = document.createElement('th');
+                    hrow.appendChild(th);
+                    th.innerHTML = key;
+                    cols.push(key);
+                }
+            });
+            features.forEach(fi => {
+                var row = table.insertRow(table.rows.length);
+                for (var j = 0; j < cols.length; j++) {
+                    var key = cols[j];
+                    var cell = row.insertCell(j);
+                    var val = fi.properties[key];
+                    if (typeof val === 'number') {
+                        if (key.indexOf('Date') > 0) {
+                            val = (new Date(val)).toLocaleDateString();
+                        } else if (val.toString().indexOf('.') > 0) {
+                            val = val.toFixed(2);
+                        }
+                    }
+                    cell.innerHTML = val;
+                }
+            });
+            return table;
+        }
+        function classifive(x) {
+            if (x === undefined || typeof x != 'number') {
+                var a = [0, 'Max/5', '2*Max/5', '3*Max/5', '4*Max/5', 'Max'];
+            } else {
+                var a = [0];
+                for (var i = 1; i < 6; i++) {
+                    a.push((x * i / 5).toFixed(2));
+                }
+            }
+            for (var i = 1; i < 6; i++) {
+                $('class' + i + 'val').innerHTML = '&lt;= ' + a[i];
+            }
+            // return a;
+        }
+        function picklistfill(list, ar) {
+            ar.forEach(x => {
+                var opt = document.createElement('option');
+                opt.value = x[0];
+                opt.innerHTML = x[1];
+                if (x.length > 2) {
+                    opt.title = x[2];
+                }
+                list.appendChild(opt);
+            });
+            return ar.length;
+        }
+        function selectortext(x, s) {
+            let y = document.querySelectorAll(x);
+            for (var i = 0; i < y.length; i++) {
+                y[i].innerHTML = s;
+            }
+            return y.length;
+        }
+        function urlfind(key) {
+            var val = null;
+            key = key.toLocaleLowerCase();
+            var uras = [location.search, location.hash];
+            uras.forEach(s => {
+                s = s.toLocaleLowerCase();
+                if (s.indexOf(key + '=') > 0) {
+                    val = s.split(key + '=')[1].split('&')[0];
+                    if (val !== undefined && val !== null & val !== '') {
+                        val = decodeURIComponent(val);
+                    }
+                    // TODO FOR COMPOUND ARGS LIKE col=x&op=y&val=z
+                } else if (s.indexOf('#' + key) >= 0) {
+                    val = key;
+                }
+            });
+            return val;
+        }
+        function urlload(x) {
+            if (location.hash.indexOf('msgx') > 0) {
+                unhide('msgbar');
+            }
+            var i = -1;
+            if (x != undefined) {
+                var y = urlfind(x);
+                if (y) {
+                    // TODO--IF $X.CLASSLIST.CONTAINS(PICKER|INPOOT)
+                    i = pickvalue($(x), y);
+                }
+            } else {
+                var species = urlfind('species');
+                if (species) {
+                    //  $('Species').value = species;
+                    i = pickvalue($('Species'), species);
+                }
+                var year = urlfind('year');
+                if (year) {
+                    // $('Year').value = year;
+                    i = pickvalue($('Year'), year);
+                }
+            }
+            return i;
+        }
+        function val2rad(val, max) {
+            let radii = [500, 1000, 1500, 2000, 2500, 3000];
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];// (d * i * 100);
+        }
+        function val2radpx(val, max) {
+            let radii = [5, 10, 15, 20, 25, 30];
+            // 5, 8, 12, 16, 20, 25
+            let i = Math.ceil(val / (max / 5));
+            return radii[i];
+        }
+        function val2color(val, max) {
+            let colors = ['dimgray', 'limegreen', 'green', 'blue', 'purple', 'violet'];
+            let i = Math.ceil(val / (max / 5));
+            return colors[i];
+        }
+    </script>
+    <script>
+        let map = null;
+        const apiKey = "AAPK6b0985992bc5430a889d0bfbcaad4c69S9fMoriHLkizvSxx26HhyZhFUcjkiiYumHUbC_ASe3k4vCU9MpnRAG_2BVUVIowF";
+        let ll = [38.1, -121.8];
+        let zl = 10;
+        let stationsurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/townet/FeatureServer/0";
+        let speciesurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/townet/FeatureServer/1";
+        let surveyurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/townet/FeatureServer/1";
+        let queryurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/townet/FeatureServer/1";
+        let catchurl = "https://services2.arcgis.com/Uq9r85Potqm3MfRV/ArcGIS/rest/services/townet/FeatureServer/1";
+        let stationsmarked = null;
+        let stationcatch = {};
+        let stids = [];
+        let stationswhere = "Station IN (" + stids + ")";
+        let maxval = 0;
+        let rtype = 'others';
+        let species = 0;
+        let sqlwhere = '';
+        let survey = 1;
+        let year = 2022;
+        let fields2skip = ';OBJECTID;Id;Year;Survey;SurveyStartDate;SurveyEndDate;Latitude;Longitude;Species;CommonName;';
+
+        function initmap() {
+            // const apiKey = "YOUR_API_KEY";
+            // const basemapEnum = "ArcGIS:Streets";
+            map = L.map("map", {
+                minZoom: 2
+            }).setView(ll, zl);
+            map.scrollWheelZoom.disable();
+            map.keyboard.disable();
+            if (map.tap) map.tap.disable();
+            map.on('click', function (ev) {
+                wlog(ev.latlng); //20170825-REF--https://leafletjs.com/reference-1.2.0.html#renderer
+            });
+            // L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+            //     apiKey: APIKEY
+            // }).addTo(map);
+
+            // [Change the basemap layer](https://developers.arcgis.com/esri-leaflet/maps/change-the-basemap-layer/)--20220704
+            const basemapLayers = {
+                OSM: L.esri.Vector.vectorBasemapLayer("OSM:Standard", { apiKey: apiKey }).addTo(map),
+                // Streets: L.esri.Vector.vectorBasemapLayer("ArcGIS:Streets", { apiKey: apiKey }).addTo(map),
+                Imagery: L.esri.Vector.vectorBasemapLayer("ArcGIS:Imagery", { apiKey: apiKey }).addTo(map),
+                Navigation: L.esri.Vector.vectorBasemapLayer("ArcGIS:Navigation", { apiKey: apiKey }).addTo(map),
+                Topographic: L.esri.Vector.vectorBasemapLayer("ArcGIS:Topographic", { apiKey: apiKey }).addTo(map),
+                ChartedTerritory: L.esri.Vector.vectorBasemapLayer("ArcGIS:ChartedTerritory", { apiKey: apiKey }).addTo(map),
+                "Light Gray": L.esri.Vector.vectorBasemapLayer("ArcGIS:LightGray", { apiKey: apiKey }).addTo(map)
+                // "Dark gray": L.esri.Vector.vectorBasemapLayer("ArcGIS:DarkGray", { apiKey: apiKey }).addTo(map),
+                // "Streets Relief": L.esri.Vector.vectorBasemapLayer("ArcGIS:StreetsRelief", { apiKey: apiKey }).addTo(map),
+                // ColoredPencil: L.esri.Vector.vectorBasemapLayer("ArcGIS:ColoredPencil", { apiKey: apiKey }).addTo(map),
+                // Nova: L.esri.Vector.vectorBasemapLayer("ArcGIS:Nova", { apiKey: apiKey }).addTo(map),
+                // Midcentury: L.esri.Vector.vectorBasemapLayer("ArcGIS:Midcentury", { apiKey: apiKey }).addTo(map),
+                // "OSM:Streets": L.esri.Vector.vectorBasemapLayer("OSM:Streets", { apiKey: apiKey }).addTo(map)
+            };
+            L.control.layers(basemapLayers, null, { collapsed: false }).addTo(map);
+
+            stations = L.esri.featureLayer({
+                url: stationsurl,
+                pointToLayer: function (geojson, latlng) {
+                    var popt = 'Station ' + geojson.properties['Station'];
+                    // + '<br>' + geojson.properties['Latitude'] 
+                    // + '<br>' + geojson.properties['Longitude'];
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "stationnot",// "stationnone",
+                            // html: '<div style="left: -5px; top: -5px; position: relative;"><b style="color: crimson; font-size: medium;">&plus;</b></div>'
+                            html: '<div>&plus;</div>' // RING--NEEDS 50PX
+                            // html: '<div>&ring;</div>'
+                        })
+                        //icons[geojson.properties.direction.toLowerCase()]
+                    });//.bindPopup(popt);
+                }
+            }).addTo(map);
+            stationlabels = L.esri.featureLayer({
+                url: stationsurl,
+                pointToLayer: function (geojson, latlng) {
+                    return L.marker(latlng, {
+                        icon: L.divIcon({
+                            iconSize: null,
+                            className: "stationlabel",
+                            html: '<div>' + geojson.properties['Station'] + '</div>'
+                        })//icons[geojson.properties.direction.toLowerCase()]
+                    });
+                }
+            });//.addTo(map);
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl
+            });
+            $("showids").addEventListener('click', function () {
+                if (this.checked === true) {
+                    map.addLayer(stationlabels);
+                } else {
+                    map.removeLayer(stationlabels);
+                }
+            });
+            $('drawmap').addEventListener('click', function () {
+                drawmapgo();
+            });
+            initlegend()
+            listspecies();
+            listsurveys();
+            listyears();
+            wlog('DONE initmap');
+        }
+        function initlegend() {
+            const legendvs = [
+                {
+                    "height": 12,
+                    "width": 12,
+                    "graphic": "circle",
+                    "cx": 6,
+                    "cy": 6,
+                    "r": 5,
+                    "stroke": "dimgray",
+                    "strokeWidth": 2,
+                    "fill": "white",
+                    "opacity": "100%",
+                    "value": "= 0 (zero)"
+                },
+                {
+                    "height": 18,
+                    "width": 18,
+                    "graphic": "circle",
+                    "cx": 9,
+                    "cy": 9,
+                    "r": 8,
+                    "stroke": "limegreen",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE max/5"
+                },
+                {
+                    "height": 26,
+                    "width": 26,
+                    "graphic": "circle",
+                    "cx": 13,
+                    "cy": 13,
+                    "r": 12,
+                    "stroke": "green",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE 2*max/5"
+                },
+                {
+                    "height": 34,
+                    "width": 34,
+                    "graphic": "circle",
+                    "cx": 17,
+                    "cy": 17,
+                    "r": 16,
+                    "stroke": "blue",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE 3*max/5"
+                },
+                {
+                    "height": 42,
+                    "width": 42,
+                    "graphic": "circle",
+                    "cx": 21,
+                    "cy": 21,
+                    "r": 20,
+                    "stroke": "purple",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE 4*max/5"
+                },
+                {
+                    "height": 50,
+                    "width": 50,
+                    "graphic": "circle",
+                    "cx": 25,
+                    "cy": 25,
+                    "r": 24,
+                    "stroke": "violet",
+                    "strokeWidth": 1,
+                    "fill": "lightgreen",
+                    "opacity": "55%",
+                    "value": "LTE max"
+                }
+            ];
+            for (var i = 1; i < legendvs.length; i++) {
+                var info = legendvs[i];
+                var cell = $('class' + i + 'key');
+                cell.innerHTML = '<svg height="' + info.height + '" width="' + info.width + '">' +
+                    '<circle cx="' + info.cx + '" cy="' + info.cy + '" r="' + info.r + '" stroke="' + info.stroke + '"' +
+                    ' stroke-width="1" fill="lightgreen" fill-opacity="55%"></circle>' +
+                    // '<rect height="18" width="30" style="fill:' + color + ';stroke-width:1;stroke:silver" />' +
+                    '</svg>';
+            }
+        }
+        function listspecies() {
+            var sname = 'SpeciesName';
+            var query = L.esri.query({
+                url: speciesurl
+            });
+            var sql = sname + " IS NOT NULL"
+            query.where(sql).fields(["Species", sname])
+                .orderBy(sname).distinct();
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK listspecies queryrun: ' + featureCollection.features.length + ' features found');
+                // var tbl = $('outtable');
+                var features = featureCollection.features;
+                var ar = [];
+                features.forEach(fi => {
+                    ar.push([fi.properties['Species'], fi.properties[sname],
+                    'species-' + fi.properties['Species']]);
+                });
+                var k = picklistfill($('Species'), ar);
+                // pickfirst($('Species'));                
+                $('Species').addEventListener('change', function (ev) {
+                    selectOnchange(this.id);// ev.target.id);
+                });
+                om = urlload('Species');
+                selectOnchange('Species');
+            });
+        }
+        function selectOnchange(id) {
+            var val = $(id).value;
+            if (id === 'Species') {
+                // catchurl = getcatchurl(val);
+                // ratiourl = getratiourl(val);
+                // $('pcatchurl').href = catchurl;
+                // $('pcatchurl').innerHTML = catchurl;
+                // $('pratiourl').href = ratiourl;
+                // $('pratiourl').innerHTML = ratiourl;
+                wlog('Species= ' + val);
+                if (val == 24) {
+                    //     $('repothers').disabled = true;
+                    //     $('repsalmon').disabled = true;
+                    //     $('repsmelt').disabled = false;
+                    //     $('ReportType').value = 1;
+                    // } else if (val == 9 || val == 32) {
+                    //     $('repothers').disabled = true;
+                    //     $('repsalmon').disabled = false;
+                    //     $('repsmelt').disabled = true;
+                    //     $('ReportType').value = 'clipped';// 'false';
+                    // } else {
+                    //     $('repothers').disabled = false;
+                    //     $('repsalmon').disabled = true;
+                    //     $('repsmelt').disabled = true;
+                    //     $('ReportType').value = 'others';// 'Catch';
+                }
+                // TODO--UPDATE YEAR AND SURVEY LISTS FOR ONLY AVAILABLE--2022-06-03
+            }
+        }
+        function listyears() {
+            // let x = 2022;
+            // let ar = [[x, x]];
+            // while (x > 1995) {
+            //     y = x - 1;
+            //     x = y;
+            //     ar.push([x, y]);
+            // }
+            // var k = picklistfill($('Year'), ar);
+            // om = urlload('Year');
+            // ERROR: YEAR COLUMN DOES NOT EXIST IN THIS TABLE
+            var query = L.esri.query({
+                url: catchurl
+            });
+            var col = 'Year';
+            var sortorder = 'DESC';
+            var sql = col + " IS NOT NULL";
+            query.where(sql).fields([col])
+                .orderBy(col, sortorder).distinct();
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK listyears queryrun: ' + featureCollection.features.length + ' features found');
+                // var tbl = $('outtable');
+                var features = featureCollection.features;
+                var ar = [];
+                features.forEach(fi => {
+                    ar.push([fi.properties[col], fi.properties[col]]);
+                });
+                var k = picklistfill($(col), ar);
+                om = urlload(col);
+            });
+        }
+        function listsurveys() {
+            wlog('DO listsurveys');
+            var query = L.esri.query({
+                url: surveyurl
+            });
+            var sql = "Survey IS NOT NULL";
+            query.where(sql).fields(["Survey"])
+                .orderBy('Survey').distinct();
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK listsurveys queryrun: ' + featureCollection.features.length + ' features found');
+                // var tbl = $('outtable');
+                var features = featureCollection.features;
+                var ar = [];
+                features.forEach(fi => {
+                    ar.push([fi.properties['Survey'], fi.properties['Survey']]);
+                });
+                var k = picklistfill($('Survey'), ar);
+                om = urlload('Survey');
+            });
+        }
+        function drawmapgo() {
+            wlog('DO drawmapgo');
+            species = parseInt($('Species').value);
+            cname = $('Species').options[$('Species').selectedIndex].innerHTML;
+            survey = parseInt($('Survey').value);
+            year = parseInt($('Year').value);
+            var begdate = new Date(year, 0, 1, 1);
+            var enddate = new Date(year, 11, 31, 23);
+            var sqls = [];
+            sqls.push("Species = '" + $('Species').value + "'");
+            sqls.push("Year = " + $('Year').value);
+            sqls.push("Survey = " + $('Survey').value);
+            var sql = sqls.join(" AND ");
+            var n = selectortext('.Species', cname); // cnames.join(', '));
+            // var r = selectortext('.ReportType', reptype);
+            var y = selectortext('.Year', $('Year').value);
+            var m = selectortext('.Survey', $('Survey').value);
+            // sqlwhere = sql;
+            wlog(sql);
+            // if (olayer !== null) {
+            //     map.removeLayer(olayer);
+            // }
+            if (stationsmarked !== null) {
+                stationsmarked.remove();
+            }
+            stations.setWhere('Station > 0');
+            // $('msgtable').innerHTML = '';
+            $('outtable').innerHTML = '';
+            querycatch(sql);
+        }
+        function querycatch(sql) {
+            wlog('DO querycatch ' + sql);
+            $('sqlcode').innerHTML = sql;
+            var query = L.esri.query({
+                url: queryurl
+            });
+            query.where(sql).orderBy('Station', 'ASC')
+                .orderBy('SurveyStartDate', 'ASC');
+            query.run(function (error, featureCollection, response) {
+                wlog('CALLBACK querycatch queryrun', featureCollection);//.features.length + ' records found');
+                var features = featureCollection.features;
+                if (features.length === 0) {
+                    // show('legendbar');
+                    // hide('legendtoo');
+                    dohide('legendtable');
+                    unhide('legendnot');
+                    return;
+                }
+                wlog('FEATURES:', features);
+                // var tmp = autable(features, 'msgtable');
+                var tmp = autable(features, 'outtable');
+                // if (rtype === 'others') {
+                om = mapcatch(features);
+                // hide('legendtoo');
+                // } else {
+                //     hide('legendbar');
+                //     show('legendtoo');
+                //     if (parseInt(rtype) >= 0) {//} rtype == 1 || rtype == 2) {
+                //         om = mapgender(features, sql);
+                //         show('legend-keys');
+                //         hide('legend-clips');
+                //     } else {//} if (rtype == 'clipped' || rtype == 'nonclipped' || rtype == 'adipose') {
+                //         om = mapclips(features, sql);
+                //         hide('legend-keys');
+                //         show('legend-clips');
+                //     }
+                // }
+                // puttable(features);// OLD
+            });
+        }
+        function mapcatch(features) {
+            wlog('DO mapcatch ', features);
+            var valuefieldname = 'AverageCPUE';
+            stationcatch = {};
+            var maxval = 0;
+            var totalv = 0;
+            var vals = [];
+            features.forEach(fi => {
+                var stid = fi.properties.Station;
+                var val = fi.properties[valuefieldname];
+                stationcatch[stid] = val;
+                totalv += + val;
+                vals.push(val);
+            });
+            maxval = Math.max(...vals);
+            wlog('maxval, totalv= ', [maxval, totalv].join(', '));
+            var stids = Object.keys(stationcatch);
+            stations.setWhere("Station NOT IN (" + stids + ")");
+            if (map.hasLayer(stationsmarked)) {
+                map.removeLayer(stationsmarked);
+            }
+            stationsmarked = L.esri.featureLayer({
+                url: stationsurl,
+                where: "Station IN (" + stids + ")",
+                fields: ["*"],
+                pointToLayer: function (geojson, latlng) {
+                    let stid = geojson.properties['Station'];
+                    let val = stationcatch[stid];
+                    // wlog(stid, val);
+                    if (val == 0) {
+                        var fillco = 'white';
+                        var fillop = 1;
+                    } else {
+                        var fillco = 'lightgreen';
+                        var fillop = 0.66;
+                    }
+                    return L.circleMarker(latlng, {
+                        color: val2color(val, maxval),//=strokeColor=borderlineColor 'green',
+                        weight: 2, //=strokeWeight=borderlineWidth, DEFAULT:3
+                        fillColor: fillco, // 'lightgreen',
+                        fillOpacity: fillop, // 0.55,
+                        radius: val2radpx(val, maxval)// parseInt(val*100) //2000 // (geojson.properties[cpuefield]*100)=NaN
+                    });
+                }
+            }).addTo(map);
+            // $('catchtotal').innerHTML = totalv.toFixed(2);
+            classifive(maxval);
+            dohide('legendnot');
+            unhide('legendtable');
+            return features.length;
+        }
+        window.addEventListener('load', initmap);
+        window.addEventListener('hashchange', function () {
+            om = urlload();
+        });
+        window.addEventListener('load', function () {
+            om = urlload();
+        });
+    </script>
+</head>
+
+<body>
+    <nav></nav>
+    <main>
+        <header></header>
+        <aside>
+            <details id="tooldet" open>
+                <summary id="tooltog" class="hide">
+                    <h2>&equiv;</h2>
+                </summary>
+                <div id="toolbar">
+                    <div class="flexcol">
+                        <label for="Species">Species</label>
+                        <select name="" id="Species">
+                            <option value="">--SELECT SPECIES--</option>
+                        </select>
+                    </div>
+                    <div class="flexcol">
+                        <label for="">Year</label>
+                        <select name="" id="Year">
+                            <option value="">--SELECT YEAR--</option>
+                        </select>
+                    </div>
+                    <div class="flexcol">
+                        <label for="">Survey</label>
+                        <select name="" id="Survey">
+                            <option value="">--SELECT SURVEY--</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="maxval">
+                            Optional Max Value:
+                            <input id="maxval" type="text" style="width: 50px;">
+                        </label>
+                        <a id="maxvaltip" class="qtip" title="Values less than actual maximum will be ignored"></a>
+                        <!-- <p>
+                            Values less than actual <br>
+                            maximum will be ignored.
+                        </p> -->
+                    </div>
+                    <div>
+                        <label for="showids">
+                            Station IDs
+                        </label>
+                        <input type="checkbox" id="showids">
+                    </div>
+                    <div class="paddy">
+                        <button id="drawmap">Draw Map</button>
+                    </div>
+                </div>
+            </details>
+        </aside>
+        <div id="map">
+            <h4 id="maptitle">
+                <div>Townet Survey</div>
+                <div>
+                    <span class="Species"></span>
+                    <!-- <span class="ReportType"></span> -->
+                </div>
+                <div>
+                    <span class="Year"></span>
+                    Survey
+                    <span class="Survey"></span>
+                </div>
+                <div>
+                    <span id="dates"></span>
+                </div>
+            </h4>
+            <div id="legendbar">
+                <h4 id="legendnot" class="hide">
+                    There were no
+                    <span class="Species"></span>
+                    collected
+                </h4>
+                <table id="legendtable" class="legendtable">
+                    <caption>
+                        <b>CPUE</b>
+                    </caption>
+                    <tr>
+                        <th class="stationnot">+</th>
+                        <!-- <td>Not Sampled</td> -->
+                        <td>Not Sampled</td>
+                    </tr>
+                    <tr>
+                        <th>o</th>
+                        <td>= 0 (Zero)</td>
+                    </tr>
+                    <tr>
+                        <th id="class1key"></th>
+                        <td id="class1val">&lt;= max/5</td>
+                    </tr>
+                    <tr>
+                        <th id="class2key"></th>
+                        <td id="class2val">&lt;= 2*max/5</td>
+                    </tr>
+                    <tr>
+                        <th id="class3key"></th>
+                        <td id="class3val">&lt;= 3*max/5</td>
+                    </tr>
+                    <tr>
+                        <th id="class4key"></th>
+                        <td id="class4val">&lt;= 4*max/5</td>
+                    </tr>
+                    <tr>
+                        <th id="class5key"></th>
+                        <td id="class5val">&lt;= max</td>
+                    </tr>
+                    <!-- <tr>
+                        <th>Total</th>
+                        <td id="catchtotal"></td>
+                    </tr> -->
+                </table>
+            </div>
+        </div>
+        <section class="centered" id="databar">
+            <h3 id="nontitle" class="hide">No fish species were collected</h3>
+            <h3 id="outtitle">
+                <div>
+                    <a href="https://wildlife.ca.gov/Conservation/Delta/Townet-Survey" target="_blank">
+                        Summer Townet Survey
+                    </a>
+                    <span class="Survey"></span> in
+                    <!-- Year: -->
+                    <span class="Year"></span> of
+                    <!-- Species: -->
+                    <span class="Species"></span>
+                    <!-- <span class="ReportType"></span> -->
+                </div>
+            </h3>
+            <p>
+                CPUE is the number of fish caught per 10,000 cubic meters of water sampled.
+            </p>
+            <article></article>
+            <table id="outtable" class="bgrid hcenter"></table>
+            <!-- style="margin-left: auto; margin-right: auto;" -->
+        </section>
+    </main>
+    <footer>
+        <small style="float: right; margin: 5px;">
+            <script>
+                document.write(document.lastModified);
+            </script>
+        </small>
+        <article id="msgbar" class="hide">
+            <h4 id="sqlcode"></h4>
+            <a href="https://services2.arcgis.com/Uq9r85Potqm3MfRV/arcgis/rest/services/townet/FeatureServer"
+                target="_blank">
+                feature service
+            </a>
+            <p>
+                <script>
+                    var brk = '<br>';
+                    document.write(navigator.userAgent);
+                    document.write(brk + 'window.innerWidth=' + window.innerWidth);
+                    document.write(brk + 'window.innerHeight=' + window.innerHeight);
+                </script>
+            </p>
+        </article>
+    </footer>
+</body>
+
+</html>

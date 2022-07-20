@@ -1,0 +1,193 @@
+﻿body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    line-height: 1em;
+    margin: 0;
+    overflow-x: hidden;
+    padding: 0;
+    /*padding-right: 4%;--DOES NOT AFFECT ABSOLUTE POS*/
+    width: 90%;
+}
+
+button {
+    font-size: 1em;
+    line-height: 1em;
+    padding: 0 .5em;
+}
+.centered {
+    text-align: center;
+}
+/*footer*/
+#foobar {
+    position: absolute;
+    top: 88%;
+    left: 0;
+    right: 0;
+    height: auto;
+    background-color: white;
+    /*border-top: silver solid 1px;*/
+    padding: .5%;
+}
+
+.maptitle {
+    margin: 8px 1em;
+    padding: 0;
+}
+
+/*header*/
+#topbar {
+    position: absolute;
+    top: 0;
+    left: 1%;
+    right: 1%;
+    height: 6%;
+    background-color: white;
+    /*border-bottom: silver solid 1px;*/
+    box-sizing: border-box;
+}
+
+.hide {
+    display: none;
+}
+
+input {
+    font-size: 1em;
+    line-height: 1.1em;
+}
+
+    input[type=checkbox] {
+        display: inline-block;
+        height: 18px;
+        width: 18px;
+        margin: 5px;
+        vertical-align: middle;
+    }
+
+li {
+    line-height: 1.1em;
+    padding: .25em 0;
+}
+/*main*/
+#mapbar {
+    position: absolute;
+    top: 18%;
+    left: 1%;
+    right: 1%;
+    height: 70%;
+    width: 98%;
+    border: silver solid 1px;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+#map {
+    position: relative;
+    /* top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0; */
+    height: 70%;
+    width: 90%;
+}
+
+/*nav*/
+#toolbar {
+    position: absolute;
+    top: 5%;
+    left: 1%;
+    right: 1%;
+    height: 12%;
+    background-color: #eee;
+    /*border: silver solid 1px;*/
+    box-sizing: border-box;
+}
+section {
+    position: relative;
+    /*position: absolute;
+    top: 90%;
+    left: 1%;
+    right: 1%;*/
+    height: auto;
+    background-color: white;
+    /*border-top: silver solid 1px;*/
+    /*padding: 1%;*/
+}
+
+select {
+    font-size: 1em;
+    line-height: 1em;
+}
+
+.stationlabel {
+    background-color: transparent;
+    border: 1px solid transparent;
+    /* FOR TESTING POSITION */
+    color: mediumblue;
+    font-family: sans-serif;
+    font-size: 10;
+    font-weight: bold;
+    left: 10px;
+    top: -5px;
+}
+
+table {
+    position: relative;
+    background-color: white;
+    border: dimgray solid 1px;
+    border-collapse: collapse;
+}
+
+.tbar {
+    /* position: absolute;
+    top: 0; */
+    height: auto;
+    width: 100%;
+    background-color: lavender;
+    /* azure ivory lavender lightgray lightsteelblue transparent */
+}
+
+th {
+    border: dimgray solid 1px;
+    padding: 5px;
+}
+
+thead {
+    border-bottom: dimgray solid 1px;
+}
+
+td {
+    border: slategray solid 1px;
+    padding: 5px;
+}
+
+.th {
+    border-right: dimgray solid 1px;
+    padding: 2px;
+    vertical-align: top;
+}
+
+.tbody {
+    border: silver solid 1px;
+}
+
+.td {
+    border-left: silver solid 1px;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.tr {
+    border-bottom: gray solid 1px;
+}
+
+@media print {
+    #toolbar {
+        display: none;
+    }
+}
