@@ -1,40 +1,41 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
-        <title>biosgis-maplab</title>
+<html lang="en">
 
-        <style>
-            html,
-            body,
-            #viewDiv {
-                padding: 0;
-                margin: 0;
-                height: 100%;
-                width: 100%;
-            }
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>biosgis-maplab</title>
 
-            #instruction {
-                z-index: 99;
-                position: absolute;
-                top: 15px;
-                left: 50%;
-                padding: 5px;
-                margin-left: -175px;
-                height: 30px;
-                width: 355px;
-                background: rgba(25, 25, 25, 0.8);
-                color: white;
-            }
-        </style>
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
 
-        <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
-        <script src="https://js.arcgis.com/4.31/"></script>
+        #instruction {
+            z-index: 99;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            padding: 5px;
+            margin-left: -175px;
+            height: 30px;
+            width: 355px;
+            background: rgba(25, 25, 25, 0.8);
+            color: white;
+        }
+    </style>
 
-        <script>
-            require(["esri/rest/locator", "esri/Map", "esri/views/MapView"],
-                    (locator, Map, MapView) => {
+    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.31/"></script>
+
+    <script>
+        require(["esri/rest/locator", "esri/Map", "esri/views/MapView"],
+            (locator, Map, MapView) => {
                 // Set up a locator url using the world geocoding service
                 const locatorUrl = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
@@ -78,28 +79,32 @@
                     // Display the popup
                     // Execute a reverse geocode using the clicked location
                     locator
-                            .locationToAddress(locatorUrl, params)
-                            .then((response) => {
-                                // If an address is successfully found, show it in the popup's content
-                                view.popup.content = response.address;
-                            })
-                            .catch(() => {
-                                // If the promise fails and no result is found, show a generic message
-                                view.popup.content = "No address was found for this location";
-                            });
+                        .locationToAddress(locatorUrl, params)
+                        .then((response) => {
+                            // If an address is successfully found, show it in the popup's content
+                            view.popup.content = response.address;
+                        })
+                        .catch(() => {
+                            // If the promise fails and no result is found, show a generic message
+                            view.popup.content = "No address was found for this location";
+                        });
                 });
             });
-        </script>
-    </head>
+    </script>
+</head>
 
-    <body>
-        <div id="viewDiv"></div>
-        <div id="instruction" class="esri-widget">
-            Click any location on the map to see its street address
-        </div>
-    </body>
+<body>
+    <div id="viewDiv"></div>
+    <div id="instruction" class="esri-widget">
+        Click any location on the map to see its street address
+    </div>
+    <dialog>
+        <img src="./img/CDFW_Bear_Thumbflip.png" alt="CdfwBear">
+    </dialog>
+</body>
+
 </html>
 <!--
 &copy; 2025 biosgis@gmail.com, version=250115
-250115 Updated jsapi to v4.31
+250115 Updated jsapi to v4.31 online; added dialog onlaptop to test upload;
 -->
