@@ -66,7 +66,8 @@
                     const lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
                     const lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
 
-                    view.popup.open({
+                    // view.popup.open({//--DEPRECATED@JSAPI430--})
+                    view.openPopup({
                         // Set the popup's title to the coordinates of the location
                         title: "Reverse geocode: [" + lon + ", " + lat + "]",
                         location: event.mapPoint // Set the location of the popup to the clicked location
@@ -98,7 +99,7 @@
     <div id="instruction" class="esri-widget">
         Click any location on the map to see its street address
     </div>
-    <dialog>
+    <dialog open>
         <img src="./img/CDFW_Bear_Thumbflip.png" alt="CdfwBear">
     </dialog>
 </body>
