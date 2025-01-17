@@ -18,6 +18,19 @@
             overflow: hidden;
         }
 
+        dialog {
+            top: 0;
+            flex: auto;
+            text-align: center;
+            vertical-align: middle;
+            align-items: center;
+            align-content: center;
+        }
+
+        .diaz {
+            inherits: false;
+        }
+
         #instruction {
             z-index: 99;
             position: absolute;
@@ -101,8 +114,9 @@
     <div id="instruction" class="esri-widget">
         Click any location on the map to see its street address
     </div>
-    <dialog open>
+    <dialog open onclick="this.close();">
         <img src="./img/CDFW_Bear_Thumbflip.png" alt="CdfwBear" height="500px">
+        <h2>Hello Welcome</h2>
     </dialog>
 </body>
 
